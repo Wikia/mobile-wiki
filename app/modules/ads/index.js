@@ -20,6 +20,13 @@ class Ads {
     this.isLoaded = false;
     this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
+
+    /** @private */
+    this.readyResolve = null;
+    // A Promise which resolves when module is fully-loaded and returns instance of Ads module
+    this.ready = new Promise((resolve) => {
+      this.readyResolve = resolve;
+    });
   }
 
   static getInstance() {
@@ -35,17 +42,47 @@ class Ads {
       return adsPromise;
     }
 
-    adsPromise = new Promise((resolve, reject) => {
-      if (typeof window.waitForAds === 'function') {
-        window.waitForAds(() => {
+    if (window.isNotFastboot !== true) {
+      return new Promise((resolve, reject) => reject());
+    }
+
+    adsPromise = new Promise((resolve) => {
+      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([shouldLoad]) => {
+        if (shouldLoad === true) {
           resolve(Ads.getInstance());
-        });
-      } else {
-        reject();
-      }
+        }
+      });
     });
 
     return adsPromise;
+  }
+
+  /**
+   * @private
+   */
+  static loadAdEngine() {
+    return import('@wikia/ad-engine').then((module) => {
+      window.Wikia = window.Wikia || {};
+      window.Wikia.adEngine = module;
+      window.Wikia.adProducts = module;
+      window.Wikia.adServices = module;
+      window.Wikia.adBidders = module;
+      return module;
+    });
+  }
+
+  /**
+   * @private
+   */
+  static getShouldStartAdEngine() {
+    return new Promise((resolve) => {
+      window.getInstantGlobals((instantGlobals) => {
+        const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
+        const noExternals = noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
+
+        resolve(!(instantGlobals.wgSitewideDisableAdsOnMercury || noExternals));
+      });
+    });
   }
 
   init(mediaWikiAdsContext = {}) {
@@ -95,6 +132,7 @@ class Ads {
     this.isLoaded = true;
     utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
     this.onReadyCallbacks.start();
+    this.readyResolve(Ads.getInstance());
   }
 
   /**
@@ -164,12 +202,23 @@ class Ads {
     };
   }
 
-  pushSlotToQueue(name) {
+  isTopBoxadEnabled() {
+    if (!this.isLoaded) {
+      return false;
+    }
+
     const { context } = window.Wikia.adEngine;
+
+    return !!context.get('options.useTopBoxad');
+  }
+
+  pushSlotToQueue(name) {
+    const { context, utils } = window.Wikia.adEngine;
 
     context.push('state.adStack', {
       id: name,
     });
+    utils.logger(logGroup, `Push slot ${name} to adStack.`);
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
@@ -231,9 +280,10 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { eventService } = window.Wikia.adEngine;
-    const { confiant, moatYiEvents } = window.Wikia.adServices;
+    const { browsi, confiant, moatYiEvents } = window.Wikia.adServices;
 
     adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
+    browsi.call();
     confiant.call();
 
     eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
@@ -297,6 +347,7 @@ class Ads {
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
+    this.trackConnectionToDW();
   }
 
   /**
@@ -337,6 +388,35 @@ class Ads {
     }
   }
 
+  /**
+   * @private
+   */
+  trackConnectionToDW() {
+    const { utils } = window.Wikia.adEngine;
+    const connection = navigator.connection
+      || navigator.mozConnection
+      || navigator.webkitConnection;
+
+    if (connection) {
+      const data = [];
+      if (connection.downlink) {
+        data.push(`downlink=${connection.downlink.toFixed(1)}`);
+      }
+      if (connection.effectiveType) {
+        data.push(`effectiveType=${connection.effectiveType}`);
+      }
+      if (connection.rtt) {
+        data.push(`rtt=${connection.rtt.toFixed(0)}`);
+      }
+      if (typeof connection.saveData === 'boolean') {
+        data.push(`saveData=${+connection.saveData}`);
+      }
+
+      pageTracker.trackProp('connection', data.join(';'));
+      utils.logger(logGroup, 'connection', data);
+    }
+  }
+
   onMenuOpen() {
     if (!this.isLoaded) {
       return;
@@ -346,6 +426,11 @@ class Ads {
     eventService.emit(appEvents.MENU_OPEN_EVENT);
   }
 
+  /**
+   * Trigger callback when Ads module loads
+   *
+   * @param callback to trigger
+   */
   onReady(callback) {
     if (this.isLoaded) {
       callback();
@@ -381,16 +466,23 @@ class Ads {
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {
-    if (this.isFastboot) {
-      noUapCallback();
-      return;
-    }
-
-    fanTakeoverResolver.getPromise().then((isFanTakeover) => {
-      if (isFanTakeover) {
-        uapCallback();
+    return new Promise((resolve) => {
+      if (this.isFastboot) {
+        if (noUapCallback && typeof noUapCallback === 'function') {
+          noUapCallback();
+        }
+        resolve(false);
       } else {
-        noUapCallback();
+        fanTakeoverResolver.getPromise().then((isFanTakeover) => {
+          if (isFanTakeover) {
+            if (uapCallback && typeof uapCallback === 'function') {
+              uapCallback();
+            }
+          } else if (noUapCallback && typeof noUapCallback === 'function') {
+            noUapCallback();
+          }
+          resolve(!!isFanTakeover);
+        });
       }
     });
   }

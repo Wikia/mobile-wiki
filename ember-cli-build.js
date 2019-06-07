@@ -1,10 +1,12 @@
 'use strict';
 
+const { getAdEngineLoader } = require('@wikia/ad-engine/configs/webpack-app.config');
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const stew = require('broccoli-stew');
 const SVGStore = require('broccoli-svgstore');
 const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
+
 
 /**
   * We override Ember's private method to remove files from the final build
@@ -42,6 +44,19 @@ EmberApp.prototype.addonTreesFor = function (type) {
 module.exports = function (defaults) {
   const inlineScriptsPath = 'vendor/inline-scripts/';
   const app = new EmberApp(defaults, {
+    babel: {
+      plugins: [require.resolve('ember-auto-import/babel-plugin')],
+    },
+    autoImport: {
+      publicAssetURL: '/mobile-wiki-assets/assets',
+      webpack: {
+        module: {
+          rules: [
+            getAdEngineLoader(),
+          ],
+        },
+      },
+    },
     'ember-fetch': {
       preferNative: true,
     },
@@ -117,8 +132,8 @@ module.exports = function (defaults) {
     destDir: 'assets/jwplayer',
   });
 
-  const adEngine3Assets = new Funnel('node_modules/@wikia/ad-engine/dist', {
-    include: ['global-bundle.js'],
+  const prebidAssets = new Funnel('node_modules/@wikia/ad-engine/lib', {
+    include: ['prebid.min.js'],
     destDir: 'assets/wikia-ae3',
   });
 
@@ -158,7 +173,7 @@ module.exports = function (defaults) {
     designSystemI18n,
     svgStore,
     jwPlayerAssets,
-    adEngine3Assets,
+    prebidAssets,
     trackingOptIn,
   ]);
 };

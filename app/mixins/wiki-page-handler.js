@@ -57,12 +57,18 @@ export default Mixin.create({
   simpleStore: service(),
   wikiUrls: service(),
   fetch: service(),
+  tracing: service(),
 
   getPageModel(params) {
     const isFastBoot = this.get('fastboot.isFastBoot');
     const shoebox = this.get('fastboot.shoebox');
     const contentNamespaces = this.get('wikiVariables.contentNamespaces');
     const isInitialPageView = this.initialPageView.isInitialPageView();
+    const options = {
+      headers: {
+        'X-Trace-Id': this.tracing.getTraceId(),
+      },
+    };
 
     if (isFastBoot || !isInitialPageView) {
       params.noads = this.get('fastboot.request.queryParams.noads');
@@ -70,7 +76,7 @@ export default Mixin.create({
 
       const url = getURL(this.wikiUrls, params);
 
-      return this.fetch.fetchFromMediawikiAndParse(url, WikiPageFetchError)
+      return this.fetch.fetchFromMediawikiAndParse(url, WikiPageFetchError, options)
         .then((data) => {
           if (isFastBoot) {
             const dataForShoebox = extend({}, data);

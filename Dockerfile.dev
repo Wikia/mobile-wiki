@@ -1,4 +1,4 @@
-FROM node:8.9.1-alpine
+FROM node:8.9.1-alpine AS build
 
 WORKDIR /app
 
@@ -6,18 +6,18 @@ WORKDIR /app
 ARG IMAGE_VERSION
 ENV IMAGE_VERSION ${IMAGE_VERSION}
 
+ARG GITHUB_TOKEN
+
 # move files to cache installing of dependencies
 COPY .npmrc .
 COPY package-lock.json .
 COPY package.json .
 
-# create group and user
-RUN addgroup -S mobile-wiki && \
-    adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
-    chmod 755 /app && \
-
 # install missing stuff
-    apk add --no-cache --virtual .gyp python make g++ git && \
+RUN apk add --no-cache --virtual .gyp python make g++ git && \
+
+# override github's auth type
+    git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
 # install npm globals
     # we are running npm install as root so we need to set unsafe-perm
@@ -33,8 +33,6 @@ RUN addgroup -S mobile-wiki && \
     apk del .gyp python make g++ git && \
     npm cache clean --force
 
-USER docker_user
-
 # copy app
 # Note:
 # - first argument is the path inside the context of build (folder where Dockerfile is placed)
@@ -45,6 +43,18 @@ COPY . .
 
 # build app
 RUN npm run build
+
+FROM node:8.9.1-alpine
+WORKDIR /app
+
+# create group and user
+RUN addgroup -S mobile-wiki && \
+    adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
+    chmod 755 /app
+
+USER docker_user
+
+COPY --from=build /app /app
 
 # 7001 is for debugging
 EXPOSE 7001

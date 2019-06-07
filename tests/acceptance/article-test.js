@@ -12,8 +12,22 @@ module('Acceptance | Article page', (hooks) => {
   setupApplicationTest(hooks);
 
   let adsModuleStub;
+  let oldAdEngine;
 
   hooks.beforeEach(async function () {
+    oldAdEngine = window.Wikia.adEngine;
+
+    window.Wikia.adEngine = {
+      context: {
+        get: () => [],
+      },
+      scrollListener: {
+        addSlot: () => {},
+      },
+      utils: {
+        getViewportHeight: () => {},
+      },
+    };
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
@@ -28,8 +42,8 @@ module('Acceptance | Article page', (hooks) => {
 
   hooks.afterEach(() => {
     adsModuleStub.restore();
+    window.Wikia.adEngine = oldAdEngine;
   });
-
 
   test('should have correct title', async (assert) => {
     assert.dom('.wiki-page-header__title').exists();

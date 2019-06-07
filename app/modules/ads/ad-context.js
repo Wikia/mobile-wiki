@@ -35,6 +35,7 @@ export const defaultAdContext = {
     },
     prebid: {
       enabled: false,
+      libraryUrl: '/mobile-wiki-assets/assets/wikia-ae3/prebid.min.js',
       lazyLoadingEnabled: false,
       bidsRefreshing: {
         enabled: false,
@@ -109,35 +110,26 @@ export const defaultAdContext = {
           },
         },
       },
-      audienceNetwork: {
-        enabled: false,
-        slots: {
-          mobile_top_leaderboard: {
-            sizes: [
-              [320, 50],
-            ],
-            placementId: '963689110376230_1245837502161388',
-          },
-          mobile_in_content: {
-            sizes: [
-              [300, 250],
-            ],
-            placementId: '963689110376230_1245838625494609',
-          },
-          bottom_leaderboard: {
-            sizes: [
-              [300, 250],
-            ],
-            placementId: '963689110376230_1245839585494513',
-          },
-        },
-      },
       beachfront: {
         enabled: false,
         debugAppId: '2e55f7ad-3558-49eb-a3e1-056ccd0e74e2',
         slots: {
           incontent_player: {
             appId: 'f377a8b1-c5c0-4108-f932-0102a81ff43d',
+          },
+        },
+      },
+      gumgum: {
+        enabled: false,
+        slots: {
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+              [728, 90],
+            ],
+            inScreen: 'vbzbl1nw',
           },
         },
       },

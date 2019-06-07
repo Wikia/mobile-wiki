@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default fetch.extend({
   runtimeConfig: service(),
+  tracing: service(),
 
   init() {
     this.config = {
@@ -19,8 +20,10 @@ export default fetch.extend({
     const options = this.getOptionsForInternalRequest(requestUrl) || {};
     const internalRequestUrl = this.getUrlForInternalRequest(requestUrl);
 
+    options.headers = Object.assign(options.headers || {}, { 'X-Trace-Id': this.tracing.getTraceId() });
+
     if (accessToken) {
-      options.headers = Object.assign(options.headers || {}, { Cookie: `access_token=${accessToken}` });
+      options.headers.Cookie = `access_token=${accessToken}`;
     }
 
     return this.fetchAndParseResponse(internalRequestUrl, options, errorClass);

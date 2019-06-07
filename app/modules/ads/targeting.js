@@ -251,7 +251,6 @@ export const targeting = {
       bidder_4: transformBidderPrice('rubicon'),
       bidder_5: transformBidderPrice('vmg'),
       bidder_6: transformBidderPrice('aol'),
-      bidder_7: transformBidderPrice('audienceNetwork'),
       bidder_8: transformBidderPrice('wikiaVideo'),
       bidder_9: transformBidderPrice('openx'),
       bidder_10: transformBidderPrice('appnexusAst'),
@@ -262,6 +261,7 @@ export const targeting = {
       bidder_15: transformBidderPrice('beachfront'),
       bidder_17: transformBidderPrice('kargo'),
       bidder_18: transformBidderPrice('lkqd'),
+      bidder_19: transformBidderPrice('gumgum'),
     };
   },
 };

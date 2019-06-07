@@ -29,7 +29,10 @@ module.exports = {
 
     app.use(headers);
 
-    app.use(prometheus);
+    // since we run in cluster mode, express-prom-bundle needs to be used in specific way, see
+    // https://github.com/jochen-schweizer/express-prom-bundle#using-with-cluster
+    app.use(prometheus.worker);
+
     /**
    * Special handling for article-preview route.
    * Fastboot doesn't support POST requests so we rewrite them on express to GET

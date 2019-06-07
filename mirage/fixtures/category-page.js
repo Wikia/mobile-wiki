@@ -43,9 +43,7 @@ export default {
       targeting: {
 
       },
-      providers: {
-        audienceNetwork: true,
-      },
+      providers: {},
       slots: {
         invisibleHighImpact: true,
       },

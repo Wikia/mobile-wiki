@@ -10,6 +10,7 @@
 # dependencies
 /bower_components/
 /node_modules/
+.node-gyp/
 
 # misc
 /.sass-cache
@@ -19,6 +20,8 @@
 npm-debug.log
 testem.log
 .idea/
+.config/
+.npm/
 .DS_Store
 .settings
 *.sublime-*
@@ -27,6 +30,8 @@ testem.log
 *.log
 *.iml
 .vscode
+.gitconfig
+.env
 /npm-debug.log*
 /testem.log
 /yarn-error.log

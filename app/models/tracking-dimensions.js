@@ -7,6 +7,7 @@ export default EmberObject.extend({
   logger: service(),
   wikiUrls: service(),
   fetch: service(),
+  tracing: service(),
 
   load(isAnon, host, title) {
     const url = this.wikiUrls.build({
@@ -22,7 +23,15 @@ export default EmberObject.extend({
       },
     });
 
-    return this.fetch.fetchFromMediawikiAndParse(url, TrackingDimensionsFetchError)
+    return this.fetch.fetchFromMediawikiAndParse(
+      url,
+      TrackingDimensionsFetchError,
+      {
+        headers: {
+          'X-Trace-Id': this.tracing.getTraceId(),
+        },
+      },
+    )
       .catch(error => this.logger.error('getTrackingDimensions error: ', error));
   },
 });
