@@ -42,17 +42,47 @@ class Ads {
       return adsPromise;
     }
 
-    adsPromise = new Promise((resolve, reject) => {
-      if (typeof window.waitForAds === 'function') {
-        window.waitForAds(() => {
+    if (window.isNotFastboot !== true) {
+      return new Promise((resolve, reject) => reject());
+    }
+
+    adsPromise = new Promise((resolve) => {
+      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([shouldLoad]) => {
+        if (shouldLoad === true) {
           resolve(Ads.getInstance());
-        });
-      } else {
-        reject();
-      }
+        }
+      });
     });
 
     return adsPromise;
+  }
+
+  /**
+   * @private
+   */
+  static loadAdEngine() {
+    return import('@wikia/ad-engine').then((module) => {
+      window.Wikia = window.Wikia || {};
+      window.Wikia.adEngine = module;
+      window.Wikia.adProducts = module;
+      window.Wikia.adServices = module;
+      window.Wikia.adBidders = module;
+      return module;
+    });
+  }
+
+  /**
+   * @private
+   */
+  static getShouldStartAdEngine() {
+    return new Promise((resolve) => {
+      window.getInstantGlobals((instantGlobals) => {
+        const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
+        const noExternals = noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
+
+        resolve(!(instantGlobals.wgSitewideDisableAdsOnMercury || noExternals));
+      });
+    });
   }
 
   init(mediaWikiAdsContext = {}) {
@@ -317,6 +347,7 @@ class Ads {
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
+    this.trackConnectionToDW();
   }
 
   /**
@@ -354,6 +385,35 @@ class Ads {
     if (likhoPropValue.length) {
       pageTracker.trackProp('likho', likhoPropValue.join(';'));
       utils.logger(logGroup, 'likho props', likhoPropValue);
+    }
+  }
+
+  /**
+   * @private
+   */
+  trackConnectionToDW() {
+    const { utils } = window.Wikia.adEngine;
+    const connection = navigator.connection
+      || navigator.mozConnection
+      || navigator.webkitConnection;
+
+    if (connection) {
+      const data = [];
+      if (connection.downlink) {
+        data.push(`downlink=${connection.downlink.toFixed(1)}`);
+      }
+      if (connection.effectiveType) {
+        data.push(`effectiveType=${connection.effectiveType}`);
+      }
+      if (connection.rtt) {
+        data.push(`rtt=${connection.rtt.toFixed(0)}`);
+      }
+      if (typeof connection.saveData === 'boolean') {
+        data.push(`saveData=${+connection.saveData}`);
+      }
+
+      pageTracker.trackProp('connection', data.join(';'));
+      utils.logger(logGroup, 'connection', data);
     }
   }
 

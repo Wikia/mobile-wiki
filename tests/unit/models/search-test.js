@@ -4,6 +4,12 @@ import SearchModel from 'mobile-wiki/models/search';
 import sinon from 'sinon';
 import { htmlSafe } from '@ember/string';
 import { getContext } from '@ember/test-helpers';
+import Service from '@ember/service';
+
+
+const tracingService = Service.extend({
+  getTraceId() { return 'aaa'; },
+});
 
 module('Unit | Model | search result page', (hooks) => {
   setupTest(hooks);
@@ -11,6 +17,10 @@ module('Unit | Model | search result page', (hooks) => {
   window.onABTestLoaded = (callback) => {
     callback();
   };
+
+  hooks.beforeEach(function () {
+    this.owner.register('service:tracing', tracingService);
+  });
 
   test('empty array set on zero state', (assert) => {
     const search = SearchModel.create();
