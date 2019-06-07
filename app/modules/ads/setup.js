@@ -178,6 +178,7 @@ export const adsSetup = {
     context.set('custom.lkqdDfp', isGeoEnabled('wgAdDriverLkqdBidderCountries'));
     context.set('custom.pubmaticDfp', isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
     context.set('custom.isSearchPageTlbEnabled', isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
+    context.set('custom.isOverscrolledEnabled', isGeoEnabled('wgAdDriverOverscrolledCountries'));
     context.set(
       'custom.isIncontentNativeEnabled',
       isGeoEnabled('wgAdDriverMobileWikiAE3NativeSearchCountries'),
