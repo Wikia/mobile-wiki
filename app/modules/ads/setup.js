@@ -139,6 +139,10 @@ export const adsSetup = {
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
     context.set('options.useTopBoxad', isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
+    context.set(
+      'options.incontentBoxad1EagerLoading',
+      isGeoEnabled('wgAdDriverEagerlyLoadedIncontentBoxad1MobileWikiCountries'),
+    );
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
 
     context.set('services.browsi.enabled', isGeoEnabled('wgAdDriverBrowsiCountries'));
@@ -272,11 +276,17 @@ export const adsSetup = {
     }
 
     if (context.get('options.useTopBoxad')) {
-      context.remove('events.pushAfterRendered.incontent_boxad_1');
-      context.set('events.pushAfterRendered.top_boxad', [
-        'incontent_boxad_1',
-        'incontent_player',
-      ]);
+      if (context.get('options.incontentBoxad1EagerLoading')) {
+        context.set('events.pushAfterCreated.top_boxad', [
+          'incontent_boxad_1',
+        ]);
+      } else {
+        context.remove('events.pushAfterRendered.incontent_boxad_1');
+        context.set('events.pushAfterRendered.top_boxad', [
+          'incontent_boxad_1',
+          'incontent_player',
+        ]);
+      }
     }
 
     if (isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
