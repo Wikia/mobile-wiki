@@ -289,7 +289,11 @@ export const adsSetup = {
       }
     }
 
-    if (isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
+    if (
+      isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')
+      // TODO: Remove second part of condition once experiment ADEN-8784 is over
+      || !!context.get('options.incontentBoxad1EagerLoading')
+    ) {
       context.set('slots.bottom_leaderboard.insertOnViewportEnter', true);
     }
 
