@@ -178,7 +178,6 @@ export const adsSetup = {
     context.set('custom.lkqdDfp', isGeoEnabled('wgAdDriverLkqdBidderCountries'));
     context.set('custom.pubmaticDfp', isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
     context.set('custom.isSearchPageTlbEnabled', isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
-    context.set('custom.isOverscrolledEnabled', isGeoEnabled('wgAdDriverOverscrolledCountries'));
     context.set(
       'custom.isIncontentNativeEnabled',
       isGeoEnabled('wgAdDriverMobileWikiAE3NativeSearchCountries'),
@@ -190,6 +189,11 @@ export const adsSetup = {
         category: 'wgDisableIncontentPlayer',
         label: true,
       });
+    }
+
+    if (isGeoEnabled('wgAdDriverOverscrolledCountries')) {
+      context.set('slots.top_boxad.trackOverscrolled', true);
+      context.set('slots.incontent_boxad_1.trackOverscrolled', true);
     }
 
     const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
