@@ -5,10 +5,9 @@ import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
-import { slotTracker } from './tracking/slot-tracker';
+import { registerSlotTracker, registerViewabilityTracker } from './tracking/slot-tracker';
 import { videoTracker } from './tracking/video-tracker';
 import { targeting } from './targeting';
-import { viewabilityTracker } from './tracking/viewability-tracker';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
@@ -62,9 +61,9 @@ export const adsSetup = {
     templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
     templateService.register(StickyTLB, getStickyTLBConfig());
 
-    context.push('listeners.slot', slotTracker);
+    registerSlotTracker();
+    registerViewabilityTracker();
     context.push('listeners.slot', fanTakeoverResolver);
-    context.push('listeners.slot', viewabilityTracker);
 
     eventService.on(events.PAGE_RENDER_EVENT, (eventData) => {
       this.setupAdContext(eventData.adContext, eventData.instantGlobals, isOptedIn);
