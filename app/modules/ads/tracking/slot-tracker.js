@@ -10,7 +10,6 @@ export const onChangeStatusToTrack = [
   'catlapsed',
   'error',
   'hivi-collapse',
-  'overscrolled',
   'viewport-conflict',
 ];
 
