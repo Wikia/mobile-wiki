@@ -26,7 +26,7 @@ export default Component.extend(
     noAds: readOnly('ads.noAds'),
 
     nameLowerCase: computed('name', function () {
-      return dasherize(this.name.toLowerCase());
+      return dasherize((this.name || '').toLowerCase());
     }),
 
     shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
