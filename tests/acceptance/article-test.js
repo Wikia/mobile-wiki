@@ -4,7 +4,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
 import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { getAdsModuleMock, mockAdsService } from '../helpers/mock-ads-service';
+import { getAdsModuleMock, mockAdsService, adEngineMock } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 
@@ -17,17 +17,8 @@ module('Acceptance | Article page', (hooks) => {
   hooks.beforeEach(async function () {
     oldAdEngine = window.Wikia.adEngine;
 
-    window.Wikia.adEngine = {
-      context: {
-        get: () => [],
-      },
-      scrollListener: {
-        addSlot: () => {},
-      },
-      utils: {
-        getViewportHeight: () => {},
-      },
-    };
+    window.Wikia.adEngine = adEngineMock;
+
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);

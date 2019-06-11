@@ -81,7 +81,6 @@ module.exports = function (defaults) {
       'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
       'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,
       lazysizes: `${inlineScriptsPath}lazysizes.js`,
-      'load-ads': `${inlineScriptsPath}load-ads.js`,
       'rubik-font': `${inlineScriptsPath}rubik-font.js`,
     },
     outputPaths: {

@@ -1,18 +1,36 @@
 import { visit } from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
+import sinon from 'sinon';
+import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { mockAdsService } from '../helpers/mock-ads-service';
+import { mockAdsService, getAdsModuleMock, adEngineMock } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | Footer', (hooks) => {
   setupApplicationTest(hooks);
 
+  let adsModuleStub;
+  let oldAdEngine;
+
   hooks.beforeEach(function () {
+    oldAdEngine = window.Wikia.adEngine || {};
+
+    window.Wikia.adEngine = adEngineMock;
+    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
+      then: cb => cb(getAdsModuleMock({})),
+    });
+
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
   });
+
+  hooks.afterEach(() => {
+    adsModuleStub.restore();
+    window.Wikia.adEngine = oldAdEngine;
+  });
+
   test('check article footer', async (assert) => {
     await visit('/');
     await visit('/wiki/Qaga2');
