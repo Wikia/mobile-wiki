@@ -42,8 +42,8 @@ class Ads {
       return adsPromise;
     }
 
-    if (window.isNotFastboot !== true) {
-      return new Promise((resolve, reject) => reject());
+    if (typeof FastBoot !== 'undefined') {
+      return Promise.reject();
     }
 
     adsPromise = new Promise((resolve) => {
