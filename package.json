@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v35.0.0",
-    "@wikia/ember-fandom": "github:Wikia/ember-fandom#c8ca0e30965c5fbb36f3e60813ad2939755ea314",
+    "@wikia/ember-fandom": "github:Wikia/ember-fandom#6d31f1ea5b18f56481ab92e8862fb096bba59c10",
     "@wikia/search-tracking": "github:Wikia/search-tracking#1.2.0",
     "@wikia/tracking-opt-in": "1.0.41",
     "body-parser": "1.19.0",
@@ -127,7 +127,6 @@
     "i18next": "10.6.0",
     "loader.js": "4.7.0",
     "mercury-shared": "github:wikia/mercury-shared#21de5d1d71c9b53c9f5a5a9ca9d5e22c0afbeec0",
-    "proxying-agent": "2.4.0",
     "qunit-dom": "0.8.0",
     "sass": "1.20.1",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
