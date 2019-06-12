@@ -198,6 +198,11 @@ export const adsSetup = {
       });
     }
 
+    if (isGeoEnabled('wgAdDriverOverscrolledCountries')) {
+      context.set('slots.top_boxad.trackOverscrolled', true);
+      context.set('slots.incontent_boxad_1.trackOverscrolled', true);
+    }
+
     const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
     context.set('bidders.a9.enabled', isGeoEnabled('wgAdDriverA9BidderCountries'));
     context.set('bidders.a9.dealsEnabled', isGeoEnabled('wgAdDriverA9DealsCountries'));
