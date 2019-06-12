@@ -1,17 +1,35 @@
 import {
   click, currentURL, visit,
 } from '@ember/test-helpers';
+import sinon from 'sinon';
+import Ads from 'mobile-wiki/modules/ads';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { mockAdsService } from '../helpers/mock-ads-service';
+import { getAdsModuleMock, mockAdsService, adEngineMock } from '../helpers/mock-ads-service';
 
 module('Acceptance | category page', (hooks) => {
   setupApplicationTest(hooks);
 
-  hooks.beforeEach(function () {
+  let adsModuleStub;
+  let oldAdEngine;
+
+  hooks.beforeEach(async function () {
+    oldAdEngine = window.Wikia.adEngine || {};
+
+    window.Wikia.adEngine = adEngineMock;
+
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
+
+    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
+      then: cb => cb(getAdsModuleMock({})),
+    });
+  });
+
+  hooks.afterEach(() => {
+    adsModuleStub.restore();
+    window.Wikia.adEngine = oldAdEngine;
   });
 
   test('visiting Category Page', async (assert) => {

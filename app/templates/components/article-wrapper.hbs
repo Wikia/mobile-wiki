@@ -100,5 +100,8 @@
         {{/each}}
       {{/collapsible-menu}}
     {{/if}}
+    <div class="license-description wds-font-size-s wds-leading-tight">
+      {{{i18n "license-description" ns="design-system" license=(wrap-me wikiVariables.licenseText tagName="a" href=wikiVariables.licenseUrl className="wds-font-weight-medium")}}}
+    </div>
   </section>
 {{/if}}

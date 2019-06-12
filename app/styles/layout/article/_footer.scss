@@ -31,4 +31,10 @@ $article-footer-skewY: 5deg;
   .article-language-links-list {
     border-top: 1px solid $wds-fandom-color-middle-gray;
   }
+
+  .license-description {
+    a {
+      color: $wds-fandom-color-link;
+    }
+  }
 }
