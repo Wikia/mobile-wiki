@@ -1,9 +1,11 @@
 import {
   visit, click, fillIn, triggerKeyEvent, currentURL,
 } from '@ember/test-helpers';
+import sinon from 'sinon';
+import Ads from 'mobile-wiki/modules/ads';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
-import { mockAdsService } from '../helpers/mock-ads-service';
+import { mockAdsService, adEngineMock, getAdsModuleMock } from '../helpers/mock-ads-service';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 import mockSearchTracking from '../helpers/mock-search-tracking';
@@ -12,12 +14,26 @@ import mockSearchPageAdsContext from '../helpers/mock-search-page-ads-context';
 module('Acceptance | search', (hooks) => {
   setupApplicationTest(hooks);
 
+  let adsModuleStub;
+  let oldAdEngine;
+
   hooks.beforeEach(function () {
+    oldAdEngine = window.Wikia.adEngine || {};
+
+    window.Wikia.adEngine = adEngineMock;
+    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
+      then: cb => cb(getAdsModuleMock()),
+    });
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
     mockSearchTracking();
     mockSearchPageAdsContext(this.owner);
+  });
+
+  hooks.afterEach(() => {
+    adsModuleStub.restore();
+    window.Wikia.adEngine = oldAdEngine;
   });
 
   test('submitting search form with Enter key shows search results', async (assert) => {

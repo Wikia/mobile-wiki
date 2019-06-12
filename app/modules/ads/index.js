@@ -42,17 +42,47 @@ class Ads {
       return adsPromise;
     }
 
-    adsPromise = new Promise((resolve, reject) => {
-      if (typeof window.waitForAds === 'function') {
-        window.waitForAds(() => {
+    if (typeof FastBoot !== 'undefined') {
+      return Promise.reject();
+    }
+
+    adsPromise = new Promise((resolve) => {
+      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([shouldLoad]) => {
+        if (shouldLoad === true) {
           resolve(Ads.getInstance());
-        });
-      } else {
-        reject();
-      }
+        }
+      });
     });
 
     return adsPromise;
+  }
+
+  /**
+   * @private
+   */
+  static loadAdEngine() {
+    return import('@wikia/ad-engine').then((module) => {
+      window.Wikia = window.Wikia || {};
+      window.Wikia.adEngine = module;
+      window.Wikia.adProducts = module;
+      window.Wikia.adServices = module;
+      window.Wikia.adBidders = module;
+      return module;
+    });
+  }
+
+  /**
+   * @private
+   */
+  static getShouldStartAdEngine() {
+    return new Promise((resolve) => {
+      window.getInstantGlobals((instantGlobals) => {
+        const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
+        const noExternals = noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
+
+        resolve(!(instantGlobals.wgSitewideDisableAdsOnMercury || noExternals));
+      });
+    });
   }
 
   init(mediaWikiAdsContext = {}) {
@@ -284,20 +314,36 @@ class Ads {
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
     const { context, slotService } = window.Wikia.adEngine;
+
+    if (this.isAdStackEnabled()) {
+      biddersDelayer.resetPromise();
+      bidders.requestBids({
+        responseListener: biddersDelayer.markAsReady,
+      });
+      this.startAdEngine();
+
+      if (!slotService.getState('top_leaderboard')) {
+        this.finishFirstCall();
+      }
+    } else if (context.get('services.browsi.enabled')) {
+      // Browsi needs googletag loaded
+      this.loadGoogleTag();
+    }
+
+    this.callExternalTrackingServices();
+    adblockDetector.run();
+    this.triggerPageTracking();
+  }
+
+  /**
+   * @private
+   * Call Krux, Moat and Nielsen services.
+   */
+  callExternalTrackingServices() {
+    const { context } = window.Wikia.adEngine;
     const { krux, moatYi, nielsen } = window.Wikia.adServices;
 
     const targeting = context.get('targeting');
-
-    biddersDelayer.resetPromise();
-    bidders.requestBids({
-      responseListener: biddersDelayer.markAsReady,
-    });
-
-    this.startAdEngine();
-
-    if (!slotService.getState('top_leaderboard')) {
-      this.finishFirstCall();
-    }
 
     krux.call();
     moatYi.call();
@@ -306,8 +352,6 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
-    adblockDetector.run();
-    this.triggerPageTracking();
   }
 
   /**
