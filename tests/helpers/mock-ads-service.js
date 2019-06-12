@@ -78,4 +78,17 @@ export function mockAdsService(owner) {
   }));
 }
 
+export const adEngineMock = {
+  context: {
+    get: () => [],
+    push: () => {},
+  },
+  scrollListener: {
+    addSlot: () => {},
+  },
+  utils: {
+    getViewportHeight: () => {},
+  },
+};
+
 export default mockAdsService;

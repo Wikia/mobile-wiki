@@ -102,8 +102,11 @@ export const adsSetup = {
 
     isGeoEnabled('wgAdDriverLABradorTestCountries');
 
-    const isAdStackEnabled = !isGeoEnabled('wgAdDriverDisableAdStackCountries')
-      && adsContext.opts.pageType !== 'no_ads';
+    const isAdStackEnabled = (
+      !isGeoEnabled('wgAdDriverDisableAdStackCountries')
+      && adsContext.opts.pageType !== 'no_ads'
+      && !isGeoEnabled('wgAdDriverBrowsiCountries')
+    );
 
     context.set('slots', slots.getContext());
 
