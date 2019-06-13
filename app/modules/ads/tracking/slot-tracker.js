@@ -15,7 +15,7 @@ export const registerSlotTracker = () => {
     .add(slotPropertiesTrackingMiddleware)
     .add(slotBiddersTrackingMiddleware)
     .add(slotBillTheLizardStatusTrackingMiddleware)
-    .execute(({ data }) => track({
+    .register(({ data }) => track({
       ...data,
       eventName: 'adengadinfo',
       trackingMethod: 'internal',
@@ -32,7 +32,7 @@ export const registerViewabilityTracker = () => {
   viewabilityTracker
     .add(viewabilityTrackingMiddleware)
     .add(viewabilityPropertiesTrackingMiddleware)
-    .execute((data) => track({
+    .register(({ data }) => track({
       ...data,
       eventName: 'adengviewability',
       trackingMethod: 'internal',
