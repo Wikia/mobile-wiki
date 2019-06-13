@@ -73,7 +73,7 @@ spec:
           - name: WIKIA_DATACENTER
             value: sjc
           - name: INTERNAL_CACHE_HOST
-            value: prod.icache.service.sjc.consul
+            value: mediawiki-verify
         resources:
           requests:
             cpu: 0.4
