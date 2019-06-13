@@ -133,8 +133,8 @@ export const adsSetup = {
 
     context.set('options.maxDelayTimeout', instantGlobals.wgAdDriverDelayTimeout || 2000);
     context.set('options.tracking.kikimora.player', isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
-    context.set('options.tracking.kikimora.slot', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
-    context.set('options.tracking.kikimora.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
+    context.set('options.tracking.slot.status', isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
+    context.set('options.tracking.slot.viewability', isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
     context.set('options.useTopBoxad', isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
