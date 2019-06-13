@@ -11,11 +11,11 @@ export const registerSlotTracker = () => {
 
   slotTracker.onChangeStatusToTrack.push('catlapsed', 'hivi-collapse');
   slotTracker
-    .addMiddleware(slotTrackingMiddleware)
-    .addMiddleware(slotPropertiesTrackingMiddleware)
-    .addMiddleware(slotBiddersTrackingMiddleware)
-    .addMiddleware(slotBillTheLizardStatusTrackingMiddleware)
-    .register((data) => track({
+    .add(slotTrackingMiddleware)
+    .add(slotPropertiesTrackingMiddleware)
+    .add(slotBiddersTrackingMiddleware)
+    .add(slotBillTheLizardStatusTrackingMiddleware)
+    .execute(({ data }) => track({
       ...data,
       eventName: 'adengadinfo',
       trackingMethod: 'internal',
@@ -30,9 +30,9 @@ export const registerViewabilityTracker = () => {
   } = window.Wikia.adEngine;
 
   viewabilityTracker
-    .addMiddleware(viewabilityTrackingMiddleware)
-    .addMiddleware(viewabilityPropertiesTrackingMiddleware)
-    .register((data) => track({
+    .add(viewabilityTrackingMiddleware)
+    .add(viewabilityPropertiesTrackingMiddleware)
+    .execute((data) => track({
       ...data,
       eventName: 'adengviewability',
       trackingMethod: 'internal',
