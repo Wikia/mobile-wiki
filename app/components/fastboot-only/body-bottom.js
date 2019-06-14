@@ -19,6 +19,7 @@ export default Component.extend({
     // We have to anonymize user id before sending it to Google
     // It's faster to do the hashing server side and pass to the front-end, ready to use
     const gaUserIdHash = currentUser.getGaUserIdHash();
+    const userId = currentUser.userId;
     const noExternals = this.runtimeConfig.noExternals;
     const tracking = this.get('tracking.config');
     const isAuthenticated = currentUser.get('isAuthenticated');
@@ -41,6 +42,7 @@ export default Component.extend({
     return JSON.stringify(Object.assign({
       cookieDomain,
       gaUserIdHash,
+      userId,
       noExternals,
       tracking,
       isAuthenticated,

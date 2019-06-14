@@ -147,6 +147,7 @@ export const adsSetup = {
       isGeoEnabled('wgAdDriverEagerlyLoadedIncontentBoxad1MobileWikiCountries'),
     );
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
+    context.set('options.scrollSpeedTracking', isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.browsi.enabled', isGeoEnabled('wgAdDriverBrowsiCountries'));
     context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries'));
@@ -196,6 +197,11 @@ export const adsSetup = {
         category: 'wgDisableIncontentPlayer',
         label: true,
       });
+    }
+
+    if (isGeoEnabled('wgAdDriverOverscrolledCountries')) {
+      context.set('slots.top_boxad.trackOverscrolled', true);
+      context.set('slots.incontent_boxad_1.trackOverscrolled', true);
     }
 
     const hasFeaturedVideo = context.get('custom.hasFeaturedVideo');
@@ -292,7 +298,11 @@ export const adsSetup = {
       }
     }
 
-    if (isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
+    if (
+      isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')
+      // TODO: Remove second part of condition once experiment ADEN-8784 is over
+      || !!context.get('options.incontentBoxad1EagerLoading')
+    ) {
       context.set('slots.bottom_leaderboard.insertOnViewportEnter', true);
     }
 
