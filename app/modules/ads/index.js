@@ -4,6 +4,7 @@ import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
+import { scrollTracker } from './tracking/scroll-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
@@ -239,6 +240,8 @@ class Ads {
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
 
+    scrollTracker.resetScrollSpeedTracking();
+
     utils.logger(logGroup, 'before transition');
   }
 
@@ -358,6 +361,7 @@ class Ads {
    * @private
    */
   triggerPageTracking() {
+    scrollTracker.initScrollSpeedTracking();
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
