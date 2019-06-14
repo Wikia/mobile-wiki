@@ -15,11 +15,10 @@ export const registerSlotTracker = () => {
     .add(slotPropertiesTrackingMiddleware)
     .add(slotBiddersTrackingMiddleware)
     .add(slotBillTheLizardStatusTrackingMiddleware)
-    .register(({ data }) => track({
-      ...data,
+    .register(({ data }) => track(Object.assign(data, {
       eventName: 'adengadinfo',
       trackingMethod: 'internal',
-    }));
+    })));
 };
 
 export const registerViewabilityTracker = () => {
@@ -32,9 +31,8 @@ export const registerViewabilityTracker = () => {
   viewabilityTracker
     .add(viewabilityTrackingMiddleware)
     .add(viewabilityPropertiesTrackingMiddleware)
-    .register(({ data }) => track({
-      ...data,
+    .register(({ data }) => track(Object.assign(data, {
       eventName: 'adengviewability',
       trackingMethod: 'internal',
-    }));
+    })));
 };
