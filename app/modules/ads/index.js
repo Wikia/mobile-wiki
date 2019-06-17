@@ -76,7 +76,7 @@ class Ads {
         stack: error.stack,
       });
 
-      return new Promise((res) => {});
+      return new Promise(res => res);
     });
   }
 
