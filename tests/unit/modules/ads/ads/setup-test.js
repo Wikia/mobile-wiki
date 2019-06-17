@@ -21,8 +21,21 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       events,
       eventService,
+      slotTracker: {
+        onChangeStatusToTrack: [],
+        add: () => {
+          return window.Wikia.adEngine.slotTracker;
+        },
+        register(),
+      },
       templateService: {
         register: () => {},
+      },
+      viewabilityTracker: {
+        add: () => {
+          return window.Wikia.adEngine.slotTracker;
+        },
+        register(),
       },
     };
     window.Wikia.adBidders = {};
