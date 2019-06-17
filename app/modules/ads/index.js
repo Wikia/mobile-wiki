@@ -8,6 +8,7 @@ import { scrollTracker } from './tracking/scroll-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
+import { logError } from '../event-logger';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -69,6 +70,13 @@ class Ads {
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
       return module;
+    }).catch((error) => {
+      logError('https://services.fandom.com', 'AdEngine.load', {
+        message: error.message,
+        stack: error.stack,
+      });
+
+      return new Promise(res => res);
     });
   }
 
