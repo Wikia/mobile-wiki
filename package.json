@@ -58,7 +58,7 @@
     "lazysizes": "4.1.7",
     "method-override": "3.0.0",
     "on-headers": "1.0.2",
-    "prom-client": "^11.2.1",
+    "prom-client": "^11.5.1",
     "scriptjs": "2.5.9",
     "snyk": "1.147.2",
     "vignette": "github:wikia/vignette-js#2.8.0",
