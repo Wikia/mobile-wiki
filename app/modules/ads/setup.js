@@ -147,9 +147,11 @@ export const adsSetup = {
       isGeoEnabled('wgAdDriverEagerlyLoadedIncontentBoxad1MobileWikiCountries'),
     );
     context.set('options.slotRepeater', isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
+    context.set('options.scrollSpeedTracking', isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.browsi.enabled', isGeoEnabled('wgAdDriverBrowsiCountries'));
-    context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries'));
+    context.set('services.confiant.enabled', isGeoEnabled('wgAdDriverConfiantCountries')
+      || isGeoEnabled('wgAdDriverConfiantMobileCountries'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && isGeoEnabled('wgAdDriverKruxCountries') && !instantGlobals.wgSitewideDisableKrux);
     context.set('services.moatYi.enabled', isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));

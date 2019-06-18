@@ -198,6 +198,20 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 }
 
 /**
+ * Tracks scrollY position at given time
+ * @param {number} time
+ */
+export function trackScrollY(time) {
+  const scrollY = window.scrollY || window.pageYOffset;
+
+  track({
+    action: 'scroll',
+    category: 'scroll_speed',
+    label: `${time}s|${scrollY}`,
+  });
+}
+
+/**
   * Function to track an experiment specific event. This is currently
   * done due to limitations in the DW when it comes to segmentation
   * of events based on experiment groups

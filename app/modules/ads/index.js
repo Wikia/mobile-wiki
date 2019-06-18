@@ -4,9 +4,11 @@ import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
+import { scrollTracker } from './tracking/scroll-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
+import { logError } from '../event-logger';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -68,6 +70,13 @@ class Ads {
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
       return module;
+    }).catch((error) => {
+      logError('https://services.fandom.com', 'AdEngine.load', {
+        message: error.message,
+        stack: error.stack,
+      });
+
+      return new Promise(res => res);
     });
   }
 
@@ -239,6 +248,8 @@ class Ads {
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
 
+    scrollTracker.resetScrollSpeedTracking();
+
     utils.logger(logGroup, 'before transition');
   }
 
@@ -358,6 +369,7 @@ class Ads {
    * @private
    */
   triggerPageTracking() {
+    scrollTracker.initScrollSpeedTracking();
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
