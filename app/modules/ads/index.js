@@ -4,9 +4,11 @@ import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
+import { scrollTracker } from './tracking/scroll-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
+import { logError } from '../event-logger';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -42,8 +44,8 @@ class Ads {
       return adsPromise;
     }
 
-    if (window.isNotFastboot !== true) {
-      return new Promise((resolve, reject) => reject());
+    if (typeof FastBoot !== 'undefined') {
+      return Promise.reject();
     }
 
     adsPromise = new Promise((resolve) => {
@@ -68,6 +70,13 @@ class Ads {
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
       return module;
+    }).catch((error) => {
+      logError('https://services.fandom.com', 'AdEngine.load', {
+        message: error.message,
+        stack: error.stack,
+      });
+
+      return new Promise(res => res);
     });
   }
 
@@ -239,6 +248,8 @@ class Ads {
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
 
+    scrollTracker.resetScrollSpeedTracking();
+
     utils.logger(logGroup, 'before transition');
   }
 
@@ -314,20 +325,36 @@ class Ads {
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
     const { context, slotService } = window.Wikia.adEngine;
+
+    if (this.isAdStackEnabled()) {
+      biddersDelayer.resetPromise();
+      bidders.requestBids({
+        responseListener: biddersDelayer.markAsReady,
+      });
+      this.startAdEngine();
+
+      if (!slotService.getState('top_leaderboard')) {
+        this.finishFirstCall();
+      }
+    } else if (context.get('services.browsi.enabled')) {
+      // Browsi needs googletag loaded
+      this.loadGoogleTag();
+    }
+
+    this.callExternalTrackingServices();
+    adblockDetector.run();
+    this.triggerPageTracking();
+  }
+
+  /**
+   * @private
+   * Call Krux, Moat and Nielsen services.
+   */
+  callExternalTrackingServices() {
+    const { context } = window.Wikia.adEngine;
     const { krux, moatYi, nielsen } = window.Wikia.adServices;
 
     const targeting = context.get('targeting');
-
-    biddersDelayer.resetPromise();
-    bidders.requestBids({
-      responseListener: biddersDelayer.markAsReady,
-    });
-
-    this.startAdEngine();
-
-    if (!slotService.getState('top_leaderboard')) {
-      this.finishFirstCall();
-    }
 
     krux.call();
     moatYi.call();
@@ -336,14 +363,13 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
-    adblockDetector.run();
-    this.triggerPageTracking();
   }
 
   /**
    * @private
    */
   triggerPageTracking() {
+    scrollTracker.initScrollSpeedTracking();
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();

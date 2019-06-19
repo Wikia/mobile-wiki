@@ -1,17 +1,34 @@
 import { visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
+import sinon from 'sinon';
+import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { mockAdsService } from '../helpers/mock-ads-service';
+import { mockAdsService, adEngineMock, getAdsModuleMock } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | Head meta tags', (hooks) => {
   setupApplicationTest(hooks);
 
+  let adsModuleStub;
+  let oldAdEngine;
+
   hooks.beforeEach(function () {
+    oldAdEngine = window.Wikia.adEngine || {};
+
+    window.Wikia.adEngine = adEngineMock;
+    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
+      then: cb => cb(getAdsModuleMock({})),
+    });
+
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
+  });
+
+  hooks.afterEach(() => {
+    adsModuleStub.restore();
+    window.Wikia.adEngine = oldAdEngine;
   });
 
   test('check twitter meta tags', async (assert) => {
