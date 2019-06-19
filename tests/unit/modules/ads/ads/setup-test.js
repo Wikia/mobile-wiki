@@ -23,18 +23,14 @@ module('Unit | Module | ads | setup', (hooks) => {
       eventService,
       slotTracker: {
         onChangeStatusToTrack: [],
-        add: () => {
-          return window.Wikia.adEngine.slotTracker;
-        },
+        add: () => window.Wikia.adEngine.slotTracker,
         register: () => {},
       },
       templateService: {
         register: () => {},
       },
       viewabilityTracker: {
-        add: () => {
-          return window.Wikia.adEngine.slotTracker;
-        },
+        add: () => window.Wikia.adEngine.slotTracker,
         register: () => {},
       },
     };
