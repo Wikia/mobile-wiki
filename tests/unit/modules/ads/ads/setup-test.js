@@ -35,7 +35,7 @@ module('Unit | Module | ads | setup', (hooks) => {
         add: () => {
           return window.Wikia.adEngine.slotTracker;
         },
-        register(),
+        register: () => {},
       },
     };
     window.Wikia.adBidders = {};
