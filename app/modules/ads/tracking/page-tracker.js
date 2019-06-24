@@ -13,7 +13,7 @@ export const pageTracker = {
     const { context } = window.Wikia.adEngine;
     // End of imports
 
-    return context.get('options.tracking.kikimora.slot');
+    return context.get('options.tracking.slot.status');
   },
 
   /**
