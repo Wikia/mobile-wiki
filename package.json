@@ -131,7 +131,7 @@
     "qunit-dom": "0.8.0",
     "sass": "1.21.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
-    "stylelint-config-standard": "18.2.0",
+    "stylelint-config-standard": "18.3.0",
     "tslint": "5.18.0",
     "typescript": "3.5.2"
   },
