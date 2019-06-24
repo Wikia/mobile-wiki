@@ -33,7 +33,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v36.0.0",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v36.1.1",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#8e9cad349addcd1160165eb36071ec6ac24da887",
     "@wikia/search-tracking": "github:Wikia/search-tracking#1.2.0",
     "@wikia/tracking-opt-in": "1.0.41",
@@ -132,7 +132,7 @@
     "sass": "1.21.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.2.0",
-    "tslint": "5.15.0",
+    "tslint": "5.18.0",
     "typescript": "3.5.2"
   },
   "ember-addon": {
