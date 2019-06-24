@@ -1,4 +1,4 @@
-FROM node:8.9.1-alpine AS build
+FROM node:8.16.0-alpine AS build
 
 WORKDIR /app
 
@@ -44,7 +44,7 @@ COPY . .
 # build app
 RUN npm run build
 
-FROM node:8.9.1-alpine
+FROM node:8.16.0-alpine
 WORKDIR /app
 
 # create group and user
