@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('npm ci') {
       steps {
-      	nodejs('10.16.0') {
+      	nodejs('v10 LTS') {
 		  sh 'npm set progress=false'
 		  sh 'npm install'
         }
@@ -33,7 +33,7 @@ pipeline {
             timeout(time: 10, unit: 'MINUTES')
           }
           steps {
-            nodejs('10.16.0') {
+            nodejs('v10 LTS') {
               sh 'ember bundlesize:test'
             }
           }
@@ -46,7 +46,7 @@ pipeline {
             timeout(time: 10, unit: 'MINUTES')
           }
           steps {
-            nodejs('10.16.0') {
+            nodejs('v10 LTS') {
               sh 'TEST_PORT=$EXECUTOR_NUMBER ember test'
             }
           }
