@@ -23,7 +23,7 @@ pipeline {
             timeout(time: 5, unit: 'MINUTES')
           }
           steps {
-		    nodejs('10.16.0') {
+		    nodejs('v10 LTS') {
 			  sh 'npm run linter'
 			}
           }
