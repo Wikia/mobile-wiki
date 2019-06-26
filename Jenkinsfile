@@ -10,8 +10,10 @@ pipeline {
   stages {
     stage('npm ci') {
       steps {
-        sh 'npm set progress=false'
-        sh 'npm install'
+      	nodejs('10.16.0') {
+		  sh 'npm set progress=false'
+		  sh 'npm install'
+        }
       }
     }
     stage('Run Tests') {
@@ -21,7 +23,9 @@ pipeline {
             timeout(time: 5, unit: 'MINUTES')
           }
           steps {
-            sh 'npm run linter'
+		    nodejs('10.16.0') {
+			  sh 'npm run linter'
+			}
           }
         }
         stage('bundle size') {
@@ -29,7 +33,9 @@ pipeline {
             timeout(time: 10, unit: 'MINUTES')
           }
           steps {
-            sh 'ember bundlesize:test'
+            nodejs('10.16.0') {
+              sh 'ember bundlesize:test'
+            }
           }
         }
         stage('Build and Test') {
@@ -40,7 +46,9 @@ pipeline {
             timeout(time: 10, unit: 'MINUTES')
           }
           steps {
-            sh 'TEST_PORT=$EXECUTOR_NUMBER ember test'
+            nodejs('10.16.0') {
+              sh 'TEST_PORT=$EXECUTOR_NUMBER ember test'
+            }
           }
         }
       }
