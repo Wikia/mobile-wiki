@@ -1,4 +1,5 @@
 /* eslint no-console: 0 */
+import * as Cookies from 'js-cookie';
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
 import { biddersDelayer } from './bidders-delayer';
@@ -21,6 +22,22 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
   Object.keys(pageLevelParams).forEach((key) => {
     context.set(`targeting.${key}`, pageLevelParams[key]);
   });
+}
+
+function setUpGeoData() {
+  const { context } = window.Wikia.adEngine;
+  const jsonData = decodeURIComponent(Cookies.get('Geo'));
+  let geoData = {};
+
+  try {
+    geoData = JSON.parse(jsonData) || {};
+  } catch (e) {
+    // Stay with {} value
+  }
+
+  context.set('geo.region', geoData.region);
+  context.set('geo.country', geoData.country);
+  context.set('geo.continent', geoData.continent);
 }
 
 export const adsSetup = {
@@ -89,6 +106,7 @@ export const adsSetup = {
       return utils.geoService.isProperGeo(instantGlobals[instantGlobalKey], instantGlobalKey);
     }
 
+    setUpGeoData();
     context.extend(defaultAdContext);
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
