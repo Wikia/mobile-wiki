@@ -11,6 +11,7 @@ export default Controller.extend(
     lightbox: service(),
     logger: service(),
     wikiVariables: service(),
+    router: service(),
 
     queryParams: ['file',
       {
@@ -45,7 +46,7 @@ export default Controller.extend(
 
     file: alias('lightbox.file'),
     fullPage: oneWay('mobileApp'),
-    isSearchPage: equal('currentRouteName', 'search'),
+    isSearchPage: equal('router.currentRouteName', 'search'),
     noAds: alias('ads.noAdsQueryParam'),
     mobileApp: alias('ads.disableAdsInMobileApp'),
 
