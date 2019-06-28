@@ -136,9 +136,16 @@ module.exports = function (defaults) {
     destDir: 'assets/wikia-ae3',
   });
 
-  const trackingOptIn = new Funnel('node_modules/@wikia/tracking-opt-in/dist/tracking-opt-in.min.js', {
-    // String `/assets/tracking-` is blocked by EasyPrivacy list
-    destDir: 'assets/wikia-opt-in.min.js',
+  const trackingOptIn = new Funnel('node_modules/@wikia/tracking-opt-in/dist', {
+    destDir: 'assets',
+    getDestinationPath(relativePath) {
+      // String `/assets/tracking-` is blocked by EasyPrivacy list
+      if (relativePath === 'tracking-opt-in.min.js') {
+        return 'wikia-opt-in.min.js';
+      }
+
+      return relativePath;
+    },
   });
 
   // Import files from node_modules, they will run both in FastBoot and browser
