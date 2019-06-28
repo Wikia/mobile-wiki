@@ -43,15 +43,15 @@ module('Acceptance | lang path', (hooks) => {
   });
 
   test('visiting /pl/wiki/test', async (assert) => {
-    const result = await visit('/pl/wiki/test');
-    assert.ok(result);
+    await visit('/pl/wiki/test');
+
     // Lang path is set as router's rootURL and it should be stripped
     assert.equal(currentURL(), '/wiki/test');
   });
 
   test('visiting /pl/search', async (assert) => {
-    const result = await visit('/pl/search');
-    assert.ok(result);
+    await visit('/pl/search');
+
     assert.equal(currentURL(), '/search');
   });
 });
