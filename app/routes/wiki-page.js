@@ -65,7 +65,7 @@ export default Route.extend(
       emptyDomainWithLanguageWikisHandler(this.fastboot, this.wikiVariables);
 
       if (!transition.data.title) {
-        transition.data.title = decodeURIComponent(transition.params['wiki-page'].title);
+        transition.data.title = decodeURIComponent(transition.to.params.title);
       }
 
       const title = transition.data.title;
@@ -174,7 +174,7 @@ export default Route.extend(
 
           if (
             !fastboot.get('isFastBoot')
-            && !transition.queryParams.noexternals
+            && !transition.to.queryParams.noexternals
           ) {
             Ads.waitForAdEngine().then((ads) => {
               model.adsContext.user = model.adsContext.user || {};
@@ -194,7 +194,7 @@ export default Route.extend(
               wikiPage: get(transition, 'params.wiki-page.title'),
               query: extend(
                 {},
-                transition.state.queryParams,
+                transition.to.queryParams,
                 { useskin: 'oasis' },
               ),
             });
