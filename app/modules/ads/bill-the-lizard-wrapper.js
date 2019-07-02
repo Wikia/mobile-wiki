@@ -161,11 +161,11 @@ export const billTheLizardWrapper = {
       if (adSlot.getConfigProperty('cheshireCatSlot')) {
         const callId = getCallId();
 
-        adSlot.btlStatus = getBtlSlotStatus(
+        adSlot.setConfigProperty('btlStatus', getBtlSlotStatus(
           billTheLizard.getResponseStatus(callId),
           callId,
           defaultStatus,
-        );
+        ));
         incontentsCounter += 1;
       }
     });
