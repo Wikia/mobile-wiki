@@ -60,7 +60,7 @@
     "on-headers": "1.0.2",
     "prom-client": "11.5.3",
     "scriptjs": "2.5.9",
-    "snyk": "1.188.0",
+    "snyk": "1.189.0",
     "vignette": "github:wikia/vignette-js#2.8.0",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
