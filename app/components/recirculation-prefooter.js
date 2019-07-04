@@ -36,6 +36,7 @@ export default Component.extend(
     topArticles: null,
     fallbackItems: null,
     items: null,
+    sponsoredItemDisplayed: false,
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
     displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredItem'),
     sponsoredItem: reads('sponsoredContent.item'),
@@ -50,8 +51,8 @@ export default Component.extend(
       }) : this.sponsoredItem.thumbnail;
     }),
 
-    sponsoredItemObserver: observer('sponsoredItem', function () {
-      if (this.sponsoredItem) {
+    sponsoredItemObserver: observer('sponsoredItem', 'sponsoredItemDisplayed', function () {
+      if (this.sponsoredItem && this.sponsoredItemDisplayed) {
         // this tracking needs to be done in observer since the sponsored item is fetched async
         track({
           action: trackActions.impression,
@@ -238,6 +239,8 @@ export default Component.extend(
         }
 
         this.sponsoredContent.fetchData();
+
+        this.set('sponsoredItemDisplayed', true);
 
         track({
           action: trackActions.impression,
