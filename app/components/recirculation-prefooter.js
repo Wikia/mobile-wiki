@@ -2,7 +2,7 @@ import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { reads, and } from '@ember/object/computed';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import { inGroup } from '../modules/abtest';
@@ -48,6 +48,17 @@ export default Component.extend(
         height: 386,
         width: 386,
       }) : this.sponsoredItem.thumbnail;
+    }),
+
+    sponsoredItemObserver: observer('sponsoredItem', function () {
+      if (this.sponsoredItem) {
+        // this tracking needs to be done in observer since the sponsored item is fetched async
+        track({
+          action: trackActions.impression,
+          category: trackingCategory,
+          label: this.sponsoredItem.url,
+        });
+      }
     }),
 
     init() {
