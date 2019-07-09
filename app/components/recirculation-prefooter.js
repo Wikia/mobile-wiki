@@ -57,7 +57,7 @@ export default Component.extend(
         track({
           action: trackActions.impression,
           category: trackingCategory,
-          label: this.sponsoredItem.url,
+          label: 'footer::' + this.sponsoredItem.url,
         });
       }
     }),
