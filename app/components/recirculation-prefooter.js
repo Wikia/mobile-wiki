@@ -139,7 +139,7 @@ export default Component.extend(
         track({
           action: trackActions.select,
           category: trackingCategory,
-          label: sponsoredItem.url,
+          label: 'footer::' + sponsoredItem.url,
         });
       },
     },
