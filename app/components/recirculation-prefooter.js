@@ -2,7 +2,7 @@ import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { reads, and } from '@ember/object/computed';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import { inGroup } from '../modules/abtest';
@@ -36,6 +36,7 @@ export default Component.extend(
     topArticles: null,
     fallbackItems: null,
     items: null,
+    sponsoredItemDisplayed: false,
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
     displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredItem'),
     sponsoredItem: reads('sponsoredContent.item'),
@@ -48,6 +49,17 @@ export default Component.extend(
         height: 386,
         width: 386,
       }) : this.sponsoredItem.thumbnail;
+    }),
+
+    sponsoredItemObserver: observer('sponsoredItem', 'sponsoredItemDisplayed', function () {
+      if (this.sponsoredItem && this.sponsoredItemDisplayed) {
+        // this tracking needs to be done in observer since the sponsored item is fetched async
+        track({
+          action: trackActions.impression,
+          category: trackingCategory,
+          label: `footer::${this.sponsoredItem.url}`,
+        });
+      }
     }),
 
     init() {
@@ -127,7 +139,7 @@ export default Component.extend(
         track({
           action: trackActions.select,
           category: trackingCategory,
-          label: sponsoredItem.url,
+          label: `footer::${sponsoredItem.url}`,
         });
       },
     },
@@ -227,6 +239,8 @@ export default Component.extend(
         }
 
         this.sponsoredContent.fetchData();
+
+        this.set('sponsoredItemDisplayed', true);
 
         track({
           action: trackActions.impression,

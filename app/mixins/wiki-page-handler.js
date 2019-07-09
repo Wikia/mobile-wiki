@@ -70,6 +70,15 @@ export default Mixin.create({
       },
     };
 
+    if (isFastBoot) {
+      const requestHeaders = this.get('fastboot.request.headers');
+      const stagingHeader = requestHeaders.get('X-Staging');
+
+      if (stagingHeader) {
+        options.headers['X-Staging'] = stagingHeader;
+      }
+    }
+
     if (isFastBoot || !isInitialPageView) {
       params.noads = this.get('fastboot.request.queryParams.noads');
       params.noexternals = this.get('fastboot.request.queryParams.noexternals');

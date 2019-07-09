@@ -29,9 +29,9 @@ function serializeBids(slotName) {
   const bidderPrices = targeting.getBiddersPrices(slotName, false);
 
   return [
+    bidderPrices.bidder_0 || 0, // wikia adapter
     bidderPrices.bidder_1 || 0,
     bidderPrices.bidder_2 || 0,
-    bidderPrices.bidder_3 || 0,
     bidderPrices.bidder_4 || 0,
     bidderPrices.bidder_5 || 0,
     bidderPrices.bidder_6 || 0,
@@ -161,11 +161,11 @@ export const billTheLizardWrapper = {
       if (adSlot.getConfigProperty('cheshireCatSlot')) {
         const callId = getCallId();
 
-        adSlot.btlStatus = getBtlSlotStatus(
+        adSlot.setConfigProperty('btlStatus', getBtlSlotStatus(
           billTheLizard.getResponseStatus(callId),
           callId,
           defaultStatus,
-        );
+        ));
         incontentsCounter += 1;
       }
     });

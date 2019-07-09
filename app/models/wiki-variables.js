@@ -7,6 +7,7 @@ import {
 } from '../utils/errors';
 
 export default EmberObject.extend({
+  fastboot: service(),
   fetchService: service('fetch'),
   wikiUrls: service(),
   tracing: service(),
@@ -25,11 +26,22 @@ export default EmberObject.extend({
 
     const options = this.fetchService.getOptionsForInternalCache(url);
 
+    options.headers = {};
+
     if (accessToken) {
       options.headers = {
         Cookie: `access_token=${accessToken}`,
         'X-Trace-Id': this.tracing.getTraceId(),
       };
+    }
+
+    if (this.get('fastboot.isFastBoot')) {
+      const requestHeaders = this.get('fastboot.request.headers');
+      const stagingHeader = requestHeaders.get('X-Staging');
+
+      if (stagingHeader) {
+        options.headers['X-Staging'] = stagingHeader;
+      }
     }
 
     return fetch(url, options)
