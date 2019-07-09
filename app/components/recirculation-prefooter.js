@@ -57,7 +57,7 @@ export default Component.extend(
         track({
           action: trackActions.impression,
           category: trackingCategory,
-          label: 'footer::' + this.sponsoredItem.url,
+          label: `footer::${this.sponsoredItem.url}`,
         });
       }
     }),
@@ -139,7 +139,7 @@ export default Component.extend(
         track({
           action: trackActions.select,
           category: trackingCategory,
-          label: 'footer::' + sponsoredItem.url,
+          label: `footer::${sponsoredItem.url}`,
         });
       },
     },
