@@ -124,7 +124,7 @@ docker run --rm -v `pwd`:/app -e GITHUB_TOKEN="$GITHUB_TOKEN" -e LOCAL_USER_ID=`
 #### (Re)building the docker image
 Whenever you add a new global dependency you should rebuild your mobile-wiki container. To do that you need to run:
 
-`docker build -f Dockerfile.dev -t artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest  .`
+`docker build -f Dockerfile.devbox -t artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest .`
 
 
 ## See also
