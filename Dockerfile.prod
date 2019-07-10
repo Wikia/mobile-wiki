@@ -55,4 +55,4 @@ RUN npm run linter && \
 EXPOSE 8001 8007
 
 # run fastboot-server when 'docker run' will be called
-ENTRYPOINT ["node", "--max-old-space-size=1700", "fastboot-server/app/server.js"]
+ENTRYPOINT ["node", "--max-old-space-size=1400", "fastboot-server/app/server.js"]
