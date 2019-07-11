@@ -19,9 +19,13 @@ module('Unit | Module | ads | setup', (hooks) => {
         extend: () => {},
         get: () => {},
         push: () => {},
+        set: () => {},
       },
       events,
       eventService,
+      instantConfig: {
+        getConfig: () => Promise.resolve({}),
+      },
       slotTracker: {
         onChangeStatusToTrack: [],
         add: () => window.Wikia.adEngine.slotTracker,
@@ -29,6 +33,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       templateService: {
         register: () => {},
+      },
+      utils: {
+        logger: () => {},
       },
       viewabilityTracker: {
         add: () => window.Wikia.adEngine.slotTracker,
@@ -54,20 +61,18 @@ module('Unit | Module | ads | setup', (hooks) => {
     sinon.restore();
   });
 
-  test('setupAdContext is called when page render event happens', (assert) => {
-    adsSetup.configure();
+  test('setupAdContext is called when page render event happens', async (assert) => {
+    await adsSetup.configure();
 
     const adContext = { a: 'a' };
-    const instantGlobals = { b: 'b' };
 
     window.Wikia.adEngine.eventService.emit(
       events.PAGE_RENDER_EVENT,
-      { adContext, instantGlobals },
+      { adContext },
     );
 
     assert.equal(adsSetup.setupAdContext.callCount, 2);
 
     assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[0], adContext);
-    assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[1], instantGlobals);
   });
 });
