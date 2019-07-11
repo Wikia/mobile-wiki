@@ -18,7 +18,6 @@ class Ads {
   constructor() {
     this.enabled = true;
     this.engine = null;
-    this.instantGlobals = null;
     this.isLoaded = false;
     this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
@@ -133,15 +132,15 @@ class Ads {
 
     const { utils } = window.Wikia.adEngine;
 
-    this.instantGlobals = instantGlobals;
+    this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn)
+      .then(() => {
+        this.triggerAfterPageRenderServices();
 
-    this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn);
-    this.triggerAfterPageRenderServices();
-
-    this.isLoaded = true;
-    utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
-    this.onReadyCallbacks.start();
-    this.readyResolve(Ads.getInstance());
+        this.isLoaded = true;
+        utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
+        this.onReadyCallbacks.start();
+        this.readyResolve(Ads.getInstance());
+      });
   }
 
   /**
@@ -266,18 +265,15 @@ class Ads {
     utils.logger(logGroup, 'on transition');
   }
 
-  afterTransition(mediaWikiAdsContext, instantGlobals) {
+  afterTransition(mediaWikiAdsContext) {
     if (!this.isLoaded) {
       return;
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
 
-    this.instantGlobals = instantGlobals || this.instantGlobals;
-
     eventService.emit(events.PAGE_RENDER_EVENT, {
       adContext: mediaWikiAdsContext,
-      instantGlobals: this.instantGlobals,
     });
 
     this.triggerAfterPageRenderServices();
@@ -293,13 +289,15 @@ class Ads {
     const { eventService } = window.Wikia.adEngine;
     const { browsi, confiant, moatYiEvents } = window.Wikia.adServices;
 
-    adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn);
-    browsi.call();
-    confiant.call();
+    return adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn)
+      .then(() => {
+        browsi.call();
+        confiant.call();
 
-    eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
-      pageTracker.trackProp('moat_yi', data);
-    });
+        eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
+          pageTracker.trackProp('moat_yi', data);
+        });
+      });
   }
 
   /**
