@@ -16,6 +16,7 @@ module('Unit | Module | ads | setup', (hooks) => {
         this.init = () => {};
       },
       context: {
+        extend: () => {},
         get: () => {},
         push: () => {},
       },

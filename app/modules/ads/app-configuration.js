@@ -12,11 +12,11 @@ export default class AppConfiguration {
   }
 
   get(key, defaultValue = null) {
-    if (this.config && this.config.hasOwnProperty(key)) {
+    if (this.config && Object.prototype.hasOwnProperty.call(this.config, key)) {
       return this.config[key];
     }
 
-    if (this.instantGlobals && this.instantGlobals.hasOwnProperty(key)) {
+    if (this.instantGlobals && Object.prototype.hasOwnProperty.call(this.instantGlobals, key)) {
       return this.instantGlobals[key];
     }
 
