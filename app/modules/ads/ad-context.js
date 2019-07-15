@@ -418,6 +418,9 @@ export const defaultAdContext = {
       enabled: false,
       propertyId: 'd-aIf3ibf0cYxCLB1HTWfBQOFEA',
     },
+    instantConfig: {
+      endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
+    },
     krux: {
       enabled: false,
       id: 'JTKzTN3f',

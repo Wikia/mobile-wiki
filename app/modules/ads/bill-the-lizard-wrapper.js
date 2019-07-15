@@ -93,7 +93,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 }
 
 export const billTheLizardWrapper = {
-  configureBillTheLizard(instantGlobals) {
+  configureBillTheLizard(billTheLizardConfig) {
     const {
       context, events, eventService, slotService, utils,
     } = window.Wikia.adEngine;
@@ -112,7 +112,7 @@ export const billTheLizardWrapper = {
       return;
     }
 
-    config = instantGlobals.wgAdDriverBillTheLizardConfig || {};
+    config = billTheLizardConfig;
 
     if (!this.hasAvailableModels(config, 'cheshirecat')) {
       return;
