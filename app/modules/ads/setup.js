@@ -192,7 +192,7 @@ export const adsSetup = {
     if (appConfig.isGeoEnabled('wgAdDriverFloorAdhesionDelayCountries')) {
       context.set(
         'templates.hideOnViewability.additionalHideTime',
-        appConfig.get('wgAdDriverFloorAdhesionDelay') || 0
+        appConfig.get('wgAdDriverFloorAdhesionDelay') || 0,
       );
     }
 
