@@ -189,6 +189,13 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !appConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
 
+    if (appConfig.isGeoEnabled('wgAdDriverFloorAdhesionDelayCountries')) {
+      context.set(
+        'templates.hideOnViewability.additionalHideTime',
+        appConfig.get('wgAdDriverFloorAdhesionDelay') || 0
+      );
+    }
+
     setupPageLevelTargeting(adsContext);
 
     if (adsContext.targeting.wikiIsTop1000) {
