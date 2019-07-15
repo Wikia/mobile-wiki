@@ -148,6 +148,8 @@ export const adsSetup = {
     context.set('options.video.moatTracking.enabled', appConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', appConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
+    context.set('options.gamLazyLoading.enabled', appConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
+
     context.set('options.video.playAdsOnNextVideo', appConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', appConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
     context.set('options.video.isMidrollEnabled', appConfig.isGeoEnabled('wgAdDriverFVMidrollCountries'));
