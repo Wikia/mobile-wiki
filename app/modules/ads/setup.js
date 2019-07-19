@@ -149,6 +149,14 @@ export const adsSetup = {
     context.set('options.video.moatTracking.sampling', appConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
     context.set('options.gamLazyLoading.enabled', appConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
+    if (appConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries')) {
+      context.set(
+        'slots.incontent_boxad_1.defaultClasses',
+        context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
+      );
+      context.set('options.incontentBoxad1EagerLoading', true);
+      context.set('slots.incontent_boxad_1.disablePushOnScroll', true);
+    }
 
     context.set('options.video.playAdsOnNextVideo', appConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', appConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));

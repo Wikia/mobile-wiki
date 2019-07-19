@@ -206,7 +206,7 @@ class Ads {
       insertOnViewportEnter: slotDefinition.insertOnViewportEnter,
       isAboveTheFold: slotDefinition.aboveTheFold,
       name: slotName,
-      hiddenClassName: 'hide',
+      hiddenClassName: (slotName !== 'bottom_leaderboard' && slotName !== 'top_boxad') ? 'hide' : '',
     };
   }
 
