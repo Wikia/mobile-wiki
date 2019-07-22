@@ -154,7 +154,6 @@ export const adsSetup = {
         'slots.incontent_boxad_1.defaultClasses',
         context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
       );
-      context.set('options.incontentBoxad1EagerLoading', true);
       context.set('slots.incontent_boxad_1.disablePushOnScroll', true);
     }
 
