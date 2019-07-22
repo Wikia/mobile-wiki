@@ -171,7 +171,6 @@ export const slots = {
             'targeting.pos': ['incontent_boxad'],
           },
           insertBelowScrollPosition: true,
-          disablePushOnScroll: true,
         },
         slotShortcut: 'f',
         sizes: [
