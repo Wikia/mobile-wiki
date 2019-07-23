@@ -149,13 +149,6 @@ export const adsSetup = {
     context.set('options.video.moatTracking.sampling', appConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
     context.set('options.gamLazyLoading.enabled', appConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
-    if (appConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries')) {
-      context.set(
-        'slots.incontent_boxad_1.defaultClasses',
-        context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
-      );
-      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
-    }
 
     context.set('options.video.playAdsOnNextVideo', appConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', appConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
@@ -316,6 +309,14 @@ export const adsSetup = {
           ].join(','),
         );
       });
+    }
+
+    if (context.get('options.gamLazyLoading.enabled')) {
+      context.set(
+        'slots.incontent_boxad_1.defaultClasses',
+        context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
+      );
+      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
     }
 
     if (context.get('options.useTopBoxad')) {
