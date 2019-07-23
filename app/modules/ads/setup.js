@@ -154,7 +154,7 @@ export const adsSetup = {
         'slots.incontent_boxad_1.defaultClasses',
         context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
       );
-      context.set('slots.incontent_boxad_1.disablePushOnScroll', true);
+      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
     }
 
     context.set('options.video.playAdsOnNextVideo', appConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
