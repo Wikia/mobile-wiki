@@ -198,6 +198,13 @@ export const adsSetup = {
       );
     }
 
+    if (appConfig.isGeoEnabled('wgAdDriverFloorAdhesionTimeoutCountries')) {
+      context.set(
+        'templates.hideOnViewability.timeoutHideTime',
+        appConfig.get('wgAdDriverFloorAdhesionTimeout') || 0,
+      );
+    }
+
     setupPageLevelTargeting(adsContext);
 
     if (adsContext.targeting.wikiIsTop1000) {
