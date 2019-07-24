@@ -311,6 +311,14 @@ export const adsSetup = {
       });
     }
 
+    if (context.get('options.gamLazyLoading.enabled')) {
+      context.set(
+        'slots.incontent_boxad_1.defaultClasses',
+        context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
+      );
+      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
+    }
+
     if (context.get('options.useTopBoxad')) {
       if (context.get('options.incontentBoxad1EagerLoading')) {
         context.set('events.pushAfterCreated.top_boxad', [
