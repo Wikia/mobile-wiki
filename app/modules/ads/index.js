@@ -9,6 +9,7 @@ import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
+import { trackSessionScrollSpeed } from '../../utils/track';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -368,6 +369,7 @@ class Ads {
    */
   triggerPageTracking() {
     scrollTracker.initScrollSpeedTracking();
+    trackSessionScrollSpeed();
     this.trackViewabilityToDW();
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();

@@ -1,8 +1,12 @@
-import { trackScrollY } from '../../../utils/track';
+import {
+  setAverageSessionScrollSpeed,
+  trackScrollY,
+} from '../../../utils/track';
 
 class ScrollTracker {
   constructor() {
     this.scrollSpeedTrackingStarted = false;
+    this.timer = null;
   }
 
   /**
@@ -29,10 +33,20 @@ class ScrollTracker {
     }
 
     const timesToTrack = [0, 2, 4];
+    let startScrollY = 0;
     this.scrollSpeedTrackingStarted = true;
+
     timesToTrack.forEach((time) => {
-      setTimeout(() => {
-        trackScrollY(time);
+      this.timer = setTimeout(() => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        trackScrollY(time, scrollY);
+        if (time === Math.min(...timesToTrack)) {
+          startScrollY = scrollY;
+        }
+        if (time === Math.max(...timesToTrack)) {
+          const newSpeedRecord = scrollY - startScrollY;
+          setAverageSessionScrollSpeed(newSpeedRecord);
+        }
       }, time * 1000);
     });
   }
@@ -42,6 +56,7 @@ class ScrollTracker {
    */
   resetScrollSpeedTracking() {
     const applicationArea = document.getElementsByClassName('application-wrapper')[0];
+    clearTimeout(this.timer);
     applicationArea.removeEventListener('touchstart', () => this.trackScrollSpeedToDW());
   }
 }
