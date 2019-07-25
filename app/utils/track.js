@@ -1,5 +1,6 @@
 /* eslint import/no-cycle: 0 */
 import { getGroup } from '../modules/abtest';
+import { pageTracker } from "../modules/ads/tracking/page-tracker";
 
 /**
   * @typedef {Object} TrackContext
@@ -242,11 +243,7 @@ export function setAverageSessionScrollSpeed(newSpeedRecord) {
  */
 export function trackSessionScrollSpeed() {
   const scrollSpeed = getAverageSessionScrollSpeed();
-  track({
-    action: 'scroll',
-    category: 'session_scroll_speed',
-    label: `${scrollSpeed}`,
-  });
+  pageTracker.trackProp('session_scroll_speed', scrollSpeed);
 }
 
 /**
