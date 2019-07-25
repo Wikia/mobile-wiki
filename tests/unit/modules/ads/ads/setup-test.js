@@ -23,7 +23,7 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       events,
       eventService,
-      instantConfig: {
+      instantConfigLoader: {
         getConfig: () => Promise.resolve({}),
       },
       slotTracker: {

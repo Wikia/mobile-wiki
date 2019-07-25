@@ -1,10 +1,10 @@
 export default class AppConfiguration {
   load(instantGlobals = {}) {
-    const { instantConfig } = window.Wikia.adEngine;
+    const { instantConfigLoader } = window.Wikia.adEngine;
 
     this.instantGlobals = instantGlobals;
 
-    return instantConfig.getConfig().then((config) => {
+    return instantConfigLoader.getConfig().then((config) => {
       this.config = config;
 
       return config;
