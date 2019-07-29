@@ -379,26 +379,13 @@ class Ads {
    * @private
    */
   trackViewabilityToDW() {
-    const { events, eventService } = window.Wikia.adEngine;
     const { viewabilityCounter } = window.Wikia.adServices;
 
     pageTracker.trackProp('session_viewability_all', viewabilityCounter.getViewability());
     pageTracker.trackProp('session_viewability_tb', viewabilityCounter.getViewability('top_leaderboard'));
     pageTracker.trackProp('session_viewability_icb', viewabilityCounter.getViewability('incontent_boxad'));
 
-    eventService.on(events.AD_SLOT_CREATED, (slot) => {
-      const slotName = slot.getSlotName().substring(0, 16) === 'incontent_boxad_'
-        ? 'incontent_boxad'
-        : slot.getSlotName();
-
-      slot.loaded.then(() => {
-        viewabilityCounter.updateStatus('loaded', slotName);
-      });
-
-      slot.viewed.then(() => {
-        viewabilityCounter.updateStatus('viewed', slotName);
-      });
-    });
+    viewabilityCounter.init();
   }
 
   /**
