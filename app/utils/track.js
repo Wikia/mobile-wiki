@@ -1,6 +1,6 @@
 /* eslint import/no-cycle: 0 */
 import { getGroup } from '../modules/abtest';
-import { pageTracker } from "../modules/ads/tracking/page-tracker";
+import { pageTracker } from '../modules/ads/tracking/page-tracker';
 
 /**
   * @typedef {Object} TrackContext
@@ -201,6 +201,7 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 /**
  * Tracks scrollY position at given time
  * @param {number} time
+ * @param {number} scrollY
  */
 export function trackScrollY(time, scrollY) {
   track({
@@ -211,38 +212,12 @@ export function trackScrollY(time, scrollY) {
 }
 
 /**
- * Takes average scroll speed from session, default: 0
- */
-function getAverageSessionScrollSpeed() {
-  const sessionScrollSpeed = window.sessionStorage.getItem('averageScrollSpeed') || '0';
-  return parseInt(sessionScrollSpeed, 10);
-}
-
-/**
- * Takes number of pageviews where it was possible to count scroll speed
- */
-function getCurrentValidScrollSpeedPageViews() {
-  const pageViews = window.sessionStorage.getItem('validScrollSpeedPageViews') || '0';
-  return parseInt(pageViews, 10);
-}
-
-/**
- * Set calculate average scroll speed during session
- */
-export function setAverageSessionScrollSpeed(newSpeedRecord) {
-  const scrollSpeed = getAverageSessionScrollSpeed();
-  const pageViews = getCurrentValidScrollSpeedPageViews();
-  const newScrollSpeed = (scrollSpeed * pageViews + newSpeedRecord) / (pageViews + 1);
-
-  window.sessionStorage.setItem('averageScrollSpeed', Math.round(newScrollSpeed).toString());
-  window.sessionStorage.setItem('validScrollSpeedPageViews', (pageViews + 1).toString());
-}
-
-/**
  * Tracks average session scroll speed
  */
 export function trackSessionScrollSpeed() {
-  const scrollSpeed = getAverageSessionScrollSpeed();
+  const { scrollSpeedCalculator } = window.Wikia.adServices;
+  const scrollSpeed = scrollSpeedCalculator.getAverageSessionScrollSpeed();
+
   pageTracker.trackProp('session_scroll_speed', scrollSpeed);
 }
 

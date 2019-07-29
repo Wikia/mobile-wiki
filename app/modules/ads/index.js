@@ -4,12 +4,11 @@ import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
-import { scrollTracker } from './tracking/scroll-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
-import { trackSessionScrollSpeed } from '../../utils/track';
+import { trackScrollY, trackSessionScrollSpeed } from '../../utils/track';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -243,13 +242,12 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
+    const { scrollTracker } = window.Wikia.adServices;
 
     this.triggerBeforePageChangeServices();
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
-
-    scrollTracker.resetScrollSpeedTracking();
-
+    scrollTracker.resetScrollSpeedTracking('application-wrapper');
     utils.logger(logGroup, 'before transition');
   }
 
@@ -368,9 +366,9 @@ class Ads {
    * @private
    */
   triggerPageTracking() {
-    scrollTracker.initScrollSpeedTracking();
     trackSessionScrollSpeed();
     this.trackViewabilityToDW();
+    this.initScrollSpeedTracking();
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
@@ -455,6 +453,21 @@ class Ads {
       pageTracker.trackProp('connection', data.join(';'));
       utils.logger(logGroup, 'connection', data);
     }
+  }
+
+  /**
+   * @private
+   */
+  initScrollSpeedTracking() {
+    const { events } = window.Wikia.adEngine;
+    const { scrollTracker, eventService } = window.Wikia.adServices;
+
+    scrollTracker.initScrollSpeedTracking('application-wrapper');
+    trackSessionScrollSpeed();
+
+    eventService.on(events.TRACK_SCROLL_Y, (time, position) => {
+      trackScrollY(time, position);
+    });
   }
 
   onMenuOpen() {
