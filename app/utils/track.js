@@ -1,6 +1,5 @@
 /* eslint import/no-cycle: 0 */
 import { getGroup } from '../modules/abtest';
-import { pageTracker } from '../modules/ads/tracking/page-tracker';
 
 /**
   * @typedef {Object} TrackContext
@@ -209,16 +208,6 @@ export function trackScrollY(time, scrollY) {
     category: 'scroll_speed',
     label: `${time}s|${scrollY}`,
   });
-}
-
-/**
- * Tracks average session scroll speed
- */
-export function trackSessionScrollSpeed() {
-  const { scrollSpeedCalculator } = window.Wikia.adServices;
-  const scrollSpeed = scrollSpeedCalculator.getAverageSessionScrollSpeed();
-
-  pageTracker.trackProp('session_scroll_speed', scrollSpeed);
 }
 
 /**

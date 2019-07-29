@@ -8,7 +8,7 @@ import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
-import { trackScrollY, trackSessionScrollSpeed } from '../../utils/track';
+import { trackScrollY } from '../../utils/track';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -463,11 +463,21 @@ class Ads {
     const { scrollTracker, eventService } = window.Wikia.adServices;
 
     scrollTracker.initScrollSpeedTracking('application-wrapper');
-    trackSessionScrollSpeed();
+    this.trackSessionScrollSpeed();
 
     eventService.on(events.TRACK_SCROLL_Y, (time, position) => {
       trackScrollY(time, position);
     });
+  }
+
+  /**
+   * Tracks average session scroll speed
+   */
+  trackSessionScrollSpeed() {
+    const { scrollSpeedCalculator } = window.Wikia.adServices;
+    const scrollSpeed = scrollSpeedCalculator.getAverageSessionScrollSpeed();
+
+    pageTracker.trackProp('session_scroll_speed', scrollSpeed);
   }
 
   onMenuOpen() {
