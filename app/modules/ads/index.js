@@ -230,10 +230,14 @@ class Ads {
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
+    const { events } = window.Wikia.adEngine;
     const { eventService } = window.Wikia.adEngine;
 
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
+    eventService.on(events.TRACK_SCROLL_Y, (time, position) => {
+      trackScrollY(time, position);
+    });
   }
 
   beforeTransition() {
@@ -459,15 +463,10 @@ class Ads {
    * @private
    */
   initScrollSpeedTracking() {
-    const { events } = window.Wikia.adEngine;
-    const { scrollTracker, eventService } = window.Wikia.adServices;
+    const { scrollTracker } = window.Wikia.adServices;
 
     scrollTracker.initScrollSpeedTracking('application-wrapper');
     this.trackSessionScrollSpeed();
-
-    eventService.on(events.TRACK_SCROLL_Y, (time, position) => {
-      trackScrollY(time, position);
-    });
   }
 
   /**
