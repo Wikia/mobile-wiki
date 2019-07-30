@@ -66,6 +66,7 @@ module.exports = function (defaults) {
       remove: false,
     },
     fingerprint: {
+      generateAssetMap: true,
       exclude: ['app.css'],
       extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
       replaceExtensions: ['html', 'css', 'js', 'hbs'],
