@@ -382,7 +382,7 @@ class Ads {
     const { viewabilityCounter } = window.Wikia.adServices;
 
     pageTracker.trackProp('session_viewability_all', viewabilityCounter.getViewability());
-    pageTracker.trackProp('session_viewability_tb', viewabilityCounter.getViewability('top_leaderboard'));
+    pageTracker.trackProp('session_viewability_tb', viewabilityCounter.getViewability('top_boxad'));
     pageTracker.trackProp('session_viewability_icb', viewabilityCounter.getViewability('incontent_boxad'));
 
     viewabilityCounter.init();
