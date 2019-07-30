@@ -241,6 +241,9 @@ module('Unit | Model | search result page', (hooks) => {
     const search = model.create({
       wikiVariables: {
         host: 'fallout.wikia.com',
+        language: {
+          content: "en",
+        }
       },
       totalBatches: 2,
       query: 'testQuery',
