@@ -23,8 +23,11 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       events,
       eventService,
-      instantConfigLoader: {
-        getConfig: () => Promise.resolve({}),
+      InstantConfigService: {
+        init: (globals = {}) => Promise.resolve({
+          get: key => globals[key],
+          isGeoEnabled: () => undefined,
+        }),
       },
       slotTracker: {
         onChangeStatusToTrack: [],
@@ -73,6 +76,6 @@ module('Unit | Module | ads | setup', (hooks) => {
 
     assert.equal(adsSetup.setupAdContext.callCount, 2);
 
-    assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[0], adContext);
+    assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[1], adContext);
   });
 });
