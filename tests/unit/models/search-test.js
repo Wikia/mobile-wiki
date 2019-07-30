@@ -32,25 +32,27 @@ module('Unit | Model | search result page', (hooks) => {
     const cases = [
       {
         mock: {
-          total: 1,
-          batches: 1,
+          totalResultsFound: 1,
+          paging: {
+            total: 1
+          },
           items: [
             {
-              id: 123,
+              pageId: 123,
               title: 'test',
-              snippet: '<div>html</div>test',
+              content: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test',
             },
             {
-              id: 124,
+              pageId: 124,
               title: 'test sub dir',
-              snippet: '<div>html</div>test',
+              content: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test/1',
             },
             {
-              id: 125,
+              pageId: 125,
               title: 'test not canonical',
-              snippet: '<div>html</div>test',
+              content: '<div>html</div>test',
               url: 'http://test.wikia.com/test_2',
             },
           ],
@@ -94,16 +96,20 @@ module('Unit | Model | search result page', (hooks) => {
     const cases = [
       {
         mock: {
-          total: 0,
-          batches: 1,
+          totalResultsFound: 1,
+          paging: {
+            total: 1
+          },
           items: [],
         },
         expected: false,
       },
       {
         mock: {
-          total: 0,
-          batches: 2,
+          totalResultsFound: 1,
+          paging: {
+            total: 2
+          },
           items: [],
         },
         expected: true,
@@ -124,22 +130,24 @@ module('Unit | Model | search result page', (hooks) => {
     search.fetchResults = sinon.stub();
 
     search.update({
-      total: 1,
-      batches: 1,
+      totalResultsFound: 1,
+      paging: {
+        total: 1
+      },
       items: [
         {
           title: 'test',
-          snippet: '<div>html</div>test',
+          content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
         },
         {
           title: 'test sub dir',
-          snippet: '<div>html</div>test',
+          content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test/1',
         },
         {
           title: 'test not canonical',
-          snippet: '<div>html</div>test',
+          content: '<div>html</div>test',
           url: 'http://test.wikia.com/test_2',
         },
       ],
@@ -153,13 +161,15 @@ module('Unit | Model | search result page', (hooks) => {
     const search = getContext().owner.lookup('model:search');
 
     search.update({
-      total: 3,
-      batches: 1,
+      totalResultsFound: 3,
+      paging: {
+        total: 1
+      },
       items: [
         {
           id: 123,
           title: '1',
-          snippet: '<div>html</div>test',
+          content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
         },
       ],
@@ -175,19 +185,21 @@ module('Unit | Model | search result page', (hooks) => {
     ]);
 
     search.update({
-      total: 3,
-      batches: 2,
+      totalResultsFound: 3,
+      paging: {
+        total: 2
+      },
       items: [
         {
           id: 124,
           title: '2',
-          snippet: '<div>html</div>test',
+          content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test/1',
         },
         {
           id: 125,
           title: '3',
-          snippet: '<div>html</div>test',
+          content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test_2',
         },
       ],
