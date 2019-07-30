@@ -242,8 +242,8 @@ module('Unit | Model | search result page', (hooks) => {
       wikiVariables: {
         host: 'fallout.wikia.com',
         language: {
-          content: "en",
-        }
+          content: 'en',
+        },
       },
       totalBatches: 2,
       query: 'testQuery',
