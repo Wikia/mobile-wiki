@@ -61,7 +61,7 @@ export default EmberObject.extend({
     });
 
     const queryParams = {
-      query: query,
+      query,
       page: this.batch,
       lang: this.wikiVariables.language.content,
       namespace: 0,
@@ -69,17 +69,20 @@ export default EmberObject.extend({
       wikiId: this.wikiVariables.id,
     };
 
-    const options = {
-      headers: {
-        'X-Trace-Id': this.tracing.getTraceId(),
-      },
-    };
-
     const queryString = getQueryString(queryParams);
 
-    return this.fetchService.fetchFromUnifiedSearch(`/page-search${queryString}`, options)
-      .then((data) => {
-        return this.update(data);
+    return this.fetchService.fetchFromUnifiedSearch(`/page-search${queryString}`)
+      .then(data => this.update(data))
+      .catch((e) => {
+        this.setProperties({
+          error: 'search-error-general',
+          erroneousQuery: query,
+          loading: false,
+        });
+
+        this.logger.error('Search request error', e);
+
+        return this;
       });
   },
 
@@ -87,17 +90,17 @@ export default EmberObject.extend({
     const currentSize = this.items ? this.items.length : 0;
 
     this.setProperties({
-        items: this.items.concat(state.results.map((item, index) => ({
-          id: item.pageId,
-          position: currentSize + index,
-          title: item.title,
-          snippet: htmlSafe(item.content),
-          prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
-        }))),
-        loading: false,
-        totalItems: state.totalResultsFound,
-        totalBatches: state.paging.total,
-      });
+      items: this.items.concat(state.results.map((item, index) => ({
+        id: item.pageId,
+        position: currentSize + index,
+        title: item.title,
+        snippet: htmlSafe(item.content),
+        prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
+      }))),
+      loading: false,
+      totalItems: state.totalResultsFound,
+      totalBatches: state.paging.total,
+    });
 
     return this;
   },
