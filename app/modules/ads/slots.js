@@ -224,6 +224,7 @@ export const slots = {
       floor_adhesion: {
         adProduct: 'floor_adhesion',
         disabled: true,
+        defaultClasses: ['hide'],
         forceSafeFrame: true,
         slotNameSuffix: '',
         group: 'PF',
@@ -268,6 +269,7 @@ export const slots = {
       invisible_high_impact_2: {
         adProduct: 'invisible_high_impact_2',
         slotNameSuffix: '',
+        defaultClasses: ['hide'],
         group: 'PX',
         options: {},
         outOfPage: true,
