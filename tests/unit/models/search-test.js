@@ -34,9 +34,9 @@ module('Unit | Model | search result page', (hooks) => {
         mock: {
           totalResultsFound: 1,
           paging: {
-            total: 1
+            total: 1,
           },
-          items: [
+          results: [
             {
               pageId: 123,
               title: 'test',
@@ -98,9 +98,9 @@ module('Unit | Model | search result page', (hooks) => {
         mock: {
           totalResultsFound: 1,
           paging: {
-            total: 1
+            total: 1,
           },
-          items: [],
+          results: [],
         },
         expected: false,
       },
@@ -108,9 +108,9 @@ module('Unit | Model | search result page', (hooks) => {
         mock: {
           totalResultsFound: 1,
           paging: {
-            total: 2
+            total: 2,
           },
-          items: [],
+          results: [],
         },
         expected: true,
       },
@@ -132,9 +132,9 @@ module('Unit | Model | search result page', (hooks) => {
     search.update({
       totalResultsFound: 1,
       paging: {
-        total: 1
+        total: 1,
       },
-      items: [
+      results: [
         {
           title: 'test',
           content: '<div>html</div>test',
@@ -163,9 +163,9 @@ module('Unit | Model | search result page', (hooks) => {
     search.update({
       totalResultsFound: 3,
       paging: {
-        total: 1
+        total: 1,
       },
-      items: [
+      results: [
         {
           id: 123,
           title: '1',
@@ -187,9 +187,9 @@ module('Unit | Model | search result page', (hooks) => {
     search.update({
       totalResultsFound: 3,
       paging: {
-        total: 2
+        total: 2,
       },
-      items: [
+      results: [
         {
           id: 124,
           title: '2',
