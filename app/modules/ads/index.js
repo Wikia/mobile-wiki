@@ -235,7 +235,7 @@ class Ads {
 
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
-    eventService.on(events.TRACK_SCROLL_Y, (time, position) => {
+    eventService.on(events.SCROLL_TRACKING_TIME_CHANGED, (time, position) => {
       trackScrollY(time, position);
     });
   }
@@ -251,7 +251,7 @@ class Ads {
     this.triggerBeforePageChangeServices();
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
-    scrollTracker.resetScrollSpeedTracking('application-wrapper');
+    scrollTracker.resetScrollSpeedTracking();
     utils.logger(logGroup, 'before transition');
   }
 
