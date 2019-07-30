@@ -167,7 +167,7 @@ module('Unit | Model | search result page', (hooks) => {
       },
       results: [
         {
-          id: 123,
+          pageId: 123,
           title: '1',
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
@@ -191,13 +191,13 @@ module('Unit | Model | search result page', (hooks) => {
       },
       results: [
         {
-          id: 124,
+          pageId: 124,
           title: '2',
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test/1',
         },
         {
-          id: 125,
+          pageId: 125,
           title: '3',
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test_2',
