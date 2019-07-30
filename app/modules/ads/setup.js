@@ -198,6 +198,13 @@ export const adsSetup = {
       );
     }
 
+    if (appConfig.isGeoEnabled('wgAdDriverFloorAdhesionTimeoutCountries')) {
+      context.set(
+        'templates.hideOnViewability.timeoutHideTime',
+        appConfig.get('wgAdDriverFloorAdhesionTimeout') || 0,
+      );
+    }
+
     setupPageLevelTargeting(adsContext);
 
     if (adsContext.targeting.wikiIsTop1000) {
@@ -309,6 +316,14 @@ export const adsSetup = {
           ].join(','),
         );
       });
+    }
+
+    if (context.get('options.gamLazyLoading.enabled')) {
+      context.set(
+        'slots.incontent_boxad_1.defaultClasses',
+        context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
+      );
+      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
     }
 
     if (context.get('options.useTopBoxad')) {
