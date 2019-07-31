@@ -305,11 +305,11 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { utils } = window.Wikia.adEngine;
+    const { sessionCookie, utils } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
     utils.geoService.resetSamplingCache();
-    utils.geoService.readSessionId();
+    sessionCookie.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     billTheLizardWrapper.reset();
