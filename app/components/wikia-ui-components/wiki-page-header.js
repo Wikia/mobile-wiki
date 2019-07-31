@@ -15,6 +15,7 @@
 */
 
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { track, trackActions } from '../../utils/track';
@@ -23,11 +24,23 @@ export default Component.extend(
   {
     lightbox: service(),
     wikiVariables: service(),
+    wikiUrls: service(),
     classNames: ['wiki-page-header'],
     classNameBindings: ['heroImage:has-hero-image'],
     isMainPage: false,
     siteName: reads('wikiVariables.siteName'),
     mainPageTitle: reads('wikiVariables.mainPageTitle'),
+    editUrl: computed('wikiVariables.host', 'title', function() {
+      return this.wikiUrls.build({
+        host: this.get('wikiVariables.host'),
+        forceNoSSLOnServerSide: true,
+        path: '/wiki/Special:MobileVisualEditor',
+        query: {
+          page: this.title,
+          useskin: 'oasis',
+        },
+      });
+    }),
 
     actions: {
       trackClick() {

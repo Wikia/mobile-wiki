@@ -21,6 +21,11 @@
     }
   }
 
+  &__edit-link {
+    color: $wds-fandom-color-link;
+    display: block;
+  }
+
   &__title {
     word-break: break-word;
   }
