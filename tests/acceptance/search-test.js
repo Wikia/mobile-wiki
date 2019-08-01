@@ -10,6 +10,7 @@ import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 import mockSearchTracking from '../helpers/mock-search-tracking';
 import mockSearchPageAdsContext from '../helpers/mock-search-page-ads-context';
+import mockUnifiedSearchResponse from '../helpers/mock-unified-search-response';
 
 module('Acceptance | search', (hooks) => {
   setupApplicationTest(hooks);
@@ -29,6 +30,7 @@ module('Acceptance | search', (hooks) => {
     mockFastlyInsights(this.owner);
     mockSearchTracking();
     mockSearchPageAdsContext(this.owner);
+    mockUnifiedSearchResponse(this.owner);
   });
 
   hooks.afterEach(() => {
@@ -55,7 +57,7 @@ module('Acceptance | search', (hooks) => {
 
     assert.dom('.wikia-card').exists({ count: 4 });
     assert.dom('.wikia-card__title').hasText(
-      'Result 1',
+      'Destiny',
       'First title is correctly displayed',
     );
   });
