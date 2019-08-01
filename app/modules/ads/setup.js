@@ -25,22 +25,6 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
   });
 }
 
-function setUpGeoData() {
-  const { context } = window.Wikia.adEngine;
-  const jsonData = decodeURIComponent(Cookies.get('Geo'));
-  let geoData = {};
-
-  try {
-    geoData = JSON.parse(jsonData) || {};
-  } catch (e) {
-    // Stay with {} value
-  }
-
-  context.set('geo.region', geoData.region);
-  context.set('geo.country', geoData.country);
-  context.set('geo.continent', geoData.continent);
-}
-
 export const adsSetup = {
   /**
    * Configures all ads services
@@ -108,7 +92,7 @@ export const adsSetup = {
   setupAdContext(adsContext, isOptedIn = false) {
     const { context, utils } = window.Wikia.adEngine;
 
-    setUpGeoData();
+    utils.geoService.setUpGeoData();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
