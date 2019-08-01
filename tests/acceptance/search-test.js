@@ -7,6 +7,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import { mockAdsService, adEngineMock, getAdsModuleMock } from '../helpers/mock-ads-service';
 import mockFastbootService from '../helpers/mock-fastboot-service';
+import mockRuntimeConfigService from '../helpers/mock-runtime-config-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 import mockSearchTracking from '../helpers/mock-search-tracking';
 import mockSearchPageAdsContext from '../helpers/mock-search-page-ads-context';
@@ -29,6 +30,7 @@ module('Acceptance | search', (hooks) => {
     mockFastlyInsights(this.owner);
     mockSearchTracking();
     mockSearchPageAdsContext(this.owner);
+    mockRuntimeConfigService(this.owner);
   });
 
   hooks.afterEach(() => {
