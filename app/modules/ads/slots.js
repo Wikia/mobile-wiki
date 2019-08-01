@@ -155,6 +155,7 @@ export const slots = {
         adProduct: 'incontent_boxad_1',
         avoidConflictWith: '.ad-slot,#incontent_player',
         bidderAlias: 'mobile_in_content',
+        viewabilityCounterId: 'incontent_boxad',
         cheshireCatSlot: true,
         defaultClasses: ['hide', 'incontent-boxad', 'ad-slot'],
         slotNameSuffix: '',

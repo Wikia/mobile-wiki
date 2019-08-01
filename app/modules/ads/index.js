@@ -305,11 +305,11 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { utils } = window.Wikia.adEngine;
+    const { sessionCookie, utils } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
     utils.geoService.resetSamplingCache();
-    utils.geoService.readSessionId();
+    sessionCookie.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     billTheLizardWrapper.reset();
@@ -368,10 +368,24 @@ class Ads {
    */
   triggerPageTracking() {
     scrollTracker.initScrollSpeedTracking();
+    this.trackViewabilityToDW();
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
     this.trackConnectionToDW();
+  }
+
+  /**
+   * @private
+   */
+  trackViewabilityToDW() {
+    const { viewabilityCounter } = window.Wikia.adServices;
+
+    pageTracker.trackProp('session_viewability_all', viewabilityCounter.getViewability());
+    pageTracker.trackProp('session_viewability_tb', viewabilityCounter.getViewability('top_boxad'));
+    pageTracker.trackProp('session_viewability_icb', viewabilityCounter.getViewability('incontent_boxad'));
+
+    viewabilityCounter.init();
   }
 
   /**
