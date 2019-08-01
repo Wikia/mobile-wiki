@@ -45,23 +45,18 @@
         registerEvent: () => {},
         on: () => {},
       },
+      geoCacheStorage: {
+        getSamplingResults: () => [],
+      },
       utils: {
         client: {
           checkBlocking: () => {},
         },
         geoService: {
-          getSamplingResults: () => [],
+          getCountryCode: () => false,
         },
         logger: () => {},
       },
-    },
-    adProducts: {
-      utils: {
-        geoService: {
-          getSamplingResults: () => [],
-          getCountryCode: () => false
-        }
-      }
     },
     adServices: {
      nielsen: {

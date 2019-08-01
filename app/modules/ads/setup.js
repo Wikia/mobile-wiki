@@ -107,7 +107,7 @@ export const adsSetup = {
   },
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
-    const { context, utils } = window.Wikia.adEngine;
+    const { context, utils, geoCacheStorage } = window.Wikia.adEngine;
 
     setUpGeoData();
 
@@ -352,7 +352,7 @@ export const adsSetup = {
     context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
     // Need to be placed always after all lABrador wgVars checks
-    context.set('targeting.labrador', utils.geoService.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
+    context.set('targeting.labrador', geoCacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
 
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
