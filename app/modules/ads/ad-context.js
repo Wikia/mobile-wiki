@@ -455,6 +455,10 @@ export const defaultAdContext = {
         sampling: 0,
       },
     },
+    viewabilityCounter: {
+      enabled: true,
+      ignoredSlots: ['featured', 'incontent_player', 'video'],
+    },
   },
 };
 
