@@ -12,7 +12,7 @@ export default Controller.extend(
     logger: service(),
     wikiVariables: service(),
 
-    queryParams: ['file',
+    queryParams: ['file', 'theme',
       {
         noAds: 'noads',
       },

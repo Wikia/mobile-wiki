@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { bool, readOnly } from '@ember/object/computed';
+import { bool, equal, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
 import { track } from '../utils/track';
@@ -40,9 +40,10 @@ export default Component.extend({
     'isCustomSmartBannerVisible:with-smart-banner',
     'bfaaTemplate',
     'fullPage:is-full-page',
+    'isDarkTheme',
   ],
   scrollLocation: null,
-
+  isDarkTheme: equal('theme', 'dark'),
   smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
   shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
