@@ -55,7 +55,7 @@ module('Acceptance | search', (hooks) => {
 
     assert.dom('.wikia-card').exists({ count: 4 });
     assert.dom('.wikia-card__title').hasText(
-      'Result 1',
+      'Destiny',
       'First title is correctly displayed',
     );
   });

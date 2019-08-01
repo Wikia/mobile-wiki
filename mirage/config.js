@@ -104,13 +104,10 @@ export default function () {
       }
     }
 
-    if (controller === 'SearchApi' && method === 'getList') {
-      return schema.searches.first();
-    }
-
     throw new Error('Controller or method response isn\'t yet mocked');
   });
 
   this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => jwplayerVideoFixture);
   this.get('/wiki-recommendations/**', () => []);
+  this.get('/unified-search/page-search', schema => schema.searches.first());
 }
