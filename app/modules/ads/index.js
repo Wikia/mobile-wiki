@@ -370,7 +370,6 @@ class Ads {
    * @private
    */
   triggerPageTracking() {
-    trackSessionScrollSpeed();
     this.trackViewabilityToDW();
     this.initScrollSpeedTracking();
     this.trackLabradorToDW();
