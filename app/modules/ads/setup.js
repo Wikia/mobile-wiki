@@ -319,6 +319,8 @@ export const adsSetup = {
     }
 
     if (context.get('options.gamLazyLoading.enabled')) {
+      context.set('options.useTopBoxad', true);
+      context.set('options.incontentBoxad1EagerLoading', true);
       context.set(
         'slots.incontent_boxad_1.defaultClasses',
         context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
