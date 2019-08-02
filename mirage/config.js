@@ -26,6 +26,7 @@ export default function () {
   // We have /front/main/assets prefix hardcoded in route and testem use /assets
   // This is a quick (hopefully temporary) fix
   this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});
+  this.get('http://services.test/unified-search/page-search', schema => schema.searches.first());
 
   this.get('/wikia.php', (schema, request) => {
     const { controller, method, title } = request.queryParams;
@@ -109,5 +110,4 @@ export default function () {
 
   this.get('https://cdn.jwplayer.com/v2/media/3D92mQ7n', () => jwplayerVideoFixture);
   this.get('/wiki-recommendations/**', () => []);
-  this.get('/unified-search/page-search', schema => schema.searches.first());
 }
