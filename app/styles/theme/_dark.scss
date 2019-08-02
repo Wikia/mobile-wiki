@@ -1,0 +1,53 @@
+$background-color: #161616;
+$text-color: #e1e1e1;
+$header-highlight-color: #00cdd0;
+$link-color: #00cdd0;
+$table-border-color: #7e7e7e;
+$table-background-color: #2b2b2b;
+$table-header-background-color: #5f7a7b;
+
+.is-dark-theme {
+  background: $background-color;
+  color: $text-color;
+
+  // Needed to override white margin background on body
+  margin-top: -16px;
+  padding-top: 16px;
+
+  .pi {
+    background-color: $background-color;
+  }
+
+  .pi-expand-button {
+    background: $background-color;
+  }
+
+  h1 {
+    color: $text-color;
+  }
+
+  .article {
+    a {
+      color: $link-color;
+    }
+  }
+
+  .wds-midlight-aqua {
+    background-image: linear-gradient(to top, rgba($header-highlight-color, .25) 54%, transparent 54%, transparent 100%);
+  }
+
+  .article-table-wrapper {
+    th {
+      background: $table-header-background-color;
+      border-bottom-color: $table-border-color;
+
+      &:not(:last-child) {
+        border-right-color: $table-border-color;
+      }
+    }
+
+    td {
+      background: $table-background-color;
+    }
+  }
+}
