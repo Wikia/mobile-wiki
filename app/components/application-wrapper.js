@@ -43,7 +43,6 @@ export default Component.extend({
     'isDarkTheme',
   ],
   scrollLocation: null,
-  isDarkTheme: equal('theme', 'dark'),
   smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
   shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
