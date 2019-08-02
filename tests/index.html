@@ -47,6 +47,14 @@
       },
       geoCacheStorage: {
         getSamplingResults: () => [],
+        mapSamplingResults: () => [],
+        resetCache: () => undefined,
+      },
+      InstantConfigService: {
+        init: (globals = {}) => Promise.resolve({
+          get: key => globals[key],
+          isGeoEnabled: () => undefined,
+        }),
       },
       utils: {
         client: {
