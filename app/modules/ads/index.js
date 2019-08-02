@@ -305,7 +305,7 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { sessionCookie, utils, geoCacheStorage } = window.Wikia.adEngine;
+    const { sessionCookie, geoCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
     geoCacheStorage.resetCache();
