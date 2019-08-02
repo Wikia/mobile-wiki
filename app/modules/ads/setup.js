@@ -1,5 +1,4 @@
 /* eslint no-console: 0 */
-import * as Cookies from 'js-cookie';
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
 import { appConfig } from './app-configuration';
