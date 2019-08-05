@@ -23,6 +23,8 @@ export default Mixin.create({
   */
   setStaticHeadTags(noExternals) {
     const model = this.modelFor('application');
+    const isDarkTheme = this.get('fastboot.request.queryParams.theme') === 'dark';
+    const isMobileApp = !!this.get('fastboot.request.queryParams.mobile-app');
 
     if (!model) {
       return;
@@ -37,6 +39,7 @@ export default Mixin.create({
       noExternals,
       facebookAppId: config.APP.facebook.appId,
       lazyCss: !this.get('fastboot.isFastBoot'),
+      shouldLoadDarkCss: isMobileApp && isDarkTheme,
       twitterSite: model.wikiVariables.twitterAccount || '@getfandom',
     });
   },
