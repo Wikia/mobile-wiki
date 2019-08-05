@@ -32,12 +32,21 @@
 
     </div>
     {{ads/search-incontent-native}}
-    {{wikia-ui-components/wikia-card-list
-      items=model.items
-      trackingCategory="search-page"
-      trackingLabel="search-result"
-      itemClick=(action "onResultClick")
-    }}
+    {{#if model.isInteralScope }}
+        {{wikia-ui-components/wikia-card-list
+          items=model.items
+          trackingCategory="search-page"
+          trackingLabel="search-result"
+          itemClick=(action "onResultClick")
+        }}
+    {{else}}
+        {{wikia-ui-components/wikia-card-crosswiki-list
+          items=model.items
+          trackingCategory="search-page"
+          trackingLabel="search-result"
+          itemClick=(action "onResultClick")
+        }}
+    {{/if }}
   {{else if notFoundError}}
     {{ads/search-incontent-native}}
     {{#wikia-ui-components/error-info}}
