@@ -3,6 +3,7 @@ import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
+import {equal} from "@ember/object/computed";
 
 export default EmberObject.extend({
   batch: 1,
@@ -18,6 +19,8 @@ export default EmberObject.extend({
   wikiUrls: service(),
   fetchService: service('fetch'),
   tracing: service(),
+  scope: 'internal',
+  isInteralScope: equal('scope', 'internal'),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
     return this.batch < this.totalBatches;
@@ -66,8 +69,11 @@ export default EmberObject.extend({
       lang: this.wikiVariables.language.content,
       namespace: 0,
       limit: 25,
-      wikiId: this.wikiVariables.id,
     };
+
+    if (this.get('scope') === 'internal') {
+      queryParams.wikiId = this.wikiVariables.id;
+    }
 
     const queryString = getQueryString(queryParams);
 
@@ -103,5 +109,11 @@ export default EmberObject.extend({
     });
 
     return this;
+  },
+
+  changeScope(newScope) {
+    this.set('scope', newScope);
+
+    this.search(this.query);
   },
 });

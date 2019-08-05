@@ -1,13 +1,29 @@
-.search-results__total {
-  padding: 20px 12px 0;
-}
+.search-results {
 
-.search-results__load-more-wrapper {
-  padding: 0 12px 20px;
-  text-align: center;
+  .wds-dropdown {
+    float: right;
+    padding-left: 10px;
+    border-left: 1px solid black;
 
-  .wds-button {
-    box-sizing: border-box;
-    width: 100%;
+    &__toggle > span {
+      padding-right: 5px;
+    }
   }
+
+  &__total {
+    padding: 20px 12px 0;
+    height: 42px;
+    line-height: 26px;
+  }
+
+  &__load-more-wrapper {
+    padding: 0 12px 20px;
+    text-align: center;
+
+    .wds-button {
+      box-sizing: border-box;
+      width: 100%;
+    }
+  }
+
 }

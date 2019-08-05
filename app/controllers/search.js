@@ -28,6 +28,10 @@ export default Controller.extend({
     onResultClick(result) {
       this.trackItemClick(result);
     },
+
+    onScopeChange(newScope) {
+      this.model.changeScope(newScope);
+    }
   },
 
   trackItemClick(result) {
