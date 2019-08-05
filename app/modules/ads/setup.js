@@ -69,7 +69,6 @@ export const adsSetup = {
 
     return InstantConfigService.init(instantGlobals)
       .then((instantConfig) => {
-        console.log(instantConfig);
         this.setupAdContext(instantConfig, adsContext, isOptedIn);
         setupNpaContext();
 
