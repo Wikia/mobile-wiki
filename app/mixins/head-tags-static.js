@@ -26,6 +26,8 @@ export default Mixin.create({
     const isDarkTheme = this.get('fastboot.request.queryParams.theme') === 'dark';
     const isMobileApp = !!this.get('fastboot.request.queryParams.mobile-app');
 
+    console.log(isDarkTheme, isMobileApp);
+
     if (!model) {
       return;
     }
