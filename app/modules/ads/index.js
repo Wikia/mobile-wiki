@@ -308,10 +308,10 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { sessionCookie, utils } = window.Wikia.adEngine;
+    const { sessionCookie, geoCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
-    utils.geoService.resetSamplingCache();
+    geoCacheStorage.resetCache();
     sessionCookie.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
@@ -395,8 +395,8 @@ class Ads {
    * @private
    */
   trackLabradorToDW() {
-    const { utils } = window.Wikia.adEngine;
-    const labradorPropValue = utils.geoService.getSamplingResults().join(';');
+    const { utils, geoCacheStorage } = window.Wikia.adEngine;
+    const labradorPropValue = geoCacheStorage.getSamplingResults().join(';');
 
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);

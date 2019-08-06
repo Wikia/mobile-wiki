@@ -26,6 +26,7 @@ export default function () {
   // We have /front/main/assets prefix hardcoded in route and testem use /assets
   // This is a quick (hopefully temporary) fix
   this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});
+  this.get('http://services.test/unified-search/page-search', schema => schema.searches.first());
 
   this.get('/wikia.php', (schema, request) => {
     const { controller, method, title } = request.queryParams;
@@ -102,10 +103,6 @@ export default function () {
       if (method === 'getArticleComments' && id === '10') {
         return articleCommentsFixture;
       }
-    }
-
-    if (controller === 'SearchApi' && method === 'getList') {
-      return schema.searches.first();
     }
 
     throw new Error('Controller or method response isn\'t yet mocked');
