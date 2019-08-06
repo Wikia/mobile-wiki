@@ -181,6 +181,7 @@ module('Unit | Model | search result page', (hooks) => {
         title: '1',
         position: 0,
         id: 123,
+        url: 'http://test.wikia.com/wiki/Test',
       },
     ]);
 
