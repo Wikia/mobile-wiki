@@ -174,14 +174,14 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
 
-    if (instantConfig.get('icFloorAdhesionDelay') !== null) {
+    if (typeof instantConfig.get('icFloorAdhesionDelay') === 'number') {
       context.set(
         'templates.hideOnViewability.additionalHideTime',
         instantConfig.get('icFloorAdhesionDelay'),
       );
     }
 
-    if (instantConfig.get('icFloorAdhesionTimeout') !== null) {
+    if (typeof instantConfig.get('icFloorAdhesionTimeout') === 'number') {
       context.set(
         'templates.hideOnViewability.timeoutHideTime',
         instantConfig.get('icFloorAdhesionTimeout'),
