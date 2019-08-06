@@ -76,7 +76,7 @@ module('Unit | Model | search result page', (hooks) => {
             snippet: htmlSafe('<div>html</div>test'),
             title: 'test sub dir',
             position: 1,
-            url: 'http://test.wikia.com/wiki/Test',
+            url: 'http://test.wikia.com/wiki/Test/1',
             wikiId: 3035,
           },
           {
