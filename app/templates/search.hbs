@@ -33,12 +33,12 @@
     </div>
     {{ads/search-incontent-native}}
     {{#if model.isInteralScope }}
-        {{wikia-ui-components/wikia-card-list
-          items=model.items
-          trackingCategory="search-page"
-          trackingLabel="search-result"
-          itemClick=(action "onResultClick")
-        }}
+      {{wikia-ui-components/wikia-card-list
+        items=model.items
+        trackingCategory="search-page"
+        trackingLabel="search-result"
+        itemClick=(action "onResultClick")
+      }}
     {{else}}
       {{wikia-ui-components/wikia-card-crosswiki-list
         items=model.items
