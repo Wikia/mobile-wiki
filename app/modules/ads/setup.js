@@ -174,19 +174,15 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
 
-    if (typeof instantConfig.get('icFloorAdhesionDelay') === 'number') {
-      context.set(
-        'templates.hideOnViewability.additionalHideTime',
-        instantConfig.get('icFloorAdhesionDelay'),
-      );
-    }
+    context.set(
+      'templates.hideOnViewability.additionalHideTime',
+      instantConfig.get('icFloorAdhesionDelay'),
+    );
 
-    if (typeof instantConfig.get('icFloorAdhesionTimeout') === 'number') {
-      context.set(
-        'templates.hideOnViewability.timeoutHideTime',
-        instantConfig.get('icFloorAdhesionTimeout'),
-      );
-    }
+    context.set(
+      'templates.hideOnViewability.timeoutHideTime',
+      instantConfig.get('icFloorAdhesionTimeout'),
+    );
 
     setupPageLevelTargeting(adsContext);
 
