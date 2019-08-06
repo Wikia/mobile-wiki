@@ -225,6 +225,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         title: '1',
         position: 0,
+        url: 'http://test.wikia.com/wiki/Test',
         wikiId: 3035,
       },
       {
@@ -233,6 +234,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         title: '2',
         position: 1,
+        url: 'http://test.wikia.com/wiki/Test/1',
         wikiId: 3035,
       },
       {
@@ -241,6 +243,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         title: '3',
         position: 2,
+        url: 'http://test.wikia.com/wiki/Test_2',
         wikiId: 147,
       },
     ]);
