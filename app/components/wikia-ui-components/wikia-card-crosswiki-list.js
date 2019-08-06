@@ -5,7 +5,6 @@ export default Component.extend(
     actions: {
       onItemClick(item) {
         if (this.itemClick) {
-          debugger;
           this.itemClick(item);
         }
       },

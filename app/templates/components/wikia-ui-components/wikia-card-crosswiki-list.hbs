@@ -1,6 +1,6 @@
 <ul class="wikia-card-list">
   {{#each @items as |item|}}
-    <li class="wikia-card" {{action "onItemClick" item}}>
+    <li class="wikia-card" {{action "onItemClick" item preventDefault=false}}>
       <a href="{{{ item.url }}}" class="wikia-card__item wds-font-size-s wds-leading-tight">
         <div class="wikia-card__title wds-font-weight-medium">
           {{item.title}}
