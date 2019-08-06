@@ -3,7 +3,7 @@ import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
-import {equal} from "@ember/object/computed";
+import { equal } from '@ember/object/computed';
 
 export default EmberObject.extend({
   batch: 0,
