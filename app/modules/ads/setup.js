@@ -174,17 +174,17 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
 
-    if (instantConfig.isGeoEnabled('wgAdDriverFloorAdhesionDelayCountries')) {
+    if (instantConfig.get('icFloorAdhesionDelay') !== null) {
       context.set(
         'templates.hideOnViewability.additionalHideTime',
-        instantConfig.get('wgAdDriverFloorAdhesionDelay') || 0,
+        instantConfig.get('icFloorAdhesionDelay'),
       );
     }
 
-    if (instantConfig.isGeoEnabled('wgAdDriverFloorAdhesionTimeoutCountries')) {
+    if (instantConfig.get('icFloorAdhesionTimeout') !== null) {
       context.set(
         'templates.hideOnViewability.timeoutHideTime',
-        instantConfig.get('wgAdDriverFloorAdhesionTimeout') || 0,
+        instantConfig.get('icFloorAdhesionTimeout'),
       );
     }
 
