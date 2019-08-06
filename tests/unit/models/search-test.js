@@ -179,11 +179,11 @@ module('Unit | Model | search result page', (hooks) => {
     });
     assert.deepEqual(search.items, [
       {
-        prefixedTitle: 'Test',
-        snippet: htmlSafe('<div>html</div>test'),
-        title: '1',
-        position: 0,
         id: 123,
+        position: 0,
+        title: '1',
+        snippet: htmlSafe('<div>html</div>test'),
+        prefixedTitle: 'Test',
         url: 'http://test.wikia.com/wiki/Test',
       },
     ]);
