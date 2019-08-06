@@ -64,6 +64,7 @@ module('Unit | Model | search result page', (hooks) => {
             snippet: htmlSafe('<div>html</div>test'),
             title: 'test',
             position: 0,
+            url: 'http://test.wikia.com/wiki/Test',
           },
           {
             id: 124,
@@ -71,6 +72,7 @@ module('Unit | Model | search result page', (hooks) => {
             snippet: htmlSafe('<div>html</div>test'),
             title: 'test sub dir',
             position: 1,
+            url: 'http://test.wikia.com/wiki/Test',
           },
           {
             id: 125,
@@ -78,6 +80,7 @@ module('Unit | Model | search result page', (hooks) => {
             snippet: htmlSafe('<div>html</div>test'),
             title: 'test not canonical',
             position: 2,
+            url: 'http://test.wikia.com/test_2',
           },
         ],
       },
