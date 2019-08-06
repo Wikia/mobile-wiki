@@ -5,7 +5,7 @@ import { htmlSafe } from '@ember/string';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
 export default EmberObject.extend({
-  batch: 1,
+  batch: 0,
   error: '',
   erroneousQuery: '',
   items: null,
@@ -30,7 +30,7 @@ export default EmberObject.extend({
 
   search(query) {
     this.setProperties({
-      batch: 1,
+      batch: 0,
       totalItems: 0,
       totalBatches: 0,
       query,
