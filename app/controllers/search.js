@@ -28,6 +28,10 @@ export default Controller.extend({
     onResultClick(result) {
       this.trackItemClick(result);
     },
+
+    onScopeChange(newScope) {
+      this.model.changeScope(newScope);
+    },
   },
 
   trackItemClick(result) {
@@ -43,10 +47,11 @@ export default Controller.extend({
         title: result.title,
         position: result.position + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
+        wikiId: result.wikiId,
       },
       target: 'redirect',
       app: 'mw-mobile',
-      siteId: this.wikiVariables.id,
+      siteId: result.wikiId,
       searchId: this.searchId,
       pvUniqueId: window.pvUID,
     };
@@ -69,7 +74,8 @@ export default Controller.extend({
         id: item.id,
         title: item.title,
         position: index + 1, // +1 since we need to start with 1 instead of 0
-        thumbnail: false, // we do not show thumbnails on SRP right now
+        thumbnail: false, // we do not show thumbnails on SRP right now,
+        wikiId: item.wikiId,
       })),
       page: this.model.batch,
       limit: batchSize,

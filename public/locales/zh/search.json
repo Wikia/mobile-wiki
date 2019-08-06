@@ -7,6 +7,8 @@
     "search-error-not-found-action": "尝试其他搜索", 
     "search-input-label": "搜索", 
     "search-loading-msg": "正在加载搜索结果...", 
+    "search-scope-crosswiki": "全部维基", 
+    "search-scope-internal": "本维基", 
     "total-results": "关于{query}的{totalItems}条结果"
   }
 }
