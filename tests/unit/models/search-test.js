@@ -252,7 +252,7 @@ module('Unit | Model | search result page', (hooks) => {
 
     search.loadMore();
 
-    assert.equal(search.batch, 2);
+    assert.equal(search.batch, 1);
     assert.equal(fetchSpy.called, true);
     assert.equal(fetchSpy.calledWith('testQuery'), true);
   });
