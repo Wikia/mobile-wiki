@@ -65,7 +65,7 @@ export default Controller.extend({
     }
 
     const batchSize = 25;
-    const batchBegin = (this.model.batch - 1) * batchSize;
+    const batchBegin = this.model.batch * batchSize;
     const batchEnd = batchBegin + batchSize;
     const payload = {
       searchPhrase: this.inputPhrase,

@@ -6,7 +6,7 @@ import { getQueryString } from '@wikia/ember-fandom/utils/url';
 import {equal} from "@ember/object/computed";
 
 export default EmberObject.extend({
-  batch: 1,
+  batch: 0,
   error: '',
   erroneousQuery: '',
   items: null,
@@ -23,7 +23,7 @@ export default EmberObject.extend({
   isInteralScope: equal('scope', 'internal'),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
-    return this.batch < this.totalBatches;
+    return this.batch + 1 < this.totalBatches;
   }),
 
   init() {
@@ -33,7 +33,7 @@ export default EmberObject.extend({
 
   search(query) {
     this.setProperties({
-      batch: 1,
+      batch: 0,
       totalItems: 0,
       totalBatches: 0,
       query,

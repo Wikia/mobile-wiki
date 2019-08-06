@@ -45,23 +45,26 @@
         registerEvent: () => {},
         on: () => {},
       },
+      geoCacheStorage: {
+        getSamplingResults: () => [],
+        mapSamplingResults: () => [],
+        resetCache: () => undefined,
+      },
+      InstantConfigService: {
+        init: (globals = {}) => Promise.resolve({
+          get: key => globals[key],
+          isGeoEnabled: () => undefined,
+        }),
+      },
       utils: {
         client: {
           checkBlocking: () => {},
         },
         geoService: {
-          getSamplingResults: () => [],
+          getCountryCode: () => false,
         },
         logger: () => {},
       },
-    },
-    adProducts: {
-      utils: {
-        geoService: {
-          getSamplingResults: () => [],
-          getCountryCode: () => false
-        }
-      }
     },
     adServices: {
      nielsen: {
