@@ -103,7 +103,7 @@ export default EmberObject.extend({
         snippet: htmlSafe(item.content),
         prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
         url: item.url,
-        wikiId: item.wikiId ? item.wikiId : this.wikiVariables.id,
+        wikiId: item.wikiId,
       }))),
       loading: false,
       totalItems: state.totalResultsFound,

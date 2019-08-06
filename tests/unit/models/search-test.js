@@ -174,6 +174,7 @@ module('Unit | Model | search result page', (hooks) => {
           title: '1',
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
+          wikiId: 3035
         },
       ],
     });
@@ -185,7 +186,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         prefixedTitle: 'Test',
         url: 'http://test.wikia.com/wiki/Test',
-        wikiId: null,
+        wikiId: 3035,
       },
     ]);
 
@@ -200,12 +201,14 @@ module('Unit | Model | search result page', (hooks) => {
           title: '2',
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test/1',
+          wikiId: 3035,
         },
         {
           pageId: 125,
           title: '3',
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test_2',
+          wikiId: 147,
         },
       ],
     });
@@ -216,6 +219,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         title: '1',
         position: 0,
+        wikiId: 3035,
       },
       {
         id: 124,
@@ -223,6 +227,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         title: '2',
         position: 1,
+        wikiId: 3035,
       },
       {
         id: 125,
@@ -230,6 +235,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         title: '3',
         position: 2,
+        wikiId: 147,
       },
     ]);
   });
