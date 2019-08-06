@@ -185,6 +185,7 @@ module('Unit | Model | search result page', (hooks) => {
         snippet: htmlSafe('<div>html</div>test'),
         prefixedTitle: 'Test',
         url: 'http://test.wikia.com/wiki/Test',
+        wikiId: null,
       },
     ]);
 
