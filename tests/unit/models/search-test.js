@@ -174,7 +174,7 @@ module('Unit | Model | search result page', (hooks) => {
           title: '1',
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
-          wikiId: 3035
+          wikiId: 3035,
         },
       ],
     });
