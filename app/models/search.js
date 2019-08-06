@@ -20,7 +20,7 @@ export default EmberObject.extend({
   tracing: service(),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
-    return this.batch < this.totalBatches;
+    return this.batch + 1 < this.totalBatches;
   }),
 
   init() {
