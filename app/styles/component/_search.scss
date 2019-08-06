@@ -1,9 +1,8 @@
 .search-results {
-
   .wds-dropdown {
+    border-left: 1px solid black;
     float: right;
     padding-left: 10px;
-    border-left: 1px solid black;
 
     &__toggle > span {
       padding-right: 5px;
@@ -11,9 +10,9 @@
   }
 
   &__total {
-    padding: 20px 12px 0;
     height: 42px;
     line-height: 26px;
+    padding: 20px 12px 0;
   }
 
   &__load-more-wrapper {
@@ -25,5 +24,4 @@
       width: 100%;
     }
   }
-
 }
