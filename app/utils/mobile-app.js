@@ -1,5 +1,9 @@
 const mobileAppQueryRegex = /([?&])mobile-app=.+/;
 
+function hasMobileAppQueryString() {
+  return window.location.search.match(mobileAppQueryRegex);
+}
+
 function isDarkTheme(fastboot) {
   if (fastboot && fastboot.isFastBoot) {
     return fastboot.get('request.queryParams.theme') === 'dark';
@@ -14,10 +18,6 @@ function isMobileApp(fastboot) {
   }
 
   return !!hasMobileAppQueryString();
-}
-
-function hasMobileAppQueryString() {
-  return window.location.search.match(mobileAppQueryRegex);
 }
 
 export { isDarkTheme, isMobileApp, hasMobileAppQueryString };

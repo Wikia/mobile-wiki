@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { bool, equal, readOnly } from '@ember/object/computed';
+import { bool, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
 import { track } from '../utils/track';

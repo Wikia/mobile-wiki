@@ -1,5 +1,4 @@
 import Controller, { inject as controller } from '@ember/controller';
-import { computed } from '@ember/object';
 import { alias, equal, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
@@ -49,10 +48,6 @@ export default Controller.extend(
     isSearchPage: equal('currentRouteName', 'search'),
     noAds: alias('ads.noAdsQueryParam'),
     mobileApp: alias('ads.disableAdsInMobileApp'),
-
-    isDarkTheme: computed('theme', 'fullPage', function () {
-      return this.theme === 'dark' && !!this.fullPage;
-    }),
 
     actions: {
       /**

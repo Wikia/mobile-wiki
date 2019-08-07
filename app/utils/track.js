@@ -1,6 +1,6 @@
 /* eslint import/no-cycle: 0 */
 import { getGroup } from '../modules/abtest';
-import { hasMobileAppQueryString } from "./mobile-app";
+import { hasMobileAppQueryString } from './mobile-app';
 
 /**
   * @typedef {Object} TrackContext

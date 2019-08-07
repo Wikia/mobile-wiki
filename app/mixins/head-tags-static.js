@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import config from '../config/environment';
-import { isDarkTheme, isMobileApp } from "../utils/mobile-app";
+import { isDarkTheme, isMobileApp } from '../utils/mobile-app';
 
 export default Mixin.create({
   headData: service(),
