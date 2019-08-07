@@ -7,6 +7,8 @@
     "search-error-not-found-action": "別の検索を試してください", 
     "search-input-label": "検索", 
     "search-loading-msg": "検索結果を読込中...", 
+    "search-scope-crosswiki": "すべてのページ", 
+    "search-scope-internal": "このコミュニティ", 
     "total-results": "{query}の検索結果は約{totalItems}件です"
   }
 }

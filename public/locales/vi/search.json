@@ -7,6 +7,8 @@
     "search-error-not-found-action": "Thử tìm kiếm mục khác", 
     "search-input-label": "Tìm kiếm", 
     "search-loading-msg": "Đang tải các kết quả tìm kiếm...", 
+    "search-scope-crosswiki": "All wikis", 
+    "search-scope-internal": "This wiki", 
     "total-results": "Có {totalItems} kết quả cho {query}"
   }
 }
