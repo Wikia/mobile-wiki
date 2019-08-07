@@ -21,7 +21,7 @@ module.exports = {
   },
   'dark.css': {
     pattern: `${assetsFolder}/dark-*.css`,
-    limit: '70KB',
+    limit: '5KB',
   },
   'jwplayer:css': {
     pattern: `${assetsFolder}/jwplayer/*.css`,
