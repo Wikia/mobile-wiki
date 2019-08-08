@@ -9,11 +9,11 @@ module.exports = {
   },
   'vendor.js': {
     pattern: `${assetsFolder}/vendor-*.js`,
-    limit: '666KB',
+    limit: '667KB',
   },
   'app.css': {
     pattern: `${assetsFolder}/app.css`,
-    limit: '101KB',
+    limit: '102KB',
   },
   'lazy.css': {
     pattern: `${assetsFolder}/lazy-*.css`,

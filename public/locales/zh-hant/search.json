@@ -7,6 +7,8 @@
     "search-error-not-found-action": "嘗試其他搜尋", 
     "search-input-label": "搜尋", 
     "search-loading-msg": "正在載入搜尋結果…", 
+    "search-scope-crosswiki": "所有Wiki", 
+    "search-scope-internal": "本 Wiki", 
     "total-results": "關於{query}的{totalItems}項結果"
   }
 }

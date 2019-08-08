@@ -1,13 +1,27 @@
-.search-results__total {
-  padding: 20px 12px 0;
-}
+.search-results {
+  .wds-dropdown {
+    border-left: 1px solid black;
+    float: right;
+    padding-left: 10px;
 
-.search-results__load-more-wrapper {
-  padding: 0 12px 20px;
-  text-align: center;
+    &__toggle > span {
+      padding-right: 5px;
+    }
+  }
 
-  .wds-button {
-    box-sizing: border-box;
-    width: 100%;
+  &__total {
+    height: 42px;
+    line-height: 26px;
+    padding: 20px 12px 0;
+  }
+
+  &__load-more-wrapper {
+    padding: 0 12px 20px;
+    text-align: center;
+
+    .wds-button {
+      box-sizing: border-box;
+      width: 100%;
+    }
   }
 }

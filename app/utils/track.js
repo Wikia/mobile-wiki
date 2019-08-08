@@ -201,10 +201,9 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 /**
  * Tracks scrollY position at given time
  * @param {number} time
+ * @param {number} scrollY
  */
-export function trackScrollY(time) {
-  const scrollY = window.scrollY || window.pageYOffset;
-
+export function trackScrollY(time, scrollY) {
   track({
     action: 'scroll',
     category: 'scroll_speed',
