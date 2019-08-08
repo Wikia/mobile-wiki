@@ -1,7 +1,7 @@
 $background-color: #161616;
 $text-color: #e1e1e1;
 $header-highlight-color: #00cdd0;
-$link-color: #00cdd0;
+$link-color: #00d6d6;
 $table-border-color: #7e7e7e;
 $table-background-color: #2b2b2b;
 $table-header-background-color: #5f7a7b;
@@ -12,6 +12,14 @@ $video-attribution-border-color: #666;
 
 body {
   background: $background-color;
+  color: $text-color;
+}
+
+.wiki-page-header {
+  color: $text-color;
+}
+
+.category-trending-pages__item-title {
   color: $text-color;
 }
 
@@ -28,7 +36,7 @@ body {
     color: $text-color;
   }
 
-  .article {
+  article {
     a {
       color: $link-color;
     }
