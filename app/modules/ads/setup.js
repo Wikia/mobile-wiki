@@ -302,6 +302,8 @@ export const adsSetup = {
     }
 
     if (context.get('options.gamLazyLoading.enabled')) {
+      context.set('options.gamLazyLoading.fetchMarginPercent', instantConfig.get('wgAdDriverGAMLazyLoadingFetchMarginPercent'));
+      context.set('options.gamLazyLoading.renderMarginPercent', instantConfig.get('wgAdDriverGAMLazyLoadingRenderMarginPercent'));
       context.set('options.useTopBoxad', true);
       context.set('options.incontentBoxad1EagerLoading', true);
       context.set(
@@ -325,11 +327,7 @@ export const adsSetup = {
       }
     }
 
-    if (
-      instantConfig.isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')
-      // TODO: Remove second part of condition once experiment ADEN-8784 is over
-      || !!context.get('options.incontentBoxad1EagerLoading')
-    ) {
+    if (instantConfig.isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
       context.set('slots.bottom_leaderboard.insertOnViewportEnter', true);
     }
 
