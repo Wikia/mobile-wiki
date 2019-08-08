@@ -19,6 +19,10 @@ module.exports = {
     pattern: `${assetsFolder}/lazy-*.css`,
     limit: '70KB',
   },
+  'dark.css': {
+    pattern: `${assetsFolder}/dark-*.css`,
+    limit: '5KB',
+  },
   'jwplayer:css': {
     pattern: `${assetsFolder}/jwplayer/*.css`,
     limit: '19KB',
