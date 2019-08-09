@@ -39,6 +39,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       utils: {
         logger: () => {},
+        geoService: {
+          setUpGeoData: () => {},
+        },
       },
       viewabilityTracker: {
         add: () => window.Wikia.adEngine.slotTracker,
