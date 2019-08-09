@@ -207,6 +207,7 @@ class Ads {
       isAboveTheFold: slotDefinition.aboveTheFold,
       name: slotName,
       hiddenClassName: 'hide',
+      numberOfViewportsFromTopToPush: slotDefinition.numberOfViewportsFromTopToPush,
     };
   }
 
