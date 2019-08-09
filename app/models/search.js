@@ -2,11 +2,11 @@ import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
-import fetch from 'fetch';
-import { inGroup } from '../modules/abtest';
+import { getQueryString } from '@wikia/ember-fandom/utils/url';
+import { equal } from '@ember/object/computed';
 
 export default EmberObject.extend({
-  batch: 1,
+  batch: 0,
   error: '',
   erroneousQuery: '',
   items: null,
@@ -18,13 +18,12 @@ export default EmberObject.extend({
   logger: service(),
   wikiUrls: service(),
   fetchService: service('fetch'),
-  fastboot: service(),
   tracing: service(),
-
-  shouldUseUnifiedSearch: computed(() => inGroup('UNIFIED_SEARCH_AB', 'USE_UNIFIED_SEARCH')),
+  scope: 'internal',
+  isInteralScope: equal('scope', 'internal'),
 
   canLoadMore: computed('batch', 'totalBatches', function () {
-    return this.batch < this.totalBatches;
+    return this.batch + 1 < this.totalBatches;
   }),
 
   init() {
@@ -34,7 +33,7 @@ export default EmberObject.extend({
 
   search(query) {
     this.setProperties({
-      batch: 1,
+      batch: 0,
       totalItems: 0,
       totalBatches: 0,
       query,
@@ -59,75 +58,64 @@ export default EmberObject.extend({
   },
 
   fetchResults(query) {
-    return new Promise((cb) => {
-      if (this.fastboot.isFastBoot) {
-        cb();
-      } else {
-        window.onABTestLoaded(cb);
-      }
-    }).then(() => {
-      const url = this.wikiUrls.build({
-        host: this.get('wikiVariables.host'),
-        forceNoSSLOnServerSide: true,
-        path: '/wikia.php',
-        query: {
-          controller: 'SearchApi',
-          method: 'getList',
-          query,
-          useUnifiedSearch: this.get('shouldUseUnifiedSearch'),
-          batch: this.batch,
-        },
-      });
-      const options = this.fetchService.getOptionsForInternalCache(url, {
-        headers: {
-          'X-Trace-Id': this.tracing.getTraceId(),
-        },
-      });
-
-      this.setProperties({
-        error: '',
-        loading: true,
-      });
-
-      return fetch(url, options)
-        .then((response) => {
-          if (!response.ok) {
-            this.setProperties({
-              error: 'search-error-general',
-              erroneousQuery: query,
-              loading: false,
-            });
-
-            if (response.status === 404) {
-              this.set('error', 'search-error-not-found');
-            } else {
-              this.logger.error('Search request error', response);
-            }
-
-            return this;
-          }
-          // update state on success
-          return response.json().then(data => this.update(data));
-        });
+    this.setProperties({
+      error: '',
+      loading: true,
     });
+
+    const queryParams = {
+      query,
+      page: this.batch,
+      lang: this.wikiVariables.language.content,
+      namespace: 0,
+      limit: 25,
+    };
+
+    if (this.get('scope') === 'internal') {
+      queryParams.wikiId = this.wikiVariables.id;
+    }
+
+    const queryString = getQueryString(queryParams);
+
+    return this.fetchService.fetchFromUnifiedSearch(`/page-search${queryString}`)
+      .then(data => this.update(data))
+      .catch((e) => {
+        this.setProperties({
+          error: 'search-error-general',
+          erroneousQuery: query,
+          loading: false,
+        });
+
+        this.logger.error('Search request error', e);
+
+        return this;
+      });
   },
 
   update(state) {
     const currentSize = this.items ? this.items.length : 0;
 
     this.setProperties({
-      items: this.items.concat(state.items.map((item, index) => ({
-        id: item.id,
+      items: this.items.concat(state.results.map((item, index) => ({
+        id: item.pageId,
         position: currentSize + index,
         title: item.title,
-        snippet: htmlSafe(item.snippet),
+        snippet: htmlSafe(item.content),
         prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
+        url: item.url,
+        wikiId: item.wikiId,
       }))),
       loading: false,
-      totalItems: state.total,
-      totalBatches: state.batches,
+      totalItems: state.totalResultsFound,
+      totalBatches: state.paging.total,
     });
 
     return this;
+  },
+
+  changeScope(newScope) {
+    this.set('scope', newScope);
+
+    this.search(this.query);
   },
 });

@@ -1,5 +1,6 @@
 /* eslint import/no-cycle: 0 */
 import { getGroup } from '../modules/abtest';
+import { hasMobileAppQueryString } from './mobile-app';
 
 /**
   * @typedef {Object} TrackContext
@@ -127,7 +128,7 @@ export function track(params) {
     return;
   }
 
-  const isFandomApp = window.location.search.match(/([?&])mobile-app=.+/);
+  const isFandomApp = hasMobileAppQueryString();
   const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
   const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : '';
   const isNonInteractive = params.isNonInteractive !== false;
@@ -200,10 +201,9 @@ export function trackPageView(isInitialPageView, uaDimensions) {
 /**
  * Tracks scrollY position at given time
  * @param {number} time
+ * @param {number} scrollY
  */
-export function trackScrollY(time) {
-  const scrollY = window.scrollY || window.pageYOffset;
-
+export function trackScrollY(time, scrollY) {
   track({
     action: 'scroll',
     category: 'scroll_speed',

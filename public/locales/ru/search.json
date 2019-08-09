@@ -7,6 +7,8 @@
     "search-error-not-found-action": "Задать новый поиск", 
     "search-input-label": "Поиск", 
     "search-loading-msg": "Загрузка результатов поиска...", 
+    "search-scope-crosswiki": "Все вики", 
+    "search-scope-internal": "Эта вики", 
     "total-results": "Примерно {totalItems} результатов для {query}"
   }
 }

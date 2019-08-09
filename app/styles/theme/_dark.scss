@@ -1,0 +1,112 @@
+$background-color: #161616;
+$text-color: #e1e1e1;
+$header-highlight-color: #00cdd0;
+$link-color: #00d6d6;
+$table-border-color: #7e7e7e;
+$table-background-color: #2b2b2b;
+$table-header-background-color: #5f7a7b;
+$section-header-color: #e6ebf2;
+$video-attribution-background-color: #2b2b2b;
+$video-attribution-text-color: #e1e1e1;
+$video-attribution-border-color: #666;
+
+body {
+  background: $background-color;
+  color: $text-color;
+}
+
+.wiki-page-header {
+  color: $text-color;
+}
+
+.category-trending-pages__item-title {
+  color: $text-color;
+}
+
+.application-wrapper {
+  .pi {
+    background-color: $background-color;
+  }
+
+  .pi-expand-button {
+    background: $background-color;
+  }
+
+  h1 {
+    color: $text-color;
+  }
+
+  article {
+    a {
+      color: $link-color;
+    }
+  }
+
+  .wds-midlight-aqua {
+    background-image: linear-gradient(to top, rgba($header-highlight-color, .5) 54%, transparent 54%, transparent 100%);
+  }
+
+  .article-table-wrapper {
+    th {
+      background: $table-header-background-color;
+      border-bottom-color: $table-border-color;
+
+      &:not(:last-child) {
+        border-right-color: $table-border-color;
+      }
+    }
+
+    td {
+      background: $table-background-color;
+    }
+  }
+}
+
+.article-featured-video__details {
+  background: $video-attribution-background-color;
+
+  .article-featured-video__title {
+    color: $video-attribution-text-color;
+  }
+}
+
+.article-featured-video__attribution-container {
+  &.has-portable-infobox {
+    background: $video-attribution-background-color;
+  }
+
+  .article-featured-video__attribution-link {
+    color: $video-attribution-text-color;
+  }
+}
+
+.article-featured-video__attribution-inner-container {
+  border-color: $video-attribution-border-color;
+}
+
+.article-featured-video__time {
+  background: $video-attribution-text-color;
+  color: $video-attribution-background-color;
+}
+
+.article-table-wrapper {
+  border-color: $table-border-color;
+
+  td:not(:last-child) {
+    border-color: $table-border-color;
+  }
+}
+
+.article-content {
+  h1[section],
+  h2[section],
+  h3[section],
+  h4[section],
+  h6[section] {
+    color: $section-header-color;
+  }
+}
+
+.recirculation-prefooter {
+  background: $background-color;
+}

@@ -40,9 +40,9 @@ export default Component.extend({
     'isCustomSmartBannerVisible:with-smart-banner',
     'bfaaTemplate',
     'fullPage:is-full-page',
+    'isDarkTheme',
   ],
   scrollLocation: null,
-
   smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
   shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
