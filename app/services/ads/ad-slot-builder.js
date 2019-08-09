@@ -140,11 +140,7 @@ export default Service.extend({
         adsData.floorAdhesion,
         this.renderAdComponent({
           name: 'ads/invisible-high-impact-2',
-          attrs: Object.assign(
-            {},
-            this.get('ads.module').getAdSlotComponentAttributes(adsData.floorAdhesion),
-            { disableManualInsert: true },
-          ),
+          attrs: this.get('ads.module').getAdSlotComponentAttributes(adsData.floorAdhesion),
           element: placeholderFloorAdhesion,
         }),
       );

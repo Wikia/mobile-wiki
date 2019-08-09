@@ -21,12 +21,12 @@ export default Component.extend(RenderComponentMixin, {
       .then((adsModule) => {
         adsModule.waitForUapResponse()
           .then((isUapLoaded) => {
-            if (this.disableManualInsert) {
+            if (this.disableManualInsert && this.numberOfViewportsFromTopToPush) {
               const { scrollListener, utils } = window.Wikia.adEngine;
-
+              const distance = this.numberOfViewportsFromTopToPush * utils.getViewportHeight();
               scrollListener.addSlot(
                 this.name,
-                { distanceFromTop: utils.getViewportHeight() },
+                { distanceFromTop: distance },
               );
             } else if (!isUapLoaded) {
               adsModule.pushSlotToQueue(this.name);
