@@ -1,6 +1,7 @@
 import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 import config from '../config/environment';
+import { isDarkTheme, isMobileApp } from '../utils/mobile-app';
 
 export default Mixin.create({
   headData: service(),
@@ -24,6 +25,9 @@ export default Mixin.create({
   setStaticHeadTags(noExternals) {
     const model = this.modelFor('application');
 
+    const isInDarkTheme = isDarkTheme(this.fastboot);
+    const isInMobileApp = isMobileApp(this.fastboot);
+
     if (!model) {
       return;
     }
@@ -37,6 +41,7 @@ export default Mixin.create({
       noExternals,
       facebookAppId: config.APP.facebook.appId,
       lazyCss: !this.get('fastboot.isFastBoot'),
+      shouldLoadDarkCss: isInMobileApp && isInDarkTheme,
       twitterSite: model.wikiVariables.twitterAccount || '@getfandom',
     });
   },

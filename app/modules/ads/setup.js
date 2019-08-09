@@ -36,6 +36,7 @@ export const adsSetup = {
       eventService,
       templateService,
       InstantConfigService,
+      utils,
     } = window.Wikia.adEngine;
     const {
       setupNpaContext,
@@ -50,6 +51,8 @@ export const adsSetup = {
     } = window.Wikia.adProducts;
 
     context.extend(defaultAdContext);
+
+    utils.geoService.setUpGeoData();
 
     return InstantConfigService.init(instantGlobals)
       .then((instantConfig) => {
@@ -92,8 +95,6 @@ export const adsSetup = {
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
     const { context, utils, geoCacheStorage } = window.Wikia.adEngine;
-
-    utils.geoService.setUpGeoData();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
@@ -177,19 +178,8 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
 
-    if (instantConfig.isGeoEnabled('wgAdDriverFloorAdhesionDelayCountries')) {
-      context.set(
-        'templates.hideOnViewability.additionalHideTime',
-        instantConfig.get('wgAdDriverFloorAdhesionDelay') || 0,
-      );
-    }
-
-    if (instantConfig.isGeoEnabled('wgAdDriverFloorAdhesionTimeoutCountries')) {
-      context.set(
-        'templates.hideOnViewability.timeoutHideTime',
-        instantConfig.get('wgAdDriverFloorAdhesionTimeout') || 0,
-      );
-    }
+    context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
+    context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
 
     setupPageLevelTargeting(adsContext);
 

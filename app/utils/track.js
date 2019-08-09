@@ -1,5 +1,6 @@
 /* eslint import/no-cycle: 0 */
 import { getGroup } from '../modules/abtest';
+import { hasMobileAppQueryString } from './mobile-app';
 
 /**
   * @typedef {Object} TrackContext
@@ -133,7 +134,7 @@ export function track(params, usePrefix = true) {
     return;
   }
 
-  const isFandomApp = window.location.search.match(/([?&])mobile-app=.+/);
+  const isFandomApp = hasMobileAppQueryString();
   const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
   let category = '';
   if (params.category) {
