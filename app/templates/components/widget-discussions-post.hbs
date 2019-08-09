@@ -63,7 +63,7 @@
   </span>
   <span class="post-counters">
     <span class="upvote-count">
-      <Icon @name="upvote" @size="tiny" class="upvote" />
+      <Icon @name="heart" @size="tiny" class="upvote" />
       {{post.upvoteCount}}
     </span>
     <span class="reply-count">
@@ -77,7 +77,7 @@
     class="upvote-area upvote wds-font-size-xs {{if post.userData.hasUpvoted "has-upvoted"}}"
     role="button" {{action upvote post}}
   >
-    <Icon @name="upvote" @size="small" class="upvote" />
+    <Icon @name="heart" @size="small" class="upvote" />
     {{i18n "widget-discussions.post-actions-upvote-label"}}
   </li>
   <li class="replies replies-area wds-font-size-xs wds-font-weight-medium">

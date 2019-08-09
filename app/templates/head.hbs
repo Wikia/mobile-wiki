@@ -167,3 +167,8 @@
   {{!- These styles will be added to head on front-end to lazy load them-}}
   <link rel="stylesheet" href="/mobile-wiki-assets/assets/lazy.css">
 {{/if}}
+
+{{#if model.shouldLoadDarkCss}}
+  {{!- Styles for dark theme added only in the mobile app view-}}
+  <link rel="stylesheet" href="/mobile-wiki-assets/assets/dark.css">
+{{/if}}
