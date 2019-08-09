@@ -90,6 +90,12 @@ const trackActions = {
   view: 'view',
 };
 
+export const TrackingMethod = {
+  ga: 'ga',
+  both: 'both',
+  internal: 'internal',
+};
+
 let context = {
   a: null,
   n: null,
@@ -119,7 +125,7 @@ function isPageView(category) {
   * @param {TrackingParams} params
   * @returns {void}
   */
-export function track(params) {
+export function track(params, usePrefix = true) {
   if (!window.location) {
     return;
   }
@@ -130,11 +136,14 @@ export function track(params) {
 
   const isFandomApp = hasMobileAppQueryString();
   const trackingCategoryPrefix = (isFandomApp ? 'fandom-app' : 'mercury');
-  const category = params.category ? `${trackingCategoryPrefix}-${params.category}` : '';
+  let category = '';
+  if (params.category) {
+    category = usePrefix ? `${trackingCategoryPrefix}-${params.category}` : params.category;
+  }
   const isNonInteractive = params.isNonInteractive !== false;
   const pvUID = window.pvUID;
   const {
-    action, label = '', value = 0, trackingMethod = 'both',
+    action, label = '', value = 0, trackingMethod = TrackingMethod.both,
   } = params;
 
   params = Object.assign({
@@ -149,7 +158,7 @@ export function track(params) {
   // We rely on ga_* params in both trackers
   pruneParams(params);
 
-  if (trackingMethod === 'both' || trackingMethod === 'ga') {
+  if (trackingMethod === TrackingMethod.both || trackingMethod === TrackingMethod.ga) {
     if (!category || !action) {
       throw new Error('Missing required GA params');
     }
@@ -159,7 +168,7 @@ export function track(params) {
     });
   }
 
-  if (trackingMethod === 'both' || trackingMethod === 'internal') {
+  if (trackingMethod === TrackingMethod.both || trackingMethod === TrackingMethod.internal) {
     const eventName = params.eventName || 'trackingevent';
 
     params = Object.assign({}, context, params);
