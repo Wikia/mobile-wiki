@@ -6,6 +6,7 @@ import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import { registerSlotTracker, registerViewabilityTracker } from './tracking/slot-tracker';
+import { registerPostmessageTrackingTracker } from './tracking/postmessage-tracker';
 import { videoTracker } from './tracking/video-tracker';
 import { targeting } from './targeting';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
@@ -71,6 +72,7 @@ export const adsSetup = {
 
         registerSlotTracker();
         registerViewabilityTracker();
+        registerPostmessageTrackingTracker();
         context.push('listeners.slot', fanTakeoverResolver);
 
         eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
@@ -143,6 +145,7 @@ export const adsSetup = {
     context.set('options.tracking.kikimora.player', instantConfig.isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
     context.set('options.tracking.slot.status', instantConfig.isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
     context.set('options.tracking.slot.viewability', instantConfig.isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
+    context.set('options.tracking.postmessage', true);
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
     context.set('options.useTopBoxad', instantConfig.isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
@@ -174,6 +177,7 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+    context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
