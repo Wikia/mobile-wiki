@@ -7,6 +7,8 @@
     "search-error-not-found-action": "Intenta otra búsqueda", 
     "search-input-label": "Buscar", 
     "search-loading-msg": "Cargando resultados de la búsqueda...", 
+    "search-scope-crosswiki": "Todos los wikis", 
+    "search-scope-internal": "Este wiki", 
     "total-results": "Cerca de {totalItems} resultados para {query}"
   }
 }

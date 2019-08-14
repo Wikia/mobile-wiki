@@ -23,8 +23,11 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       events,
       eventService,
-      instantConfig: {
-        getConfig: () => Promise.resolve({}),
+      InstantConfigService: {
+        init: (globals = {}) => Promise.resolve({
+          get: key => globals[key],
+          isGeoEnabled: () => undefined,
+        }),
       },
       slotTracker: {
         onChangeStatusToTrack: [],
@@ -36,6 +39,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       utils: {
         logger: () => {},
+        geoService: {
+          setUpGeoData: () => {},
+        },
       },
       viewabilityTracker: {
         add: () => window.Wikia.adEngine.slotTracker,
@@ -73,6 +79,6 @@ module('Unit | Module | ads | setup', (hooks) => {
 
     assert.equal(adsSetup.setupAdContext.callCount, 2);
 
-    assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[0], adContext);
+    assert.deepEqual(adsSetup.setupAdContext.getCall(1).args[1], adContext);
   });
 });

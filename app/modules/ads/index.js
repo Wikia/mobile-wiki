@@ -4,11 +4,11 @@ import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
-import { scrollTracker } from './tracking/scroll-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
+import { trackScrollY } from '../../utils/track';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -207,6 +207,7 @@ class Ads {
       isAboveTheFold: slotDefinition.aboveTheFold,
       name: slotName,
       hiddenClassName: 'hide',
+      numberOfViewportsFromTopToPush: slotDefinition.numberOfViewportsFromTopToPush,
     };
   }
 
@@ -230,10 +231,14 @@ class Ads {
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
+    const { events } = window.Wikia.adEngine;
     const { eventService } = window.Wikia.adEngine;
 
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
+    eventService.on(events.SCROLL_TRACKING_TIME_CHANGED, (time, position) => {
+      trackScrollY(time, position);
+    });
   }
 
   beforeTransition() {
@@ -242,13 +247,12 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
+    const { scrollTracker } = window.Wikia.adServices;
 
     this.triggerBeforePageChangeServices();
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
-
     scrollTracker.resetScrollSpeedTracking();
-
     utils.logger(logGroup, 'before transition');
   }
 
@@ -305,10 +309,10 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { sessionCookie, utils } = window.Wikia.adEngine;
+    const { sessionCookie, geoCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
 
-    utils.geoService.resetSamplingCache();
+    geoCacheStorage.resetCache();
     sessionCookie.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
@@ -367,8 +371,8 @@ class Ads {
    * @private
    */
   triggerPageTracking() {
-    scrollTracker.initScrollSpeedTracking();
     this.trackViewabilityToDW();
+    this.initScrollSpeedTracking();
     this.trackLabradorToDW();
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
@@ -392,8 +396,8 @@ class Ads {
    * @private
    */
   trackLabradorToDW() {
-    const { utils } = window.Wikia.adEngine;
-    const labradorPropValue = utils.geoService.getSamplingResults().join(';');
+    const { utils, geoCacheStorage } = window.Wikia.adEngine;
+    const labradorPropValue = geoCacheStorage.getSamplingResults().join(';');
 
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
@@ -453,6 +457,26 @@ class Ads {
       pageTracker.trackProp('connection', data.join(';'));
       utils.logger(logGroup, 'connection', data);
     }
+  }
+
+  /**
+   * @private
+   */
+  initScrollSpeedTracking() {
+    const { scrollTracker } = window.Wikia.adServices;
+
+    scrollTracker.initScrollSpeedTracking('application-wrapper');
+    this.trackSessionScrollSpeed();
+  }
+
+  /**
+   * Tracks average session scroll speed
+   */
+  trackSessionScrollSpeed() {
+    const { scrollSpeedCalculator } = window.Wikia.adServices;
+    const scrollSpeed = scrollSpeedCalculator.getAverageSessionScrollSpeed();
+
+    pageTracker.trackProp('session_scroll_speed', scrollSpeed);
   }
 
   onMenuOpen() {

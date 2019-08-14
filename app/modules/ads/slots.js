@@ -224,6 +224,7 @@ export const slots = {
       floor_adhesion: {
         adProduct: 'floor_adhesion',
         disabled: true,
+        disableManualInsert: true,
         defaultClasses: ['hide'],
         forceSafeFrame: true,
         slotNameSuffix: '',
