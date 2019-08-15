@@ -182,7 +182,10 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
-    context.set('slots.floor_adhesion.clickPositionTracking', instantConfig.get('icFloorAdhesionClickPositionTracking'));
+    if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
+      context.set('slots.floor_adhesion.clickPositionTracking', true);
+      context.set('slots.floor_adhesion.forceSafeFrame', false);
+    }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
