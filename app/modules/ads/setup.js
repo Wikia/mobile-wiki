@@ -15,6 +15,10 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 
+const fallbackInstantConfig = {
+  icFloorAdhesionForceSafeFrame: true,
+};
+
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
 
@@ -49,10 +53,15 @@ export const adsSetup = {
       Roadblock,
       StickyTLB,
     } = window.Wikia.adProducts;
+    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
 
     context.extend(defaultAdContext);
 
     utils.geoService.setUpGeoData();
+
+    if (fallbackConfigKey) {
+      window[fallbackConfigKey] = fallbackInstantConfig
+    }
 
     return InstantConfigService.init(instantGlobals)
       .then((instantConfig) => {
@@ -178,6 +187,7 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
+    context.set('slots.floor_adhesion.forceSafeFrame', instantConfig.get('icFloorAdhesionForceSafeFrame'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
