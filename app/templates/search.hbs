@@ -31,7 +31,6 @@
       </Dropdown>
 
     </div>
-    {{ads/search-incontent-native}}
     {{#if model.isInteralScope }}
       {{wikia-ui-components/wikia-card-list
         items=model.items
@@ -48,7 +47,6 @@
       }}
  {{/if }}
   {{else if notFoundError}}
-    {{ads/search-incontent-native}}
     {{#wikia-ui-components/error-info}}
       {{wikia-search-error-not-found
         erroneousQuery=model.erroneousQuery

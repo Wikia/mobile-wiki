@@ -29,7 +29,6 @@ export default Service.extend({
         invisibleHighImpact2: 'invisible_high_impact_2',
         mobilePreFooter: 'mobile_prefooter',
         topLeaderBoard: 'top_leaderboard',
-        incontentNative: 'incontent_native',
         topBoxad: 'top_boxad',
         incontentBoxad: 'incontent_boxad_1',
         floorAdhesion: 'floor_adhesion',
