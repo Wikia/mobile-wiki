@@ -47,14 +47,17 @@ export default Controller.extend({
         title: result.title,
         position: result.position + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
-        wikiId: result.wikiId,
       },
       target: 'redirect',
-      app: 'mw-mobile',
-      siteId: result.wikiId,
+      app: this.getSearchAppIdentifier(),
+      siteId: this.wikiVariables.id,
       searchId: this.searchId,
       pvUniqueId: window.pvUID,
     };
+
+    if (this.model.getScope() === 'cross-wiki') {
+      payload.clicked.wikiId = result.wikiId;
+    }
 
     M.trackingQueue.push(() => window.searchTracking.trackSearchClicked(payload));
   },
@@ -87,5 +90,9 @@ export default Controller.extend({
     };
 
     M.trackingQueue.push(() => window.searchTracking.trackSearchImpression(payload));
+  },
+
+  getSearchAppIdentifier() {
+    return this.model.getScope() === 'cross-wiki' ? 'mw-mobile-crosswiki' : 'mw-mobile';
   },
 });

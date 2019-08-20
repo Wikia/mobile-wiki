@@ -118,4 +118,8 @@ export default EmberObject.extend({
 
     this.search(this.query);
   },
+
+  getScope() {
+    return this.get('scope');
+  }
 });
