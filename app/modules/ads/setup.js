@@ -317,6 +317,10 @@ export const adsSetup = {
       }
     }
 
+    if (instantConfig.get('icTopBoxadOutOfPage')) {
+      context.set('slots.top_boxad.outOfPage', true);
+    }
+
     if (instantConfig.isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
       context.set('slots.bottom_leaderboard.insertOnViewportEnter', true);
     }
