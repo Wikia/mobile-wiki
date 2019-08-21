@@ -96,6 +96,8 @@ export const adsSetup = {
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
     const { context, utils, geoCacheStorage } = window.Wikia.adEngine;
 
+    const { fillerService, PorvataFiller } = window.Wikia.adEngine;
+
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
       const originalSrc = context.get('src');
@@ -204,6 +206,11 @@ export const adsSetup = {
         category: 'wgDisableIncontentPlayer',
         label: true,
       });
+    }
+
+    if (instantConfig.get('icPorvataDirect')) {
+      context.set('slots.incontent_player.customFiller', 'porvata');
+      fillerService.register(new PorvataFiller());
     }
 
     if (instantConfig.isGeoEnabled('wgAdDriverOverscrolledCountries')) {
