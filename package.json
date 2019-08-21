@@ -36,7 +36,7 @@
     "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v41.7.1",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#659888c2d5466ccc0db17e42e69f17cb2d6cd7d2",
     "@wikia/search-tracking": "github:Wikia/search-tracking#1.2.0",
-    "@wikia/tracking-opt-in": "2.0.2",
+    "@wikia/tracking-opt-in": "2.0.3",
     "body-parser": "1.19.0",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.4",
