@@ -60,6 +60,7 @@ export const adsSetup = {
         setupNpaContext();
 
         const useTopBoxad = context.get('options.useTopBoxad');
+        const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
         templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
         templateService.register(BigFancyAdBelow, getBfabConfig());
@@ -74,6 +75,11 @@ export const adsSetup = {
         registerViewabilityTracker();
         registerPostmessageTrackingTracker();
         context.push('listeners.slot', fanTakeoverResolver);
+
+        if (instantConfig.get('icPorvataDirect')) {
+          context.set('slots.incontent_player.customFiller', 'porvata');
+          fillerService.register(new PorvataFiller());
+        }
 
         eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
           this.setupAdContext(instantConfig, adContext, isOptedIn);
@@ -95,8 +101,6 @@ export const adsSetup = {
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
     const { context, utils, geoCacheStorage } = window.Wikia.adEngine;
-
-    const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
@@ -206,11 +210,6 @@ export const adsSetup = {
         category: 'wgDisableIncontentPlayer',
         label: true,
       });
-    }
-
-    if (instantConfig.get('icPorvataDirect')) {
-      context.set('slots.incontent_player.customFiller', 'porvata');
-      fillerService.register(new PorvataFiller());
     }
 
     if (instantConfig.isGeoEnabled('wgAdDriverOverscrolledCountries')) {
