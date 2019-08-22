@@ -42,7 +42,7 @@ export const registerClickPositionTracker = () => {
   const slotName = 'floor_adhesion';
 
   clickPositionTracker
-    .register(({ data }) => track(Object.assign(data, {
+    .register(data => track(Object.assign(data, {
       eventName: 'trackingevent',
       trackingMethod: 'internal',
     })), slotName);
