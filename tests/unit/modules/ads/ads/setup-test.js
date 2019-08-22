@@ -15,6 +15,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdEngine() {
         this.init = () => {};
       },
+      clickPositionTracker: {
+        register: () => {},
+      },
       context: {
         extend: () => {},
         get: () => {},

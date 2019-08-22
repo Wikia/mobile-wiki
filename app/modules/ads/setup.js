@@ -5,7 +5,11 @@ import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
-import { registerSlotTracker, registerViewabilityTracker } from './tracking/slot-tracker';
+import {
+  registerClickPositionTracker,
+  registerSlotTracker,
+  registerViewabilityTracker,
+} from './tracking/slot-tracker';
 import { registerPostmessageTrackingTracker } from './tracking/postmessage-tracker';
 import { videoTracker } from './tracking/video-tracker';
 import { targeting } from './targeting';
@@ -70,6 +74,7 @@ export const adsSetup = {
         templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
         templateService.register(StickyTLB, getStickyTLBConfig());
 
+        registerClickPositionTracker();
         registerSlotTracker();
         registerViewabilityTracker();
         registerPostmessageTrackingTracker();
@@ -177,6 +182,10 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+    if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
+      context.set('slots.floor_adhesion.clickPositionTracking', true);
+      context.set('slots.floor_adhesion.forceSafeFrame', false);
+    }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));

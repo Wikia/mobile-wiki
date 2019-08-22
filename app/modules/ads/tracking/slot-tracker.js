@@ -36,3 +36,14 @@ export const registerViewabilityTracker = () => {
       trackingMethod: 'internal',
     })));
 };
+
+export const registerClickPositionTracker = () => {
+  const { clickPositionTracker } = window.Wikia.adEngine;
+  const slotName = 'floor_adhesion';
+
+  clickPositionTracker
+    .register(data => track(Object.assign(data, {
+      eventName: 'trackingevent',
+      trackingMethod: 'internal',
+    })), slotName);
+};
