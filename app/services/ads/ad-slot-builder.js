@@ -69,18 +69,6 @@ export default Service.extend({
   },
 
   /**
-   * @returns {void}
-   */
-  injectSearchPageNative(component) {
-    this.setupComponent(component);
-
-    const element = this.component.element;
-    const adsData = this.ads.slotNames;
-
-    this.appendAd(adsData.incontentNative, 'afterend', element);
-  },
-
-  /**
    * Load ads for main page.
    * InContent ad should be displayed below curated content only when it's available.
    * Prefooter ad should be loaded above footer

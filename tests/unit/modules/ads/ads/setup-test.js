@@ -29,6 +29,10 @@ module('Unit | Module | ads | setup', (hooks) => {
           isGeoEnabled: () => undefined,
         }),
       },
+      PostmessageTracker() {
+        this.add = () => this;
+        this.register = () => {};
+      },
       slotTracker: {
         onChangeStatusToTrack: [],
         add: () => window.Wikia.adEngine.slotTracker,
