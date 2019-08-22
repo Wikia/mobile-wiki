@@ -207,10 +207,6 @@ export const adsSetup = {
     context.set('custom.lkqdDfp', instantConfig.isGeoEnabled('wgAdDriverLkqdBidderCountries'));
     context.set('custom.pubmaticDfp', instantConfig.isGeoEnabled('wgAdDriverPubMaticDfpCountries'));
     context.set('custom.isSearchPageTlbEnabled', instantConfig.isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
-    context.set(
-      'custom.isIncontentNativeEnabled',
-      instantConfig.isGeoEnabled('wgAdDriverMobileWikiAE3NativeSearchCountries'),
-    );
 
     if (context.get('custom.isIncontentPlayerDisabled')) {
       track({
@@ -329,6 +325,10 @@ export const adsSetup = {
           'incontent_player',
         ]);
       }
+    }
+
+    if (instantConfig.get('icTopBoxadOutOfPage')) {
+      context.set('slots.top_boxad.outOfPage', true);
     }
 
     if (instantConfig.isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
