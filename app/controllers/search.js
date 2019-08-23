@@ -52,7 +52,7 @@ export default Controller.extend({
           searchType: this.model.getScope()
       },
       target: 'redirect',
-      app: this.getSearchAppIdentifier(),
+      app: 'mw-mobile',
       siteId: this.wikiVariables.id,
       searchId: this.searchId,
       pvUniqueId: window.pvUID,
@@ -91,9 +91,5 @@ export default Controller.extend({
     };
 
     M.trackingQueue.push(() => window.searchTracking.trackSearchImpression(payload));
-  },
-
-  getSearchAppIdentifier() {
-    return this.model.getScope() === 'cross-wiki' ? 'mw-mobile-crosswiki' : 'mw-mobile';
   },
 });
