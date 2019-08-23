@@ -43,10 +43,13 @@ export default Controller.extend({
       searchPhrase: this.inputPhrase,
       clicked: {
         type: 'article', // currently the only displayed type in the search
-        id: result.id,
+        id: result.wikiId + '_' + result.id,
         title: result.title,
         position: result.position + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
+      },
+      filters: {
+          searchType: this.model.getScope()
       },
       target: 'redirect',
       app: this.getSearchAppIdentifier(),
@@ -54,10 +57,6 @@ export default Controller.extend({
       searchId: this.searchId,
       pvUniqueId: window.pvUID,
     };
-
-    if (this.model.getScope() === 'cross-wiki') {
-      payload.clicked.wikiId = result.wikiId;
-    }
 
     M.trackingQueue.push(() => window.searchTracking.trackSearchClicked(payload));
   },
@@ -72,9 +71,11 @@ export default Controller.extend({
     const batchEnd = batchBegin + batchSize;
     const payload = {
       searchPhrase: this.inputPhrase,
-      filters: {}, // there is no way in mobile-wiki to set any filter
+      filters: {
+        searchType: this.model.getScope()
+      }, // there is no way in mobile-wiki to set any filter
       results: this.model.items.slice(batchBegin, batchEnd).map((item, index) => ({
-        id: item.id,
+        id: item.wikiId + '_' + item.id,
         title: item.title,
         position: index + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now,
