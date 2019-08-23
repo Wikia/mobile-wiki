@@ -237,7 +237,7 @@ class Ads {
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
     eventService.on(events.SCROLL_TRACKING_TIME_CHANGED, (time, position) => {
-      trackScrollY(time, position);
+      trackScrollY(time / 1000, position);
     });
   }
 
@@ -247,12 +247,10 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
-    const { scrollTracker } = window.Wikia.adServices;
 
     this.triggerBeforePageChangeServices();
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
-    scrollTracker.resetScrollSpeedTracking();
     utils.logger(logGroup, 'before transition');
   }
 
@@ -463,9 +461,10 @@ class Ads {
    * @private
    */
   initScrollSpeedTracking() {
-    const { scrollTracker } = window.Wikia.adServices;
+    const { ScrollTracker } = window.Wikia.adServices;
 
-    scrollTracker.initScrollSpeedTracking('application-wrapper');
+    this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
+    this.scrollTracker.initScrollSpeedTracking();
     this.trackSessionScrollSpeed();
   }
 
