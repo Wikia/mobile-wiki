@@ -5,7 +5,11 @@ import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
-import { registerSlotTracker, registerViewabilityTracker } from './tracking/slot-tracker';
+import {
+  registerClickPositionTracker,
+  registerSlotTracker,
+  registerViewabilityTracker,
+} from './tracking/slot-tracker';
 import { registerPostmessageTrackingTracker } from './tracking/postmessage-tracker';
 import { videoTracker } from './tracking/video-tracker';
 import { targeting } from './targeting';
@@ -14,6 +18,10 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
+
+const fallbackInstantConfig = {
+  icFloorAdhesionForceSafeFrame: true,
+};
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -49,10 +57,15 @@ export const adsSetup = {
       Roadblock,
       StickyTLB,
     } = window.Wikia.adProducts;
+    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
 
     context.extend(defaultAdContext);
 
     utils.geoService.setUpGeoData();
+
+    if (fallbackConfigKey) {
+      window[fallbackConfigKey] = fallbackInstantConfig;
+    }
 
     return InstantConfigService.init(instantGlobals)
       .then((instantConfig) => {
@@ -71,6 +84,7 @@ export const adsSetup = {
         templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
         templateService.register(StickyTLB, getStickyTLBConfig());
 
+        registerClickPositionTracker();
         registerSlotTracker();
         registerViewabilityTracker();
         registerPostmessageTrackingTracker();
@@ -183,7 +197,12 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+    if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
+      context.set('slots.floor_adhesion.clickPositionTracking', true);
+      context.set('slots.floor_adhesion.forceSafeFrame', false);
+    }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
+    context.set('slots.floor_adhesion.forceSafeFrame', instantConfig.get('icFloorAdhesionForceSafeFrame'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
@@ -321,6 +340,10 @@ export const adsSetup = {
           'incontent_player',
         ]);
       }
+    }
+
+    if (instantConfig.get('icTopBoxadOutOfPage')) {
+      context.set('slots.top_boxad.outOfPage', true);
     }
 
     if (instantConfig.isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
