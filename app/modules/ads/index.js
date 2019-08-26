@@ -476,7 +476,8 @@ class Ads {
    * Tracks average session scroll speed
    */
   trackSessionScrollSpeed() {
-    const { scrollSpeedCalculator } = window.Wikia.adServices;
+    const { ScrollSpeedCalculator } = window.Wikia.adServices;
+    const scrollSpeedCalculator = ScrollSpeedCalculator.make();
     const scrollSpeed = scrollSpeedCalculator.getAverageSessionScrollSpeed();
 
     pageTracker.trackProp('session_scroll_speed', scrollSpeed);
