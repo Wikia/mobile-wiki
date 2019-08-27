@@ -247,7 +247,8 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
-    const { scrollTracker } = window.Wikia.adServices;
+    const { ScrollTracker } = window.Wikia.adServices;
+    const scrollTracker = ScrollTracker.make();
 
     this.triggerBeforePageChangeServices();
 
@@ -467,7 +468,8 @@ class Ads {
    * @private
    */
   initScrollSpeedTracking() {
-    const { scrollTracker } = window.Wikia.adServices;
+    const { ScrollTracker } = window.Wikia.adServices;
+    const scrollTracker = ScrollTracker.make();
 
     scrollTracker.initScrollSpeedTracking('application-wrapper');
     this.trackSessionScrollSpeed();
