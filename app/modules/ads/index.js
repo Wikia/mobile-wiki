@@ -385,7 +385,8 @@ class Ads {
    * @private
    */
   trackViewabilityToDW() {
-    const { viewabilityCounter } = window.Wikia.adServices;
+    const { ViewabilityCounter } = window.Wikia.adServices;
+    const viewabilityCounter = ViewabilityCounter.make();
 
     pageTracker.trackProp('session_viewability_all', viewabilityCounter.getViewability());
     pageTracker.trackProp('session_viewability_tb', viewabilityCounter.getViewability('top_boxad'));
