@@ -73,7 +73,7 @@ export default Controller.extend({
       searchPhrase: this.inputPhrase,
       filters: {
         searchType: this.model.getScope()
-      }, // there is no way in mobile-wiki to set any filter
+      },
       results: this.model.items.slice(batchBegin, batchEnd).map((item, index) => ({
         id: item.wikiId + '_' + item.id,
         title: item.title,
