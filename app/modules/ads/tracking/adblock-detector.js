@@ -11,7 +11,7 @@ class AdBlockDetector {
   }
 
   run() {
-    if (!this.isEnabled()) {
+    if (!AdBlockDetector.isEnabled()) {
       return;
     }
 
@@ -32,7 +32,7 @@ class AdBlockDetector {
   /**
    * @private
    */
-  isEnabled() {
+  static isEnabled() {
     // Global imports:
     const { context } = window.Wikia.adEngine;
     // End of imports
