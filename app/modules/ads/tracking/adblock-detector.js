@@ -11,6 +11,10 @@ class AdBlockDetector {
   }
 
   run() {
+    if (!this.isEnabled()) {
+      return;
+    }
+
     // Global imports:
     const { client } = window.Wikia.adEngine.utils;
     // End of imports
@@ -23,6 +27,17 @@ class AdBlockDetector {
     } else {
       this.trackBlocking(this.status);
     }
+  }
+
+  /**
+   * @private
+   */
+  isEnabled() {
+    // Global imports:
+    const { context } = window.Wikia.adEngine;
+    // End of imports
+
+    return context.get('options.wad.enabled');
   }
 
   /**

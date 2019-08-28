@@ -352,6 +352,8 @@ export const adsSetup = {
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
     slots.setupSizesAvailability();
+
+    context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
 };
 
