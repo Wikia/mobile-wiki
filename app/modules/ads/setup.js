@@ -54,12 +54,13 @@ export const adsSetup = {
       Roadblock,
       StickyTLB,
     } = window.Wikia.adProducts;
-    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
-
     context.extend(defaultAdContext);
+
+    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
 
     utils.geoService.setUpGeoData();
 
+    console.log(fallbackConfigKey, fallbackInstantConfig);
     if (fallbackConfigKey) {
       window[fallbackConfigKey] = fallbackInstantConfig;
     }
