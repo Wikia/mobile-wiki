@@ -15,6 +15,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdEngine() {
         this.init = () => {};
       },
+      clickPositionTracker: {
+        register: () => {},
+      },
       context: {
         extend: () => {},
         get: () => {},
@@ -28,6 +31,10 @@ module('Unit | Module | ads | setup', (hooks) => {
           get: key => globals[key],
           isGeoEnabled: () => undefined,
         }),
+      },
+      PostmessageTracker() {
+        this.add = () => this;
+        this.register = () => {};
       },
       slotTracker: {
         onChangeStatusToTrack: [],

@@ -11,8 +11,6 @@ export function mockAdSlotBuilder(owner) {
 
     injectSearchPageTopLeaderboard: sinon.spy(),
 
-    injectSearchPageNative: sinon.spy(),
-
     injectMainPageAds: sinon.spy(),
   }));
 }

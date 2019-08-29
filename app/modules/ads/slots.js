@@ -68,19 +68,6 @@ function isIncontentPlayerApplicable() {
 }
 
 /**
- * Decides if incontent_native slot should be active.
- *
- * @returns {boolean}
- */
-function isIncontentNativeApplicable() {
-  const { context } = window.Wikia.adEngine;
-  const isIncontentNativeEnabled = context.get('custom.isIncontentNativeEnabled');
-  const isSearch = context.get('custom.pageType') === 'search';
-
-  return isSearch && isIncontentNativeEnabled;
-}
-
-/**
  * Decides if floor_adhesion slot should be active.
  *
  * It is disabled if page has FV.
@@ -302,21 +289,6 @@ export const slots = {
         },
         trackingKey: 'video',
       },
-      incontent_native: {
-        firstCall: false,
-        defaultSizes: ['fluid'],
-        adProduct: 'incontent_native',
-        slotNameSuffix: '',
-        nonUapSlot: true,
-        group: 'NATIVE',
-        slotShortcut: 'n',
-        lowerSlotName: 'incontent_native',
-        sizes: [],
-        targeting: {
-          uap: 'none',
-        },
-        trackingKey: 'incontent_native',
-      },
     };
   },
 
@@ -362,7 +334,6 @@ export const slots = {
 
     setSlotState('featured', context.get('custom.hasFeaturedVideo'));
     setSlotState('incontent_player', isIncontentPlayerApplicable());
-    setSlotState('incontent_native', isIncontentNativeApplicable());
   },
 
   setupIdentificators() {
