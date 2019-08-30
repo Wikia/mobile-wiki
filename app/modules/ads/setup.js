@@ -60,7 +60,6 @@ export const adsSetup = {
 
     utils.geoService.setUpGeoData();
 
-    console.log(fallbackConfigKey, fallbackInstantConfig);
     if (fallbackConfigKey) {
       window[fallbackConfigKey] = fallbackInstantConfig;
     }
