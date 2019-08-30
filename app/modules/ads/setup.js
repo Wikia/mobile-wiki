@@ -198,11 +198,10 @@ export const adsSetup = {
       context.set('slots.floor_adhesion.clickPositionTracking', true);
       context.set('slots.floor_adhesion.forceSafeFrame', false);
     }
-    if (instantConfig.get('icInvisibleHighImpact2ClickPositionTracking')) {
-      context.set('slots.invisible_high_impact_2.clickPositionTracking', true);
-    }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
     context.set('slots.floor_adhesion.forceSafeFrame', instantConfig.get('icFloorAdhesionForceSafeFrame'));
+
+    context.set('slots.invisible_high_impact_2.clickPositionTracking', instantConfig.get('icInvisibleHighImpact2ClickPositionTracking'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
