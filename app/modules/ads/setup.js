@@ -18,10 +18,7 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
-
-const fallbackInstantConfig = {
-  icFloorAdhesionForceSafeFrame: true,
-};
+import fallbackInstantConfig from './fallback-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -57,9 +54,9 @@ export const adsSetup = {
       Roadblock,
       StickyTLB,
     } = window.Wikia.adProducts;
-    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
-
     context.extend(defaultAdContext);
+
+    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
 
     utils.geoService.setUpGeoData();
 
@@ -358,6 +355,8 @@ export const adsSetup = {
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
     slots.setupSizesAvailability();
+
+    context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
 };
 
