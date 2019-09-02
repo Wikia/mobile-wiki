@@ -26,28 +26,26 @@ function getCallId(counter = null) {
 }
 
 function serializeBids(slotName) {
-  return targeting.getBiddersPrices(slotName, false).then(bidderPrices => {
-    return [
-      bidderPrices.bidder_0 || 0, // wikia adapter
-      bidderPrices.bidder_1 || 0,
-      bidderPrices.bidder_2 || 0,
-      bidderPrices.bidder_4 || 0,
-      bidderPrices.bidder_5 || 0,
-      bidderPrices.bidder_6 || 0,
-      bidderPrices.bidder_7 || 0,
-      bidderPrices.bidder_8 || 0,
-      bidderPrices.bidder_9 || 0,
-      bidderPrices.bidder_10 || 0,
-      bidderPrices.bidder_11 || 0,
-      bidderPrices.bidder_12 || 0,
-      bidderPrices.bidder_13 || 0,
-      bidderPrices.bidder_14 || 0,
-      bidderPrices.bidder_15 || 0,
-      bidderPrices.bidder_16 || 0,
-      bidderPrices.bidder_17 || 0,
-      bidderPrices.bidder_18 || 0,
-    ].join(',');
-  });
+  return targeting.getBiddersPrices(slotName, false).then(bidderPrices => [
+    bidderPrices.bidder_0 || 0, // wikia adapter
+    bidderPrices.bidder_1 || 0,
+    bidderPrices.bidder_2 || 0,
+    bidderPrices.bidder_4 || 0,
+    bidderPrices.bidder_5 || 0,
+    bidderPrices.bidder_6 || 0,
+    bidderPrices.bidder_7 || 0,
+    bidderPrices.bidder_8 || 0,
+    bidderPrices.bidder_9 || 0,
+    bidderPrices.bidder_10 || 0,
+    bidderPrices.bidder_11 || 0,
+    bidderPrices.bidder_12 || 0,
+    bidderPrices.bidder_13 || 0,
+    bidderPrices.bidder_14 || 0,
+    bidderPrices.bidder_15 || 0,
+    bidderPrices.bidder_16 || 0,
+    bidderPrices.bidder_17 || 0,
+    bidderPrices.bidder_18 || 0,
+  ].join(','));
 }
 
 function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
@@ -205,7 +203,7 @@ export const billTheLizardWrapper = {
     const { context } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
 
-    serializeBids(bidPosKeyVal).then(bids => {
+    serializeBids(bidPosKeyVal).then((bids) => {
       context.set('services.billTheLizard.parameters.cheshirecat', {
         bids,
       });

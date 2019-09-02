@@ -227,7 +227,7 @@ export const targeting = {
 
     const realSlotPrices = bidders.getDfpSlotPrices(slotName);
 
-    return bidders.getCurrentSlotPrices(slotName).then(currentSlotPrices => {
+    return bidders.getCurrentSlotPrices(slotName).then((currentSlotPrices) => {
       function transformBidderPrice(bidderName) {
         if (!markNotRequestedPrices) {
           return currentSlotPrices[bidderName];
