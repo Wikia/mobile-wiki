@@ -12,9 +12,10 @@ export default Component.extend(
     tagName: '',
 
     url: oneWay('wikiVariables.watchShowURL'),
+    buttonLabel: oneWay('wikiVariables.watchShowButtonLabel'),
 
     isVisible: computed('url', function () {
-      return this.url && this.geo.country === 'US';
+      return this.url && this.buttonLabel && this.geo.country === 'US';
     }),
 
     didInsertElement() {

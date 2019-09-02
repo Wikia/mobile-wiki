@@ -70,6 +70,7 @@ export const adsSetup = {
         setupNpaContext();
 
         const useTopBoxad = context.get('options.useTopBoxad');
+        const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
         templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
         templateService.register(BigFancyAdBelow, getBfabConfig());
@@ -85,6 +86,11 @@ export const adsSetup = {
         registerViewabilityTracker();
         registerPostmessageTrackingTracker();
         context.push('listeners.slot', fanTakeoverResolver);
+
+        if (instantConfig.get('icPorvataDirect')) {
+          context.set('slots.incontent_player.customFiller', 'porvata');
+          fillerService.register(new PorvataFiller());
+        }
 
         eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
           this.setupAdContext(instantConfig, adContext, isOptedIn);
