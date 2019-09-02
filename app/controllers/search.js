@@ -43,13 +43,13 @@ export default Controller.extend({
       searchPhrase: this.inputPhrase,
       clicked: {
         type: 'article', // currently the only displayed type in the search
-        id: result.wikiId + '_' + result.id,
+        id: `${result.wikiId}_${result.id}`,
         title: result.title,
         position: result.position + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
       },
       filters: {
-          searchType: this.model.getScope()
+        searchType: this.model.getScope(),
       },
       target: 'redirect',
       app: 'mw-mobile',
@@ -72,10 +72,10 @@ export default Controller.extend({
     const payload = {
       searchPhrase: this.inputPhrase,
       filters: {
-        searchType: this.model.getScope()
+        searchType: this.model.getScope(),
       },
       results: this.model.items.slice(batchBegin, batchEnd).map((item, index) => ({
-        id: item.wikiId + '_' + item.id,
+        id: `${item.wikiId}_${item.id}`,
         title: item.title,
         position: index + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now,

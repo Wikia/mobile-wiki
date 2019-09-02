@@ -121,5 +121,5 @@ export default EmberObject.extend({
 
   getScope() {
     return this.get('scope');
-  }
+  },
 });
