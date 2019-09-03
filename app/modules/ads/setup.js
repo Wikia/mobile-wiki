@@ -199,12 +199,10 @@ export const adsSetup = {
     }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
 
-    let isSafeFrameForced;
+    let isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
 
     if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
       isSafeFrameForced = false;
-    } else {
-      isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
     }
     context.set('slots.floor_adhesion.forceSafeFrame', isSafeFrameForced);
 
