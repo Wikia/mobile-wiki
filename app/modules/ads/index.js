@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
+import { v4 as uuid } from 'ember-uuid';
 import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
@@ -21,6 +22,7 @@ class Ads {
     this.isLoaded = false;
     this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
+    this.spaInstanceId = null;
 
     /** @private */
     this.readyResolve = null;
@@ -377,6 +379,7 @@ class Ads {
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
     this.trackConnectionToDW();
+    this.trackSpaInstanceId();
   }
 
   /**
@@ -428,6 +431,23 @@ class Ads {
       pageTracker.trackProp('likho', likhoPropValue.join(';'));
       utils.logger(logGroup, 'likho props', likhoPropValue);
     }
+  }
+
+  /**
+   * @private
+   */
+  trackSpaInstanceId() {
+    const { context } = window.Wikia.adEngine;
+
+    if (!context.get('options.tracking.spaInstanceId')) {
+      return;
+    }
+
+    if (!this.spaInstanceId) {
+      this.spaInstanceId = uuid();
+    }
+
+    pageTracker.trackProp('spa_instance_id', this.spaInstanceId);
   }
 
   /**
