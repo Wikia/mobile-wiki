@@ -164,7 +164,11 @@ export const adsSetup = {
     context.set('options.tracking.slot.status', instantConfig.isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
     context.set('options.tracking.slot.viewability', instantConfig.isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.tracking.postmessage', true);
+<<<<<<< HEAD
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
+=======
+    context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
+>>>>>>> ADEN-9263 | Track tab id
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
     context.set('options.useTopBoxad', instantConfig.isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
