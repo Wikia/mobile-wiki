@@ -111,7 +111,8 @@ export const adsSetup = {
   },
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
-    const { context, utils, geoCacheStorage } = window.Wikia.adEngine;
+    const { context, utils, InstantConfigCacheStorage } = window.Wikia.adEngine;
+    const cacheStorage = InstantConfigCacheStorage.make();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
@@ -354,7 +355,7 @@ export const adsSetup = {
     context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
     // Need to be placed always after all lABrador wgVars checks
-    context.set('targeting.labrador', geoCacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
+    context.set('targeting.labrador', cacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
 
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
