@@ -18,10 +18,7 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
-
-const fallbackInstantConfig = {
-  icFloorAdhesionForceSafeFrame: true,
-};
+import fallbackInstantConfig from './fallback-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -57,9 +54,9 @@ export const adsSetup = {
       Roadblock,
       StickyTLB,
     } = window.Wikia.adProducts;
-    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
-
     context.extend(defaultAdContext);
+
+    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
 
     utils.geoService.setUpGeoData();
 
@@ -73,6 +70,7 @@ export const adsSetup = {
         setupNpaContext();
 
         const useTopBoxad = context.get('options.useTopBoxad');
+        const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
         templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
         templateService.register(BigFancyAdBelow, getBfabConfig());
@@ -88,6 +86,11 @@ export const adsSetup = {
         registerViewabilityTracker();
         registerPostmessageTrackingTracker();
         context.push('listeners.slot', fanTakeoverResolver);
+
+        if (instantConfig.get('icPorvataDirect')) {
+          context.set('slots.incontent_player.customFiller', 'porvata');
+          fillerService.register(new PorvataFiller());
+        }
 
         eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
           this.setupAdContext(instantConfig, adContext, isOptedIn);
@@ -192,12 +195,15 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+
+    let isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
+
     if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
       context.set('slots.floor_adhesion.clickPositionTracking', true);
-      context.set('slots.floor_adhesion.forceSafeFrame', false);
+      isSafeFrameForced = false;
     }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
-    context.set('slots.floor_adhesion.forceSafeFrame', instantConfig.get('icFloorAdhesionForceSafeFrame'));
+    context.set('slots.floor_adhesion.forceSafeFrame', isSafeFrameForced);
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
@@ -353,6 +359,8 @@ export const adsSetup = {
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
     slots.setupSizesAvailability();
+
+    context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
 };
 
