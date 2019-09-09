@@ -65,52 +65,51 @@ export const adsSetup = {
       window[fallbackConfigKey] = fallbackInstantConfig;
     }
 
-    return InstantConfigService.init(instantGlobals)
-      .then((instantConfig) => {
-        this.setupAdContext(instantConfig, adsContext, isOptedIn);
-        setupNpaContext();
+    return InstantConfigService.init(instantGlobals).then((instantConfig) => {
+      this.setupAdContext(instantConfig, adsContext, isOptedIn);
+      setupNpaContext();
 
-        const useTopBoxad = context.get('options.useTopBoxad');
-        const { fillerService, PorvataFiller } = window.Wikia.adEngine;
+      const useTopBoxad = context.get('options.useTopBoxad');
+      const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
-        templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
-        templateService.register(BigFancyAdBelow, getBfabConfig());
-        templateService.register(FloorAdhesion);
-        templateService.register(HideOnViewability);
-        templateService.register(Interstitial);
-        templateService.register(PorvataTemplate, getPorvataConfig());
-        templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
-        templateService.register(StickyTLB, getStickyTLBConfig());
+      templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
+      templateService.register(BigFancyAdBelow, getBfabConfig());
+      templateService.register(FloorAdhesion);
+      templateService.register(HideOnViewability);
+      templateService.register(Interstitial);
+      templateService.register(PorvataTemplate, getPorvataConfig());
+      templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
+      templateService.register(StickyTLB, getStickyTLBConfig());
 
-        registerClickPositionTracker();
-        registerSlotTracker();
-        registerViewabilityTracker();
-        registerPostmessageTrackingTracker();
-        eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
-          fanTakeoverResolver.resolve();
-        });
-
-        if (instantConfig.get('icPorvataDirect')) {
-          context.set('slots.incontent_player.customFiller', 'porvata');
-          fillerService.register(new PorvataFiller());
-        }
-
-        eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
-          this.setupAdContext(instantConfig, adContext, isOptedIn);
-        });
-        eventService.on(events.AD_SLOT_CREATED, (slot) => {
-          console.info(`Created ad slot ${slot.getSlotName()}`);
-
-          bidders.updateSlotTargeting(slot.getSlotName());
-
-          context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
-          context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
-        });
-
-        videoTracker.register();
-        context.push('delayModules', biddersDelayer);
-        billTheLizardWrapper.configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+      registerClickPositionTracker();
+      registerSlotTracker();
+      registerViewabilityTracker();
+      registerPostmessageTrackingTracker();
+      eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
+        fanTakeoverResolver.resolve();
       });
+
+      if (instantConfig.get('icPorvataDirect')) {
+        context.set('slots.incontent_player.customFiller', 'porvata');
+        fillerService.register(new PorvataFiller());
+      }
+
+      eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
+        this.setupAdContext(instantConfig, adContext, isOptedIn);
+      });
+      eventService.on(events.AD_SLOT_CREATED, (slot) => {
+        console.info(`Created ad slot ${slot.getSlotName()}`);
+
+        bidders.updateSlotTargeting(slot.getSlotName());
+
+        context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
+        context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
+      });
+
+      videoTracker.register();
+      context.push('delayModules', biddersDelayer);
+      billTheLizardWrapper.configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+    });
   },
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {

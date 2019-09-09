@@ -101,7 +101,7 @@ module('Unit | Component | ad slot', (hooks) => {
       fanTakeoverResolver.reset();
       ads.waitForUapResponse(spyUap, spyNoUap);
       isUapLoaded = testCase.isUapLoaded;
-      fanTakeoverResolver.onRenderEnded();
+      fanTakeoverResolver.resolve();
 
       if (testCase.callTwice) {
         ads.waitForUapResponse(spyUap, spyNoUap);
