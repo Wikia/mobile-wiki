@@ -31,6 +31,8 @@ export default Controller.extend({
 
     onScopeChange(newScope) {
       this.model.changeScope(newScope);
+
+      this.trackResultsImpression();
     },
   },
 
