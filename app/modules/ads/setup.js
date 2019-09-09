@@ -254,6 +254,14 @@ export const adsSetup = {
         lang: [context.get('targeting.wikiLanguage') || 'en'],
       });
       context.set('custom.isCMPEnabled', true);
+
+      if (!instantConfig.isGeoEnabled('wgAdDriverLkqdOutstreamCountries')) {
+        context.remove('bidders.prebid.lkqd.slots.incontent_player');
+      }
+
+      if (!instantConfig.isGeoEnabled('wgAdDriverPubMaticOutstreamCountries')) {
+        context.remove('bidders.prebid.pubmatic.slots.incontent_player');
+      }
     }
 
     const insertBeforePaths = [
