@@ -239,6 +239,8 @@ export const adsSetup = {
     });
     context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
 
+    context.set('templates.stickyTLB.enabled', !context.get('custom.hasFeaturedVideo'));
+
     setupBidders(context, instantConfig);
 
     if (context.get('bidders.prebid.enabled')) {
