@@ -44,7 +44,7 @@ export default EmberObject.extend({
       return this.fetchResults(query);
     }
 
-    return false;
+    return this;
   },
 
   loadMore() {

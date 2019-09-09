@@ -66,7 +66,6 @@ export default Controller.extend({
       return;
     }
 
-
     const batchSize = 25;
     const batchBegin = this.model.batch * batchSize;
     const batchEnd = batchBegin + batchSize;
