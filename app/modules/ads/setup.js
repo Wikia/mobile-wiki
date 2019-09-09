@@ -111,7 +111,8 @@ export const adsSetup = {
   },
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
-    const { context, utils, geoCacheStorage, setupBidders } = window.Wikia.adEngine;
+    const { context, utils, InstantConfigCacheStorage, setupBidders } = window.Wikia.adEngine;
+    const cacheStorage = InstantConfigCacheStorage.make();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
@@ -163,6 +164,7 @@ export const adsSetup = {
     context.set('options.tracking.slot.status', instantConfig.isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
     context.set('options.tracking.slot.viewability', instantConfig.isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.tracking.postmessage', true);
+    context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
     context.set('options.useTopBoxad', instantConfig.isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
@@ -203,6 +205,8 @@ export const adsSetup = {
     }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
     context.set('slots.floor_adhesion.forceSafeFrame', isSafeFrameForced);
+
+    context.set('slots.invisible_high_impact_2.clickPositionTracking', instantConfig.get('icInvisibleHighImpact2ClickPositionTracking'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
@@ -321,7 +325,7 @@ export const adsSetup = {
 
 
     // Need to be placed always after all lABrador wgVars checks
-    context.set('targeting.labrador', geoCacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
+    context.set('targeting.labrador', cacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
 
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);

@@ -45,10 +45,12 @@
         registerEvent: () => {},
         on: () => {},
       },
-      geoCacheStorage: {
-        getSamplingResults: () => [],
-        mapSamplingResults: () => [],
-        resetCache: () => undefined,
+      InstantConfigCacheStorage: {
+        make: () => ({
+          getSamplingResults: () => [],
+          mapSamplingResults: () => [],
+          resetCache: () => undefined,
+        }),
       },
       InstantConfigService: {
         init: (globals = {}) => Promise.resolve({

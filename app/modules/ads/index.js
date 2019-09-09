@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
+import { v4 as uuid } from 'ember-uuid';
 import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
@@ -21,6 +22,7 @@ class Ads {
     this.isLoaded = false;
     this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
+    this.spaInstanceId = null;
 
     /** @private */
     this.readyResolve = null;
@@ -247,7 +249,8 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
-    const { scrollTracker } = window.Wikia.adServices;
+    const { ScrollTracker } = window.Wikia.adServices;
+    const scrollTracker = ScrollTracker.make();
 
     this.triggerBeforePageChangeServices();
 
@@ -309,10 +312,12 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { sessionCookie, geoCacheStorage } = window.Wikia.adEngine;
+    const { SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
+    const cacheStorage = InstantConfigCacheStorage.make();
+    const sessionCookie = SessionCookie.make();
 
-    geoCacheStorage.resetCache();
+    cacheStorage.resetCache();
     sessionCookie.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
@@ -377,13 +382,15 @@ class Ads {
     this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
     this.trackConnectionToDW();
+    this.trackSpaInstanceId();
   }
 
   /**
    * @private
    */
   trackViewabilityToDW() {
-    const { viewabilityCounter } = window.Wikia.adServices;
+    const { ViewabilityCounter } = window.Wikia.adServices;
+    const viewabilityCounter = ViewabilityCounter.make();
 
     pageTracker.trackProp('session_viewability_all', viewabilityCounter.getViewability());
     pageTracker.trackProp('session_viewability_tb', viewabilityCounter.getViewability('top_boxad'));
@@ -396,8 +403,9 @@ class Ads {
    * @private
    */
   trackLabradorToDW() {
-    const { utils, geoCacheStorage } = window.Wikia.adEngine;
-    const labradorPropValue = geoCacheStorage.getSamplingResults().join(';');
+    const { utils, InstantConfigCacheStorage } = window.Wikia.adEngine;
+    const cacheStorage = InstantConfigCacheStorage.make();
+    const labradorPropValue = cacheStorage.getSamplingResults().join(';');
 
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
@@ -433,6 +441,23 @@ class Ads {
   /**
    * @private
    */
+  trackSpaInstanceId() {
+    const { context } = window.Wikia.adEngine;
+
+    if (!context.get('options.tracking.spaInstanceId')) {
+      return;
+    }
+
+    if (!this.spaInstanceId) {
+      this.spaInstanceId = uuid();
+    }
+
+    pageTracker.trackProp('spa_instance_id', this.spaInstanceId);
+  }
+
+  /**
+   * @private
+   */
   trackConnectionToDW() {
     const { utils } = window.Wikia.adEngine;
     const connection = navigator.connection
@@ -463,7 +488,8 @@ class Ads {
    * @private
    */
   initScrollSpeedTracking() {
-    const { scrollTracker } = window.Wikia.adServices;
+    const { ScrollTracker } = window.Wikia.adServices;
+    const scrollTracker = ScrollTracker.make();
 
     scrollTracker.initScrollSpeedTracking('application-wrapper');
     this.trackSessionScrollSpeed();
@@ -473,7 +499,8 @@ class Ads {
    * Tracks average session scroll speed
    */
   trackSessionScrollSpeed() {
-    const { scrollSpeedCalculator } = window.Wikia.adServices;
+    const { ScrollSpeedCalculator } = window.Wikia.adServices;
+    const scrollSpeedCalculator = ScrollSpeedCalculator.make();
     const scrollSpeed = scrollSpeedCalculator.getAverageSessionScrollSpeed();
 
     pageTracker.trackProp('session_scroll_speed', scrollSpeed);
