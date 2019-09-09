@@ -416,7 +416,7 @@ export const defaultAdContext = {
     },
     instantConfig: {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
-      fallbackConfigKey: 'services.instantConfig.fallbackConfigKey',
+      fallbackConfigKey: 'fallbackInstantConfig',
     },
     krux: {
       enabled: false,

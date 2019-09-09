@@ -18,10 +18,7 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
-
-const fallbackInstantConfig = {
-  icFloorAdhesionForceSafeFrame: true,
-};
+import fallbackInstantConfig from './fallback-config';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -58,9 +55,9 @@ export const adsSetup = {
       Roadblock,
       StickyTLB,
     } = window.Wikia.adProducts;
-    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
-
     context.extend(defaultAdContext);
+
+    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
 
     utils.geoService.setUpGeoData();
 
@@ -74,6 +71,7 @@ export const adsSetup = {
         setupNpaContext();
 
         const useTopBoxad = context.get('options.useTopBoxad');
+        const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
         templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
         templateService.register(BigFancyAdBelow, getBfabConfig());
@@ -91,6 +89,11 @@ export const adsSetup = {
         eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
           fanTakeoverResolver.resolve();
         });
+
+        if (instantConfig.get('icPorvataDirect')) {
+          context.set('slots.incontent_player.customFiller', 'porvata');
+          fillerService.register(new PorvataFiller());
+        }
 
         eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
           this.setupAdContext(instantConfig, adContext, isOptedIn);
@@ -111,7 +114,8 @@ export const adsSetup = {
   },
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
-    const { context, utils, geoCacheStorage } = window.Wikia.adEngine;
+    const { context, utils, InstantConfigCacheStorage } = window.Wikia.adEngine;
+    const cacheStorage = InstantConfigCacheStorage.make();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
       // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
@@ -163,6 +167,7 @@ export const adsSetup = {
     context.set('options.tracking.slot.status', instantConfig.isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
     context.set('options.tracking.slot.viewability', instantConfig.isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.tracking.postmessage', true);
+    context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
     context.set('options.useTopBoxad', instantConfig.isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
@@ -194,12 +199,17 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+
+    let isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
+
     if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
       context.set('slots.floor_adhesion.clickPositionTracking', true);
-      context.set('slots.floor_adhesion.forceSafeFrame', false);
+      isSafeFrameForced = false;
     }
     context.set('slots.floor_adhesion.numberOfViewportsFromTopToPush', instantConfig.get('icFloorAdhesionViewportsToStart'));
-    context.set('slots.floor_adhesion.forceSafeFrame', instantConfig.get('icFloorAdhesionForceSafeFrame'));
+    context.set('slots.floor_adhesion.forceSafeFrame', isSafeFrameForced);
+
+    context.set('slots.invisible_high_impact_2.clickPositionTracking', instantConfig.get('icInvisibleHighImpact2ClickPositionTracking'));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
@@ -350,11 +360,13 @@ export const adsSetup = {
     context.set('bidders.enabled', context.get('bidders.prebid.enabled') || context.get('bidders.a9.enabled'));
 
     // Need to be placed always after all lABrador wgVars checks
-    context.set('targeting.labrador', geoCacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
+    context.set('targeting.labrador', cacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
 
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
     slots.setupSizesAvailability();
+
+    context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
 };
 
