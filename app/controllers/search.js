@@ -30,9 +30,7 @@ export default Controller.extend({
     },
 
     onScopeChange(newScope) {
-      this.model.changeScope(newScope);
-
-      this.trackResultsImpression();
+      this.model.changeScope(newScope).then(() => this.trackResultsImpression());
     },
   },
 
@@ -68,6 +66,7 @@ export default Controller.extend({
       return;
     }
 
+
     const batchSize = 25;
     const batchBegin = this.model.batch * batchSize;
     const batchEnd = batchBegin + batchSize;
@@ -80,8 +79,7 @@ export default Controller.extend({
         id: `${item.wikiId}_${item.id}`,
         title: item.title,
         position: index + 1, // +1 since we need to start with 1 instead of 0
-        thumbnail: false, // we do not show thumbnails on SRP right now,
-        wikiId: item.wikiId,
+        thumbnail: false, // we do not show thumbnails on SRP right now
       })),
       page: this.model.batch,
       limit: batchSize,

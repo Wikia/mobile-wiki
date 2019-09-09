@@ -44,7 +44,7 @@ export default EmberObject.extend({
       return this.fetchResults(query);
     }
 
-    return this;
+    return false;
   },
 
   loadMore() {
@@ -116,7 +116,7 @@ export default EmberObject.extend({
   changeScope(newScope) {
     this.set('scope', newScope);
 
-    this.search(this.query);
+    return this.search(this.query);
   },
 
   getScope() {
