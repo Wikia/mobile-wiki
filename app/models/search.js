@@ -104,6 +104,7 @@ export default EmberObject.extend({
         prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
         url: item.url,
         wikiId: item.wikiId,
+        sitename: item.sitename,
       }))),
       loading: false,
       totalItems: state.totalResultsFound,
