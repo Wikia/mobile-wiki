@@ -259,11 +259,11 @@ export const adsSetup = {
       });
       context.set('custom.isCMPEnabled', true);
 
-      if (!instantConfig.isGeoEnabled('wgAdDriverLkqdOutstreamCountries')) {
+      if (!instantConfig.get('icPrebidLkqdOutstream')) {
         context.remove('bidders.prebid.lkqd.slots.incontent_player');
       }
 
-      if (!instantConfig.isGeoEnabled('wgAdDriverPubMaticOutstreamCountries')) {
+      if (!instantConfig.get('icPrebidPubmaticOutstream')) {
         context.remove('bidders.prebid.pubmatic.slots.incontent_player');
       }
     }
