@@ -110,7 +110,9 @@ export const adsSetup = {
   },
 
   setupAdContext(instantConfig, adsContext, isOptedIn = false) {
-    const { context, utils, InstantConfigCacheStorage, setupBidders } = window.Wikia.adEngine;
+    const {
+      context, utils, InstantConfigCacheStorage, setupBidders
+    } = window.Wikia.adEngine;
     const cacheStorage = InstantConfigCacheStorage.make();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
