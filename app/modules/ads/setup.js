@@ -169,6 +169,7 @@ export const adsSetup = {
     context.set('options.tracking.slot.viewability', instantConfig.isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
     context.set('options.tracking.postmessage', true);
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
+    context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
     // Switch for repeating incontent boxad ads
     context.set('options.useTopBoxad', instantConfig.isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));

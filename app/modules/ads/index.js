@@ -383,6 +383,7 @@ class Ads {
     this.trackLikhoToDW();
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
+    this.trackTabId();
   }
 
   /**
@@ -453,6 +454,21 @@ class Ads {
     }
 
     pageTracker.trackProp('spa_instance_id', this.spaInstanceId);
+  }
+
+  /**
+   * @private
+   */
+  trackTabId() {
+    const { context } = window.Wikia.adEngine;
+
+    if (!context.get('options.tracking.tabId')) {
+      return;
+    }
+
+    window.tabId = sessionStorage.tab_id ? sessionStorage.tab_id : sessionStorage.tab_id = uuid();
+
+    pageTracker.trackProp('tab_id', window.tabId);
   }
 
   /**
