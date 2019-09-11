@@ -22,9 +22,9 @@ export default Component.extend(
         return this.wikiVariables.watchShowURL;
       } else if (system === 'ios') {
         return this.wikiVariables.watchShowURLIOS;
-      } else {
-        return this.wikiVariables.watchShowURLAndroid;
       }
+
+      return this.wikiVariables.watchShowURLAndroid;
     }),
 
     isVisible: computed('url', 'buttonLabel', 'geo', function () {
