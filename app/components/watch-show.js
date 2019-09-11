@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { oneWay } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { track, trackActions } from '../utils/track';
+import { system } from '../utils/browser';
 
 export default Component.extend(
   {
@@ -11,13 +12,22 @@ export default Component.extend(
 
     tagName: '',
 
-    url: oneWay('wikiVariables.watchShowURL'),
     buttonLabel: oneWay('wikiVariables.watchShowButtonLabel'),
     imageUrl: oneWay('wikiVariables.watchShowImageURL'),
     cta: oneWay('wikiVariables.watchShowCTA'),
     trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
 
-    isVisible: computed('url', function () {
+    url: computed('wikiVariables.watchShowURL', 'wikiVariables.watchShowURLIOS', 'wikiVariables.watchShowURLAndroid', function () {
+      if (this.wikiVariables.watchShowURL) {
+        return this.wikiVariables.watchShowURL;
+      } else if (system === 'ios') {
+        return this.wikiVariables.watchShowURLIOS;
+      } else {
+        return this.wikiVariables.watchShowURLAndroid;
+      }
+    }),
+
+    isVisible: computed('url', 'buttonLabel', 'geo', function () {
       return this.url && this.buttonLabel && this.geo.country === 'US';
     }),
 
