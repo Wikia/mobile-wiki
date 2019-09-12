@@ -4,6 +4,7 @@ import { oneWay } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { track, trackActions } from '../utils/track';
 import { system } from '../utils/browser';
+import { isDarkTheme } from '../utils/mobile-app';
 
 export default Component.extend(
   {
@@ -13,9 +14,16 @@ export default Component.extend(
     tagName: '',
 
     buttonLabel: oneWay('wikiVariables.watchShowButtonLabel'),
-    imageUrl: oneWay('wikiVariables.watchShowImageURL'),
     cta: oneWay('wikiVariables.watchShowCTA'),
     trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
+
+    imageUrl: computed('wikiVariables.{watchShowImageURL,watchShowImageURLDarkTheme}', function () {
+      if (isDarkTheme() && this.wikiVariables.watchShowImageURLDarkTheme) {
+        return this.wikiVariables.watchShowImageURLDarkTheme;
+      }
+
+      return this.wikiVariables.watchShowImageURL;
+    }),
 
     url: computed('wikiVariables.{watchShowURL,watchShowURLIOS,watchShowURLAndroid}', function () {
       if (this.wikiVariables.watchShowURL) {
