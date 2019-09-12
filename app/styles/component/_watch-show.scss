@@ -6,17 +6,24 @@
   margin-top: 30px;
 
   h2 {
-    font-size: 10px;
+    color: $wds-color-light-c6;
+    font-size: 8px;
+    letter-spacing: .22px;
     line-height: 1;
     margin: 0;
     padding: 0 !important; // overrides article h2:not(.open-section)
   }
 
   .wds-button {
-    @include button-theming($wds-fandom-color-aqua, $wds-color-white);
+    @include button-theming(#00acac, $wds-color-white);
+    min-width: 236px;
   }
 
   &__image {
-    max-width: 200px;
+    height: 24px;
+    margin-bottom: 12px;
+    margin-top: 4px;
+    object-fit: cover;
+    width: 164px;
   }
 }
