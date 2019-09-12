@@ -95,6 +95,8 @@ Mobile-wiki can be run inside Docker using docker-compose. This is as easy as ru
 
 `docker-compose up`
 
+**NOTE**: Make sure MediaWiki docker container is running.
+
 #### Initial setup
 
 Create .env file with the name of the devbox with local user id
@@ -114,12 +116,16 @@ ssh session:
 export GITHUB_TOKEN=<YOUR_TOKEN_HERE>
 ```
 
+**NOTE**: Make sure the token allows access to private repositories - the **repo** (_Full control of private repositories_) should be selected.
+
 Now you need to fetch all dependencies (this can take quite some time for the first time):
 
 
 ```bash
 docker run --rm -v `pwd`:/app -e GITHUB_TOKEN="$GITHUB_TOKEN" -e LOCAL_USER_ID=`id -u $USER` artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest npm run setup
 ```
+
+**NOTE**: If you're using `zsh` or similar shell, make sure that `"` are escaped.
 
 #### (Re)building the docker image
 Whenever you add a new global dependency you should rebuild your mobile-wiki container. To do that you need to run:
