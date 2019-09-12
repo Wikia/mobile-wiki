@@ -8,7 +8,7 @@
     display: block;
     margin: 0 12px;
 
-    &:not(:only-child) {
+    &:not(:only-child):not(.no-border) {
       border-bottom: 1px solid $wds-fandom-color-middle-gray;
     }
 

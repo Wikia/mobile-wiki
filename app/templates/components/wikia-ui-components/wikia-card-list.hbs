@@ -1,6 +1,6 @@
 <ul class="wikia-card-list">
-  {{#each @items as |item|}}
-    <li class="wikia-card" {{action "onItemClick" item}}>
+  {{#each @items as |item key|}}
+    <li class="wikia-card{{if (equal key 1) " no-border"}}" {{action "onItemClick" item}}>
       {{#link-to
         "wiki-page"
         item.prefixedTitle
@@ -14,5 +14,8 @@
         <div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
       {{/link-to}}
     </li>
+    {{#if (equal key 1)}}
+      {{post-search-results}}
+    {{/if}}
   {{/each}}
 </ul>
