@@ -16,6 +16,7 @@
 
   .wds-button {
     @include button-theming(#00acac, $wds-color-white);
+
     min-width: 236px;
   }
 

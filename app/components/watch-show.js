@@ -17,10 +17,12 @@ export default Component.extend(
     cta: oneWay('wikiVariables.watchShowCTA'),
     trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
 
-    url: computed('wikiVariables.watchShowURL', 'wikiVariables.watchShowURLIOS', 'wikiVariables.watchShowURLAndroid', function () {
+    url: computed('wikiVariables.{watchShowURL,watchShowURLIOS,watchShowURLAndroid}', function () {
       if (this.wikiVariables.watchShowURL) {
         return this.wikiVariables.watchShowURL;
-      } else if (system === 'ios') {
+      }
+
+      if (system === 'ios') {
         return this.wikiVariables.watchShowURLIOS;
       }
 
