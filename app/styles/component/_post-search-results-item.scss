@@ -1,0 +1,29 @@
+.post-search-results {
+  border-bottom: 1px solid $wds-fandom-color-middle-gray;
+  font-family: $font-family-with-rubik;
+  margin: 18px 12px;
+  padding-bottom: 18px;
+
+  &__header {
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  &__header-text {
+    align-items: center;
+    display: flex;
+    font-size: $wds-font-size-base;
+    font-weight: $wds-font-weight-medium;
+  }
+
+  &__see-more {
+    font-size: $wds-font-size-xs;
+    padding: 0;
+
+    & > svg {
+      transform: scaleX(-1);
+    }
+  }
+}

@@ -4,7 +4,7 @@
       <div class="post-search-results__header-text wds-midlight-navy">
         <Icon @name="comment" @size="small" />
         Related Posts
-      </div> 
+      </div>
       <Button
         @href={{seeMoreLink}}
         @text={{true}}
@@ -16,24 +16,7 @@
     </header>
     {{#if isLoaded}}
       {{#each posts as |post|}}
-        <div class="post-search-results__item">
-          {{#if post.image}}
-            <img
-              class="post-search-results__item__image"
-              src={{post.image}}
-            />
-          {{/if}}
-          <a
-            href={{post.url}}
-            class="post-search-results__item__title"
-          >
-            {{post.title}}
-          </a>
-          <div class="post-search-results__item__details">
-            <Icon @name="quiz" @size="tiny" />
-            {{post.takers}} takers
-          </div>
-        </div>
+        {{post-search-results-item post=post}}
       {{/each}}
     {{else}}
       <Spinner

@@ -1,0 +1,12 @@
+<div class="post-search-results-item">
+  {{#if post.image}}
+    <img class="post-search-results-item__image" src={{post.image}} />
+  {{/if}}
+  <a href={{post.url}} class="post-search-results-item__title">
+    {{post.title}}
+  </a>
+  <div class="post-search-results-item__details">
+    <Icon @name="quiz" @size="tiny" />
+    {{post.takers}} takers
+  </div>
+</div>
