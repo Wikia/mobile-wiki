@@ -1,46 +1,29 @@
-.post-search-results-item {
-  margin: 18px 0;
+.post-search-results {
+  border-bottom: 1px solid $wds-fandom-color-middle-gray;
+  font-family: $font-family-with-rubik;
+  margin: 18px 12px;
+  padding-bottom: 18px;
 
-  // Clearfix
-  &::after {
-    clear: both;
-    content: "";
-    display: block;
-    height: 0;
-    visibility: hidden;
-  }
-
-  &__title {
-    color: #0d7675;
-    display: inherit;
-    font-size: $wds-font-size-xs;
-    font-weight: $wds-font-weight-medium;
-    letter-spacing: .03px;
-    line-height: 1;
-    margin-bottom: 9px;
-  }
-
-  &__details {
-    align-items: center;
-    color: $wds-color-dark-gray;
+  &__header {
+    align-content: center;
     display: flex;
-    fill: currentColor;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  &__header-text {
+    align-items: center;
+    display: flex;
+    font-size: $wds-font-size-base;
+    font-weight: $wds-font-weight-medium;
+  }
+
+  &__see-more {
     font-size: $wds-font-size-xs;
-    font-weight: $wds-font-weight-normal;
-    line-height: 1;
+    padding: 0;
 
     & > svg {
-      margin-right: 6px;
+      transform: scaleX(-1);
     }
-  }
-
-  &__image {
-    border: solid 1px #bed2cf;
-    border-radius: 3px;
-    float: right;
-    height: 48px;
-    margin-left: 12px;
-    object-fit: cover;
-    width: 48px;
   }
 }
