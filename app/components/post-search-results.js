@@ -5,7 +5,8 @@ import config from '../config/environment';
 
 export default Component.extend({
   seeMoreLink: 'http://example.com',
-  data: false,
+
+  posts: null,
   isLoaded: false,
 
   /**
@@ -15,30 +16,41 @@ export default Component.extend({
     this._super(...arguments);
 
     if (this.isEnabled) {
+      //TODO: Instead of this, call API
       run.scheduleOnce('afterRender', this, () => {
         setTimeout(() => {
           this.set('isLoaded', true);
-          this.set('data', [
+          this.set('posts', [
             {
-              title: 'Poll: If you have a dragon, what color would your dragon be?',
-              url: 'http://example.com',
-              type: 'poll',
-              votes: 1453,
+              "url": "http://example.com/",
+              "wikiId": 0,
+              "title": "do you know adrien well",
+              "content": "its a terrible quiz good luck getting a 100%",
+              "rank": 9575.466,
+              "articleTags": [
+                "Adrien Agreste"
+              ],
+              "type": "quiz"
             },
             {
-              title: 'Me sitting here wondering what to do now GoT is over.',
-              url: 'http://example.com',
-              type: 'post',
-              lastComment: '3min ago',
-              posted: '10min ago',
-              imageUrl: '',
+              "url": "http://example.com/",
+              "wikiId": 0,
+              "title": "The color kwamis!",
+              "content": "This quiz will test u'r knowledge about 7 kwamis. Have fun & tell me what u get in the comments!😊👍",
+              "rank": 9566.112,
+              "articleTags": [],
+              "image": "https://static.wikia.nocookie.net/2dfbaf16-de4d-4138-863c-e60657e00029",
+              "type": "quiz"
             },
             {
-              title: 'Interview with Isaac Hempstead Wright confirms that R.R. Martin intended for Bran to be King',
-              url: 'http://example.com',
-              type: 'post',
-              lastComment: null,
-              posted: '4min ago',
+              "url": "http://example.com/",
+              "wikiId": 0,
+              "title": "What do you know about Emilie Agreste?🤓",
+              "content": "This Quiz will test your knowledge about Emilie Agreste!💐",
+              "rank": 9565.443,
+              "articleTags": [],
+              "image": "https://static.wikia.nocookie.net/998bf96c-60f5-4ab9-8ca4-3ac3a11b5c2c",
+              "type": "quiz"
             },
           ]);
         }, 2000);

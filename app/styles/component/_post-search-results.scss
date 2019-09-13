@@ -25,4 +25,34 @@
       transform: scaleX(-1);
     }
   }
+
+  &__item {
+    margin: 18px 0;
+
+    // Clearfix
+    &::after {
+      visibility: hidden;
+      display: block;
+      content: "";
+      clear: both;
+      height: 0;
+    }
+
+    &__title {
+      color: #0d7675;
+      font-size: $wds-font-size-xs;
+      font-weight: $wds-font-weight-medium;
+      letter-spacing: 0.03px;
+    }
+
+    &__image {
+      border-radius: 3px;
+      border: solid 1px #bed2cf;
+      float: right;
+      height: 48px;
+      margin-left: 12px;
+      object-fit: cover;
+      width: 48px;
+    }
+  }
 }

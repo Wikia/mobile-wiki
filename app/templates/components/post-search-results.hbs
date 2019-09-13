@@ -15,7 +15,22 @@
       </Button>
     </header>
     {{#if isLoaded}}
-      LOADED
+      {{#each posts as |post|}}
+        <div class="post-search-results__item">
+          {{#if post.image}}
+            <img
+              class="post-search-results__item__image"
+              src={{post.image}}
+            />
+          {{/if}}
+          <a
+            href={{post.url}}
+            class="post-search-results__item__title"
+          >
+            {{post.title}}
+          </a>
+        </div>
+      {{/each}}
     {{else}}
       <Spinner
         @active={{true}}
