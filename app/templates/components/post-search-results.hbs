@@ -3,14 +3,14 @@
     <header class="post-search-results__header">
       <div class="post-search-results__header-text wds-midlight-navy">
         <Icon @name="comment" @size="small" />
-        {{i18n "main.search-post-items-header"}}
+        {{{i18n "main.search-post-items-header" ns="search"}}}
       </div>
       <Button
         @href={{seeMoreLink}}
         @text={{true}}
         class="post-search-results__see-more"
       >
-        <span>{{i18n "main.search-post-items-see-more"}}</span>
+        <span>{{{i18n "main.search-post-items-see-more" ns="search"}}}</span>
         <Icon @name="arrow" @size="tiny" />
       </Button>
     </header>
