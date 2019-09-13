@@ -29,6 +29,10 @@
           >
             {{post.title}}
           </a>
+          <div class="post-search-results__item__details">
+            <Icon @name="quiz" @size="tiny" />
+            {{post.takers}} takers
+          </div>
         </div>
       {{/each}}
     {{else}}

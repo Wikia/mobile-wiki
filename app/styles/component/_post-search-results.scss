@@ -45,6 +45,13 @@
       letter-spacing: 0.03px;
     }
 
+    &__details {
+      color: $wds-color-dark-gray;
+      fill: currentColor;
+      font-size: $wds-font-size-xs;
+      font-weight: $wds-font-weight-normal;
+    }
+
     &__image {
       border-radius: 3px;
       border: solid 1px #bed2cf;
