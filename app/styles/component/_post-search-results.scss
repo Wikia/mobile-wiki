@@ -11,7 +11,7 @@
     margin-bottom: 14px;
   }
 
-  &__header-text {   
+  &__header-text {
     align-items: center;
     display: flex;
     font-size: $wds-font-size-base;
@@ -31,30 +31,36 @@
 
     // Clearfix
     &::after {
-      visibility: hidden;
-      display: block;
-      content: "";
       clear: both;
+      content: "";
+      display: block;
       height: 0;
+      visibility: hidden;
     }
 
     &__title {
       color: #0d7675;
       font-size: $wds-font-size-xs;
       font-weight: $wds-font-weight-medium;
-      letter-spacing: 0.03px;
+      letter-spacing: .03px;
     }
 
     &__details {
+      align-items: center;
       color: $wds-color-dark-gray;
+      display: flex;
       fill: currentColor;
       font-size: $wds-font-size-xs;
       font-weight: $wds-font-weight-normal;
+
+      & > svg {
+        margin-right: 6px;
+      }
     }
 
     &__image {
-      border-radius: 3px;
       border: solid 1px #bed2cf;
+      border-radius: 3px;
       float: right;
       height: 48px;
       margin-left: 12px;
