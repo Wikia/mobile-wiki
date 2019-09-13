@@ -1,6 +1,6 @@
 <ul class="wikia-card-list">
   {{#each @items as |item key|}}
-    <li class="wikia-card{{if (equal key 1) " no-border"}}" {{action "onItemClick" item}}>
+    <li class="wikia-card" {{action "onItemClick" item}}>
       {{#link-to
         "wiki-page"
         item.prefixedTitle

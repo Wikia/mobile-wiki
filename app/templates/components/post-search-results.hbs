@@ -1,3 +1,29 @@
-<div class="post-search-results">
-  HERE BE POSTS
-</div>
+{{#if isEnabled}}
+  <aside class="post-search-results">
+    <header class="post-search-results__header">
+      <div class="post-search-results__header-text wds-midlight-navy">
+        <Icon @name="comment" @size="small" />
+        Related Posts
+      </div> 
+      <Button
+        @href={{seeMoreLink}}
+        @text={{true}}
+        class="post-search-results__see-more"
+      >
+        <span>See more</span>
+        <Icon @name="arrow" @size="tiny" />
+      </Button>
+    </header>
+    {{#if isLoaded}}
+      LOADED
+    {{else}}
+      <Spinner
+        @active={{true}}
+        @block={{true}}
+        @overlay={{false}}
+        @radius={{24}}
+        @strokeWidth={{2}}
+      />
+    {{/if}}
+  </aside>
+{{/if}}
