@@ -1,21 +1,30 @@
 .watch-show {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
   margin-top: 30px;
 
-  .wds-button {
-    @include button-theming($wds-color-black, $wds-color-white);
+  h2 {
+    color: $wds-color-light-c6;
+    font-size: 8px;
+    letter-spacing: .22px;
+    line-height: 1;
+    margin: 0;
+    padding: 0 !important; // overrides article h2:not(.open-section)
   }
 
-  &__available-on-hulu {
-    margin-left: 17px;
+  .wds-button {
+    @include button-theming(#00acac, $wds-color-white);
 
-    &-label {
-      font-size: 9px;
-      font-weight: $wds-font-weight-medium;
-      line-height: $wds-line-height-none;
-      margin-bottom: 4px;
-    }
+    min-width: 236px;
+  }
+
+  &__image {
+    height: 24px;
+    margin-bottom: 12px;
+    margin-top: 4px;
+    object-fit: cover;
+    width: 164px;
   }
 }
