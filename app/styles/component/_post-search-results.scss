@@ -20,6 +20,7 @@
 
   &__see-more {
     font-size: $wds-font-size-xs;
+    padding: 0;
 
     & > svg {
       transform: scaleX(-1);
@@ -40,9 +41,12 @@
 
     &__title {
       color: #0d7675;
+      display: inherit;
       font-size: $wds-font-size-xs;
       font-weight: $wds-font-weight-medium;
       letter-spacing: .03px;
+      line-height: 1;
+      margin-bottom: 9px;
     }
 
     &__details {
@@ -52,6 +56,7 @@
       fill: currentColor;
       font-size: $wds-font-size-xs;
       font-weight: $wds-font-weight-normal;
+      line-height: 1;
 
       & > svg {
         margin-right: 6px;
