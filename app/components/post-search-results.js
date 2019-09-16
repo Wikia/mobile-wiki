@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import { run } from '@ember/runloop';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
@@ -39,14 +38,14 @@ const QUIZZES_WHITELIST = [
 
 
 export default Component.extend({
+  fetchService: service('fetch'),
+  logger: service(),
+  wikiVariables: service(),
+
   isLoading: true,
   isInternal: false,
   posts: null,
   seeMore: false,
-
-  wikiVariables: service(),
-  logger: service(),
-  fetchService: service('fetch'),
 
   // fortuneatly we can compute the feeds path from articlePath (it has lang part)
   feedsUrl: computed('wikiVariables.articlePath', function () {
@@ -103,15 +102,13 @@ export default Component.extend({
   },
 
   update(state) {
-    if (this.isDestroyed) {
-      return;
+    if (!this.isDestroyed) {
+      this.setProperties({
+        // TODO: read from results, not from the mocked data
+        posts: state.results,
+        isLoading: false,
+      });
     }
-
-    this.setProperties({
-      // TODO: read from results, not from the mocked data
-      posts: state.results,
-      isLoading: false,
-    });
 
     return this;
   },
