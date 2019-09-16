@@ -107,9 +107,9 @@ export default Component.extend({
         // TODO: read from results, not from the mocked data
         posts: state.results.map(item => ({
           image: item.image,
-          title: item.title,
           takers: item.takers || 0,
-          url: item.url || '',
+          title: item.title,
+          url: item.url,
         })),
         isLoading: false,
       });
