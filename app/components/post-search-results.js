@@ -4,10 +4,9 @@ import { run } from '@ember/runloop';
 import config from '../config/environment';
 
 export default Component.extend({
-  seeMoreLink: 'http://example.com',
-
   posts: null,
   isLoaded: false,
+  seeMore: false,
 
   /**
    * @returns {void}

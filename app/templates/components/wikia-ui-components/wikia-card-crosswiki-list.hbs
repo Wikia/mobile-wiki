@@ -1,5 +1,5 @@
 <ul class="wikia-card-list">
-  {{#each @items as |item|}}
+  {{#each @items as |item key|}}
     <li class="wikia-card" {{action "onItemClick" item preventDefault=false}}>
       <a href={{{ item.url }}} class="wikia-card__item wds-font-size-s wds-leading-tight">
         <div class="wikia-card__title wds-font-weight-medium">
@@ -8,5 +8,8 @@
         <div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
       </a>
     </li>
+    {{#if (equal key 1)}}
+      {{post-search-results}}
+    {{/if}}
   {{/each}}
 </ul>
