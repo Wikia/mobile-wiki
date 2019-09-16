@@ -13,6 +13,12 @@
         totalItems=model.totalItems
         query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
       }}}
+     {{else}}
+      {{{i18n
+        "main.search-error-not-found"
+        ns="search"
+        query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
+      }}}
      {{/if }}
 
       <Dropdown as |dropdown|>
