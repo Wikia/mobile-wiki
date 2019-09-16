@@ -16,11 +16,7 @@
         </Button>
       {{/if}}
     </header>
-    {{#if isLoaded}}
-      {{#each posts as |post|}}
-        {{post-search-results-item post=post}}
-      {{/each}}
-    {{else}}
+    {{#if isLoading}}
       <Spinner
         @active={{true}}
         @block={{true}}
@@ -28,6 +24,14 @@
         @radius={{24}}
         @strokeWidth={{2}}
       />
+    {{else}}
+      {{#each posts as |post|}}
+        {{post-search-results-item post=post}}
+      {{else}}
+        <div class="post-search-results__no-posts">
+          {{{i18n "main.search-post-item-no-posts" ns="search"}}}
+        </div>
+      {{/each}}
     {{/if}}
   </aside>
 {{/if}}

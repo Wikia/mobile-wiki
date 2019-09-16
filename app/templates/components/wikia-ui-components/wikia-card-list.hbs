@@ -15,7 +15,7 @@
       {{/link-to}}
     </li>
     {{#if (equal key 1)}}
-      {{post-search-results seeMore=true}}
+      {{post-search-results query=query seeMore=true isInternal=true}}
     {{/if}}
   {{/each}}
 </ul>

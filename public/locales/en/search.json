@@ -13,6 +13,7 @@
     "search-post-items-header": "Related Posts",
     "search-post-items-see-more": "See More",
     "search-post-item-quiz-reply": "{count} reply",
-    "search-post-item-quiz-reply_plural": "{count} replies"
+    "search-post-item-quiz-reply_plural": "{count} replies",
+    "search-post-item-no-posts": "Couldn't find any posts"
   }
 }
