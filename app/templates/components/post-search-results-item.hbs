@@ -2,11 +2,11 @@
   {{#if post.image}}
     <img class="post-search-results-item__image" src={{post.image}} alt={{post.title}}>
   {{/if}}
-  <a href={{post.url}} class="post-search-results-item__title">
+  <a href={{{post.url}}} class="post-search-results-item__title">
     {{post.title}}
   </a>
   <div class="post-search-results-item__details">
     <Icon @name="quiz" @size="tiny" />
-    {{{i18n "main.search-post-item-quiz-reply" count=1234 ns="search"}}}
+    {{{i18n "main.search-post-item-quiz-takers" count=post.takers ns="search"}}}
   </div>
 </div>

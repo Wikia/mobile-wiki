@@ -105,7 +105,13 @@ export default Component.extend({
     if (!this.isDestroyed) {
       this.setProperties({
         // TODO: read from results, not from the mocked data
-        posts: state.results,
+        posts: state.results.map(item => ({
+          url: item.url,
+          image: item.image,
+          title: item.title,
+          takers: item.takers || 0,
+          url: item.url || '',
+        })),
         isLoading: false,
       });
     }
