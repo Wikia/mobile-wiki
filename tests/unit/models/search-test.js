@@ -43,6 +43,7 @@ module('Unit | Model | search result page', (hooks) => {
               content: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test',
               wikiId: 3035,
+              sitename: 'foo',
             },
             {
               pageId: 124,
@@ -50,6 +51,7 @@ module('Unit | Model | search result page', (hooks) => {
               content: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test/1',
               wikiId: 3035,
+              sitename: 'foo',
             },
             {
               pageId: 125,
@@ -57,6 +59,7 @@ module('Unit | Model | search result page', (hooks) => {
               content: '<div>html</div>test',
               url: 'http://test.wikia.com/test_2',
               wikiId: 3035,
+              sitename: 'foo',
             },
           ],
         },
@@ -69,6 +72,7 @@ module('Unit | Model | search result page', (hooks) => {
             prefixedTitle: 'Test',
             url: 'http://test.wikia.com/wiki/Test',
             wikiId: 3035,
+            sitename: 'foo',
           },
           {
             id: 124,
@@ -78,6 +82,7 @@ module('Unit | Model | search result page', (hooks) => {
             prefixedTitle: 'Test/1',
             url: 'http://test.wikia.com/wiki/Test/1',
             wikiId: 3035,
+            sitename: 'foo',
           },
           {
             id: 125,
@@ -87,6 +92,7 @@ module('Unit | Model | search result page', (hooks) => {
             prefixedTitle: 'test_2',
             url: 'http://test.wikia.com/test_2',
             wikiId: 3035,
+            sitename: 'foo',
           },
         ],
       },
@@ -181,6 +187,7 @@ module('Unit | Model | search result page', (hooks) => {
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
           wikiId: 3035,
+          sitename: 'foo',
         },
       ],
     });
@@ -193,6 +200,7 @@ module('Unit | Model | search result page', (hooks) => {
         prefixedTitle: 'Test',
         url: 'http://test.wikia.com/wiki/Test',
         wikiId: 3035,
+        sitename: 'foo',
       },
     ]);
 
@@ -208,6 +216,7 @@ module('Unit | Model | search result page', (hooks) => {
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test/1',
           wikiId: 3035,
+          sitename: 'foo',
         },
         {
           pageId: 125,
@@ -215,6 +224,7 @@ module('Unit | Model | search result page', (hooks) => {
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test_2',
           wikiId: 147,
+          sitename: 'foo',
         },
       ],
     });
@@ -227,6 +237,7 @@ module('Unit | Model | search result page', (hooks) => {
         position: 0,
         url: 'http://test.wikia.com/wiki/Test',
         wikiId: 3035,
+        sitename: 'foo',
       },
       {
         id: 124,
@@ -236,6 +247,7 @@ module('Unit | Model | search result page', (hooks) => {
         position: 1,
         url: 'http://test.wikia.com/wiki/Test/1',
         wikiId: 3035,
+        sitename: 'foo',
       },
       {
         id: 125,
@@ -245,6 +257,7 @@ module('Unit | Model | search result page', (hooks) => {
         position: 2,
         url: 'http://test.wikia.com/wiki/Test_2',
         wikiId: 147,
+        sitename: 'foo',
       },
     ]);
   });
