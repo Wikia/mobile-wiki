@@ -6,20 +6,12 @@
 />
 <div class="search-results">
     <div class="search-results__total wds-font-size-s wds-leading-tight">
-    {{#if model.totalItems}}
       {{{i18n
         "main.total-results"
         ns="search"
         totalItems=model.totalItems
         query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
       }}}
-     {{else}}
-      {{{i18n
-        "main.search-error-not-found"
-        ns="search"
-        query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
-      }}}
-     {{/if }}
 
       <Dropdown as |dropdown|>
         {{#if model.isInteralScope }}
