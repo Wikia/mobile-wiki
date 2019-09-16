@@ -1,12 +1,12 @@
 import Component from '@ember/component';
 import { run } from '@ember/runloop';
-import { computed, get, observer } from '@ember/object';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 import config from '../config/environment';
 
 // TODO: Remove this when all discussions' posts are in the index
-const quizzes_whitelist = [
+const QUIZZES_WHITELIST = [
   'gameofthrones.fandom.com',
   'attackontitan.fandom.com',
   'marvelcinematicuniverse.fandom.com',
@@ -56,7 +56,7 @@ export default Component.extend({
     }
 
     // Enable on whitelisted wiki
-    return quizzes_whitelist.indexOf(this.get('wikiVariables.host')) > -1;
+    return QUIZZES_WHITELIST.indexOf(this.get('wikiVariables.host')) > -1;
   }),
 
   /**
@@ -64,7 +64,6 @@ export default Component.extend({
    */
   didInsertElement() {
     this._super(...arguments);
-    console.log('wikiVariables', this.get('wikiVariables'));
 
     //
     const mockedData = [
