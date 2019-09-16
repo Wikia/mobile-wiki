@@ -106,7 +106,6 @@ export default Component.extend({
       this.setProperties({
         // TODO: read from results, not from the mocked data
         posts: state.results.map(item => ({
-          url: item.url,
           image: item.image,
           title: item.title,
           takers: item.takers || 0,
