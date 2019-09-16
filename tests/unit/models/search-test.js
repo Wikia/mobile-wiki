@@ -196,7 +196,7 @@ module('Unit | Model | search result page', (hooks) => {
       },
     ]);
 
-    search.update({
+    search.update('foo', {
       totalResultsFound: 3,
       paging: {
         total: 2,
