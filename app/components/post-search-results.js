@@ -1,18 +1,70 @@
 import Component from '@ember/component';
 import { run } from '@ember/runloop';
+import { computed, get, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 import config from '../config/environment';
 
+// TODO: Remove this when all discussions' posts are in the index
+const quizzes_whitelist = [
+  'gameofthrones.fandom.com',
+  'attackontitan.fandom.com',
+  'marvelcinematicuniverse.fandom.com',
+  'marvel.fandom.com',
+  'southpark.fandom.com',
+  'starwars.fandom.com',
+  'strangerthings.fandom.com',
+  'xmenmovies.fandom.com',
+  'arrow.fandom.com',
+  'bojackhorseman.fandom.com',
+  'dc.fandom.com',
+  'dcextendeduniverse.fandom.com',
+  'disney.fandom.com',
+  'fastandfurious.fandom.com',
+  'godzilla.fandom.com',
+  'lionguard.fandom.com',
+  'miraculousladybug.fandom.com',
+  'riverdale.fandom.com',
+  'spongebob.fandom.com',
+  'tardis.fandom.com',
+  'thehungergames.fandom.com',
+  '13reasonswhy.fandom.com',
+  'battlefield.fandom.com',
+  'dragonage.fandom.com',
+  'acecombat.fandom.com',
+  'borderlands.fandom.com',
+  'pixelgun-wiki.fandom.com',
+];
+
+
 export default Component.extend({
-  posts: null,
+  wikiVariables: service(),
+
   isLoaded: false,
+  posts: null,
   seeMore: false,
+
+  // fortuneatly we can compute the feeds path from articlePath (it has lang part)
+  feedsUrl: computed('wikiVariables.articlePath', function () {
+    return this.get('wikiVariables.articlePath').replace('/wiki/', '/f/');
+  }),
+
+  isEnabled: computed('wikiVariables.host', function () {
+    // Enable on non-production wikis
+    if (config.environment !== 'production') {
+      return true;
+    }
+
+    // Enable on whitelisted wiki
+    return quizzes_whitelist.indexOf(this.get('wikiVariables.host')) > -1;
+  }),
 
   /**
    * @returns {void}
    */
   didInsertElement() {
     this._super(...arguments);
+    console.log('wikiVariables', this.get('wikiVariables'));
 
     //
     const mockedData = [
@@ -66,7 +118,4 @@ export default Component.extend({
       takers: Math.floor(Math.random() * 1000),
     }));
   },
-
-  // FIXME: Remove production check
-  isEnabled: config.environment !== 'production',
 });
