@@ -20,7 +20,7 @@
       {{else}}
         <dropdown.toggle class="push-dropdown-down"
             @text={{{i18n "main.search-scope-crosswiki" ns="search" tagName="strong" className="wds-font-weight-bold" }}} />
-      {{/if }}
+      {{/if}}
 
       <dropdown.content @scrollable={{false}}>
         <List @linked={{true}}>
@@ -45,7 +45,7 @@
         trackingLabel="search-result"
         itemClick=(action "onResultClick")
       }}
-    {{/if }}
+    {{/if}}
   {{else if notFoundError}}
     {{#wikia-ui-components/error-info}}
       {{wikia-search-error-not-found
