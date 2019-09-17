@@ -2,11 +2,22 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
+  isQuizWithTakes: computed('post.type', 'post.stats', 'post.stats.takes', function () {
+    const type = this.post.type;
+    const stats = this.post.stats;
+
+    console.log('>', this.post)
+
+    return type === 'quiz' && stats && stats.takes && parseInt(stats.takes, 10) > 0;
+  }),
+
   imageThumbnail: computed('post.image', function () {
-    return window.Vignette ? window.Vignette.getThumbURL(post.image, {
+    const image = this.post.image;
+
+    return window.Vignette ? window.Vignette.getThumbURL(image, {
       mode: window.Vignette.mode.zoomCrop,
       height: 48,
       width: 48,
-    }) : post.image;
+    }) : image;
   }),
 });

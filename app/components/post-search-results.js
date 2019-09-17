@@ -104,11 +104,11 @@ export default Component.extend({
   update(state) {
     if (!this.isDestroyed) {
       this.setProperties({
-        // TODO: read from results, not from the mocked data
         posts: state.results.map(item => ({
           image: item.image,
-          takers: item.takers || 0,
+          stats: item.stats || {},
           title: item.title,
+          type: item.type,
           url: item.url,
         })),
         isLoading: false,

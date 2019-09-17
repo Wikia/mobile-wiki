@@ -12,8 +12,8 @@
     "total-results": "About {totalItems} results for {query}",
     "search-post-items-header": "Related Posts",
     "search-post-items-see-more": "See More",
-    "search-post-item-quiz-takers": "{count} take",
-    "search-post-item-quiz-takers_plural": "{count} takers",
+    "search-post-item-quiz-takes": "{count} take",
+    "search-post-item-quiz-takes_plural": "{count} takes",
     "search-post-item-no-posts": "Couldn't find any posts"
   }
 }
