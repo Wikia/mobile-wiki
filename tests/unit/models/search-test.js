@@ -95,7 +95,7 @@ module('Unit | Model | search result page', (hooks) => {
     cases.forEach((testCase) => {
       const search = getContext().owner.lookup('model:search');
 
-      search.update(testCase.mock);
+      search.update('foo', testCase.mock);
 
       assert.deepEqual(search.get('items'), testCase.expected);
     });
@@ -127,7 +127,7 @@ module('Unit | Model | search result page', (hooks) => {
     const search = SearchModel.create();
 
     cases.forEach((testCase) => {
-      search.update(testCase.mock);
+      search.update('foo', testCase.mock);
 
       assert.equal(search.get('canLoadMore'), testCase.expected);
     });
@@ -138,7 +138,7 @@ module('Unit | Model | search result page', (hooks) => {
 
     search.fetchResults = sinon.stub();
 
-    search.update({
+    search.update('test', {
       totalResultsFound: 1,
       paging: {
         total: 1,
@@ -169,7 +169,7 @@ module('Unit | Model | search result page', (hooks) => {
   test('update state with load more results', (assert) => {
     const search = getContext().owner.lookup('model:search');
 
-    search.update({
+    search.update('foo', {
       totalResultsFound: 3,
       paging: {
         total: 1,
@@ -196,7 +196,7 @@ module('Unit | Model | search result page', (hooks) => {
       },
     ]);
 
-    search.update({
+    search.update('foo', {
       totalResultsFound: 3,
       paging: {
         total: 2,
