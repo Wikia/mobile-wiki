@@ -2,11 +2,9 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
-  isQuizWithTakes: computed('post.type', 'post.stats', 'post.stats.takes', function () {
+  isQuizWithTakes: computed('post.{type,stats,stats.takes}', function () {
     const type = this.post.type;
     const stats = this.post.stats;
-
-    console.log('>', this.post)
 
     return type === 'quiz' && stats && stats.takes && parseInt(stats.takes, 10) > 0;
   }),
