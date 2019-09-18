@@ -91,6 +91,8 @@ export default Component.extend({
 
     const queryParams = {
       query,
+      // TODO: Remove when releasing search for all post types
+      type: 'quiz',
       page: 0,
       lang: this.wikiVariables.language.content,
       limit: 3,
