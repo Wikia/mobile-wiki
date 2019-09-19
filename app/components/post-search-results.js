@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, not } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
