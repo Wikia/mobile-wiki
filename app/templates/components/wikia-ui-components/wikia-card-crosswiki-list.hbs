@@ -8,8 +8,10 @@
         <div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
       </a>
     </li>
-    {{#if (equal key 1)}}
-      {{post-search-results query=query}}
+    {{#if includePostsForQuery}}
+      {{#if (equal key 1)}}
+        {{post-search-results query=includePostsForQuery}}
+      {{/if}}
     {{/if}}
   {{/each}}
 </ul>

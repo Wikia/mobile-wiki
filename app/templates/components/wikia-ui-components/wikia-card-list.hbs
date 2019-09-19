@@ -14,8 +14,10 @@
         <div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
       {{/link-to}}
     </li>
-    {{#if (equal key 1)}}
-      {{post-search-results query=query seeMore=true isInternal=true}}
+    {{#if includePostsForQuery}}
+      {{#if (equal key 1)}}
+        {{post-search-results query=includePostsForQuery seeMore=true isInternal=true}}
+      {{/if}}
     {{/if}}
   {{/each}}
 </ul>

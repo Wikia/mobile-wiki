@@ -26,10 +26,15 @@
     }
   }
 
+  &__loading {
+    margin: 18px;
+  }
+
   &__no-posts {
     align-items: center;
     display: flex;
     font-size: $wds-font-size-s;
     justify-content: center;
+    margin: 18px;
   }
 }
