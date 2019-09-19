@@ -66,19 +66,27 @@ export default Component.extend({
     return this.get('wikiVariables.articlePath').replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
+  isEnabled: computed('wikiVariables.{host,enableFeedsAndPosts}', 'isInternal', function () {
     // Enable on non-production wikis
     if (config.environment !== 'production') {
       return true;
     }
 
+
+    // TODO: When removing whitelist, delete code below
+    // Enable on whitelisted wiki
+    return QUIZZES_WHITELIST.indexOf(this.get('wikiVariables.host')) > -1;
+
+    // TODO: When removing whitelist, enable code block below
+    /*
     // on inter-wiki searches disable the module if discussions are not enabled
-    if (this.isInternal && !this.get('wikiVariables.enableDiscussions')) {
+    if (this.isInternal && !this.get('wikiVariables.enableFeedsAndPosts')) {
       return false;
     }
 
-    // Enable on whitelisted wiki
-    return QUIZZES_WHITELIST.indexOf(this.get('wikiVariables.host')) > -1;
+    // otherwise it is enabled
+    return true;
+    */
   }),
 
   didInsertElement() {
