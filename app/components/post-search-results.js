@@ -67,7 +67,7 @@ export default Component.extend({
     return this.get('wikiVariables.articlePath').replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('wikiVariables.{host,enableFeedsAndPosts}', 'isInternal', function () {
+  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
     // Enable on non-production wikis
     if (config.environment !== 'production') {
       return true;
@@ -81,7 +81,7 @@ export default Component.extend({
     // TODO: When removing whitelist, enable code block below
     /*
     // on inter-wiki searches disable the module if discussions are not enabled
-    if (this.isInternal && !this.get('wikiVariables.enableFeedsAndPosts')) {
+    if (this.isInternal && !this.get('wikiVariables.enableDiscussions')) {
       return false;
     }
 
