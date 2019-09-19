@@ -76,7 +76,7 @@ export default Component.extend({
 
     // TODO: When removing whitelist, delete code below
     // Enable on whitelisted wiki
-    return QUIZZES_WHITELIST.indexOf(this.wikiVariables.host)) > -1;
+    return QUIZZES_WHITELIST.indexOf(this.wikiVariables.host) > -1;
 
     // TODO: When removing whitelist, enable code block below
     /*
