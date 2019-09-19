@@ -64,7 +64,7 @@ export default Component.extend({
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
   feedsUrl: computed('wikiVariables.articlePath', function () {
-    return this.get('wikiVariables.articlePath').replace('/wiki/', '/f/');
+    return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
   isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
@@ -76,7 +76,7 @@ export default Component.extend({
 
     // TODO: When removing whitelist, delete code below
     // Enable on whitelisted wiki
-    return QUIZZES_WHITELIST.indexOf(this.get('wikiVariables.host')) > -1;
+    return QUIZZES_WHITELIST.indexOf(this.wikiVariables.host)) > -1;
 
     // TODO: When removing whitelist, enable code block below
     /*
