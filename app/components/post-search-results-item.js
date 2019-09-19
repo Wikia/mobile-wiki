@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import Thumbnailer from '../modules/thumbnailer';
 
 export default Component.extend({
-  isQuizWithTakes: computed('post.{type,stats,stats.takes}', function () {
+  isQuizWithTakes: computed('post', function () {
     const type = this.post.type;
     const stats = this.post.stats;
 
