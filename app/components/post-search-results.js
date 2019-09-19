@@ -57,9 +57,9 @@ export default Component.extend({
   wikiVariables: service(),
 
   isLoading: true,
-  isInternal: false,
+  isCrossWiki: false,
   posts: null,
-  seeMore: false,
+  isNotCrossWiki: not('isCrossWiki'),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
   feedsUrl: computed('wikiVariables.articlePath', function () {
@@ -111,7 +111,7 @@ export default Component.extend({
       limit: 3,
     };
 
-    if (this.isInternal) {
+    if (this.isNotCrossWiki) {
       queryParams.wikiId = this.wikiVariables.id;
     }
 
