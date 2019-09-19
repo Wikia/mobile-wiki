@@ -61,15 +61,20 @@ export default Component.extend({
   posts: null,
   seeMore: false,
 
-  // fortuneatly we can compute the feeds path from articlePath (it has lang part)
+  // fortunately we can compute the feeds path from articlePath (it has lang part)
   feedsUrl: computed('wikiVariables.articlePath', function () {
     return this.get('wikiVariables.articlePath').replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('wikiVariables.host', function () {
+  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
     // Enable on non-production wikis
     if (config.environment !== 'production') {
       return true;
+    }
+
+    // on inter-wiki searches disable the module if discussions are not enabled
+    if (this.isInternal && !this.get('wikiVariables.enableDiscussions')) {
+      return false;
     }
 
     // Enable on whitelisted wiki
