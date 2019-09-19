@@ -1,5 +1,8 @@
+$post-search-results-item-image-height: 48px;
+
 .post-search-results-item {
   margin: 18px 0;
+  min-height: $post-search-results-item-image-height;
 
   // Clearfix
   &::after {
@@ -38,9 +41,9 @@
     border: solid 1px $wds-fandom-color-mid-light-gray;
     border-radius: 3px;
     float: right;
-    height: 48px;
+    height: $post-search-results-item-image-height;
     margin-left: 12px;
     object-fit: cover;
-    width: 48px;
+    width: $post-search-results-item-image-height;
   }
 }

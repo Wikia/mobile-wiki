@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 
+import Thumbnailer from '../modules/thumbnailer';
+
 export default Component.extend({
   isQuizWithTakes: computed('post.{type,stats,stats.takes}', function () {
     const type = this.post.type;
@@ -12,10 +14,12 @@ export default Component.extend({
   imageThumbnail: computed('post.image', function () {
     const image = this.post.image;
 
-    return window.Vignette ? window.Vignette.getThumbURL(image, {
-      mode: window.Vignette.mode.zoomCrop,
+    const options = {
       height: 48,
+      mode: Thumbnailer.mode.smart,
       width: 48,
-    }) : image;
+    };
+
+    return image ? Thumbnailer.getThumbURL(image, options) : undefined;
   }),
 });
