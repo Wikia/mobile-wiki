@@ -1,0 +1,48 @@
+$post-search-results-item-image-height: 48px;
+
+.post-search-results-item {
+  margin: 18px 0;
+  min-height: $post-search-results-item-image-height;
+
+  // Clearfix
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+
+  &__title {
+    color: $wds-fandom-color-link;
+    display: inherit;
+    font-size: $wds-font-size-xs;
+    font-weight: $wds-font-weight-medium;
+    letter-spacing: .03px;
+    line-height: 1;
+    margin-bottom: 9px;
+  }
+
+  &__details {
+    align-items: center;
+    color: $wds-color-dark-gray;
+    display: flex;
+    font-size: $wds-font-size-xs;
+    font-weight: $wds-font-weight-normal;
+    line-height: 1;
+
+    & > svg {
+      margin-right: 6px;
+    }
+  }
+
+  &__image {
+    border: solid 1px $wds-fandom-color-mid-light-gray;
+    border-radius: 3px;
+    float: right;
+    height: $post-search-results-item-image-height;
+    margin-left: 12px;
+    object-fit: cover;
+    width: $post-search-results-item-image-height;
+  }
+}

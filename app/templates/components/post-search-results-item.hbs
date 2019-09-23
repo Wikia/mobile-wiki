@@ -1,0 +1,14 @@
+<div class="post-search-results-item">
+  {{#if post.image}}
+    <img class="post-search-results-item__image" src={{imageThumbnail}} alt={{post.title}}>
+  {{/if}}
+  <a href={{{post.url}}} class="post-search-results-item__title">
+    {{post.title}}
+  </a>
+  <div class="post-search-results-item__details">
+    {{#if isQuizWithTakes}}
+      <Icon @name="quiz" @size="tiny" />
+      {{{i18n "main.search-post-item-quiz-takes" count=post.stats.takes ns="search"}}}
+    {{/if}}
+  </div>
+</div>
