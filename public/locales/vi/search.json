@@ -7,6 +7,11 @@
     "search-error-not-found-action": "Thử tìm kiếm mục khác", 
     "search-input-label": "Tìm kiếm", 
     "search-loading-msg": "Đang tải các kết quả tìm kiếm...", 
+    "search-post-item-no-posts": "Couldn't find any posts", 
+    "search-post-item-quiz-takes": "{count} take", 
+    "search-post-item-quiz-takes_plural": "{count} takes", 
+    "search-post-items-header": "Related Posts", 
+    "search-post-items-see-more": "See More", 
     "search-scope-crosswiki": "All wikis", 
     "search-scope-internal": "This wiki", 
     "total-results": "Có {totalItems} kết quả cho {query}"

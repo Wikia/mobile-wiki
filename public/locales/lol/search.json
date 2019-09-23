@@ -7,8 +7,13 @@
     "search-error-not-found-action": "crwdns58136:0crwdne58136:0", 
     "search-input-label": "crwdns58137:0crwdne58137:0", 
     "search-loading-msg": "crwdns58138:0crwdne58138:0", 
-    "search-scope-crosswiki": "crwdns90028:0crwdne90028:0", 
-    "search-scope-internal": "crwdns90026:0crwdne90026:0", 
+    "search-post-item-no-posts": "crwdns90948:0crwdne90948:0", 
+    "search-post-item-quiz-takes": "crwdns90944:0{count}crwdne90944:0", 
+    "search-post-item-quiz-takes_plural": "crwdns90946:0{count}crwdne90946:0", 
+    "search-post-items-header": "crwdns90940:0crwdne90940:0", 
+    "search-post-items-see-more": "crwdns90942:0crwdne90942:0", 
+    "search-scope-crosswiki": "crwdns90938:0crwdne90938:0", 
+    "search-scope-internal": "crwdns90936:0crwdne90936:0", 
     "total-results": "crwdns71073:0{totalItems}crwdnd71073:0{query}crwdne71073:0"
   }
 }
