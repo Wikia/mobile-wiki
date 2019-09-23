@@ -4,6 +4,7 @@ import { not } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
+import { track, trackActions } from '../utils/track';
 import config from '../config/environment';
 
 // TODO: Remove this when all discussions' posts are in the index
@@ -87,6 +88,16 @@ export default Component.extend({
     }
   },
 
+  actions: {
+    trackMoreClick() {
+      track({
+        action: trackActions.click,
+        category: 'search_posts',
+        label: 'see-more',
+      });
+    },
+  },
+
   fetchResults(query) {
     this.setProperties({
       isLoading: true,
@@ -131,6 +142,11 @@ export default Component.extend({
           url: item.url,
         })),
         isLoading: false,
+      });
+      track({
+        action: trackActions.impression,
+        category: 'search_posts',
+        label: 'recent_posts_shown',
       });
     }
 

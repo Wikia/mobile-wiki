@@ -2,7 +2,11 @@
   {{#if post.image}}
     <img class="post-search-results-item__image" src={{imageThumbnail}} alt={{post.title}}>
   {{/if}}
-  <a href={{{post.url}}} class="post-search-results-item__title">
+  <a
+    href={{{post.url}}}
+    class="post-search-results-item__title"
+    onclick={{action "trackClick" postIndex}}
+  >
     {{post.title}}
   </a>
   <div class="post-search-results-item__details">

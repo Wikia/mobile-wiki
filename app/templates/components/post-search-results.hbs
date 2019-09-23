@@ -10,6 +10,7 @@
           @href={{feedsUrl}}
           @text={{true}}
           class="post-search-results__see-more"
+          onclick={{action "trackMoreClick"}}
         >
           <span>{{{i18n "main.search-post-items-see-more" ns="search"}}}</span>
           <Icon @name="arrow" @size="tiny" />
@@ -26,8 +27,8 @@
         class="post-search-results__loading"
       />
     {{else}}
-      {{#each posts as |post|}}
-        {{post-search-results-item post=post}}
+      {{#each posts as |post index|}}
+        {{post-search-results-item post=post postIndex=index}}
       {{else}}
         <div class="post-search-results__no-posts">
           {{{i18n "main.search-post-item-no-posts" ns="search"}}}
