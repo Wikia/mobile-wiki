@@ -7,6 +7,11 @@
     "search-error-not-found-action": "嘗試其他搜尋", 
     "search-input-label": "搜尋", 
     "search-loading-msg": "正在載入搜尋結果…", 
+    "search-post-item-no-posts": "Couldn't find any posts", 
+    "search-post-item-quiz-takes": "{count} take", 
+    "search-post-item-quiz-takes_plural": "{count} takes", 
+    "search-post-items-header": "Related Posts", 
+    "search-post-items-see-more": "See More", 
     "search-scope-crosswiki": "所有Wiki", 
     "search-scope-internal": "本 Wiki", 
     "total-results": "關於{query}的{totalItems}項結果"

@@ -43,6 +43,7 @@ module('Unit | Model | search result page', (hooks) => {
               content: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test',
               wikiId: 3035,
+              sitename: 'foo',
             },
             {
               pageId: 124,
@@ -50,6 +51,7 @@ module('Unit | Model | search result page', (hooks) => {
               content: '<div>html</div>test',
               url: 'http://test.wikia.com/wiki/Test/1',
               wikiId: 3035,
+              sitename: 'foo',
             },
             {
               pageId: 125,
@@ -57,36 +59,40 @@ module('Unit | Model | search result page', (hooks) => {
               content: '<div>html</div>test',
               url: 'http://test.wikia.com/test_2',
               wikiId: 3035,
+              sitename: 'foo',
             },
           ],
         },
         expected: [
           {
             id: 123,
-            prefixedTitle: 'Test',
-            snippet: htmlSafe('<div>html</div>test'),
-            title: 'test',
             position: 0,
+            title: 'test',
+            snippet: htmlSafe('<div>html</div>test'),
+            prefixedTitle: 'Test',
             url: 'http://test.wikia.com/wiki/Test',
             wikiId: 3035,
+            sitename: 'foo',
           },
           {
             id: 124,
-            prefixedTitle: 'Test/1',
-            snippet: htmlSafe('<div>html</div>test'),
-            title: 'test sub dir',
             position: 1,
+            title: 'test sub dir',
+            snippet: htmlSafe('<div>html</div>test'),
+            prefixedTitle: 'Test/1',
             url: 'http://test.wikia.com/wiki/Test/1',
             wikiId: 3035,
+            sitename: 'foo',
           },
           {
             id: 125,
-            prefixedTitle: 'test_2',
-            snippet: htmlSafe('<div>html</div>test'),
-            title: 'test not canonical',
             position: 2,
+            title: 'test not canonical',
+            snippet: htmlSafe('<div>html</div>test'),
+            prefixedTitle: 'test_2',
             url: 'http://test.wikia.com/test_2',
             wikiId: 3035,
+            sitename: 'foo',
           },
         ],
       },
@@ -95,7 +101,7 @@ module('Unit | Model | search result page', (hooks) => {
     cases.forEach((testCase) => {
       const search = getContext().owner.lookup('model:search');
 
-      search.update(testCase.mock);
+      search.update('foo', testCase.mock);
 
       assert.deepEqual(search.get('items'), testCase.expected);
     });
@@ -127,7 +133,7 @@ module('Unit | Model | search result page', (hooks) => {
     const search = SearchModel.create();
 
     cases.forEach((testCase) => {
-      search.update(testCase.mock);
+      search.update('foo', testCase.mock);
 
       assert.equal(search.get('canLoadMore'), testCase.expected);
     });
@@ -138,7 +144,7 @@ module('Unit | Model | search result page', (hooks) => {
 
     search.fetchResults = sinon.stub();
 
-    search.update({
+    search.update('test', {
       totalResultsFound: 1,
       paging: {
         total: 1,
@@ -169,7 +175,7 @@ module('Unit | Model | search result page', (hooks) => {
   test('update state with load more results', (assert) => {
     const search = getContext().owner.lookup('model:search');
 
-    search.update({
+    search.update('foo', {
       totalResultsFound: 3,
       paging: {
         total: 1,
@@ -181,6 +187,7 @@ module('Unit | Model | search result page', (hooks) => {
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test',
           wikiId: 3035,
+          sitename: 'foo',
         },
       ],
     });
@@ -193,10 +200,11 @@ module('Unit | Model | search result page', (hooks) => {
         prefixedTitle: 'Test',
         url: 'http://test.wikia.com/wiki/Test',
         wikiId: 3035,
+        sitename: 'foo',
       },
     ]);
 
-    search.update({
+    search.update('foo', {
       totalResultsFound: 3,
       paging: {
         total: 2,
@@ -208,6 +216,7 @@ module('Unit | Model | search result page', (hooks) => {
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test/1',
           wikiId: 3035,
+          sitename: 'foo',
         },
         {
           pageId: 125,
@@ -215,6 +224,7 @@ module('Unit | Model | search result page', (hooks) => {
           content: '<div>html</div>test',
           url: 'http://test.wikia.com/wiki/Test_2',
           wikiId: 147,
+          sitename: 'foo',
         },
       ],
     });
@@ -227,6 +237,7 @@ module('Unit | Model | search result page', (hooks) => {
         position: 0,
         url: 'http://test.wikia.com/wiki/Test',
         wikiId: 3035,
+        sitename: 'foo',
       },
       {
         id: 124,
@@ -236,6 +247,7 @@ module('Unit | Model | search result page', (hooks) => {
         position: 1,
         url: 'http://test.wikia.com/wiki/Test/1',
         wikiId: 3035,
+        sitename: 'foo',
       },
       {
         id: 125,
@@ -245,6 +257,7 @@ module('Unit | Model | search result page', (hooks) => {
         position: 2,
         url: 'http://test.wikia.com/wiki/Test_2',
         wikiId: 147,
+        sitename: 'foo',
       },
     ]);
   });
