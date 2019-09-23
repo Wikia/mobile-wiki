@@ -8,47 +8,35 @@ import config from '../config/environment';
 
 // TODO: Remove this when all discussions' posts are in the index
 const QUIZZES_WHITELIST = [
-  // test communities
   'keikosandbox.fandom.com',
   'keiko-test.fandom.com',
-  'gameofthrones.bartosz.fandom-dev.us',
-  'gameofthrones.chriss.fandom-dev.us',
-  'xkxd02.mattk.fandom-dev.us',
-  'xkxd02.jrogan.fandom-dev.us',
-  'xkxd02.chriss.fandom-dev.us',
-  'xkxd02.bartosz.fandom-dev.us',
-  'keikosandbox.sandbox-s3.fandom.com',
-  'keikosandbox.sandbox-s4.fandom.com',
-  'keiko-test.sandbox-s3.fandom.com',
-  'keiko-test.sandbox-s4.fandom.com',
-  // FIXME: Enable when we want to launch on Quizzes' Communities
-  // 'gameofthrones.fandom.com',
-  // 'attackontitan.fandom.com',
-  // 'marvelcinematicuniverse.fandom.com',
-  // 'marvel.fandom.com',
-  // 'southpark.fandom.com',
-  // 'starwars.fandom.com',
-  // 'strangerthings.fandom.com',
-  // 'xmenmovies.fandom.com',
-  // 'arrow.fandom.com',
-  // 'bojackhorseman.fandom.com',
-  // 'dc.fandom.com',
-  // 'dcextendeduniverse.fandom.com',
-  // 'disney.fandom.com',
-  // 'fastandfurious.fandom.com',
-  // 'godzilla.fandom.com',
-  // 'lionguard.fandom.com',
-  // 'miraculousladybug.fandom.com',
-  // 'riverdale.fandom.com',
-  // 'spongebob.fandom.com',
-  // 'tardis.fandom.com',
-  // 'thehungergames.fandom.com',
-  // '13reasonswhy.fandom.com',
-  // 'battlefield.fandom.com',
-  // 'dragonage.fandom.com',
-  // 'acecombat.fandom.com',
-  // 'borderlands.fandom.com',
-  // 'pixelgun-wiki.fandom.com',
+  'gameofthrones.fandom.com',
+  'attackontitan.fandom.com',
+  'marvelcinematicuniverse.fandom.com',
+  'marvel.fandom.com',
+  'southpark.fandom.com',
+  'starwars.fandom.com',
+  'strangerthings.fandom.com',
+  'xmenmovies.fandom.com',
+  'arrow.fandom.com',
+  'bojackhorseman.fandom.com',
+  'dc.fandom.com',
+  'dcextendeduniverse.fandom.com',
+  'disney.fandom.com',
+  'fastandfurious.fandom.com',
+  'godzilla.fandom.com',
+  'lionguard.fandom.com',
+  'miraculousladybug.fandom.com',
+  'riverdale.fandom.com',
+  'spongebob.fandom.com',
+  'tardis.fandom.com',
+  'thehungergames.fandom.com',
+  '13reasonswhy.fandom.com',
+  'battlefield.fandom.com',
+  'dragonage.fandom.com',
+  'acecombat.fandom.com',
+  'borderlands.fandom.com',
+  'pixelgun-wiki.fandom.com',
 ];
 
 
@@ -75,8 +63,9 @@ export default Component.extend({
 
 
     // TODO: When removing whitelist, delete code below
-    // Enable on whitelisted wiki
-    return QUIZZES_WHITELIST.indexOf(this.wikiVariables.host) > -1;
+    // Enable on whitelisted wiki, remove sandbox string from host
+    const host = this.wikiVariables.host.replace(/\.sandbox-s[0-9]?/g, '');
+    return QUIZZES_WHITELIST.indexOf(host) > -1;
 
     // TODO: When removing whitelist, enable code block below
     /*
