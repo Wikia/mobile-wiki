@@ -281,13 +281,11 @@ export const defaultAdContext = {
             siteId: '147980',
             sizeId: '201',
             zoneId: '699374',
-            position: 'btf',
           },
           incontent_player: {
             siteId: '55412',
             sizeId: '203',
             zoneId: '563110',
-            position: 'btf',
           },
         },
       },
@@ -307,7 +305,6 @@ export const defaultAdContext = {
             sizes: [
               [300, 250],
             ],
-            position: 'btf',
             siteId: '23565',
             zoneId: '87671',
           },
@@ -316,7 +313,6 @@ export const defaultAdContext = {
               [300, 250],
               [320, 50],
             ],
-            position: 'btf',
             siteId: '23565',
             zoneId: '87671',
           },
@@ -420,7 +416,7 @@ export const defaultAdContext = {
     },
     instantConfig: {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
-      fallbackConfigKey: 'services.instantConfig.fallbackConfigKey',
+      fallbackConfigKey: 'fallbackInstantConfig',
     },
     krux: {
       enabled: false,

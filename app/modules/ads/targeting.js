@@ -226,43 +226,44 @@ export const targeting = {
     const { bidders } = window.Wikia.adBidders;
 
     const realSlotPrices = bidders.getDfpSlotPrices(slotName);
-    const currentSlotPrices = bidders.getCurrentSlotPrices(slotName);
 
-    function transformBidderPrice(bidderName) {
-      if (!markNotRequestedPrices) {
-        return currentSlotPrices[bidderName];
+    return bidders.getCurrentSlotPrices(slotName).then((currentSlotPrices) => {
+      function transformBidderPrice(bidderName) {
+        if (!markNotRequestedPrices) {
+          return currentSlotPrices[bidderName];
+        }
+
+        if (realSlotPrices && realSlotPrices[bidderName]) {
+          return realSlotPrices[bidderName];
+        }
+
+        if (currentSlotPrices && currentSlotPrices[bidderName]) {
+          return `${currentSlotPrices[bidderName]}not_used`;
+        }
+
+        return '';
       }
 
-      if (realSlotPrices && realSlotPrices[bidderName]) {
-        return realSlotPrices[bidderName];
-      }
-
-      if (currentSlotPrices && currentSlotPrices[bidderName]) {
-        return `${currentSlotPrices[bidderName]}not_used`;
-      }
-
-      return '';
-    }
-
-    return {
-      bidder_0: transformBidderPrice('wikia'),
-      bidder_1: transformBidderPrice('indexExchange'),
-      bidder_2: transformBidderPrice('appnexus'),
-      bidder_4: transformBidderPrice('rubicon'),
-      bidder_5: transformBidderPrice('vmg'),
-      bidder_6: transformBidderPrice('aol'),
-      bidder_8: transformBidderPrice('wikiaVideo'),
-      bidder_9: transformBidderPrice('openx'),
-      bidder_10: transformBidderPrice('appnexusAst'),
-      bidder_11: transformBidderPrice('rubicon_display'),
-      bidder_12: transformBidderPrice('a9'),
-      bidder_13: transformBidderPrice('onemobile'),
-      bidder_14: transformBidderPrice('pubmatic'),
-      bidder_15: transformBidderPrice('beachfront'),
-      bidder_17: transformBidderPrice('kargo'),
-      bidder_18: transformBidderPrice('lkqd'),
-      bidder_19: transformBidderPrice('gumgum'),
-    };
+      return {
+        bidder_0: transformBidderPrice('wikia'),
+        bidder_1: transformBidderPrice('indexExchange'),
+        bidder_2: transformBidderPrice('appnexus'),
+        bidder_4: transformBidderPrice('rubicon'),
+        bidder_5: transformBidderPrice('vmg'),
+        bidder_6: transformBidderPrice('aol'),
+        bidder_8: transformBidderPrice('wikiaVideo'),
+        bidder_9: transformBidderPrice('openx'),
+        bidder_10: transformBidderPrice('appnexusAst'),
+        bidder_11: transformBidderPrice('rubicon_display'),
+        bidder_12: transformBidderPrice('a9'),
+        bidder_13: transformBidderPrice('onemobile'),
+        bidder_14: transformBidderPrice('pubmatic'),
+        bidder_15: transformBidderPrice('beachfront'),
+        bidder_17: transformBidderPrice('kargo'),
+        bidder_18: transformBidderPrice('lkqd'),
+        bidder_19: transformBidderPrice('gumgum'),
+      };
+    });
   },
 };
 

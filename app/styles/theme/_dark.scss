@@ -9,6 +9,7 @@ $section-header-color: #e6ebf2;
 $video-attribution-background-color: #2b2b2b;
 $video-attribution-text-color: #e1e1e1;
 $video-attribution-border-color: #666;
+$spinner-background-color: #0e191a;
 
 body {
   background: $background-color;
@@ -109,4 +110,12 @@ body {
 
 .recirculation-prefooter {
   background: $background-color;
+}
+
+.wds-spinner__overlay {
+  background: rgba($spinner-background-color, .5);
+}
+
+.watch-show h2 {
+  color: $text-color;
 }
