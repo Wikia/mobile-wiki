@@ -379,6 +379,26 @@ export const slots = {
       context.set('slots.incontent_boxad_1.targeting.xna', '0');
     }
   },
+
+  setupCloseButtonTimer() {
+    const { context } = window.Wikia.adEngine;
+
+    context.push('listeners.slot', {
+      onRenderEnded: (adSlot) => {
+        if (['invisible_high_impact_2', 'floor_adhesion'].includes(adSlot.getSlotName())) {
+          const closeButton = document.querySelector('.out-of-page-template.floor-adhesion .button-close');
+
+          if (closeButton) {
+            closeButton.style.display = 'none';
+
+            setTimeout(() => {
+              closeButton.style.display = 'flex';
+            }, context.get(`custom.timeToCloseButton.${adSlot.getSlotName()}`));
+          }
+        }
+      },
+    });
+  },
 };
 
 export default slots;
