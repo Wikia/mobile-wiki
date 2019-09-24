@@ -147,11 +147,15 @@ export default Component.extend({
         })),
         isLoading: false,
       });
-      track({
-        action: trackActions.impression,
-        category: 'search_posts',
-        label: 'recent_posts_shown',
-      });
+
+      // only fire tracking when there are results
+      if (state.results.length) {
+        track({
+          action: trackActions.impression,
+          category: 'search_posts',
+          label: 'recent_posts_shown',
+        });
+      }
     }
 
     return this;
