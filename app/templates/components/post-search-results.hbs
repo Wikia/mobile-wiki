@@ -5,9 +5,9 @@
         <Icon @name="comment" @size="small" />
         {{{i18n "main.search-post-items-header" ns="search"}}}
       </div>
-      {{#if isNotCrossWiki}}
+      {{#if seeMoreButtonEnabled}}
         <Button
-          @href={{feedsUrl}}
+          @href={{seeMoreUrl}}
           @text={{true}}
           class="post-search-results__see-more"
           onclick={{action "trackMoreClick"}}

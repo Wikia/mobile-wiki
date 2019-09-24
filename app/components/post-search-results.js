@@ -49,10 +49,13 @@ export default Component.extend({
   isLoading: true,
   isCrossWiki: false,
   posts: null,
-  isNotCrossWiki: not('isCrossWiki'),
+
+  // TODO: Use when releasing search for all post types
+  // seeMoreButtonEnabled: not('isCrossWiki'),
+  seeMoreButtonEnabled: false,
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
-  feedsUrl: computed('wikiVariables.articlePath', function () {
+  seeMoreUrl: computed('wikiVariables.articlePath', function () {
     return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
