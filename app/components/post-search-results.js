@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { not } from '@ember/object/computed';
+// TODO: Use when releasing search for all post types
+// import { not } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
