@@ -220,9 +220,6 @@ export const adsSetup = {
 
     context.set('slots.invisible_high_impact_2.clickPositionTracking', instantConfig.get('icInvisibleHighImpact2ClickPositionTracking'));
 
-    context.set('custom.timeToCloseButton.invisible_high_impact_2', instantConfig.get('icInvisibleHighImpact2TimeToCloseButton', 0));
-    context.set('custom.timeToCloseButton.floor_adhesion', instantConfig.get('icFloorAdhesionTimeToCloseButton', 0));
-
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
 
