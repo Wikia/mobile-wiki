@@ -202,6 +202,13 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
 
+    context.set(
+      'templates.floorAdhesion.showCloseButtonAfter',
+      context.get('slots.floor_adhesion.disabled')
+        ? instantConfig.get('icInvisibleHighImpact2TimeToCloseButton', 0)
+        : instantConfig.get('icFloorAdhesionTimeToCloseButton', 0),
+    );
+
     let isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
 
     if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
@@ -212,9 +219,6 @@ export const adsSetup = {
     context.set('slots.floor_adhesion.forceSafeFrame', isSafeFrameForced);
 
     context.set('slots.invisible_high_impact_2.clickPositionTracking', instantConfig.get('icInvisibleHighImpact2ClickPositionTracking'));
-
-    context.set('custom.timeToCloseButton.invisible_high_impact_2', instantConfig.get('icInvisibleHighImpact2TimeToCloseButton', 0));
-    context.set('custom.timeToCloseButton.floor_adhesion', instantConfig.get('icFloorAdhesionTimeToCloseButton', 0));
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
@@ -338,7 +342,6 @@ export const adsSetup = {
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
     slots.setupSizesAvailability();
-    slots.setupCloseButtonTimer();
 
     context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
