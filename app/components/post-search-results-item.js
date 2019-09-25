@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 
+import { track, trackActions } from '../utils/track';
 import Thumbnailer from '../modules/thumbnailer';
 
 export default Component.extend({
@@ -22,4 +23,14 @@ export default Component.extend({
 
     return image ? Thumbnailer.getThumbURL(image, options) : undefined;
   }),
+
+  actions: {
+    trackClick(number) {
+      track({
+        action: trackActions.click,
+        category: 'search_posts',
+        label: `item-${parseInt(number, 10) + 1}`,
+      });
+    },
+  },
 });
