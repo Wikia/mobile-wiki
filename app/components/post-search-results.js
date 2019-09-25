@@ -116,7 +116,7 @@ export default Component.extend({
       limit: 3,
     };
 
-    if (this.isNotCrossWiki) {
+    if (!this.isCrossWiki) {
       queryParams.wikiId = this.wikiVariables.id;
     }
 
