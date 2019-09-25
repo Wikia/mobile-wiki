@@ -202,6 +202,13 @@ export const adsSetup = {
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
 
+    context.set(
+      'templates.floorAdhesion.showCloseButtonAfter',
+      context.get('slots.floor_adhesion.disabled')
+        ? instantConfig.get('icInvisibleHighImpact2TimeToCloseButton', 0)
+        : instantConfig.get('icFloorAdhesionTimeToCloseButton', 0),
+    );
+
     let isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
 
     if (instantConfig.get('icFloorAdhesionClickPositionTracking')) {
@@ -338,7 +345,6 @@ export const adsSetup = {
     slots.setupIdentificators();
     slots.setupStates(isAdStackEnabled);
     slots.setupSizesAvailability();
-    slots.setupCloseButtonTimer();
 
     context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
