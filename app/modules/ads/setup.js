@@ -156,6 +156,7 @@ export const adsSetup = {
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
     context.set('options.gamLazyLoading.enabled', instantConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
+    context.set('options.nonLazyIncontents.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
@@ -322,6 +323,12 @@ export const adsSetup = {
           'incontent_player',
         ]);
       }
+    }
+
+    if (context.get('options.nonLazyIncontents.enabled')) {
+      context.set('options.useTopBoxad', true);
+      context.set('events.pushAfterCreated.top_boxad', []);
+      context.set('events.pushAfterRendered.top_boxad', []);
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {
