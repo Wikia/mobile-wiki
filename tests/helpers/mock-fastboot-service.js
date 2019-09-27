@@ -463,7 +463,7 @@ export default function (owner) {
                 },
               },
               suggestions: {
-                url: '//harrypotter.wikia.com/index.php?action=ajax&rs=getLinkSuggest&format=json',
+                url: '//harrypotter.wikia.com/wikia.php?controller=LinkSuggest&method=getLinkSuggestions&format=json',
                 'param-name': 'query',
                 'tracking-label': 'search-suggestion',
               },
