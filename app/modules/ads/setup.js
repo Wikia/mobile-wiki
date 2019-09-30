@@ -107,6 +107,8 @@ export const adsSetup = {
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
       billTheLizardWrapper.configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+
+      // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
       slotsLoader.configureSlotsLoader();
     });
   },
