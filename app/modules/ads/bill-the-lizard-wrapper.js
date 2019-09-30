@@ -54,6 +54,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 
   console.log('btlStatus in getBtlSlotStatus', btlStatus);
   console.log('callId in getBtlSlotStatus', callId);
+  console.log('incontents_counter in getBtlSlotStatus', incontentsCounter);
 
   switch (btlStatus) {
     case BillTheLizard.TOO_LATE:
