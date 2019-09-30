@@ -52,6 +52,9 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
   let slotStatus;
 
+  console.log('btlStatus in getBtlSlotStatus', btlStatus);
+  console.log('callId in getBtlSlotStatus', callId);
+
   switch (btlStatus) {
     case BillTheLizard.TOO_LATE:
     case BillTheLizard.TIMEOUT:
@@ -202,7 +205,7 @@ export const billTheLizardWrapper = {
   callCheshireCat(callId) {
     const { context } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
-
+    console.log('callCheshire callId', callid);
     serializeBids(bidPosKeyVal).then((bids) => {
       context.set('services.billTheLizard.parameters.cheshirecat', {
         bids,
