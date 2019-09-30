@@ -74,11 +74,8 @@ export const slotsLoader = {
 
   loadFirstSlot() {
     const firstSlotName = `${this.baseSlotName}_1`;
-    const bidsRefreshedPromise = context.get(`bidders.prebid.bidsRefreshing.${firstSlotName}.finished`);
 
     this.handleBidsRefreshPromise(
-      firstSlotName,
-      bidsRefreshedPromise,
       this.injectFirstSlot,
       firstSlotName,
     );
@@ -90,34 +87,32 @@ export const slotsLoader = {
     context.push('state.adStack', { id: firstSlotName });
   },
 
-  handleBidsRefreshPromise(slotName, promise, injectingCallback, ...args) {
+  handleBidsRefreshPromise(injectingCallback, slotName, ...args) {
+    const bidsRefreshedPromise = context.get(`bidders.prebid.bidsRefreshing.${slotName}.finished`);
     utils.logger(logGroup, `insertion waiting: ${slotName}`);
 
-    if (promise) {
-      promise.then(() => {
-        injectingCallback(...args);
+    if (bidsRefreshedPromise) {
+      bidsRefreshedPromise.then(() => {
+        injectingCallback(slotName, ...args);
       });
     } else {
-      injectingCallback(...args);
+      injectingCallback(slotName, ...args);
     }
   },
 
   loadNextSlot(adSlot) {
     const adProduct = adSlot.config.adProduct;
     const currentBoxadNumber = parseInt(adProduct.split('_').pop(), 10);
-    const nextBoxad = `${this.baseSlotName}_${currentBoxadNumber + 1}`;
-    const bidsRefreshedPromise = context.get(`bidders.prebid.bidsRefreshing.${nextBoxad}.finished`);
+    const nextBoxadName = `${this.baseSlotName}_${currentBoxadNumber + 1}`;
 
     this.handleBidsRefreshPromise(
-      nextBoxad,
-      bidsRefreshedPromise,
       this.repeatSlot,
-      adSlot,
-      nextBoxad,
+      nextBoxadName,
+      adSlot
     );
   },
 
-  repeatSlot(adSlot, nextSlotName) {
+  repeatSlot(nextSlotName, adSlot) {
     utils.logger(logGroup, `repeating started: ${nextSlotName}`);
     slotRepeater.handleSlotRepeating(adSlot);
   },
