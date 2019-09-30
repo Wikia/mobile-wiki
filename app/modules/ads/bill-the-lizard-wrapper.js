@@ -130,7 +130,7 @@ export const billTheLizardWrapper = {
 
     billTheLizard.executor.register('catlapseIncontentBoxad', () => {
       const slotNameToCatlapse = getCallId();
-
+      console.log('catlapsed!');
       slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
         utils.logger(logGroup, `Catlapsing ${slotNameToCatlapse}`);
         // eslint-disable-next-line no-console
@@ -161,7 +161,7 @@ export const billTheLizardWrapper = {
     eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
       if (adSlot.getConfigProperty('cheshireCatSlot')) {
         const callId = getCallId();
-
+        console.log('ad_slot_created callId', callId);
         adSlot.setConfigProperty('btlStatus', getBtlSlotStatus(
           billTheLizard.getResponseStatus(callId),
           callId,
@@ -205,7 +205,7 @@ export const billTheLizardWrapper = {
   callCheshireCat(callId) {
     const { context } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
-    console.log('callCheshire callId', callid);
+    console.log('callCheshire callId', callId);
     serializeBids(bidPosKeyVal).then((bids) => {
       context.set('services.billTheLizard.parameters.cheshirecat', {
         bids,
