@@ -82,14 +82,14 @@ export const slotsLoader = {
   },
 
   injectFirstSlot(firstSlotName) {
-    utils.logger(logGroup, `insertion started: ${firstSlotName}`);
+    utils.logger(logGroup, `injection started: ${firstSlotName}`);
     slotInjector.inject(firstSlotName);
     context.push('state.adStack', { id: firstSlotName });
   },
 
   handleBidsRefreshPromise(injectingCallback, slotName, ...args) {
     const bidsRefreshedPromise = context.get(`bidders.prebid.bidsRefreshing.${slotName}.finished`);
-    utils.logger(logGroup, `insertion waiting: ${slotName}`);
+    utils.logger(logGroup, `injection waiting: ${slotName}`);
 
     if (bidsRefreshedPromise) {
       bidsRefreshedPromise.then(() => {
@@ -113,7 +113,7 @@ export const slotsLoader = {
   },
 
   repeatSlot(nextSlotName, adSlot) {
-    utils.logger(logGroup, `repeating started: ${nextSlotName}`);
+    utils.logger(logGroup, `injection started: ${nextSlotName}`);
     slotRepeater.handleSlotRepeating(adSlot);
   },
 
