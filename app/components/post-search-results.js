@@ -46,6 +46,7 @@ export default Component.extend({
   fetchService: service('fetch'),
   logger: service(),
   wikiVariables: service(),
+  affiliateSlots: service(),
 
   isLoading: true,
   isCrossWiki: false,
@@ -54,6 +55,11 @@ export default Component.extend({
   // TODO: Use when releasing search for all post types
   // seeMoreButtonEnabled: not('isCrossWiki'),
   seeMoreButtonEnabled: false,
+
+  // FIXME: Remove when doing CAKE-5174
+  affiliateUnit: computed('query', function () {
+    return this.affiliateSlots.getUnitOnSearch(this.get('query'));
+  }),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
   seeMoreUrl: computed('wikiVariables.articlePath', function () {
