@@ -503,7 +503,7 @@ class Ads {
   initScrollSpeedTracking() {
     const { ScrollTracker } = window.Wikia.adEngine;
 
-    this.scrollTracker = ScrollTracker.make([0, 2000, 4000], 'application-wrapper');
+    this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
     this.scrollTracker.initScrollSpeedTracking();
     this.trackSessionScrollSpeed();
   }
