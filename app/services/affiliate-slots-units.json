@@ -5,5 +5,12 @@
     "heading": "Fandom",
     "subheading": "Check this out",
     "link": "https://fandom.com"
+  },
+  {
+    "name": "fandom-com2",
+    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
+    "heading": "Wikia",
+    "subheading": "Ye old times",
+    "link": "https://fandom.com"
   }
 ]

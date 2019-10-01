@@ -1,7 +1,10 @@
 [
   {
     "comment": "Fandom.com test for keiko-test wiki on prod and on muppet on dev on searching for 'coffee'",
-    "unit": "fandom-com",
+    "unit": [
+      "fandom-com",
+      "fandom-com2"
+    ],
     "wikiId": [
       1081891,
       831
@@ -13,6 +16,20 @@
       "coffee"
     ],
     "vertical": [
+    ]
+  },
+  {
+    "comment": "Fandom.com 2 test for keiko-test wiki on prod and on muppet on dev on searching for 'foo'",
+    "unit": [
+      "fandom-com2"
+    ],
+    "wikiId": [
+      1081891,
+      831
+    ],
+    "page": false,
+    "query": [
+      "foo"
     ]
   }
 ]

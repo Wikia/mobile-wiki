@@ -48,6 +48,7 @@ export default Service.extend({
     const availableUnitNames = this.getAvailableTargeting()
       .filter(t => checkFilter(t.page, title))
       .map(t => t.unit)
+      .flat()
       .filter(distinct);
 
     return units.filter(u => availableUnitNames.indexOf(u.name) > -1);
@@ -67,6 +68,7 @@ export default Service.extend({
     const availableUnitNames = this.getAvailableTargeting()
       .filter(t => checkFilter(t.query, query))
       .map(t => t.unit)
+      .flat()
       .filter(distinct);
 
     return units.filter(u => availableUnitNames.indexOf(u.name) > -1);
