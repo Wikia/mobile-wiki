@@ -52,12 +52,6 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
   let slotStatus;
 
-  console.log('getBtlSlotStatus btlStatus', btlStatus);
-  console.log('getBtlSlotStatus callId', callId);
-  console.log('getBtlSlotStatus incontents_counter', incontentsCounter);
-  console.log('predictions', billTheLizard.getPredictions('cheshirecat'));
-  console.log('getResponseStatus', billTheLizard.getResponseStatus(callId));
-
   switch (btlStatus) {
     case BillTheLizard.TOO_LATE:
     case BillTheLizard.TIMEOUT:
