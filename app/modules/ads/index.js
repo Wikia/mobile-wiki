@@ -248,8 +248,7 @@ class Ads {
       return;
     }
 
-    const { events, eventService, utils, ScrollTracker } = window.Wikia.adEngine;
-    const scrollTracker = ScrollTracker.make();
+    const { events, eventService, utils } = window.Wikia.adEngine;
 
     this.triggerBeforePageChangeServices();
 
@@ -503,9 +502,8 @@ class Ads {
    */
   initScrollSpeedTracking() {
     const { ScrollTracker } = window.Wikia.adEngine;
-    const scrollTracker = ScrollTracker.make();
 
-    this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
+    this.scrollTracker = ScrollTracker.make([0, 2000, 4000], 'application-wrapper');
     this.scrollTracker.initScrollSpeedTracking();
     this.trackSessionScrollSpeed();
   }
