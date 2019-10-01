@@ -3,23 +3,21 @@ import {
 } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
-import targeting from './affiliate-slots-targeting.json';
-import units from './affiliate-slots-units.json';
+import targeting from './affiliate-slots-targeting';
+import units from './affiliate-slots-units';
 
 /**
  *  Returns `true` if filter is undefined OR if it has the value
  */
-function checkFilter(filter, value) {
-  return typeof filter === 'undefined'
-    || (Array.isArray(filter) && filter.indexOf(value) > -1);
-}
+const checkFilter = (filter, value) => (
+  typeof filter === 'undefined'
+    || (Array.isArray(filter) && (filter.length === 0 || filter.indexOf(value) > -1))
+);
 
 /**
  * Distinct filter for arrays
  */
-function distinct(value, index, self) {
-  return self.indexOf(value) === index;
-}
+const distinct = (value, index, self) => (self.indexOf(value) === index);
 
 /**
  * Get random element of an array
