@@ -56,7 +56,6 @@ export default Component.extend({
   // seeMoreButtonEnabled: not('isCrossWiki'),
   seeMoreButtonEnabled: false,
 
-  // FIXME: Remove when doing CAKE-5174
   affiliateUnit: computed('query', function () {
     return this.affiliateSlots.getUnitOnSearch(this.get('query'));
   }),
