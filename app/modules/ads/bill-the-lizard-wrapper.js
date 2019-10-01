@@ -202,7 +202,7 @@ export const billTheLizardWrapper = {
   callCheshireCat(callId) {
     const { context } = window.Wikia.adEngine;
     const { billTheLizard } = window.Wikia.adServices;
-    console.log('callCheshire', callId);
+
     serializeBids(bidPosKeyVal).then((bids) => {
       context.set('services.billTheLizard.parameters.cheshirecat', {
         bids,
