@@ -3,25 +3,16 @@
 // https://github.com/Wikia/design-system/blob/master/components/_global-footer.scss
 
 .wds-global-footer {
-  line-height: normal;
-
-  h2 {
-    font-size: $wds-font-size-xl;
-    line-height: normal;
-  }
-
-  ul,
-  &__section-header {
-    line-height: normal;
-  }
-
   section,
   p {
     font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
   }
 
   figcaption {
     color: inherit;
+    padding: 0;
   }
 }
 
