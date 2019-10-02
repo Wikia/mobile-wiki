@@ -14,6 +14,15 @@
   &__section-header {
     line-height: normal;
   }
+
+  section,
+  p {
+    font-size: inherit;
+  }
+
+  figcaption {
+    color: inherit;
+  }
 }
 
 .global-footer-bottom__wrapper {
