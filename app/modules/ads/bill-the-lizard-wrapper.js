@@ -99,13 +99,13 @@ export const billTheLizardWrapper = {
     let baseSlotName = 'incontent_boxad_1';
     defaultStatus = NOT_USED_STATUS;
 
-    context.set('options.cheshireCatFirstSlot', 'top_boxad');
-
     // TODO clean up once we fully switch to top_boxad
     if (context.get('options.useTopBoxad')) {
       baseSlotName = 'top_boxad';
       initialValueOfIncontentsCounter = 0;
       incontentsCounter = initialValueOfIncontentsCounter;
+
+      context.set('options.cheshireCatFirstSlot', baseSlotName);
     }
 
     if (!context.get('bidders.prebid.bidsRefreshing.enabled')) {
