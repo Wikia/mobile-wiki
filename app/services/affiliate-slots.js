@@ -22,11 +22,6 @@ const checkFilter = (filter, value) => (
 const distinct = (value, index, self) => (self.indexOf(value) === index);
 
 /**
- * Get random element of an array
- */
-const sample = arr => arr[Math.floor(Math.random() * arr.length)];
-
-/**
  * Check if the unit can be displayed on current system
  */
 const checkMobileSystem = (unit) => {
@@ -86,9 +81,13 @@ export default Service.extend({
    * Sort all units via priority and fetch one of them
    */
   getUnitByPriority(availableUnits) {
-    return availableUnits.length > 0
-      ? sample(availableUnits.sort((a, b) => ((a.priority > b.priority) ? 1 : -1)))
-      : undefined;
+    if (availableUnits.length > 0) {
+      const sortedUnits = availableUnits.sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
+
+      return sortedUnits[0];
+    }
+
+    return undefined;
   },
 
   /**
