@@ -48,74 +48,80 @@ export default Service.extend({
   currentCountry: readOnly('geo.country'),
 
   /**
-   * Get one random unit from that can be displayed on current wiki with given `title`
+   * Get aone unit that can be displayed on search page with given `query`
+   */
+  getUnitOnSearch(query) {
+    const allUnits = this.getAllUnitsOnSearch(query);
+
+    return allUnits.length > 0 ? allUnits[0] : undefined;
+  },
+
+  /**
+   * Get all units that can be displayed on search page with given `query`
+   */
+  getAllUnitsOnSearch(query) {
+    return this.getAllUnits([
+      t => !t.disableOnSearch,
+      t => checkFilter(t.query, query),
+    ]);
+  },
+
+  /**
+   * Get all units that can be displayed on current wiki with given `title`
    */
   getUnitOnPage(title) {
-    return this.getUnitByPriority(this.getAllUnitsOnPage(title));
+    const allUnits = this.getAllUnitsOnPage(title);
+
+    return allUnits.length > 0 ? allUnits[0] : undefined;
   },
 
   /**
    * Get all units that can be displayed on current wiki with given `title`
    */
   getAllUnitsOnPage(title) {
-    const availableUnitNames = this.getAvailableTargeting()
-      .filter(t => !t.disableOnPage)
-      .filter(t => checkFilter(t.page, title))
-      .map(t => t.unit)
-      .flat()
-      .filter(distinct);
-
-    return units
-      .filter(u => availableUnitNames.indexOf(u.name) > -1)
-      .filter(u => checkMobileSystem(u));
+    return this.getAllUnits([
+      t => !t.disableOnPage,
+      t => checkFilter(t.page, title),
+    ]);
   },
 
   /**
-   * Get one random unit from that can be displayed on current wiki with given `query`
+   * Get all units that can be displayed on current wiki
+   *
+   * @param [function[]] filter functions for targeting
    */
-  getUnitOnSearch(query) {
-    return this.getUnitByPriority(this.getAllUnitsOnSearch(query));
-  },
-
-  /**
-   * Sort all units via priority and fetch one of them
-   */
-  getUnitByPriority(availableUnits) {
-    if (availableUnits.length > 0) {
-      const sortedUnits = availableUnits.sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
-
-      return sortedUnits[0];
-    }
-
-    return undefined;
-  },
-
-  /**
-   * Get all units that can be displayed on current wiki with given `query`
-   */
-  getAllUnitsOnSearch(query) {
-    const availableUnitNames = this.getAvailableTargeting()
-      .filter(t => !t.disableOnSearch)
-      .filter(t => checkFilter(t.query, query))
-      .map(t => t.unit)
-      .flat()
-      .filter(distinct);
-
-    return units
-      .filter(u => availableUnitNames.indexOf(u.name) > -1)
-      .filter(u => checkMobileSystem(u));
-  },
-
-  /**
-   * Get all targeting that can be used on current wiki; checks for:
-   * - wikiId
-   * - vertical
-   * - country
-   */
-  getAvailableTargeting() {
-    return targeting
+  getAllUnits(filters = []) {
+    let activeTargeting = targeting
+      // filter targeting by GEO cookie (country)
       .filter(t => checkFilter(t.country, this.currentCountry))
+      // filter targeting by vertical name
       .filter(t => checkFilter(t.vertical, this.currentVertical))
+      // filter targeting by current wiki ID
       .filter(t => checkFilter(t.wikiId, this.currentWikiId));
+
+    // apply additional criteria
+    filters.forEach((f) => {
+      activeTargeting = activeTargeting.filter(f);
+    });
+
+    // extract unit names from available targeting
+    const availableUnitNames = activeTargeting
+      // grab only names of allowed units
+      .map(t => t.unit)
+      // flatten the array
+      .flat()
+      // make the list unique
+      .filter(distinct);
+
+    // get all the units based on name and additional checks
+    const availableUnits = units
+      // filter only units that are actually allowed (because of targeting)
+      .filter(u => availableUnitNames.indexOf(u.name) > -1)
+      // check for mobile-system-specific units
+      .filter(u => checkMobileSystem(u))
+      // sort them according to the priority
+      .sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
+
+    return availableUnits;
   },
 });
