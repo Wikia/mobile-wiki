@@ -5,11 +5,41 @@ import Service, { inject as service } from '@ember/service';
 
 import { system } from '../utils/browser';
 
+/**
+  * @typedef {Object} AffiliateTargeting
+  * @property {string} [comment]
+  * @property {string[]} unit
+  * @property {number} [wikiId=[]]
+  * @property {number} [country=[]]
+  * @property {number|false} [page=[]]
+  * @property {number|false} [query=[]]
+  * @property {number} [vertical=[]]
+*/
 import targeting from './affiliate-slots-targeting';
+
+/**
+  * @typedef {Object} AffiliateUnit
+  * @property {string} name
+  * @property {string} [isBig]
+  * @property {string} image
+  * @property {string} heading
+  * @property {string} subheading
+  * @property {string} link
+  * @property {boolean} isExternal
+  * @property {number} priority
+  * @property {boolean} [disableOnSearch=false]
+  * @property {boolean} [disableOnPage=false]
+  * @property {boolean} [onlyOnAndroid=false]
+  * @property {boolean} [onlyOnIOS=false]
+*/
 import units from './affiliate-slots-units';
 
 /**
  *  Returns `true` if filter is undefined OR if it has the value
+ *
+ * @param {undefined|string[]} filter
+ * @param {string} value
+ * @returns {boolean}
  */
 const checkFilter = (filter, value) => (
   typeof filter === 'undefined'
@@ -18,11 +48,19 @@ const checkFilter = (filter, value) => (
 
 /**
  * Distinct filter for arrays
+ *
+ * @param {*} value
+ * @param {number} index
+ * @param {Array} self
+ * @returns {boolean}
  */
 const distinct = (value, index, self) => (self.indexOf(value) === index);
 
 /**
  * Check if the unit can be displayed on current system
+ *
+ * @param {string} unit
+ * @returns {boolean}
  */
 const checkMobileSystem = (unit) => {
   // if the unit is only available on ios
@@ -48,7 +86,10 @@ export default Service.extend({
   currentCountry: readOnly('geo.country'),
 
   /**
-   * Get aone unit that can be displayed on search page with given `query`
+   * Get a one unit that can be displayed on search page with given `query`
+   *
+   * @param {string} query
+   * @returns {AffiliateUnit|undefined}
    */
   getUnitOnSearch(query) {
     const allUnits = this.getAllUnitsOnSearch(query);
@@ -58,6 +99,9 @@ export default Service.extend({
 
   /**
    * Get all units that can be displayed on search page with given `query`
+   *
+   * @param {string} query
+   * @returns {AffiliateUnit[]}
    */
   getAllUnitsOnSearch(query) {
     return this.getAllUnits([
@@ -68,6 +112,9 @@ export default Service.extend({
 
   /**
    * Get all units that can be displayed on current wiki with given `title`
+   *
+   * @param {string} title
+   * @returns {AffiliateUnit|undefined}
    */
   getUnitOnPage(title) {
     const allUnits = this.getAllUnitsOnPage(title);
@@ -77,6 +124,9 @@ export default Service.extend({
 
   /**
    * Get all units that can be displayed on current wiki with given `title`
+   *
+   * @param {string} title
+   * @returns {AffiliateUnit[]}
    */
   getAllUnitsOnPage(title) {
     return this.getAllUnits([
@@ -88,7 +138,8 @@ export default Service.extend({
   /**
    * Get all units that can be displayed on current wiki
    *
-   * @param [function[]] filter functions for targeting
+   * @param {Function[]} filter functions for targeting
+   * @returns {AffiliateUnit[]}
    */
   getAllUnits(filters = []) {
     let activeTargeting = targeting
