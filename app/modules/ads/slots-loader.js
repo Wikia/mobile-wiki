@@ -57,7 +57,7 @@ export const slotsLoader = {
     });
 
     eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
-      adSlot.loaded.then(() => this.injectNextSlot(adSlot));
+      adSlot.rendered.then(() => this.injectNextSlot(adSlot));
     });
   },
 
