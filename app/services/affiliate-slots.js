@@ -3,6 +3,8 @@ import {
 } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
+import { system } from '../utils/browser';
+
 import targeting from './affiliate-slots-targeting';
 import units from './affiliate-slots-units';
 
@@ -20,11 +22,22 @@ const checkFilter = (filter, value) => (
 const distinct = (value, index, self) => (self.indexOf(value) === index);
 
 /**
- * Get random element of an array
+ * Check if the unit can be displayed on current system
  */
-function sample(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
+const checkMobileSystem = (unit) => {
+  // if the unit is only available on ios
+  if (unit.onlyOnIOS) {
+    return system === 'ios';
+  }
+
+  // if the unit is available on android
+  if (unit.onlyOnAndroid) {
+    return system === 'android';
+  }
+
+  // carry on
+  return true;
+};
 
 export default Service.extend({
   wikiVariables: service(),
@@ -38,7 +51,7 @@ export default Service.extend({
    * Get one random unit from that can be displayed on current wiki with given `title`
    */
   getUnitOnPage(title) {
-    return sample(this.getAllUnitsOnPage(title));
+    return this.getUnitByPriority(this.getAllUnitsOnPage(title));
   },
 
   /**
@@ -46,19 +59,35 @@ export default Service.extend({
    */
   getAllUnitsOnPage(title) {
     const availableUnitNames = this.getAvailableTargeting()
+      .filter(t => !t.disableOnPage)
       .filter(t => checkFilter(t.page, title))
       .map(t => t.unit)
       .flat()
       .filter(distinct);
 
-    return units.filter(u => availableUnitNames.indexOf(u.name) > -1);
+    return units
+      .filter(u => availableUnitNames.indexOf(u.name) > -1)
+      .filter(u => checkMobileSystem(u));
   },
 
   /**
    * Get one random unit from that can be displayed on current wiki with given `query`
    */
   getUnitOnSearch(query) {
-    return sample(this.getAllUnitsOnSearch(query));
+    return this.getUnitByPriority(this.getAllUnitsOnSearch(query));
+  },
+
+  /**
+   * Sort all units via priority and fetch one of them
+   */
+  getUnitByPriority(availableUnits) {
+    if (availableUnits.length > 0) {
+      const sortedUnits = availableUnits.sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
+
+      return sortedUnits[0];
+    }
+
+    return undefined;
   },
 
   /**
@@ -66,12 +95,15 @@ export default Service.extend({
    */
   getAllUnitsOnSearch(query) {
     const availableUnitNames = this.getAvailableTargeting()
+      .filter(t => !t.disableOnSearch)
       .filter(t => checkFilter(t.query, query))
       .map(t => t.unit)
       .flat()
       .filter(distinct);
 
-    return units.filter(u => availableUnitNames.indexOf(u.name) > -1);
+    return units
+      .filter(u => availableUnitNames.indexOf(u.name) > -1)
+      .filter(u => checkMobileSystem(u));
   },
 
   /**

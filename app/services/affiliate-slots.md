@@ -9,16 +9,30 @@ This file defines all the available affiliate units.
 ```json
 {
   "name": "fandom-com",
+  "isBig": false,
   "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
   "heading": "Fandom",
   "subheading": "Check this out",
-  "link": "https://fandom.com"
+  "link": "https://fandom.com",
+  "isExternal": false,
+  "priority": 3,
+  "disableOnSearch": false,
+  "disableOnPage": false,
+  "onlyOnAndroid": false,
+  "onlyOnIOS": false
 },
 ```
 
 ### Important field
 
 * `name` -  a short description of the unit - this is being used in `affiliate-slots-targeting.json` file
+* `isBig` - defaults to false. If set to true the unit will be tke over the post search results.
+* `isExternal` - defaults to false. If set to true the link is external and should be styled that way.
+* `priority` - a numerical priority. The higher the number, the more important unit is.
+* `disableOnSearch` - optional property. If set to true the unit is never going to be displayed on Search results.
+* `disableOnPage` - optional property. If set to true the unit is never going to be displayed on Pages results.
+* `onlyOnAndroid` - optional property. If set to true the unit is never going to be displayed on non-Android devices.
+* `onlyOnIOS` - optional property. If set to true the unit is never going to be displayed on non-iOS devices.
 
 ## `affiliate-slots-targeting.json`
 
