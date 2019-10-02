@@ -333,6 +333,7 @@ export const adsSetup = {
       context.set('options.useTopBoxad', true);
       context.set('events.pushAfterCreated.top_boxad', []);
       context.set('events.pushAfterRendered.top_boxad', []);
+      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {
