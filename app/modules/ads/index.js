@@ -132,7 +132,9 @@ class Ads {
       return;
     }
 
-    const { utils } = window.Wikia.adEngine;
+    const { ScrollTracker, utils } = window.Wikia.adEngine;
+
+    this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
     this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn)
       .then(() => {
@@ -501,9 +503,6 @@ class Ads {
    * @private
    */
   initScrollSpeedTracking() {
-    const { ScrollTracker } = window.Wikia.adEngine;
-
-    this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
     this.scrollTracker.initScrollSpeedTracking();
     this.trackSessionScrollSpeed();
   }
