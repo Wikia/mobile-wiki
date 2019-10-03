@@ -81,5 +81,5 @@ This file defines all the active targeting.
 
 Those are non-array fields for targeting:
 
-* `disableOnSearch` is set to `true` the targeting will be disabled on search
-* `disableOnPage` is set to `true` the targeting will be disabled on article pages
+* `disableOnSearch` is set to `true` the targeting will be disabled on search; `false` is the default
+* `disableOnPage` is set to `true` the targeting will be disabled on article pages; `false` is the default
