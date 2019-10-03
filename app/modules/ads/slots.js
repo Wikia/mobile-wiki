@@ -75,9 +75,35 @@ function isIncontentPlayerApplicable() {
  * @returns {boolean}
  */
 function isFloorAdhesionApplicable() {
-  const { context } = window.Wikia.adEngine;
+  const {
+    AdSlot,
+    context,
+    events,
+    eventService,
+    slotService,
+  } = window.Wikia.adEngine;
+  const isApplicable = !context.get('custom.hasFeaturedVideo') && !context.get('slots.floor_adhesion.disabled');
 
-  return !context.get('custom.hasFeaturedVideo') && !context.get('slots.floor_adhesion.disabled');
+  if (isApplicable) {
+    let porvataClosedActive = false;
+
+    slotService.on('floor_adhesion', AdSlot.STATUS_SUCCESS, () => {
+      porvataClosedActive = true;
+
+      eventService.on(events.VIDEO_AD_IMPRESSION, () => {
+        if (porvataClosedActive) {
+          porvataClosedActive = false;
+          slotService.disable('floor_adhesion', 'closed-by-porvata');
+        }
+      });
+    });
+
+    slotService.on('floor_adhesion', AdSlot.HIDDEN_EVENT, () => {
+      porvataClosedActive = false;
+    });
+  }
+
+  return isApplicable;
 }
 
 /**
