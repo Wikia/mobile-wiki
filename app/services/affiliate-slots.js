@@ -14,6 +14,8 @@ import { system } from '../utils/browser';
   * @property {number|false} [page=[]]
   * @property {number|false} [query=[]]
   * @property {number} [vertical=[]]
+  * @property {boolean} [disableOnSearch=false]
+  * @property {boolean} [disableOnPage=false]
 */
 import targeting from './affiliate-slots-targeting';
 
