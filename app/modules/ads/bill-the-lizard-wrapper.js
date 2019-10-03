@@ -56,7 +56,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
     case BillTheLizard.TOO_LATE:
     case BillTheLizard.TIMEOUT:
     case BillTheLizard.FAILURE: {
-      const prevPrediction = billTheLizard.getPreviousPrediction(incontentsCounter, getCallId, 'cheshirecat');
+      const prevPrediction = billTheLizard.getLastReusablePrediction('cheshirecat');
 
       slotStatus = btlStatus;
       if (prevPrediction !== undefined) {
@@ -76,7 +76,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
         return NOT_USED_STATUS;
       }
 
-      const prevPrediction = billTheLizard.getPreviousPrediction(incontentsCounter, getCallId, 'cheshirecat');
+      const prevPrediction = billTheLizard.getLastReusablePrediction('cheshirecat');
 
       if (prevPrediction === undefined) {
         // probably impossible but set in debugging purposes
