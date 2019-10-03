@@ -86,13 +86,27 @@ export default Service.extend({
   currentCountry: readOnly('geo.country'),
 
   /**
-   * Get one unit that can be displayed on search page with given `query`
+   * Get one BIG unit that can be displayed on search page with given `query`
+   *
+   * @param {string} query
+   * @returns {AffiliateUnit|undefined}
+   */
+  getBigUnitOnSearch(query) {
+    const allUnits = this.getAllUnitsOnSearch(query)
+      .filter(u => u.isBig);
+
+    return allUnits.length > 0 ? allUnits[0] : undefined;
+  },
+
+  /**
+   * Get one SMALL unit that can be displayed on search page with given `query`
    *
    * @param {string} query
    * @returns {AffiliateUnit|undefined}
    */
   getUnitOnSearch(query) {
-    const allUnits = this.getAllUnitsOnSearch(query);
+    const allUnits = this.getAllUnitsOnSearch(query)
+      .filter(u => !u.isBig);
 
     return allUnits.length > 0 ? allUnits[0] : undefined;
   },
@@ -111,13 +125,27 @@ export default Service.extend({
   },
 
   /**
-   * Get one unit that can be displayed on current wiki with given `title`
+   * Get one BIG unit that can be displayed on current wiki with given `title`
    *
    * @param {string} title
    * @returns {AffiliateUnit|undefined}
    */
-  getUnitOnPage(title) {
-    const allUnits = this.getAllUnitsOnPage(title);
+  getBigUnitOnPage(title) {
+    const allUnits = this.getAllUnitsOnPage(title)
+      .filter(u => u.isBig);
+
+    return allUnits.length > 0 ? allUnits[0] : undefined;
+  },
+
+  /**
+   * Get one SMALL unit that can be displayed on current wiki with given `title`
+   *
+   * @param {string} title
+   * @returns {AffiliateUnit|undefined}
+   */
+  getSmallUnitOnPage(title) {
+    const allUnits = this.getAllUnitsOnPage(title)
+      .filter(u => !u.isBig);
 
     return allUnits.length > 0 ? allUnits[0] : undefined;
   },
