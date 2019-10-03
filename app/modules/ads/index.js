@@ -293,11 +293,10 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { eventService } = window.Wikia.adEngine;
-    const { browsi, confiant, moatYiEvents } = window.Wikia.adServices;
+    const { confiant, moatYiEvents } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn)
       .then(() => {
-        browsi.call();
         confiant.call();
 
         eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
@@ -330,7 +329,7 @@ class Ads {
    */
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
-    const { context, slotService } = window.Wikia.adEngine;
+    const { slotService } = window.Wikia.adEngine;
 
     if (this.isAdStackEnabled()) {
       biddersDelayer.resetPromise();
@@ -342,9 +341,6 @@ class Ads {
       if (!slotService.getState('top_leaderboard')) {
         this.finishFirstCall();
       }
-    } else if (context.get('services.browsi.enabled')) {
-      // Browsi needs googletag loaded
-      this.loadGoogleTag();
     }
 
     this.callExternalTrackingServices();
@@ -359,7 +355,6 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const { krux, moatYi, nielsen } = window.Wikia.adServices;
-
     const targeting = context.get('targeting');
 
     krux.call();

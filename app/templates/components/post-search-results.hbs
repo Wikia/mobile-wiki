@@ -1,0 +1,46 @@
+{{#if isEnabled}}
+  <aside class="post-search-results">
+    <header class="post-search-results__header">
+      <div class="post-search-results__header-text wds-midlight-navy">
+        <Icon @name="comment" @size="small" />
+        {{{i18n "main.search-post-items-header" ns="search"}}}
+      </div>
+      {{#if seeMoreButtonEnabled}}
+        <Button
+          @href={{seeMoreUrl}}
+          @text={{true}}
+          class="post-search-results__see-more"
+          onclick={{action "trackMoreClick"}}
+        >
+          <span>{{{i18n "main.search-post-items-see-more" ns="search"}}}</span>
+          <Icon @name="arrow" @size="tiny" />
+        </Button>
+      {{/if}}
+    </header>
+    {{#if isLoading}}
+      <Spinner
+        @active={{true}}
+        @block={{true}}
+        @overlay={{false}}
+        @radius={{24}}
+        @strokeWidth={{2}}
+        class="post-search-results__loading"
+      />
+    {{else}}
+      {{#each posts as |post index|}}
+        {{post-search-results-item post=post postIndex=index}}
+      {{else}}
+        <div class="post-search-results__no-posts">
+          {{{i18n "main.search-post-item-no-posts" ns="search"}}}
+        </div>
+      {{/each}}
+    {{/if}}
+    {{#if affiliateUnit}}
+      <div style="border:1px solid #aaa;padding:15px;margin:15px;">
+        <a href={{affiliateUnit.link}}>{{affiliateUnit.heading}}</a>
+        <div>{{affiliateUnit.subheading}}</div>
+        <img src={{affiliateUnit.image}} alt={{affiliateUnit.heading}}>
+      </div>
+    {{/if}}
+  </aside>
+{{/if}}

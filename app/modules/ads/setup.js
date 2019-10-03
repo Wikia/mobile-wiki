@@ -131,7 +131,6 @@ export const adsSetup = {
     const isAdStackEnabled = (
       !instantConfig.isGeoEnabled('wgAdDriverDisableAdStackCountries')
       && adsContext.opts.pageType !== 'no_ads'
-      && !instantConfig.isGeoEnabled('wgAdDriverBrowsiCountries')
     );
 
     context.set('slots', slots.getContext());
@@ -180,7 +179,6 @@ export const adsSetup = {
     context.set('options.slotRepeater', instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
-    context.set('services.browsi.enabled', instantConfig.isGeoEnabled('wgAdDriverBrowsiCountries'));
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && instantConfig.isGeoEnabled('wgAdDriverKruxCountries') && !instantConfig.get('wgSitewideDisableKrux'));
@@ -201,6 +199,13 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+
+    context.set(
+      'templates.floorAdhesion.showCloseButtonAfter',
+      context.get('slots.floor_adhesion.disabled')
+        ? instantConfig.get('icInvisibleHighImpact2TimeToCloseButton', 0)
+        : instantConfig.get('icFloorAdhesionTimeToCloseButton', 0),
+    );
 
     let isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
 

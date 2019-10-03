@@ -125,6 +125,10 @@ export default EmberObject.extend({
   changeScope(newScope) {
     this.set('scope', newScope);
 
-    this.search(this.query);
+    return this.search(this.query);
+  },
+
+  getScope() {
+    return this.get('scope');
   },
 });
