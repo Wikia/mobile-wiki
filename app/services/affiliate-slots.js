@@ -14,6 +14,8 @@ import { system } from '../utils/browser';
   * @property {number|false} [page=[]]
   * @property {number|false} [query=[]]
   * @property {number} [vertical=[]]
+  * @property {boolean} [disableOnSearch=false]
+  * @property {boolean} [disableOnPage=false]
 */
 import targeting from './affiliate-slots-targeting';
 
@@ -104,7 +106,7 @@ export default Service.extend({
    * @param {string} query
    * @returns {AffiliateUnit|undefined}
    */
-  getUnitOnSearch(query) {
+  getSmallUnitOnSearch(query) {
     const allUnits = this.getAllUnitsOnSearch(query)
       .filter(u => !u.isBig);
 
@@ -121,7 +123,9 @@ export default Service.extend({
     return this.getAllUnits([
       t => !t.disableOnSearch,
       t => checkFilter(t.query, query),
-    ]);
+    ]).filter(
+      u => !u.disableOnSearch,
+    );
   },
 
   /**
@@ -160,7 +164,9 @@ export default Service.extend({
     return this.getAllUnits([
       t => !t.disableOnPage,
       t => checkFilter(t.page, title),
-    ]);
+    ]).filter(
+      u => !u.disableOnPage,
+    );
   },
 
   /**
