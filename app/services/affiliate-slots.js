@@ -160,7 +160,7 @@ export default Service.extend({
       // grab only names of allowed units
       .map(t => t.unit)
       // flatten the array
-      .flat()
+      .reduce((prev, curr) => prev.concat(curr))
       // make the list unique
       .filter(distinct);
 
