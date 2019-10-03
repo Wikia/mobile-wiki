@@ -86,7 +86,7 @@ export default Service.extend({
   currentCountry: readOnly('geo.country'),
 
   /**
-   * Get a one unit that can be displayed on search page with given `query`
+   * Get one unit that can be displayed on search page with given `query`
    *
    * @param {string} query
    * @returns {AffiliateUnit|undefined}
@@ -111,7 +111,7 @@ export default Service.extend({
   },
 
   /**
-   * Get all units that can be displayed on current wiki with given `title`
+   * Get one unit that can be displayed on current wiki with given `title`
    *
    * @param {string} title
    * @returns {AffiliateUnit|undefined}
