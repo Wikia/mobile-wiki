@@ -1,5 +1,5 @@
 <ul class="wikia-card-list">
-  {{#each @items as |item|}}
+  {{#each @items as |item key|}}
     <li class="wikia-card" {{action "onItemClick" item}}>
       {{#link-to
         "wiki-page"
@@ -14,5 +14,10 @@
         <div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
       {{/link-to}}
     </li>
+    {{#if includePostsForQuery}}
+      {{#if (equal key 1)}}
+        {{post-search-results query=includePostsForQuery}}
+      {{/if}}
+    {{/if}}
   {{/each}}
 </ul>

@@ -5,35 +5,36 @@
   @strokeWidth={{3}}
 />
 <div class="search-results">
+  <div class="search-results__total wds-font-size-s wds-leading-tight">
+    {{{i18n
+      "main.total-results"
+      ns="search"
+      totalItems=model.totalItems
+      query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
+    }}}
+
+    <Dropdown as |dropdown|>
+      {{#if model.isInteralScope }}
+        <dropdown.toggle class="push-dropdown-down"
+            @text={{{i18n "main.search-scope-internal" ns="search" tagName="strong" className="wds-font-weight-bold" }}} />
+      {{else}}
+        <dropdown.toggle class="push-dropdown-down"
+            @text={{{i18n "main.search-scope-crosswiki" ns="search" tagName="strong" className="wds-font-weight-bold" }}} />
+      {{/if}}
+
+      <dropdown.content @scrollable={{false}}>
+        <List @linked={{true}}>
+          <li><a href="#" onclick={{action "onScopeChange" "internal"}}>{{{i18n "main.search-scope-internal" ns="search" }}}</a></li>
+          <li><a href="#" onclick={{action "onScopeChange" "crosswiki"}}>{{{i18n "main.search-scope-crosswiki" ns="search" }}}</a></li>
+        </List>
+      </dropdown.content>
+    </Dropdown>
+  </div>
   {{#if model.totalItems}}
-    <div class="search-results__total wds-font-size-s wds-leading-tight">
-      {{{i18n
-        "main.total-results"
-        ns="search"
-        totalItems=model.totalItems
-        query=(wrap-me model.query tagName="strong" className="wds-font-weight-bold")
-     }}}
-
-      <Dropdown as |dropdown|>
-        {{#if model.isInteralScope }}
-          <dropdown.toggle class="push-dropdown-down"
-              @text={{{i18n "main.search-scope-internal" ns="search" tagName="strong" className="wds-font-weight-bold" }}} />
-        {{else}}
-          <dropdown.toggle class="push-dropdown-down"
-              @text={{{i18n "main.search-scope-crosswiki" ns="search" tagName="strong" className="wds-font-weight-bold" }}} />
-     {{/if }}
-        <dropdown.content @scrollable={{false}}>
-          <List @linked={{true}}>
-            <li><a href="#" onclick={{action "onScopeChange" "internal"}}>{{{i18n "main.search-scope-internal" ns="search" }}}</a></li>
-            <li><a href="#" onclick={{action "onScopeChange" "crosswiki"}}>{{{i18n "main.search-scope-crosswiki" ns="search" }}}</a></li>
-          </List>
-        </dropdown.content>
-      </Dropdown>
-
-    </div>
     {{#if model.isInteralScope }}
       {{wikia-ui-components/wikia-card-list
         items=model.items
+        includePostsForQuery=model.query
         trackingCategory="search-page"
         trackingLabel="search-result"
         itemClick=(action "onResultClick")
@@ -41,11 +42,12 @@
     {{else}}
       {{wikia-ui-components/wikia-card-crosswiki-list
         items=model.items
+        includePostsForQuery=model.query
         trackingCategory="search-page"
         trackingLabel="search-result"
         itemClick=(action "onResultClick")
       }}
- {{/if }}
+    {{/if}}
   {{else if notFoundError}}
     {{#wikia-ui-components/error-info}}
       {{wikia-search-error-not-found

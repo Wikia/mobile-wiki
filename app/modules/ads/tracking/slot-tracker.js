@@ -39,11 +39,13 @@ export const registerViewabilityTracker = () => {
 
 export const registerClickPositionTracker = () => {
   const { clickPositionTracker } = window.Wikia.adEngine;
-  const slotName = 'floor_adhesion';
 
-  clickPositionTracker
-    .register(data => track(Object.assign(data, {
-      eventName: 'trackingevent',
-      trackingMethod: 'internal',
-    })), slotName);
+  ['floor_adhesion', 'invisible_high_impact_2']
+    .forEach((slotName) => {
+      clickPositionTracker
+        .register(data => track(Object.assign(data, {
+          eventName: 'trackingevent',
+          trackingMethod: 'internal',
+        })), slotName);
+    });
 };

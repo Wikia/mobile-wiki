@@ -7,6 +7,11 @@
     "search-error-not-found-action": "尝试其他搜索", 
     "search-input-label": "搜索", 
     "search-loading-msg": "正在加载搜索结果...", 
+    "search-post-item-no-posts": "Couldn't find any posts", 
+    "search-post-item-quiz-takes": "{count} take", 
+    "search-post-item-quiz-takes_plural": "{count} takes", 
+    "search-post-items-header": "Related Posts", 
+    "search-post-items-see-more": "See More", 
     "search-scope-crosswiki": "全部维基", 
     "search-scope-internal": "本维基", 
     "total-results": "关于{query}的{totalItems}条结果"

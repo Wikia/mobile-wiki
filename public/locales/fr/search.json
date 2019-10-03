@@ -7,6 +7,11 @@
     "search-error-not-found-action": "Effectuez une autre recherche.", 
     "search-input-label": "Rechercher", 
     "search-loading-msg": "Chargement des résultats de recherche...", 
+    "search-post-item-no-posts": "Couldn't find any posts", 
+    "search-post-item-quiz-takes": "{count} take", 
+    "search-post-item-quiz-takes_plural": "{count} takes", 
+    "search-post-items-header": "Related Posts", 
+    "search-post-items-see-more": "See More", 
     "search-scope-crosswiki": "Tous les wikis", 
     "search-scope-internal": "Ce wiki", 
     "total-results": "Environ {totalItems} résultats correspondent à {query}."

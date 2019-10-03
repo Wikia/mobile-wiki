@@ -28,5 +28,11 @@
     &__snippet {
       color: $wds-color-light-c6;
     }
+
+    &__community_name {
+      color: #808080;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
   }
 }

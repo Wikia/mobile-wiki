@@ -7,6 +7,11 @@
     "search-error-not-found-action": "Prova con un'altra ricerca", 
     "search-input-label": "Cerca", 
     "search-loading-msg": "Caricamento dei risultati di ricerca in corso...", 
+    "search-post-item-no-posts": "Couldn't find any posts", 
+    "search-post-item-quiz-takes": "{count} take", 
+    "search-post-item-quiz-takes_plural": "{count} takes", 
+    "search-post-items-header": "Related Posts", 
+    "search-post-items-see-more": "See More", 
     "search-scope-crosswiki": "Tutte le wiki", 
     "search-scope-internal": "Questa wiki", 
     "total-results": "Circa {totalItems} risultati per {query}"

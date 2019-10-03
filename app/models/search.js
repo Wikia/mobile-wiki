@@ -78,7 +78,7 @@ export default EmberObject.extend({
     const queryString = getQueryString(queryParams);
 
     return this.fetchService.fetchFromUnifiedSearch(`/page-search${queryString}`)
-      .then(data => this.update(data))
+      .then(data => this.update(query, data))
       .catch((e) => {
         this.setProperties({
           error: 'search-error-general',
@@ -92,8 +92,16 @@ export default EmberObject.extend({
       });
   },
 
-  update(state) {
+  update(query, state) {
     const currentSize = this.items ? this.items.length : 0;
+
+    if (currentSize === 0) {
+      this.setProperties({
+        error: 'search-error-not-found',
+        erroneousQuery: query,
+        loading: false,
+      });
+    }
 
     this.setProperties({
       items: this.items.concat(state.results.map((item, index) => ({
@@ -104,6 +112,7 @@ export default EmberObject.extend({
         prefixedTitle: this.wikiUrls.getEncodedTitleFromURL(item.url),
         url: item.url,
         wikiId: item.wikiId,
+        sitename: item.sitename,
       }))),
       loading: false,
       totalItems: state.totalResultsFound,
@@ -116,6 +125,10 @@ export default EmberObject.extend({
   changeScope(newScope) {
     this.set('scope', newScope);
 
-    this.search(this.query);
+    return this.search(this.query);
+  },
+
+  getScope() {
+    return this.get('scope');
   },
 });

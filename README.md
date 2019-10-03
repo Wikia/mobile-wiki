@@ -6,19 +6,6 @@
 ## Overview
 Mobile Wiki is an application built on top of [Ember](https://emberjs.com/) and [Ember FastBoot](https://ember-fastboot.com/). This combination allows us serve server side rendered application to end client (The same code is executed on frontend and backend).
 
-## Setup
-To begin your journey with Mobile Wiki all you need to do is:
-
-1. On devboxes, the repo is already downloaded. `cd /usr/wikia/mobile-wiki`
-1. Use `npm run setup`
-1. Use `npm run dev`
-1. Start developing
-
-It's recommended to host mobile-wiki application on your devbox machine (make sure [`mobileWikiDev` role](https://github.com/Wikia/chef-repo/blob/master/roles/mobileWikiDev.json) is enabled). This setup solves many problems like dependencies, cross-domain scripting, etc.
-Development on local machine isn't tested. If you make that happen, please add "how to" here.
-
-More available scripts are listed [here](#scripts)
-
 ## Access Mobile Wiki
 ### Devbox environment
 Open http://muppet.yourname.wikia-dev.pl/wiki/Kermit from mobile device or while emulating it in desktop browser.
@@ -95,6 +82,8 @@ Mobile-wiki can be run inside Docker using docker-compose. This is as easy as ru
 
 `docker-compose up`
 
+**NOTE**: Make sure MediaWiki docker container is running.
+
 #### Initial setup
 
 Create .env file with the name of the devbox with local user id
@@ -114,12 +103,16 @@ ssh session:
 export GITHUB_TOKEN=<YOUR_TOKEN_HERE>
 ```
 
+**NOTE**: Make sure the token allows access to private repositories - the **repo** (_Full control of private repositories_) should be selected.
+
 Now you need to fetch all dependencies (this can take quite some time for the first time):
 
 
 ```bash
 docker run --rm -v `pwd`:/app -e GITHUB_TOKEN="$GITHUB_TOKEN" -e LOCAL_USER_ID=`id -u $USER` artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest npm run setup
 ```
+
+**NOTE**: If you're using `zsh` or similar shell, make sure that `"` are escaped.
 
 #### (Re)building the docker image
 Whenever you add a new global dependency you should rebuild your mobile-wiki container. To do that you need to run:
