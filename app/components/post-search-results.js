@@ -128,7 +128,7 @@ export default Component.extend({
     const queryString = getQueryString(queryParams);
 
     return this.fetchService.fetchFromUnifiedSearch(`/discussions-search${queryString}`)
-      .then(data => this.update(data))
+      .then(data => this.update(data, query))
       .catch((e) => {
         this.setProperties({
           isLoading: false,
@@ -140,19 +140,34 @@ export default Component.extend({
       });
   },
 
-  update(state) {
+  update(state, query = '') {
     if (!this.isDestroyed) {
+      const results = state.results.map(item => ({
+        image: item.image,
+        stats: item.stats || {},
+        title: item.title,
+        type: item.type,
+        url: item.url,
+      }));
+
+      // add affiliate links
+      results.push({
+        image: '',
+        stats: '',
+        title: 'bob',
+        type: 'quiz',
+        url: 'http://google.com',
+      });
+
       this.setProperties({
-        posts: state.results.map(item => ({
-          image: item.image,
-          stats: item.stats || {},
-          title: item.title,
-          type: item.type,
-          url: item.url,
-        })),
+        posts: results,
         isLoading: false,
       });
 
+      // if there are results lets check to see if we should add a disney plus link
+
+
+      // make sure this is targeted
       // only fire tracking when there are results
       if (state.results.length) {
         track({
