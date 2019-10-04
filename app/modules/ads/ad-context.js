@@ -41,6 +41,20 @@ export const defaultAdContext = {
         enabled: false,
         slots: ['mobile_in_content'],
       },
+      '33across': {
+        enabled: false,
+        slots: {
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: 'adXWum5iSr6z9AaKlId8sQ',
+            productId: 'inview',
+          },
+        },
+      },
       aol: {
         enabled: false,
         network: '9435.1',
@@ -90,6 +104,14 @@ export const defaultAdContext = {
               [320, 50],
             ],
           },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            placementId: '17062362',
+          },
         },
         placements: {
           ent: '9412992',
@@ -127,7 +149,6 @@ export const defaultAdContext = {
               [300, 50],
               [320, 50],
               [320, 100],
-              [728, 90],
             ],
             inScreen: 'vbzbl1nw',
           },
@@ -154,6 +175,14 @@ export const defaultAdContext = {
               [320, 50],
             ],
             siteId: '185056',
+          },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: '413977',
           },
         },
       },
@@ -315,6 +344,15 @@ export const defaultAdContext = {
             ],
             siteId: '23565',
             zoneId: '87671',
+          },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: '23565',
+            zoneId: '1422262',
           },
         },
       },
