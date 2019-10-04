@@ -7,6 +7,12 @@ const BIG_VIEWPORT_SIZE = {
   height: 627,
   width: 375,
 };
+let CODE_PRIORITY = {
+  floor_adhesion: {
+    initialised: false,
+    active: false,
+  },
+};
 
 function isTopLeaderboardApplicable() {
   const { context } = window.Wikia.adEngine;
@@ -75,21 +81,29 @@ function registerFloorAdhesionCodePriority() {
     slotService,
   } = window.Wikia.adEngine;
 
-  let porvataClosedActive = false;
+  if (CODE_PRIORITY.floor_adhesion.initialised) {
+    return;
+  }
+
+  CODE_PRIORITY.floor_adhesion.initialised = true;
 
   slotService.on('floor_adhesion', AdSlot.STATUS_SUCCESS, () => {
-    porvataClosedActive = true;
+    CODE_PRIORITY.floor_adhesion.active = true;
 
     eventService.on(events.VIDEO_AD_IMPRESSION, () => {
-      if (porvataClosedActive) {
-        porvataClosedActive = false;
+      if (CODE_PRIORITY.floor_adhesion.active) {
+        CODE_PRIORITY.floor_adhesion.active = false;
         slotService.disable('floor_adhesion', 'closed-by-porvata');
       }
     });
   });
 
   slotService.on('floor_adhesion', AdSlot.HIDDEN_EVENT, () => {
-    porvataClosedActive = false;
+    CODE_PRIORITY.floor_adhesion.active = false;
+  });
+
+  eventService.on(events.BEFORE_PAGE_CHANGE_EVENT, () => {
+    CODE_PRIORITY.floor_adhesion.active = false;
   });
 }
 
