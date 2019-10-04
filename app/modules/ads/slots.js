@@ -7,7 +7,7 @@ const BIG_VIEWPORT_SIZE = {
   height: 627,
   width: 375,
 };
-let CODE_PRIORITY = {
+const CODE_PRIORITY = {
   floor_adhesion: {
     initialised: false,
     active: false,
