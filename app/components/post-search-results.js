@@ -57,7 +57,9 @@ export default Component.extend({
   seeMoreButtonEnabled: false,
 
   affiliateUnit: computed('query', function () {
-    return this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
+    const value =  this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
+    debugger;
+    return value;
   }),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
@@ -154,11 +156,18 @@ export default Component.extend({
       results.push({
         image: '',
         stats: '',
-        title: 'bob',
+        title: 'bob hello',
         type: 'quiz',
         url: 'http://google.com',
       });
 
+      results.push({
+        image: '',
+        stats: '',
+        title: 'bob hello 2',
+        type: 'quiz',
+        url: 'http://google.com',
+      });
       this.setProperties({
         posts: results,
         isLoading: false,
