@@ -57,7 +57,7 @@ export default Component.extend({
   seeMoreButtonEnabled: false,
 
   affiliateUnit: computed('query', function () {
-    return this.affiliateSlots.getUnitOnSearch(this.get('query'));
+    return this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
   }),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
