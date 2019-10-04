@@ -2,6 +2,7 @@ import {
   context,
   events,
   eventService,
+  pbjsFactory,
   slotInjector,
   slotRepeater,
   utils,
@@ -11,10 +12,11 @@ const logGroup = 'slots-loader';
 
 export const slotsLoader = {
   baseSlotName: 'incontent_boxad',
-  incontentsCounter: 0,
+  prebidIncontents: [],
 
-  getSlotId() {
-    return `${this.baseSlotName}_${this.incontentsCounter}`;
+  getCurrentSlotId() {
+    const slotNumber = this.prebidIncontents.shift();
+    return `${this.baseSlotName}_${slotNumber}`;
   },
 
   configureSlotsLoader() {
@@ -27,7 +29,7 @@ export const slotsLoader = {
     context.set(
       'bidders.prebid.bidsRefreshing.bidsBackHandler',
       () => {
-        const slotId = this.getSlotId();
+        const slotId = this.getCurrentSlotId();
 
         utils.logger(logGroup, `refresh ended for: ${slotId}`);
         context.get(`bidders.prebid.bidsRefreshing.${slotId}.resolve`)();
@@ -35,30 +37,84 @@ export const slotsLoader = {
       },
     );
 
-    eventService.on(events.BIDS_REFRESH_STARTED, (adUnitCode) => {
-      const incontentAdUnitCode = context.get('slots.incontent_boxad_1.bidderAlias');
+    pbjsFactory.init().then(() => {
+      const originalRenderAd = window.pbjs.renderAd;
+      window.pbjs.renderAd = (document, adId) => {
+        const slotId = this.getNextIncontentSlotName(adId);
 
-      if (adUnitCode === incontentAdUnitCode) {
-        this.incontentsCounter += 1;
-        const slotId = this.getSlotId();
+        if (slotId) {
+          const slotNumber = parseInt(slotId.split('_').pop(), 10);
 
-        context.set(
-          `bidders.prebid.bidsRefreshing.${slotId}.finished`,
-          new Promise((resolve) => {
-            context.set(
-              `bidders.prebid.bidsRefreshing.${slotId}.resolve`,
-              resolve,
-            );
-          }),
-        );
+          this.prebidIncontents.push(slotNumber);
+          context.set(
+            `bidders.prebid.bidsRefreshing.${slotId}.finished`,
+            new Promise((resolve) => {
+              context.set(
+                `bidders.prebid.bidsRefreshing.${slotId}.resolve`,
+                resolve,
+              );
+            }),
+          );
 
-        utils.logger(logGroup, `refresh started for ${slotId}`);
-      }
+          utils.logger(logGroup, `refresh started for ${slotId}`);
+        }
+
+        originalRenderAd(document, adId);
+      };
     });
 
     eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
       adSlot.rendered.then(() => this.injectNextSlot(adSlot));
     });
+  },
+
+  /**
+   * Returns the name of the ad slot which follows the just refreshed one
+   * @param adId
+   * @returns {string}
+   */
+  getNextIncontentSlotName(adId) {
+    const refreshedSlotName = this.getRefreshedSlotName(adId);
+
+    if (refreshedSlotName === 'top_boxad') {
+      return 'incontent_boxad_1';
+    }
+    if (refreshedSlotName.indexOf(this.baseSlotName) !== -1) {
+      const lastSlotNumber = parseInt(refreshedSlotName.split('_').pop(), 10);
+      return `incontent_boxad_${lastSlotNumber + 1}`;
+    }
+    return '';
+  },
+
+  getRefreshedSlotName(adId) {
+    let refreshedSlotName = '';
+    const availableSlots = this.getAvailableSlots();
+
+    availableSlots.forEach((slotName) => {
+      const slotBidderAdId = context.get(`slots.${slotName}`).targeting.hb_adid;
+
+      if (slotBidderAdId === adId) {
+        refreshedSlotName = slotName;
+      }
+    });
+
+    return refreshedSlotName;
+  },
+
+  getAvailableSlots() {
+    const availableSlots = ['top_boxad'];
+    let slotNumber = 1;
+    let slotContext = context.get('slots.incontent_boxad_1');
+
+    while (slotContext) {
+      if (slotContext) {
+        availableSlots.push(`incontent_boxad_${slotNumber}`);
+        slotNumber += 1;
+        slotContext = context.get(`slots.incontent_boxad_${slotNumber}`);
+      }
+    }
+
+    return availableSlots;
   },
 
   injectNextSlot(adSlot) {
@@ -108,7 +164,7 @@ export const slotsLoader = {
     this.handleBidsRefreshPromise(
       this.repeatSlot,
       nextBoxadName,
-      adSlot
+      adSlot,
     );
   },
 
@@ -118,7 +174,7 @@ export const slotsLoader = {
   },
 
   reset() {
-    this.incontentsCounter = 0;
+    this.prebidIncontents = [];
   },
 };
 
