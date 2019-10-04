@@ -248,7 +248,6 @@ export const adsSetup = {
     }
 
     context.set('bidders.a9.slots.mobile_in_content', {
-      slotId: 'MOBILE_IN_CONTENT',
       sizes: [[300, 250]],
     });
     context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');

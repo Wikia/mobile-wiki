@@ -8,14 +8,11 @@
     "wikiId": [
       1081891
     ],
-    "country": [
-    ],
-    "page": false,
     "query": [
       "coffee"
     ],
-    "vertical": [
-    ]
+    "disableOnSearch": false,
+    "disableOnPage": true
   },
   {
     "comment": "Fandom.com 2 test for keiko-test wiki on dev on searching for 'foo'",
@@ -25,9 +22,9 @@
     "wikiId": [
       1081891
     ],
-    "page": false,
     "query": [
       "foo"
-    ]
+    ],
+    "disableOnPage": true
   }
 ]
