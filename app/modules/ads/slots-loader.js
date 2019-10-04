@@ -1,13 +1,3 @@
-import {
-  context,
-  events,
-  eventService,
-  pbjsFactory,
-  slotInjector,
-  slotRepeater,
-  utils,
-} from '@wikia/ad-engine';
-
 const logGroup = 'slots-loader';
 
 export const slotsLoader = {
@@ -20,6 +10,13 @@ export const slotsLoader = {
   },
 
   configureSlotsLoader() {
+    const {
+      context,
+      events,
+      eventService,
+      pbjsFactory,
+      utils,
+    } = window.Wikia.adEngine;
     const bidsBackHandler = context.get('bidders.prebid.bidsRefreshing.bidsBackHandler');
 
     if (!context.get('options.nonLazyIncontents.enabled')) {
@@ -87,8 +84,9 @@ export const slotsLoader = {
   },
 
   getRefreshedSlotName(adId) {
-    let refreshedSlotName = '';
+    const { context } = window.Wikia.adEngine;
     const availableSlots = this.getAvailableSlots();
+    let refreshedSlotName = '';
 
     availableSlots.forEach((slotName) => {
       const slotBidderAdId = context.get(`slots.${slotName}`).targeting.hb_adid;
@@ -102,6 +100,7 @@ export const slotsLoader = {
   },
 
   getAvailableSlots() {
+    const { context } = window.Wikia.adEngine;
     const availableSlots = ['top_boxad'];
     let slotNumber = 1;
     let slotContext = context.get('slots.incontent_boxad_1');
@@ -138,12 +137,15 @@ export const slotsLoader = {
   },
 
   injectFirstSlot(firstSlotName) {
+    const { context, slotInjector, utils } = window.Wikia.adEngine;
+
     utils.logger(logGroup, `injection started: ${firstSlotName}`);
     slotInjector.inject(firstSlotName);
     context.push('state.adStack', { id: firstSlotName });
   },
 
   handleBidsRefreshPromise(injectingCallback, slotName, ...args) {
+    const { context, utils } = window.Wikia.adEngine;
     const bidsRefreshedPromise = context.get(`bidders.prebid.bidsRefreshing.${slotName}.finished`);
     utils.logger(logGroup, `injection waiting: ${slotName}`);
 
@@ -169,6 +171,8 @@ export const slotsLoader = {
   },
 
   repeatSlot(nextSlotName, adSlot) {
+    const { slotRepeater, utils } = window.Wikia.adEngine;
+
     utils.logger(logGroup, `injection started: ${nextSlotName}`);
     slotRepeater.handleSlotRepeating(adSlot);
   },
