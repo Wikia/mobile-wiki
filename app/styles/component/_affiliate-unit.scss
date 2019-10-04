@@ -13,8 +13,7 @@
     &::after {
       content: '';
       display: block;
-      /* 4:3 aspect ratio */
-      padding-top: (4 / 3) * 100%;
+      padding-top: (4 / 3) * 100%; /* 4:3 aspect ratio */
     }
   }
 
@@ -39,6 +38,6 @@
 
   &__subheading {
     color: #fff;
-    opacity: 0.5;
+    opacity: .5;
   }
 }
