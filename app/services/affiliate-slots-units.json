@@ -20,5 +20,15 @@
     "subheading": "Ye old times",
     "link": "https://fandom.com",
     "priority": 1
+  },
+  {
+    "name": "xkxd02",
+    "isBig": true,
+    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
+    "heading": "Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
+    "subheading": "Presented by Disney+",
+    "link": "https://www.fandom.com",
+    "isExternal": false,
+    "priority": 1
   }
 ]

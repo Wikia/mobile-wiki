@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { observer } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
@@ -29,6 +29,7 @@ export default Component.extend(
     logger: service(),
     lightbox: service(),
     wikiVariables: service(),
+    affiliateSlots: service(),
 
     tagName: 'article',
     classNames: ['article-content', 'mw-content'],
@@ -43,6 +44,9 @@ export default Component.extend(
     lang: reads('wikiVariables.language.content'),
     dir: reads('wikiVariables.language.contentDir'),
     isFastBoot: reads('fastboot.isFastBoot'),
+    affiliateUnit: computed('displayTitle', function () {
+      return this.affiliateSlots.getBigUnitOnPage(this.get('displayTitle'));
+    }),
 
     /* eslint ember/no-on-calls-in-components:0 */
     articleContentObserver: on('didInsertElement', observer('content', function () {
@@ -59,6 +63,7 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
+          this.handleAffiliateUnit(this.affiliateUnit);
           this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
@@ -588,6 +593,33 @@ export default Component.extend(
           name: 'watch-show',
           attrs: {},
           element: placeholder,
+        }));
+      }
+    },
+
+    /**
+     * Injects an affiliate unit into the article content
+     * @param {Object} unitAttrs
+     */
+    handleAffiliateUnit(unitAttrs) {
+      if (typeof unitAttrs === 'undefined') {
+        // There's no unit to display (not an error)
+        return;
+      }
+
+      const h2Elements = this.element.querySelectorAll('h2');
+
+      if (h2Elements[1]) {
+        const unitPlaceholder = document.createElement('div');
+        const unitWrapper = document.createElement('div');
+
+        unitWrapper.appendChild(unitPlaceholder);
+        h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
+
+        this.renderedComponents.push(this.renderComponent({
+          name: 'affiliate-unit',
+          attrs: unitAttrs,
+          element: unitPlaceholder,
         }));
       }
     },
