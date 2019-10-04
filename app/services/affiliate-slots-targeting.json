@@ -1,0 +1,30 @@
+[
+  {
+    "comment": "Fandom.com test for keiko-test wiki on searching for 'coffee'",
+    "unit": [
+      "fandom-com",
+      "fandom-com2"
+    ],
+    "wikiId": [
+      1081891
+    ],
+    "query": [
+      "coffee"
+    ],
+    "disableOnSearch": false,
+    "disableOnPage": true
+  },
+  {
+    "comment": "Fandom.com 2 test for keiko-test wiki on dev on searching for 'foo'",
+    "unit": [
+      "fandom-com2"
+    ],
+    "wikiId": [
+      1081891
+    ],
+    "query": [
+      "foo"
+    ],
+    "disableOnPage": true
+  }
+]

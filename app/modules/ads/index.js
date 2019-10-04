@@ -132,7 +132,9 @@ class Ads {
       return;
     }
 
-    const { utils } = window.Wikia.adEngine;
+    const { ScrollTracker, utils } = window.Wikia.adEngine;
+
+    this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
     this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn)
       .then(() => {
@@ -239,7 +241,7 @@ class Ads {
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
     eventService.on(events.SCROLL_TRACKING_TIME_CHANGED, (time, position) => {
-      trackScrollY(time, position);
+      trackScrollY(time / 1000, position);
     });
   }
 
@@ -249,13 +251,10 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
-    const { ScrollTracker } = window.Wikia.adServices;
-    const scrollTracker = ScrollTracker.make();
 
     this.triggerBeforePageChangeServices();
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
-    scrollTracker.resetScrollSpeedTracking();
     utils.logger(logGroup, 'before transition');
   }
 
@@ -294,11 +293,10 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { eventService } = window.Wikia.adEngine;
-    const { browsi, confiant, moatYiEvents } = window.Wikia.adServices;
+    const { confiant, moatYiEvents } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn)
       .then(() => {
-        browsi.call();
         confiant.call();
 
         eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
@@ -331,7 +329,7 @@ class Ads {
    */
   triggerAfterPageRenderServices() {
     const { bidders } = window.Wikia.adBidders;
-    const { context, slotService } = window.Wikia.adEngine;
+    const { slotService } = window.Wikia.adEngine;
 
     if (this.isAdStackEnabled()) {
       biddersDelayer.resetPromise();
@@ -343,9 +341,6 @@ class Ads {
       if (!slotService.getState('top_leaderboard')) {
         this.finishFirstCall();
       }
-    } else if (context.get('services.browsi.enabled')) {
-      // Browsi needs googletag loaded
-      this.loadGoogleTag();
     }
 
     this.callExternalTrackingServices();
@@ -360,7 +355,6 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const { krux, moatYi, nielsen } = window.Wikia.adServices;
-
     const targeting = context.get('targeting');
 
     krux.call();
@@ -504,10 +498,7 @@ class Ads {
    * @private
    */
   initScrollSpeedTracking() {
-    const { ScrollTracker } = window.Wikia.adServices;
-    const scrollTracker = ScrollTracker.make();
-
-    scrollTracker.initScrollSpeedTracking('application-wrapper');
+    this.scrollTracker.initScrollSpeedTracking();
     this.trackSessionScrollSpeed();
   }
 
