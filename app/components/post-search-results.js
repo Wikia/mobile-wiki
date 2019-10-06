@@ -150,22 +150,6 @@ export default Component.extend({
         url: item.url,
       }));
 
-      // add affiliate links
-      results.push({
-        image: '',
-        stats: '',
-        title: 'bob hello',
-        type: 'quiz',
-        url: 'http://google.com',
-      });
-
-      results.push({
-        image: '',
-        stats: '',
-        title: 'bob hello 2',
-        type: 'quiz',
-        url: 'http://google.com',
-      });
       this.setProperties({
         posts: results,
         isLoading: false,
