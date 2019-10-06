@@ -1,12 +1,16 @@
-<div style="border:1px solid #aaa;padding:15px;margin:15px;">
-  <a href={{affiliateUnit.link}}>{{affiliateUnit.heading}}</a>
-  <div>{{affiliateUnit.subheading}}</div>
-  <img src={{affiliateUnit.image}} alt={{affiliateUnit.heading}}>
+<div class="post-search-results-affiliate-item">
+  {{#if affiliateUnit.image}}
+    <img class="post-search-results-affiliate-item__image" src={{affiliateUnit.image}} alt={{affiliateUnit.heading}}>
+  {{/if}}
+  <a
+    href={{{affiliateUnit.link}}}
+    class="post-search-results-affiliate-item__title wds-leading-tight"
+    onclick={{action "trackClick" postIndex}}
+  >
+    {{affiliateUnit.heading}}
+  </a>
+  <div class="post-search-results-affiliate-item__details">
+      Watch it on Disney+
+      <Icon @name="external" @size="tiny" />
+  </div>
 </div>
-
-{{!-- heading: "Wikia"
-image: "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614"
-link: "https://fandom.com"
-name: "fandom-com2"
-priority: 1
-subheading: "Ye old times" --}}

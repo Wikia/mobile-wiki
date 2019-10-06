@@ -57,9 +57,7 @@ export default Component.extend({
   seeMoreButtonEnabled: false,
 
   affiliateUnit: computed('query', function () {
-    const value =  this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
-    debugger;
-    return value;
+    return this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
   }),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
@@ -172,9 +170,6 @@ export default Component.extend({
         posts: results,
         isLoading: false,
       });
-
-      // if there are results lets check to see if we should add a disney plus link
-
 
       // make sure this is targeted
       // only fire tracking when there are results
