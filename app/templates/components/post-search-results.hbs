@@ -27,18 +27,19 @@
         class="post-search-results__loading"
       />
     {{else}}
+       {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=1}}
       {{#each posts as |post index|}}
         {{post-search-results-item post=post postIndex=index}}
-        {{#if affiliateUnit}}
+        {{#if smallAffiliateUnit}}
           {{!-- If there is only one post we want to show it after the first one --}}
           {{#if (equal posts.length 1)}}
             {{#if (equal index 0)}}
-              {{post-search-results-affiliate-item affiliateUnit=affiliateUnit postIndex=index}}
+              {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
             {{/if}}
           {{/if}}
           {{!-- All other cases show it after the first index --}}
           {{#if (equal index 1)}}
-              {{post-search-results-affiliate-item affiliateUnit=affiliateUnit postIndex=index}}
+              {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
           {{/if}}
         {{/if}}
       {{else}}
@@ -46,13 +47,6 @@
           {{{i18n "main.search-post-item-no-posts" ns="search"}}}
         </div>
       {{/each}}
-    {{/if}}
-    {{#if smallAffiliateUnit}}
-      <div style="border:1px solid #aaa;padding:15px;margin:15px;">
-        <a href={{smallAffiliateUnit.link}}>{{smallAffiliateUnit.heading}}</a>
-        <div>{{smallAffiliateUnit.subheading}}</div>
-        <img src={{smallAffiliateUnit.image}} alt={{smallAffiliateUnit.heading}}>
-      </div>
     {{/if}}
   </aside>
 {{/if}}

@@ -136,7 +136,7 @@ export default Component.extend({
     const queryString = getQueryString(queryParams);
 
     return this.fetchService.fetchFromUnifiedSearch(`/discussions-search${queryString}`)
-      .then(data => this.update(data, query))
+      .then(data => this.update(data))
       .catch((e) => {
         this.setProperties({
           isLoading: false,
@@ -148,7 +148,7 @@ export default Component.extend({
       });
   },
 
-  update(state, query = '') {
+  update(state) {
     if (!this.isDestroyed) {
       const results = state.results.map(item => ({
         image: item.image,

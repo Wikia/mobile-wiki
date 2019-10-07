@@ -44,4 +44,8 @@ $post-search-results-item-image-height: 48px;
     object-fit: cover;
     width: $post-search-results-item-image-height;
   }
+
+  &__icon {
+    margin-left: 5px;
+  }
 }
