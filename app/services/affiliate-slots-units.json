@@ -14,21 +14,31 @@
     "onlyOnIOS": false
   },
   {
-    "name": "fandom-com2",
+    "name": "fandom-big",
+    "isBig": true,
     "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
-    "heading": "Wikia",
-    "subheading": "Ye old times",
+    "heading": "Fandom",
+    "subheading": "Check this out",
     "link": "https://fandom.com",
     "priority": 2
   },
   {
     "name": "xkxd02",
-    "isBig": true,
     "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
     "heading": "Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
     "subheading": "Presented by Disney+",
     "link": "https://www.fandom.com",
     "isExternal": false,
     "priority": 1
+  },
+  {
+    "name": "xkxd02-small",
+    "isBig": true,
+    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
+    "heading": "Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
+    "subheading": "Presented by Disney+",
+    "link": "https://www.fandom.com",
+    "isExternal": false,
+    "priority": 2
   }
 ]
