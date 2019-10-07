@@ -47,5 +47,20 @@
         </div>
       {{/each}}
     {{/if}}
+    {{#if smallAffiliateUnit}}
+      <div style="border:1px solid #aaa;padding:15px;margin:15px;">
+        <a href={{smallAffiliateUnit.link}}>{{smallAffiliateUnit.heading}}</a>
+        <div>{{smallAffiliateUnit.subheading}}</div>
+        <img src={{smallAffiliateUnit.image}} alt={{smallAffiliateUnit.heading}}>
+      </div>
+    {{/if}}
   </aside>
+{{/if}}
+{{#if bigAffiliateUnit}}
+  {{affiliate-unit
+    heading=bigAffiliateUnit.heading
+    image=bigAffiliateUnit.image
+    link=bigAffiliateUnit.link
+    subheading=bigAffiliateUnit.subheading
+  }}
 {{/if}}

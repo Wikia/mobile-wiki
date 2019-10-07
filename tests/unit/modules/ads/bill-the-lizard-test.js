@@ -8,7 +8,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
     window.Wikia.adServices = {
       billTheLizard: {
         getPrediction: sinon.stub(),
-        getPreviousPrediction: sinon.stub(),
+        getLastReusablePrediction: sinon.stub(),
       },
       BillTheLizard: {
         TOO_LATE: 'too_late',
@@ -22,7 +22,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   });
 
   test('default slot status with not_used as default', (assert) => {
-    window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
+    window.Wikia.adServices.billTheLizard.getLastReusablePrediction.returns(undefined);
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(
@@ -35,7 +35,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   });
 
   test('IC1 didn\'t come but we want IC2 answer', (assert) => {
-    window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
+    window.Wikia.adServices.billTheLizard.getLastReusablePrediction.returns(undefined);
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(
@@ -48,7 +48,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   });
 
   test('default failure slot status', (assert) => {
-    window.Wikia.adServices.billTheLizard.getPreviousPrediction.returns(undefined);
+    window.Wikia.adServices.billTheLizard.getLastReusablePrediction.returns(undefined);
 
     assert.equal(
       BillTheLizard.getBtlSlotStatus(
@@ -61,7 +61,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   });
 
   test('standard cheshire cat flow: IC1 never used, IC2 reused, IC3 on_time since prediction = 1', (assert) => {
-    window.Wikia.adServices.billTheLizard.getPreviousPrediction
+    window.Wikia.adServices.billTheLizard.getLastReusablePrediction
       .returns({ result: 0, callId: 'incontent_boxad_1' });
 
     window.Wikia.adServices.billTheLizard.getPrediction
@@ -96,7 +96,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   });
 
   test('failure for IC2 without prediction for IC1', (assert) => {
-    window.Wikia.adServices.billTheLizard.getPreviousPrediction
+    window.Wikia.adServices.billTheLizard.getLastReusablePrediction
       .returns(undefined);
 
     window.Wikia.adServices.billTheLizard.getPrediction
@@ -122,7 +122,7 @@ module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   });
 
   test('failure for IC3 with prediction for IC1', (assert) => {
-    window.Wikia.adServices.billTheLizard.getPreviousPrediction
+    window.Wikia.adServices.billTheLizard.getLastReusablePrediction
       .returns({ result: 0, callId: 'incontent_boxad_1' });
 
     window.Wikia.adServices.billTheLizard.getPrediction

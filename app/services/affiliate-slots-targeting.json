@@ -23,5 +23,14 @@
       "foo"
     ],
     "disableOnPage": true
+  },
+  {
+    "comment": "Target xkxd02 wiki which is on both devbox and prod",
+    "unit": [
+      "xkxd02"
+    ],
+    "wikiId": [
+      1575417
+    ]
   }
 ]
