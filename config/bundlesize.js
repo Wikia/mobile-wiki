@@ -29,7 +29,7 @@ module.exports = {
   },
   'design-system.svg': {
     pattern: `${assetsFolder}/design-system-*.svg`,
-    limit: '34KB',
+    limit: '90KB',
   },
   'jwplayer:js': {
     pattern: `${assetsFolder}/jwplayer/*.js`,
