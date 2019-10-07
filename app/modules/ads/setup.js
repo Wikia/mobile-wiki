@@ -19,6 +19,7 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
+import { slotsLoader } from './slots-loader';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -109,6 +110,9 @@ export const adsSetup = {
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
       billTheLizardWrapper.configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+
+      // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
+      slotsLoader.configureSlotsLoader();
     });
   },
 
@@ -134,7 +138,6 @@ export const adsSetup = {
     const isAdStackEnabled = (
       !instantConfig.isGeoEnabled('wgAdDriverDisableAdStackCountries')
       && adsContext.opts.pageType !== 'no_ads'
-      && !instantConfig.isGeoEnabled('wgAdDriverBrowsiCountries')
     );
 
     context.set('slots', slots.getContext());
@@ -160,6 +163,7 @@ export const adsSetup = {
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
     context.set('options.gamLazyLoading.enabled', instantConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
+    context.set('options.nonLazyIncontents.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
@@ -183,7 +187,6 @@ export const adsSetup = {
     context.set('options.slotRepeater', instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
-    context.set('services.browsi.enabled', instantConfig.isGeoEnabled('wgAdDriverBrowsiCountries'));
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && instantConfig.isGeoEnabled('wgAdDriverKruxCountries') && !instantConfig.get('wgSitewideDisableKrux'));
@@ -204,6 +207,13 @@ export const adsSetup = {
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
     context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+
+    context.set(
+      'templates.floorAdhesion.showCloseButtonAfter',
+      context.get('slots.floor_adhesion.disabled')
+        ? instantConfig.get('icInvisibleHighImpact2TimeToCloseButton', 0)
+        : instantConfig.get('icFloorAdhesionTimeToCloseButton', 0),
+    );
 
     let isSafeFrameForced = instantConfig.get('icFloorAdhesionForceSafeFrame');
 
@@ -246,7 +256,6 @@ export const adsSetup = {
     }
 
     context.set('bidders.a9.slots.mobile_in_content', {
-      slotId: 'MOBILE_IN_CONTENT',
       sizes: [[300, 250]],
     });
     context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
@@ -321,6 +330,13 @@ export const adsSetup = {
           'incontent_player',
         ]);
       }
+    }
+
+    if (context.get('options.nonLazyIncontents.enabled')) {
+      context.set('options.useTopBoxad', true);
+      context.set('events.pushAfterCreated.top_boxad', []);
+      context.set('events.pushAfterRendered.top_boxad', []);
+      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {
