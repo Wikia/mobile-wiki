@@ -15,14 +15,14 @@ let incontentsCounter = initialValueOfIncontentsCounter;
 let defaultStatus = NOT_USED_STATUS;
 let refreshedSlotNumber = null;
 
-function getCallId(counter = null) {
+function getCallId(counter) {
   const { context } = window.Wikia.adEngine;
 
-  if (context.get('options.useTopBoxad') && (counter || incontentsCounter) === 0) {
+  if (context.get('options.useTopBoxad') && (!counter)) {
     return 'top_boxad';
   }
 
-  return `incontent_boxad_${counter || incontentsCounter}`;
+  return `incontent_boxad_${counter}`;
 }
 
 function serializeBids(slotName) {
@@ -56,7 +56,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
     case BillTheLizard.TOO_LATE:
     case BillTheLizard.TIMEOUT:
     case BillTheLizard.FAILURE: {
-      const prevPrediction = billTheLizard.getPreviousPrediction(incontentsCounter, getCallId, 'cheshirecat');
+      const prevPrediction = billTheLizard.getLastReusablePrediction('cheshirecat');
 
       slotStatus = btlStatus;
       if (prevPrediction !== undefined) {
@@ -76,7 +76,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
         return NOT_USED_STATUS;
       }
 
-      const prevPrediction = billTheLizard.getPreviousPrediction(incontentsCounter, getCallId, 'cheshirecat');
+      const prevPrediction = billTheLizard.getLastReusablePrediction('cheshirecat');
 
       if (prevPrediction === undefined) {
         // probably impossible but set in debugging purposes
@@ -126,14 +126,13 @@ export const billTheLizardWrapper = {
     }
 
     billTheLizard.executor.register('catlapseIncontentBoxad', () => {
-      const slotNameToCatlapse = getCallId();
-
+      const slotNameToCatlapse = getCallId(incontentsCounter);
       slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
         utils.logger(logGroup, `Catlapsing ${slotNameToCatlapse}`);
         // eslint-disable-next-line no-console
         console.log(`Catlapsing ${slotNameToCatlapse}`);
       });
-      slotService.disable(getCallId(), AD_SLOT_CATLAPSED_STATUS);
+      slotService.disable(getCallId(incontentsCounter), AD_SLOT_CATLAPSED_STATUS);
     });
 
     context.set(
@@ -157,8 +156,7 @@ export const billTheLizardWrapper = {
 
     eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
       if (adSlot.getConfigProperty('cheshireCatSlot')) {
-        const callId = getCallId();
-
+        const callId = getCallId(incontentsCounter);
         adSlot.setConfigProperty('btlStatus', getBtlSlotStatus(
           billTheLizard.getResponseStatus(callId),
           callId,
