@@ -75,8 +75,11 @@ This file defines all the active targeting.
 * `unit` - a list of `name`s from `affiliate-slots-units.json` for that unit
 * `wikiId` - IDs of communities that the unit should display on
 * `country` - two letter name of the country (same as one that exists in `Geo` cookie) that the unit should display on
-* `page` - MW article names that the unit should display on - **NOTE** Use `false` to disable targeting on Wiki articles
-* `query` - search queries that the unit should display on - **NOTE** Use `false` to disable targeting on search page
+* `page` - MW article names that the unit should display on
+* `query` - search queries that the unit should display on
 * `vertical` - list of verticals that the unit should display on
 
-Once again, in order to display on **ALL** wikis, use empty array for `wikiId` **OR** skip this key from the targeting definition.
+Those are non-array fields for targeting:
+
+* `disableOnSearch` is set to `true` the targeting will be disabled on search; `false` is the default
+* `disableOnPage` is set to `true` the targeting will be disabled on article pages; `false` is the default
