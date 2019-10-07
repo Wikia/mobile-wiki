@@ -27,7 +27,6 @@
         class="post-search-results__loading"
       />
     {{else}}
-       {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=1}}
       {{#each posts as |post index|}}
         {{post-search-results-item post=post postIndex=index}}
         {{#if smallAffiliateUnit}}
