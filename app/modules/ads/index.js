@@ -10,6 +10,7 @@ import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { trackScrollY } from '../../utils/track';
+import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -320,6 +321,7 @@ class Ads {
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     billTheLizardWrapper.reset();
+    slotsLoader.reset();
   }
 
   /**

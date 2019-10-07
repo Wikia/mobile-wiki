@@ -138,9 +138,9 @@ export const billTheLizardWrapper = {
     context.set(
       'bidders.prebid.bidsRefreshing.bidsBackHandler',
       () => {
-        if (refreshedSlotNumber && refreshedSlotNumber > initialValueOfIncontentsCounter) {
-          const callId = getCallId(refreshedSlotNumber);
+        const callId = getCallId(refreshedSlotNumber);
 
+        if (refreshedSlotNumber && refreshedSlotNumber > initialValueOfIncontentsCounter) {
           this.callCheshireCat(callId);
         }
       },
