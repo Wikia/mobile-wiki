@@ -207,8 +207,6 @@ export default Service.extend({
       // sort them according to the priority
       .sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
 
-    console.log('getAllUnits', { activeTargeting, availableUnits });
-
     return availableUnits;
   },
 });
