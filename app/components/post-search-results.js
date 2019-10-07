@@ -150,17 +150,20 @@ export default Component.extend({
 
   update(state) {
     if (!this.isDestroyed) {
+      const results = state.results.map(item => ({
+        image: item.image,
+        stats: item.stats || {},
+        title: item.title,
+        type: item.type,
+        url: item.url,
+      }));
+
       this.setProperties({
-        posts: state.results.map(item => ({
-          image: item.image,
-          stats: item.stats || {},
-          title: item.title,
-          type: item.type,
-          url: item.url,
-        })),
+        posts: results,
         isLoading: false,
       });
 
+      // make sure this is targeted
       // only fire tracking when there are results
       if (state.results.length) {
         track({
