@@ -11,7 +11,7 @@
     "disableOnSearch": false,
     "disableOnPage": false,
     "onlyOnAndroid": false,
-    "onlyOnIOS": false,
+    "onlyOnIOS": false
   },
   {
     "name": "fandom-big",
