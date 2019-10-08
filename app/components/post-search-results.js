@@ -76,21 +76,12 @@ export default Component.extend({
     return this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
   }),
 
-  bigAffiliateUnit: computed('query', function () {
-    return this.affiliateSlots.getBigUnitOnSearch(this.get('query'));
-  }),
-
   // fortunately we can compute the feeds path from articlePath (it has lang part)
   seeMoreUrl: computed('wikiVariables.articlePath', function () {
     return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
   isEnabled: computed('bigAffiliateUnit', 'wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
-    // big unit replaces the entire component and will be displayed instead of it
-    if (this.bigAffiliateUnit) {
-      return false;
-    }
-
     // Enable on non-production wikis
     if (config.environment !== 'production') {
       return true;

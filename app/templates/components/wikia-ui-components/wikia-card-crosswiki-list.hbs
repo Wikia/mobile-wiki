@@ -11,7 +11,7 @@
     </li>
     {{#if includePostsForQuery}}
       {{#if (equal key 1)}}
-        {{post-search-results query=includePostsForQuery isCrossWiki=true}}
+        {{post-search-interrupt query=includePostsForQuery isCrossWiki=true}}
       {{/if}}
     {{/if}}
   {{/each}}
