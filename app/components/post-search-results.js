@@ -8,6 +8,22 @@ import { getQueryString } from '@wikia/ember-fandom/utils/url';
 import { track, trackActions } from '../utils/track';
 import config from '../config/environment';
 
+const DEFAULT_AFFILIATE_SLOT = 1;
+
+function getAffiliateSlot(smallAffiliateUnit, posts) {
+  if (!posts || posts.length === 0) {
+    return 0;
+  } 
+
+  const preferredIndex = smallAffiliateUnit.preferredIndex || DEFAULT_AFFILIATE_SLOT;
+
+  if (preferredIndex < posts.length) {
+      return posts.length - 1;
+  } 
+
+  return preferredIndex;
+}
+
 // TODO: Remove this when all discussions' posts are in the index
 const QUIZZES_WHITELIST = [
   'keikosandbox.fandom.com',
@@ -158,6 +174,12 @@ export default Component.extend({
         url: item.url,
       }));
 
+      if (this.smallAffiliateUnit) {
+        const preferredIndex = getAffiliateSlot(this.smallAffiliateUnit, state.results);
+        this.smallAffiliateUnit.type = 'affiliate';
+        results.splice(preferredIndex, 0, this.smallAffiliateUnit);
+      }
+      
       this.setProperties({
         posts: results,
         isLoading: false,
