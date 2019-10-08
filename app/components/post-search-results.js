@@ -13,13 +13,13 @@ const DEFAULT_AFFILIATE_SLOT = 1;
 function getAffiliateSlot(smallAffiliateUnit, posts) {
   if (!posts || posts.length === 0) {
     return 0;
-  } 
+  }
 
   const preferredIndex = smallAffiliateUnit.preferredIndex || DEFAULT_AFFILIATE_SLOT;
 
   if (preferredIndex < posts.length) {
       return posts.length - 1;
-  } 
+  }
 
   return preferredIndex;
 }
@@ -179,7 +179,7 @@ export default Component.extend({
         this.smallAffiliateUnit.type = 'affiliate';
         results.splice(preferredIndex, 0, this.smallAffiliateUnit);
       }
-      
+
       this.setProperties({
         posts: results,
         isLoading: false,

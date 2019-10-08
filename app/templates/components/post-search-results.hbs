@@ -29,7 +29,7 @@
     {{else}}
       {{#each posts as |post index|}}
         {{#if (equal post.type "affiliate")}}
-            {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
+          {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
         {{else}}
           {{post-search-results-item post=post postIndex=index}}
         {{/if}}
