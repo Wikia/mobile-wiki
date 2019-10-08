@@ -28,18 +28,10 @@
       />
     {{else}}
       {{#each posts as |post index|}}
-        {{post-search-results-item post=post postIndex=index}}
-        {{#if smallAffiliateUnit}}
-          {{!-- If there is only one post we want to show it after the first one --}}
-          {{#if (equal posts.length 1)}}
-            {{#if (equal index 0)}}
-              {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
-            {{/if}}
-          {{/if}}
-          {{!-- All other cases show it after the first index --}}
-          {{#if (equal index 1)}}
-            {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
-          {{/if}}
+        {{#if (equal post.type "affiliate")}}
+          {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
+        {{else}}
+          {{post-search-results-item post=post postIndex=index}}
         {{/if}}
       {{else}}
         <div class="post-search-results__no-posts">
