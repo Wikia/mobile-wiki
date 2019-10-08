@@ -630,7 +630,7 @@ export default Component.extend(
      * @param {string} title
      */
     handlePostSearchResults(title) {
-      // search for second section
+      // search for 4th section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
       if (h2Elements[3]) {
