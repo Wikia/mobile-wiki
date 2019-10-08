@@ -169,6 +169,10 @@ export default Component.extend({
         const preferredIndex = getAffiliateSlot(this.smallAffiliateUnit, state.results);
         this.smallAffiliateUnit.type = 'affiliate';
         results.splice(preferredIndex, 0, this.smallAffiliateUnit);
+
+        if (results.length > 3) {
+          results.pop();
+        }
       }
 
       this.setProperties({
