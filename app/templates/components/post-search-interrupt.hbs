@@ -1,0 +1,10 @@
+{{#if affiliateUnit}}
+  {{affiliate-unit
+    heading=affiliateUnit.heading
+    image=affiliateUnit.image
+    link=affiliateUnit.link
+    subheading=affiliateUnit.subheading
+  }}
+{{else}}
+  {{post-search-results query=query isCrossWiki=isCrossWiki}}
+{{/if}}
