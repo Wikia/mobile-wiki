@@ -1,5 +1,4 @@
 {
-  "wgAdDriverGAMLazyLoadingFetchMarginPercent": 600,
   "icConfiant": [
     {
       "apps": [
@@ -14,13 +13,11 @@
       "value": true
     }
   ],
-  "wgAdDriverGAMLazyLoadingCountries": null,
   "wgAdDriverFloorAdhesionTimeoutCountries": [
     "PL"
   ],
   "wgAdDriverFloorAdhesionTimeout": 1400,
   "wgAdDriverFloorAdhesionDelay": 180000,
-  "wgAdDriverGAMLazyLoadingRenderMarginPercent": 300,
   "icFloorAdhesionClickPositionTracking": [
     {
       "apps": [
