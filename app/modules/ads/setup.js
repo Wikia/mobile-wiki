@@ -37,6 +37,7 @@ export const adsSetup = {
   configure(adsContext, instantGlobals, isOptedIn) {
     const { bidders } = window.Wikia.adBidders;
     const {
+      AdSlot,
       context,
       events,
       eventService,
@@ -85,7 +86,9 @@ export const adsSetup = {
       registerSlotTracker();
       registerViewabilityTracker();
       registerPostmessageTrackingTracker();
-      context.push('listeners.slot', fanTakeoverResolver);
+      eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
+        fanTakeoverResolver.resolve();
+      });
 
       if (instantConfig.get('icPorvataDirect')) {
         context.set('slots.incontent_player.customFiller', 'porvata');

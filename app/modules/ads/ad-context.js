@@ -419,10 +419,6 @@ export const defaultAdContext = {
       ],
     },
   },
-  listeners: {
-    porvata: [],
-    slot: [],
-  },
   slots: {},
   vast: {
     adUnitId: '/{custom.dfpId}/{custom.serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
