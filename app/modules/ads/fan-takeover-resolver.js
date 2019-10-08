@@ -26,16 +26,14 @@ export const fanTakeoverResolver = {
   reset,
 
   resolve() {
+    if (this.isResolved()) {
+      return;
+    }
+
     const { universalAdPackage } = window.Wikia.adProducts;
 
     fanTakeoverDeferred.resolve(universalAdPackage.isFanTakeoverLoaded());
     resolved = true;
-  },
-
-  onRenderEnded() {
-    if (!this.isResolved()) {
-      this.resolve();
-    }
   },
 };
 
