@@ -607,7 +607,8 @@ export default Component.extend(
         return;
       }
 
-      const h2Elements = this.element.querySelectorAll('h2');
+      // search for second section
+      const h2Elements = this.element.querySelectorAll('h2[section]');
 
       if (h2Elements[1]) {
         const unitPlaceholder = document.createElement('div');
