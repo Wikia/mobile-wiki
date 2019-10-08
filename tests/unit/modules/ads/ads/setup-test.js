@@ -15,6 +15,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdEngine() {
         this.init = () => {};
       },
+      AdSlot: {
+        SLOT_RENDERED_EVENT: 'onRenderEnded',
+      },
       clickPositionTracker: {
         register: () => {},
       },
