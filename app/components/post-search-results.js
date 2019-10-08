@@ -18,7 +18,7 @@ function getAffiliateSlot(smallAffiliateUnit, posts) {
   const preferredIndex = smallAffiliateUnit.preferredIndex || DEFAULT_AFFILIATE_SLOT;
 
   if (preferredIndex < posts.length) {
-      return posts.length - 1;
+    return posts.length - 1;
   }
 
   return preferredIndex;
