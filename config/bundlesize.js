@@ -13,7 +13,7 @@ module.exports = {
   },
   'app.css': {
     pattern: `${assetsFolder}/app.css`,
-    limit: '103KB',
+    limit: '105KB',
   },
   'lazy.css': {
     pattern: `${assetsFolder}/lazy-*.css`,
