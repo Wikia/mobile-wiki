@@ -28,6 +28,7 @@ function getAffiliateSlot(smallAffiliateUnit, posts) {
 const QUIZZES_WHITELIST = [
   'keikosandbox.fandom.com',
   'keiko-test.fandom.com',
+  'xkxd.fandom.com',
   'gameofthrones.fandom.com',
   'attackontitan.fandom.com',
   'marvelcinematicuniverse.fandom.com',
