@@ -420,6 +420,9 @@ class Ads {
     if (context.get('state.disableAdStack')) {
       pageTracker.trackProp('adengine', `off_${context.get('state.disableAdStackReason')}`);
       utils.logger(logGroup, 'ad stack is disabled');
+    } else {
+      pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`);
+      utils.logger(logGroup, 'ad stack is disabled');
     }
   }
 

@@ -22,8 +22,8 @@ export const pageTracker = {
   * @param {String} value
   * @returns {void}
   */
-  trackProp(name, value) {
-    if (!this.isEnabled()) {
+  trackProp(name, value, force = false) {
+    if (!force && !this.isEnabled()) {
       return;
     }
 
