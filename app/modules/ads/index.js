@@ -51,11 +51,13 @@ class Ads {
     }
 
     adsPromise = new Promise((resolve) => {
-      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([[shouldLoad, reason]]) => {
+      Promise.all(
+        [Ads.getShouldStartAdEngine(), Ads.loadAdEngine()],
+      ).then(([[shouldLoad, reason]]) => {
         if (shouldLoad === true) {
           resolve(Ads.getInstance());
         } else {
-          pageTracker.trackProp('adengine', `off_${reason}`, true)
+          pageTracker.trackProp('adengine', `off_${reason}`, true);
         }
       });
     });
@@ -103,7 +105,7 @@ class Ads {
   static shouldStartAdEngine(instantGlobals) {
     const disablers = this.getAdEngineStartDisablers(instantGlobals);
 
-    return [disablers.length === 0, disablers[0] || '']
+    return [disablers.length === 0, disablers[0] || ''];
   }
 
   /**
@@ -124,7 +126,7 @@ class Ads {
   static isExternalSearch() {
     const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
 
-    return noExternalsSearchParam === '1' || noExternalsSearchParam === 'true'
+    return noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
   }
 
   init(mediaWikiAdsContext = {}) {

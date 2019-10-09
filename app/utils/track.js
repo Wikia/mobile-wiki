@@ -123,6 +123,8 @@ function isPageView(category) {
 
 /**
   * @param {TrackingParams} params
+  * @param {boolean} force If true then tracking event will be sent
+  *                        even if M.getFromHeadDataStore('noExternals') is true
   * @returns {void}
   */
 export function track(params, usePrefix = true, force = false) {

@@ -33,7 +33,7 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
 function getAdStackDisablers(instantConfig, adsContext) {
   return [
     [instantConfig.isGeoEnabled('wgAdDriverDisableAdStackCountries'), 'instant_config'],
-    [adsContext.opts.pageType == 'no_ads', 'noads_page']
+    [adsContext.opts.pageType === 'no_ads', 'noads_page'],
   ].filter(disablerPair => !!disablerPair[0]).map(disablerPair => disablerPair[1]);
 }
 
