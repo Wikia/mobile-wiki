@@ -154,11 +154,6 @@ class Ads {
   startAdEngine() {
     const { AdEngine } = window.Wikia.adEngine;
 
-    if (!this.isAdStackEnabled()) {
-      fanTakeoverResolver.resolve();
-      return;
-    }
-
     if (!this.engine) {
       this.engine = new AdEngine();
       this.engine.init();
