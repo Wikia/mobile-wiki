@@ -376,7 +376,7 @@ class Ads {
     this.trackViewabilityToDW();
     this.initScrollSpeedTracking();
     this.trackLabradorToDW();
-    this.trackDisableAdStackToDW();
+    this.trackAdStackOnOffToDW();
     this.trackLikhoToDW();
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
@@ -414,7 +414,7 @@ class Ads {
   /**
    * @private
    */
-  trackDisableAdStackToDW() {
+  trackAdStackOnOffToDW() {
     const { context, utils } = window.Wikia.adEngine;
 
     if (context.get('state.disableAdStack')) {
