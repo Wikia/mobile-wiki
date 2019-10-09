@@ -30,6 +30,13 @@ function setupPageLevelTargeting(mediaWikiAdsContext) {
   });
 }
 
+function getAdStackDisablers(instantConfig, adsContext) {
+  return [
+    [instantConfig.isGeoEnabled('wgAdDriverDisableAdStackCountries'), 'instant_config'],
+    [adsContext.opts.pageType == 'no_ads', 'noads_page']
+  ].filter(disablerPair => !!disablerPair[0]).map(disablerPair => disablerPair[1]);
+}
+
 export const adsSetup = {
   /**
    * Configures all ads services
@@ -135,10 +142,8 @@ export const adsSetup = {
 
     instantConfig.isGeoEnabled('wgAdDriverLABradorTestCountries');
 
-    const isAdStackEnabled = (
-      !instantConfig.isGeoEnabled('wgAdDriverDisableAdStackCountries')
-      && adsContext.opts.pageType !== 'no_ads'
-    );
+    const adStackDisablers = getAdStackDisablers(instantConfig, adsContext);
+    const isAdStackEnabled = adStackDisablers.length === 0;
 
     context.set('slots', slots.getContext());
 
@@ -155,6 +160,7 @@ export const adsSetup = {
 
     context.set('state.disableTopLeaderboard', instantConfig.isGeoEnabled('wgAdDriverCollapseTopLeaderboardMobileWikiCountries'));
     context.set('state.disableAdStack', !isAdStackEnabled);
+    context.set('state.disableAdStackReason', adStackDisablers[0]);
     context.set('state.deviceType', utils.client.getDeviceType());
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
