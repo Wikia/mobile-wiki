@@ -35,7 +35,7 @@ export const pageTracker = {
       prop_value: value,
       timestamp: now.getTime(),
       tz_offset: now.getTimezoneOffset(),
-    });
+    }, true, true);
   },
 };
 

@@ -125,12 +125,12 @@ function isPageView(category) {
   * @param {TrackingParams} params
   * @returns {void}
   */
-export function track(params, usePrefix = true) {
-  if (!window.location) {
+export function track(params, usePrefix = true, force = false) {
+  if (!window.location || typeof FastBoot !== 'undefined') {
     return;
   }
 
-  if (typeof FastBoot !== 'undefined' || M.getFromHeadDataStore('noExternals')) {
+  if (!force && M.getFromHeadDataStore('noExternals')) {
     return;
   }
 
