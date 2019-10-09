@@ -418,7 +418,7 @@ class Ads {
     const { context, utils } = window.Wikia.adEngine;
 
     if (context.get('state.disableAdStack')) {
-      pageTracker.trackProp('adengine', 'off');
+      pageTracker.trackProp('adengine', `off_${context.get('state.disableAdStackReason')}`);
       utils.logger(logGroup, 'ad stack is disabled');
     }
   }
