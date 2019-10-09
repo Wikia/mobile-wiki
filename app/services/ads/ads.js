@@ -14,7 +14,7 @@ export default Service.extend({
   disableAdsInMobileApp: null,
   noAds: computed('noAdsQueryParam', 'disableAdsInMobileApp', function () {
     const disablers = [
-      [['0', null, ''].indexOf(this.noAdsQueryParam) === -1, 'noads'],
+      [['0', null, ''].indexOf(this.noAdsQueryParam) === -1, 'noads_querystring'],
       [['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1, 'mobile_app'],
       [!!this.currentUser.isAuthenticated, 'logged_user'],
     ].filter(disablerPair => !!disablerPair[0]).map(disablerPair => disablerPair[1]);
