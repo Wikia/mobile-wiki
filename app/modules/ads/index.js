@@ -51,9 +51,11 @@ class Ads {
     }
 
     adsPromise = new Promise((resolve) => {
-      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([shouldLoad]) => {
+      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([[shouldLoad, reason]]) => {
         if (shouldLoad === true) {
           resolve(Ads.getInstance());
+        } else {
+          pageTracker.trackProp('adengine', `off_${reason}`, true)
         }
       });
     });
@@ -84,16 +86,45 @@ class Ads {
 
   /**
    * @private
+   * @returns {Promise<Array<bool, string>>} Array [should start, reason if should not]
    */
   static getShouldStartAdEngine() {
     return new Promise((resolve) => {
       window.getInstantGlobals((instantGlobals) => {
-        const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
-        const noExternals = noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
-
-        resolve(!(instantGlobals.wgSitewideDisableAdsOnMercury || noExternals));
+        resolve(this.shouldStartAdEngine(instantGlobals));
       });
     });
+  }
+
+  /**
+   * @private
+   * @returns {Array<bool, string>} Array [should start, reason if should not]
+   */
+  static shouldStartAdEngine(instantGlobals) {
+    const disablers = this.getAdEngineStartDisablers(instantGlobals);
+
+    return [disablers.length === 0, disablers[0] || '']
+  }
+
+  /**
+   * @private
+   * @returns {string[]}
+   */
+  static getAdEngineStartDisablers(instantGlobals) {
+    return [
+      [!!instantGlobals.wgSitewideDisableAdsOnMercury, 'instant_global'],
+      [this.isExternalSearch(), 'noexternals_querystring'],
+    ].filter(disablersPair => disablersPair[0]).map(disablersPair => disablersPair[1]);
+  }
+
+  /**
+   * @private
+   * @returns {boolean}
+   */
+  static isExternalSearch() {
+    const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
+
+    return noExternalsSearchParam === '1' || noExternalsSearchParam === 'true'
   }
 
   init(mediaWikiAdsContext = {}) {

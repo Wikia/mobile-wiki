@@ -2,6 +2,7 @@ import { Promise } from 'rsvp';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 import Ads from '../../modules/ads';
+import { pageTracker } from "../../modules/ads/tracking/page-tracker";
 
 export default Service.extend({
   module: Ads.getInstance(),
@@ -12,9 +13,17 @@ export default Service.extend({
   noAdsQueryParam: null,
   disableAdsInMobileApp: null,
   noAds: computed('noAdsQueryParam', 'disableAdsInMobileApp', function () {
-    return ['0', null, ''].indexOf(this.noAdsQueryParam) === -1
-      || ['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1
-      || this.currentUser.isAuthenticated;
+    const disablers = [
+      [['0', null, ''].indexOf(this.noAdsQueryParam) === -1, 'noads'],
+      [['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1, 'mobile_app'],
+      [!!this.currentUser.isAuthenticated, 'logged_user'],
+    ].filter(disablerPair => !!disablerPair[0]).map(disablerPair => disablerPair[1]);
+
+    if (disablers.length > 0) {
+      pageTracker.trackProp('adengine', `off_${disablers[0]}`);
+    }
+
+    return disablers.length > 0;
   }),
   adSlotComponents: null,
   waits: null,
