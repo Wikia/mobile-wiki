@@ -159,7 +159,7 @@ export const adsSetup = {
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
-    context.set('options.nonLazyIncontents.enabled', instantConfig.get('icNonLazyIncontents'));
+    context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
@@ -316,7 +316,7 @@ export const adsSetup = {
       }
     }
 
-    if (context.get('options.nonLazyIncontents.enabled')) {
+    if (context.get('options.nonLazyLoading.enabled')) {
       context.set('options.useTopBoxad', true);
       context.set('events.pushAfterCreated.top_boxad', []);
       context.set('events.pushAfterRendered.top_boxad', []);
