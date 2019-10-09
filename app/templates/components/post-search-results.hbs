@@ -29,17 +29,17 @@
       />
     {{else}}
       <div class="post-search-results__items">
-      {{#each posts as |post index|}}
-        {{#if (equal post.type "affiliate")}}
-          {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
+        {{#each posts as |post index|}}
+          {{#if (equal post.type "affiliate")}}
+            {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
+          {{else}}
+           {{post-search-results-item post=post postIndex=index}}
+          {{/if}}
         {{else}}
-          {{post-search-results-item post=post postIndex=index}}
-        {{/if}}
-      {{else}}
-        <div class="post-search-results__no-posts">
-          {{{i18n "main.search-post-item-no-posts" ns="search"}}}
-        </div>
-      {{/each}}
+          <div class="post-search-results__no-posts">
+            {{{i18n "main.search-post-item-no-posts" ns="search"}}}
+          </div>
+        {{/each}}
       </div>
     {{/if}}
   </aside>
