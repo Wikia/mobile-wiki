@@ -18,13 +18,12 @@
   &__link {
     background-size: cover;
     display: block;
-    height: 222px;
     position: relative;
 
     &::after {
       content: '';
       display: block;
-      padding-top: (4 / 3) * 100%; /* 4:3 aspect ratio */
+      padding-top: (3 / 4) * 100%; /* 4:3 aspect ratio */
     }
   }
 
