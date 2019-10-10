@@ -3,7 +3,7 @@ import Component from '@ember/component';
 import { track, trackActions } from '../utils/track';
 
 export default Component.extend({
-  classNames: ['post-search-results-affiliate-item'],
+  classNames: ['post-search-results-affiliate-item', 'affiliate-slot'],
   actions: {
     trackClick(number) {
       track({
