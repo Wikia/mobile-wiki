@@ -381,6 +381,11 @@ export const defaultAdContext = {
               [300, 250],
             ],
           },
+          floor_adhesion: {
+            sizes: [
+              [320, 50],
+            ],
+          },
         },
       },
       wikiaVideo: {
