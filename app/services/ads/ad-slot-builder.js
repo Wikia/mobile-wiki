@@ -4,6 +4,21 @@ import { getRenderComponentFor } from '../../utils/render-component';
 
 const MIN_ZEROTH_SECTION_LENGTH = 700;
 
+/**
+ * Check if element is too close `.affiliate-slot`
+ *
+ * @param {DOMElement} element
+ * @returns {boolean}
+ */
+function tooCloseToAffiliateSlots(element) {
+  const elementTop = offset(element).top || 0;
+
+  return Array.prototype.slice
+    .call(element.parentNode.querySelectorAll('.article-content > .affiliate-slot'))
+    .map(e => (offset(e).top || 0))
+    .some(top => (Math.abs(top - elementTop) < MIN_ZEROTH_SECTION_LENGTH));
+}
+
 export default Service.extend({
   ads: service('ads/ads'),
   currentUser: service(),
@@ -23,6 +38,7 @@ export default Service.extend({
     const element = this.component.element;
     const firstSection = Array.prototype.slice
       .call(element.parentNode.querySelectorAll('.article-content > h2'))
+      .filter(el => !tooCloseToAffiliateSlots(el))
       .find(el => (offset(el).top || 0) > MIN_ZEROTH_SECTION_LENGTH);
     const articleFooter = document.querySelector('.article-footer');
     const pi = document.querySelector('.portable-infobox-wrapper');
