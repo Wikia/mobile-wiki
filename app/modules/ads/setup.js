@@ -176,10 +176,6 @@ export const adsSetup = {
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
-    context.set(
-      'options.incontentBoxad1EagerLoading',
-      instantConfig.isGeoEnabled('wgAdDriverEagerlyLoadedIncontentBoxad1MobileWikiCountries'),
-    );
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
@@ -296,18 +292,6 @@ export const adsSetup = {
           ].join(','),
         );
       });
-    }
-
-    if (context.get('options.incontentBoxad1EagerLoading')) {
-      context.set('events.pushAfterCreated.top_boxad', [
-        'incontent_boxad_1',
-      ]);
-    } else {
-      context.remove('events.pushAfterRendered.incontent_boxad_1');
-      context.set('events.pushAfterRendered.top_boxad', [
-        'incontent_boxad_1',
-        'incontent_player',
-      ]);
     }
 
     if (context.get('options.nonLazyLoading.enabled')) {
