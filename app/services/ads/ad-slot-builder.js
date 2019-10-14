@@ -3,6 +3,7 @@ import Service, { inject as service } from '@ember/service';
 import { getRenderComponentFor } from '../../utils/render-component';
 
 const MIN_ZEROTH_SECTION_LENGTH = 700;
+const AFFILIATE_SLOT_SPACE = 600;
 
 /**
  * Check if element is too close `.affiliate-slot`
@@ -16,7 +17,7 @@ function tooCloseToAffiliateSlots(element) {
   return Array.prototype.slice
     .call(element.parentNode.querySelectorAll('.article-content > .affiliate-slot'))
     .map(e => (offset(e).top || 0))
-    .some(top => (Math.abs(top - elementTop) < MIN_ZEROTH_SECTION_LENGTH));
+    .some(top => (Math.abs(top - elementTop) < AFFILIATE_SLOT_SPACE));
 }
 
 export default Service.extend({
