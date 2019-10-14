@@ -1,19 +1,22 @@
 .post-search-results {
   border-bottom: 1px solid $wds-fandom-color-middle-gray;
-  margin: 18px 12px;
+  margin: 18px 12px 8px;
+  padding-bottom: 10px;
 
   &__header {
-    align-content: center;
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 14px;
+    text-align: center;
   }
 
   &__header-text {
-    align-items: center;
-    display: flex;
-    font-size: $wds-font-size-base;
+    font-size: $wds-font-size-l;
     font-weight: $wds-font-weight-medium;
+    margin: auto;
+    text-transform: uppercase;
+
+    & > * {
+      vertical-align: middle;
+    }
   }
 
   &__see-more {
@@ -35,5 +38,21 @@
     font-size: $wds-font-size-s;
     justify-content: center;
     margin: 18px;
+  }
+}
+
+.article-content .post-search-results {
+  background-image: linear-gradient(to bottom, $wds-color-white, $wds-color-off-white);
+  border-bottom-width: 0;
+  margin: 0 -.75rem 48px;
+
+  &__slant {
+    background-image: linear-gradient(-5deg, $wds-color-white 0%, $wds-color-white 50%, $wds-color-off-white 50%);
+    height: 36px;
+    margin-bottom: 12px;
+  }
+
+  &__items {
+    margin: 0 .75rem;
   }
 }

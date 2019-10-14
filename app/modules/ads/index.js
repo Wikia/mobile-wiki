@@ -10,6 +10,7 @@ import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { trackScrollY, trackXClick } from '../../utils/track';
+import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -132,7 +133,9 @@ class Ads {
       return;
     }
 
-    const { utils } = window.Wikia.adEngine;
+    const { ScrollTracker, utils } = window.Wikia.adEngine;
+
+    this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
     this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn)
       .then(() => {
@@ -238,7 +241,7 @@ class Ads {
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
     eventService.on(events.SCROLL_TRACKING_TIME_CHANGED, (time, position) => {
-      trackScrollY(time, position);
+      trackScrollY(time / 1000, position);
     });
 
     eventService.on(AdSlot.CUSTOM_EVENT, (adSlot, { status }) => {
@@ -254,13 +257,10 @@ class Ads {
     }
 
     const { events, eventService, utils } = window.Wikia.adEngine;
-    const { ScrollTracker } = window.Wikia.adServices;
-    const scrollTracker = ScrollTracker.make();
 
     this.triggerBeforePageChangeServices();
 
     eventService.emit(events.BEFORE_PAGE_CHANGE_EVENT);
-    scrollTracker.resetScrollSpeedTracking();
     utils.logger(logGroup, 'before transition');
   }
 
@@ -326,6 +326,7 @@ class Ads {
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     billTheLizardWrapper.reset();
+    slotsLoader.reset();
   }
 
   /**
@@ -504,10 +505,7 @@ class Ads {
    * @private
    */
   initScrollSpeedTracking() {
-    const { ScrollTracker } = window.Wikia.adServices;
-    const scrollTracker = ScrollTracker.make();
-
-    scrollTracker.initScrollSpeedTracking('application-wrapper');
+    this.scrollTracker.initScrollSpeedTracking();
     this.trackSessionScrollSpeed();
   }
 

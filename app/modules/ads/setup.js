@@ -19,6 +19,7 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
+import { slotsLoader } from './slots-loader';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -36,6 +37,7 @@ export const adsSetup = {
   configure(adsContext, instantGlobals, isOptedIn) {
     const { bidders } = window.Wikia.adBidders;
     const {
+      AdSlot,
       context,
       events,
       eventService,
@@ -84,7 +86,9 @@ export const adsSetup = {
       registerSlotTracker();
       registerViewabilityTracker();
       registerPostmessageTrackingTracker();
-      context.push('listeners.slot', fanTakeoverResolver);
+      eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
+        fanTakeoverResolver.resolve();
+      });
 
       if (instantConfig.get('icPorvataDirect')) {
         context.set('slots.incontent_player.customFiller', 'porvata');
@@ -106,6 +110,9 @@ export const adsSetup = {
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
       billTheLizardWrapper.configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+
+      // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
+      slotsLoader.configureSlotsLoader();
     });
   },
 
@@ -156,6 +163,7 @@ export const adsSetup = {
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
     context.set('options.gamLazyLoading.enabled', instantConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
+    context.set('options.nonLazyIncontents.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
@@ -248,7 +256,6 @@ export const adsSetup = {
     }
 
     context.set('bidders.a9.slots.mobile_in_content', {
-      slotId: 'MOBILE_IN_CONTENT',
       sizes: [[300, 250]],
     });
     context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
@@ -323,6 +330,13 @@ export const adsSetup = {
           'incontent_player',
         ]);
       }
+    }
+
+    if (context.get('options.nonLazyIncontents.enabled')) {
+      context.set('options.useTopBoxad', true);
+      context.set('events.pushAfterCreated.top_boxad', []);
+      context.set('events.pushAfterRendered.top_boxad', []);
+      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {

@@ -8,10 +8,27 @@ import { getQueryString } from '@wikia/ember-fandom/utils/url';
 import { track, trackActions } from '../utils/track';
 import config from '../config/environment';
 
+const DEFAULT_AFFILIATE_SLOT = 1;
+
+function getAffiliateSlot(smallAffiliateUnit, posts) {
+  if (!posts || posts.length === 0) {
+    return 0;
+  }
+
+  const preferredIndex = smallAffiliateUnit.preferredIndex || DEFAULT_AFFILIATE_SLOT;
+
+  if (preferredIndex < posts.length) {
+    return posts.length - 1;
+  }
+
+  return preferredIndex;
+}
+
 // TODO: Remove this when all discussions' posts are in the index
 const QUIZZES_WHITELIST = [
   'keikosandbox.fandom.com',
   'keiko-test.fandom.com',
+  'xkxd.fandom.com',
   'gameofthrones.fandom.com',
   'attackontitan.fandom.com',
   'marvelcinematicuniverse.fandom.com',
@@ -56,8 +73,8 @@ export default Component.extend({
   // seeMoreButtonEnabled: not('isCrossWiki'),
   seeMoreButtonEnabled: false,
 
-  affiliateUnit: computed('query', function () {
-    return this.affiliateSlots.getUnitOnSearch(this.get('query'));
+  smallAffiliateUnit: computed('query', function () {
+    return this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
   }),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
@@ -65,12 +82,11 @@ export default Component.extend({
     return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
+  isEnabled: computed('bigAffiliateUnit', 'wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
     // Enable on non-production wikis
     if (config.environment !== 'production') {
       return true;
     }
-
 
     // TODO: When removing whitelist, delete code below
     // Enable on whitelisted wiki, remove sandbox string from host
@@ -142,17 +158,30 @@ export default Component.extend({
 
   update(state) {
     if (!this.isDestroyed) {
+      const results = state.results.map(item => ({
+        image: item.image,
+        stats: item.stats || {},
+        title: item.title,
+        type: item.type,
+        url: item.url,
+      }));
+
+      if (this.smallAffiliateUnit) {
+        const preferredIndex = getAffiliateSlot(this.smallAffiliateUnit, state.results);
+        this.smallAffiliateUnit.type = 'affiliate';
+        results.splice(preferredIndex, 0, this.smallAffiliateUnit);
+
+        if (results.length > 3) {
+          results.pop();
+        }
+      }
+
       this.setProperties({
-        posts: state.results.map(item => ({
-          image: item.image,
-          stats: item.stats || {},
-          title: item.title,
-          type: item.type,
-          url: item.url,
-        })),
+        posts: results,
         isLoading: false,
       });
 
+      // make sure this is targeted
       // only fire tracking when there are results
       if (state.results.length) {
         track({

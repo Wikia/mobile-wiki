@@ -9,7 +9,7 @@ export const registerSlotTracker = () => {
     slotTrackingMiddleware,
   } = window.Wikia.adEngine;
 
-  slotTracker.onChangeStatusToTrack.push('catlapsed', 'hivi-collapse');
+  slotTracker.onChangeStatusToTrack.push('catlapsed');
   slotTracker
     .add(slotTrackingMiddleware)
     .add(slotPropertiesTrackingMiddleware)

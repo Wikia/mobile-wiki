@@ -2,32 +2,50 @@
   {
     "comment": "Fandom.com test for keiko-test wiki on searching for 'coffee'",
     "unit": [
-      "fandom-com",
-      "fandom-com2"
+      "fandom-com"
     ],
     "wikiId": [
       1081891
     ],
-    "country": [
-    ],
-    "page": false,
     "query": [
       "coffee"
-    ],
-    "vertical": [
     ]
   },
   {
     "comment": "Fandom.com 2 test for keiko-test wiki on dev on searching for 'foo'",
     "unit": [
-      "fandom-com2"
+      "fandom-big"
     ],
     "wikiId": [
       1081891
     ],
-    "page": false,
     "query": [
       "foo"
+    ]
+  },
+  {
+    "comment": "Target xkxd02 wiki which is on both devbox and prod",
+    "unit": [
+      "xkxd02"
+    ],
+    "wikiId": [
+      1575417,
+      1619010
+    ],
+    "query": [
+      "spiderman",
+      "marvel",
+      "test"
+    ]
+  },
+  {
+    "comment": "Target xkxd02 wiki which is on both devbox and prod",
+    "unit": [
+      "xkxd02-small"
+    ],
+    "wikiId": [
+      1575417,
+      1619010
     ]
   }
 ]

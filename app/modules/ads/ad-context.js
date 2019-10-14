@@ -15,20 +15,17 @@ export const defaultAdContext = {
       videoEnabled: false,
       slots: {
         mobile_top_leaderboard: {
-          slotId: 'MOBILE_TOP_LEADERBOARD',
           sizes: [
             [320, 50],
           ],
         },
         bottom_leaderboard: {
-          slotId: 'BOTTOM_LEADERBOARD',
           sizes: [
             [320, 50],
             [300, 250],
           ],
         },
         featured: {
-          slotId: 'FEATURED',
           type: 'video',
         },
       },
@@ -40,6 +37,20 @@ export const defaultAdContext = {
       bidsRefreshing: {
         enabled: false,
         slots: ['mobile_in_content'],
+      },
+      '33across': {
+        enabled: false,
+        slots: {
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: 'adXWum5iSr6z9AaKlId8sQ',
+            productId: 'inview',
+          },
+        },
       },
       aol: {
         enabled: false,
@@ -90,6 +101,14 @@ export const defaultAdContext = {
               [320, 50],
             ],
           },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            placementId: '17062362',
+          },
         },
         placements: {
           ent: '9412992',
@@ -127,7 +146,6 @@ export const defaultAdContext = {
               [300, 50],
               [320, 50],
               [320, 100],
-              [728, 90],
             ],
             inScreen: 'vbzbl1nw',
           },
@@ -154,6 +172,14 @@ export const defaultAdContext = {
               [320, 50],
             ],
             siteId: '185056',
+          },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: '413977',
           },
         },
       },
@@ -316,6 +342,15 @@ export const defaultAdContext = {
             siteId: '23565',
             zoneId: '87671',
           },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: '23565',
+            zoneId: '1422262',
+          },
         },
       },
       vmg: {
@@ -344,6 +379,11 @@ export const defaultAdContext = {
           bottom_leaderboard: {
             sizes: [
               [300, 250],
+            ],
+          },
+          floor_adhesion: {
+            sizes: [
+              [320, 50],
             ],
           },
         },
@@ -383,10 +423,6 @@ export const defaultAdContext = {
         'incontent_player',
       ],
     },
-  },
-  listeners: {
-    porvata: [],
-    slot: [],
   },
   slots: {},
   vast: {

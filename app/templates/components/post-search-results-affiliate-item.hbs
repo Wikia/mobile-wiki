@@ -1,0 +1,14 @@
+{{#if affiliateUnit.image}}
+  <img class="post-search-results-affiliate-item__image" src={{affiliateUnit.image}} alt={{affiliateUnit.heading}}>
+{{/if}}
+<a
+  href={{{affiliateUnit.link}}}
+  class="post-search-results-affiliate-item__title wds-leading-tight"
+  onclick={{action "trackClick" postIndex}}
+>
+  {{affiliateUnit.heading}}
+</a>
+<div class="post-search-results-affiliate-item__details">
+  {{affiliateUnit.subheading}}
+  <Icon class="post-search-results-affiliate-item__icon" @name="external" @size="tiny" />
+</div>
