@@ -67,13 +67,18 @@ export default Component.extend({
 
   isLoading: true,
   isCrossWiki: false,
+  onlyShowWithAffiliateUnit: false,
+  isPageInterrupt: false,
   posts: null,
 
   // TODO: Use when releasing search for all post types
   // seeMoreButtonEnabled: not('isCrossWiki'),
   seeMoreButtonEnabled: false,
 
-  smallAffiliateUnit: computed('query', function () {
+  smallAffiliateUnit: computed('query', 'isPageInterrupt', function () {
+    if (this.isPageInterrupt) {
+      return this.affiliateSlots.getSmallUnitOnPage(this.get('query'));
+    }
     return this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
   }),
 
@@ -82,7 +87,12 @@ export default Component.extend({
     return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('bigAffiliateUnit', 'wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
+  isEnabled: computed('smallAffiliateUnit', 'onlyShowWithAffiliateUnit', 'wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
+    // if we have `onlyShowWithAffiliateUnit` flag and there's no uint, disable
+    if (this.onlyShowWithAffiliateUnit && !this.smallAffiliateUnit) {
+      return false;
+    }
+
     // Enable on non-production wikis
     if (config.environment !== 'production') {
       return true;
