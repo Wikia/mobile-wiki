@@ -183,7 +183,6 @@ export const adsSetup = {
       'options.incontentBoxad1EagerLoading',
       instantConfig.isGeoEnabled('wgAdDriverEagerlyLoadedIncontentBoxad1MobileWikiCountries'),
     );
-    context.set('options.slotRepeater', instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
@@ -289,10 +288,7 @@ export const adsSetup = {
       'slots.incontent_player.insertBeforeSelector',
     ];
 
-    if (
-      context.get('options.slotRepeater')
-      && instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')
-    ) {
+    if (instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')) {
       insertBeforePaths.forEach((insertBeforePath) => {
         context.set(
           insertBeforePath,
