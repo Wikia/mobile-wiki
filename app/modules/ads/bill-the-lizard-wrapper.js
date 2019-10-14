@@ -8,17 +8,12 @@ const logGroup = 'bill-the-lizard-wrapper';
 
 let config = null;
 let cheshirecatCalled = false;
-// TODO: Remove initialValueOfIncontentsCounter and
-//  use 0 everywhere once we fully switch to top_boxad
-let initialValueOfIncontentsCounter = 1;
-let incontentsCounter = initialValueOfIncontentsCounter;
+let incontentsCounter = 0;
 let defaultStatus = NOT_USED_STATUS;
 let refreshedSlotNumber = null;
 
 function getCallId(counter) {
-  const { context } = window.Wikia.adEngine;
-
-  if (context.get('options.useTopBoxad') && (!counter)) {
+  if (!counter) {
     return 'top_boxad';
   }
 
@@ -96,15 +91,8 @@ export const billTheLizardWrapper = {
       AdSlot, context, events, eventService, slotService, utils,
     } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
-    let baseSlotName = 'incontent_boxad_1';
+    let baseSlotName = 'top_boxad';
     defaultStatus = NOT_USED_STATUS;
-
-    // TODO clean up once we fully switch to top_boxad
-    if (context.get('options.useTopBoxad')) {
-      baseSlotName = 'top_boxad';
-      initialValueOfIncontentsCounter = 0;
-      incontentsCounter = initialValueOfIncontentsCounter;
-    }
 
     if (!context.get('bidders.prebid.bidsRefreshing.enabled')) {
       return;
@@ -140,7 +128,7 @@ export const billTheLizardWrapper = {
       () => {
         const callId = getCallId(refreshedSlotNumber);
 
-        if (refreshedSlotNumber && refreshedSlotNumber > initialValueOfIncontentsCounter) {
+        if (refreshedSlotNumber && refreshedSlotNumber > 0) {
           this.callCheshireCat(callId);
         }
       },
@@ -225,7 +213,7 @@ export const billTheLizardWrapper = {
     const { billTheLizard } = window.Wikia.adServices;
 
     cheshirecatCalled = false;
-    incontentsCounter = initialValueOfIncontentsCounter;
+    incontentsCounter = 0;
     defaultStatus = NOT_USED_STATUS;
     refreshedSlotNumber = null;
 

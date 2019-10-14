@@ -369,7 +369,7 @@ export const slots = {
     } else {
       setSlotState('top_leaderboard', isTopLeaderboardApplicable());
     }
-    setSlotState('top_boxad', context.get('options.useTopBoxad') && incontentState);
+    setSlotState('top_boxad', incontentState);
     setSlotState('incontent_boxad_1', incontentState);
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());

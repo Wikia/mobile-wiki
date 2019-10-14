@@ -70,16 +70,15 @@ export const adsSetup = {
       this.setupAdContext(instantConfig, adsContext, isOptedIn);
       setupNpaContext();
 
-      const useTopBoxad = context.get('options.useTopBoxad');
       const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
-      templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
+      templateService.register(BigFancyAdAbove, getBfaaConfig());
       templateService.register(BigFancyAdBelow, getBfabConfig());
       templateService.register(FloorAdhesion);
       templateService.register(HideOnViewability);
       templateService.register(Interstitial);
       templateService.register(PorvataTemplate, getPorvataConfig());
-      templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
+      templateService.register(Roadblock, getRoadblockConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
 
       registerClickPositionTracker();
@@ -177,8 +176,6 @@ export const adsSetup = {
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
-    // Switch for repeating incontent boxad ads
-    context.set('options.useTopBoxad', instantConfig.isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
     context.set(
       'options.incontentBoxad1EagerLoading',
       instantConfig.isGeoEnabled('wgAdDriverEagerlyLoadedIncontentBoxad1MobileWikiCountries'),
@@ -301,22 +298,19 @@ export const adsSetup = {
       });
     }
 
-    if (context.get('options.useTopBoxad')) {
-      if (context.get('options.incontentBoxad1EagerLoading')) {
-        context.set('events.pushAfterCreated.top_boxad', [
-          'incontent_boxad_1',
-        ]);
-      } else {
-        context.remove('events.pushAfterRendered.incontent_boxad_1');
-        context.set('events.pushAfterRendered.top_boxad', [
-          'incontent_boxad_1',
-          'incontent_player',
-        ]);
-      }
+    if (context.get('options.incontentBoxad1EagerLoading')) {
+      context.set('events.pushAfterCreated.top_boxad', [
+        'incontent_boxad_1',
+      ]);
+    } else {
+      context.remove('events.pushAfterRendered.incontent_boxad_1');
+      context.set('events.pushAfterRendered.top_boxad', [
+        'incontent_boxad_1',
+        'incontent_player',
+      ]);
     }
 
     if (context.get('options.nonLazyLoading.enabled')) {
-      context.set('options.useTopBoxad', true);
       context.set('events.pushAfterCreated.top_boxad', []);
       context.set('events.pushAfterRendered.top_boxad', []);
       context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
