@@ -93,11 +93,6 @@ export const billTheLizardWrapper = {
     const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
     let baseSlotName = 'top_boxad';
     defaultStatus = NOT_USED_STATUS;
-
-    if (!context.get('bidders.prebid.bidsRefreshing.enabled')) {
-      return;
-    }
-
     config = billTheLizardConfig;
 
     if (!this.hasAvailableModels(config, 'cheshirecat')) {
