@@ -45,11 +45,9 @@ class Ads {
     }
 
     adsPromise = new Promise((resolve) => {
-        Ads.loadAdEngine()
-          .then(() => Ads.getInstance())
-          .then(ads => {
-            resolve(ads);
-        });
+      Ads.loadAdEngine()
+        .then(() => Ads.getInstance())
+        .then(resolve);
     });
 
     return adsPromise;
@@ -522,6 +520,8 @@ class Ads {
 
         return false;
       }
+
+      return isFanTakeover;
     });
   }
 }

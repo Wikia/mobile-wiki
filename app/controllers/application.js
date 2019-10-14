@@ -8,7 +8,6 @@ export default Controller.extend(
   AlertNotificationsMixin,
   {
     wikiPage: controller(),
-    ads: Ads.getInstance(),
     lightbox: service(),
     logger: service(),
     wikiVariables: service(),
@@ -42,6 +41,8 @@ export default Controller.extend(
     fullPage: oneWay('wikiPage.mobileApp'),
     isSearchPage: equal('currentRouteName', 'search'),
     mobileApp: oneWay('wikiPage.mobileApp'),
+
+    ads: Ads.getInstance(),
 
     actions: {
       /**
