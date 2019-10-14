@@ -1,5 +1,4 @@
 import { inject as service } from '@ember/service';
-import { readOnly } from '@ember/object/computed';
 import { dasherize } from '@ember/string';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
@@ -9,7 +8,6 @@ export default Component.extend(RenderComponentMixin, {
   ads: service('ads/ads'),
 
   name: null,
-  noAds: readOnly('ads.noAds'),
   nameLowerCase: computed('name', function () {
     return dasherize(this.name.toLowerCase());
   }),

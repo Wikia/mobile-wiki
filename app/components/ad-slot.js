@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed, setProperties } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
 import InViewportMixin from 'ember-in-viewport';
@@ -23,8 +22,6 @@ export default Component.extend(
     adEngine3ClassName: 'gpt-ad',
     pageHasFeaturedVideo: false,
 
-    noAds: readOnly('ads.noAds'),
-
     nameLowerCase: computed('name', function () {
       return dasherize((this.name || '').toLowerCase());
     }),
@@ -37,10 +34,6 @@ export default Component.extend(
       this._super(...arguments);
 
       if (this.disableManualInsert) {
-        return;
-      }
-
-      if (this.noAds) {
         return;
       }
 
@@ -63,10 +56,6 @@ export default Component.extend(
     didEnterViewport() {
       const ads = this.get('ads.module');
       const name = this.name;
-
-      if (this.noAds) {
-        return;
-      }
 
       if (this.insertOnViewportEnter) {
         ads.pushSlotToQueue(name);

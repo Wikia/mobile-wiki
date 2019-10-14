@@ -353,11 +353,11 @@ export const slots = {
     slot.setConfigProperty('targeting.ctp', clickToPlaySuffix ? 'yes' : 'no');
   },
 
-  setupStates(isAdStackEnabled) {
+  setupStates() {
     const { context, slotService } = window.Wikia.adEngine;
     const incontentState = isInContentApplicable();
     const setSlotState = (slotName, state) => {
-      if (isAdStackEnabled && state) {
+      if (state) {
         slotService.enable(slotName);
       } else {
         slotService.disable(slotName);

@@ -46,13 +46,20 @@ export default class JWPlayer extends BasePlayer {
   * @returns {void}
   */
   createPlayer() {
-    const ads = Ads.getInstance();
+    if (Ads.enabled) {
+      const ads = Ads.getInstance();
 
-    ads.waitForReady()
-      .then(() => ads.waitForVideoBidders())
-      .then(() => this.initializePlayer(ads));
+      ads.waitForReady()
+        .then(() => ads.waitForVideoBidders())
+        .then(() => this.initializePlayer(ads));
+    } else {
+      this.initializePlayer()
+    }
   }
 
+  /**
+   * @param {Ads} [ads] Ads module instance
+   */
   initializePlayer(ads) {
     const containerId = this.params.containerId;
     const initialPath = window.location.pathname;
@@ -61,12 +68,14 @@ export default class JWPlayer extends BasePlayer {
       return;
     }
 
-    this.videoAds = ads.createJWPlayerVideoAds({
-      audio: !this.params.autoplay,
-      autoplay: this.params.autoplay,
-      featured: true,
-      videoId: this.params.playlist[0].mediaid,
-    });
+    if (ads) {
+      this.videoAds = ads.createJWPlayerVideoAds({
+        audio: !this.params.autoplay,
+        autoplay: this.params.autoplay,
+        featured: true,
+        videoId: this.params.playlist[0].mediaid,
+      });
+    }
 
     window.wikiaJWPlayer(
       containerId,
@@ -116,7 +125,9 @@ export default class JWPlayer extends BasePlayer {
       this.params.onCreate.bind(this),
     );
 
-    ads.loadJwplayerMoatTracking();
+    if (ads) {
+      ads.loadJwplayerMoatTracking();
+    }
   }
 
   /**

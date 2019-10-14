@@ -18,10 +18,8 @@ let adsPromise = null;
 
 class Ads {
   constructor() {
-    this.enabled = true;
     this.engine = null;
     this.isLoaded = false;
-    this.isFastboot = typeof FastBoot !== 'undefined';
     this.onReadyCallbacks = [];
     this.spaInstanceId = null;
 
@@ -46,20 +44,12 @@ class Ads {
       return adsPromise;
     }
 
-    if (typeof FastBoot !== 'undefined') {
-      return Promise.reject();
-    }
-
     adsPromise = new Promise((resolve) => {
-      Promise.all(
-        [Ads.getShouldStartAdEngine(), Ads.loadAdEngine()],
-      ).then(([[shouldLoad, reason]]) => {
-        if (shouldLoad === true) {
-          resolve(Ads.getInstance());
-        } else {
-          pageTracker.trackProp('adengine', `off_${reason}`, true);
-        }
-      });
+        Ads.loadAdEngine()
+          .then(() => Ads.getInstance())
+          .then(ads => {
+            resolve(ads);
+        });
     });
 
     return adsPromise;
@@ -86,49 +76,6 @@ class Ads {
     });
   }
 
-  /**
-   * @private
-   * @returns {Promise<Array<bool, string>>} Array [should start, reason if should not]
-   */
-  static getShouldStartAdEngine() {
-    return new Promise((resolve) => {
-      window.getInstantGlobals((instantGlobals) => {
-        resolve(this.shouldStartAdEngine(instantGlobals));
-      });
-    });
-  }
-
-  /**
-   * @private
-   * @returns {Array<bool, string>} Array [should start, reason if should not]
-   */
-  static shouldStartAdEngine(instantGlobals) {
-    const disablers = this.getAdEngineStartDisablers(instantGlobals);
-
-    return [disablers.length === 0, disablers[0] || ''];
-  }
-
-  /**
-   * @private
-   * @returns {string[]}
-   */
-  static getAdEngineStartDisablers(instantGlobals) {
-    return [
-      [!!instantGlobals.wgSitewideDisableAdsOnMercury, 'instant_global'],
-      [this.isExternalSearch(), 'noexternals_querystring'],
-    ].filter(disablersPair => disablersPair[0]).map(disablersPair => disablersPair[1]);
-  }
-
-  /**
-   * @private
-   * @returns {boolean}
-   */
-  static isExternalSearch() {
-    const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
-
-    return noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
-  }
-
   init(mediaWikiAdsContext = {}) {
     this.getInstantGlobals()
       .then((instantGlobals) => {
@@ -136,16 +83,6 @@ class Ads {
           isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
         );
       });
-  }
-
-  isAdStackEnabled() {
-    const { context } = window.Wikia.adEngine;
-
-    if (context.get('state.disableAdStack')) {
-      return false;
-    }
-
-    return this.enabled;
   }
 
   /**
@@ -207,20 +144,14 @@ class Ads {
   finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
-    if (this.isAdStackEnabled()) {
-      btfBlockerService.finishFirstCall();
-      fanTakeoverResolver.resolve();
-    }
+    btfBlockerService.finishFirstCall();
+    fanTakeoverResolver.resolve();
   }
 
   createJWPlayerVideoAds(options) {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
-    if (this.isAdStackEnabled()) {
-      return jwplayerAdsFactory.create(options);
-    }
-
-    return null;
+    return jwplayerAdsFactory.create(options);
   }
 
   loadJwplayerMoatTracking() {
@@ -362,16 +293,14 @@ class Ads {
     const { bidders } = window.Wikia.adBidders;
     const { slotService } = window.Wikia.adEngine;
 
-    if (this.isAdStackEnabled()) {
-      biddersDelayer.resetPromise();
-      bidders.requestBids({
-        responseListener: biddersDelayer.markAsReady,
-      });
-      this.startAdEngine();
+    biddersDelayer.resetPromise();
+    bidders.requestBids({
+      responseListener: biddersDelayer.markAsReady,
+    });
+    this.startAdEngine();
 
-      if (!slotService.getState('top_leaderboard')) {
-        this.finishFirstCall();
-      }
+    if (!slotService.getState('top_leaderboard')) {
+      this.finishFirstCall();
     }
 
     this.callExternalTrackingServices();
@@ -404,7 +333,6 @@ class Ads {
     this.trackViewabilityToDW();
     this.initScrollSpeedTracking();
     this.trackLabradorToDW();
-    this.trackAdStackOnOffToDW();
     this.trackLikhoToDW();
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
@@ -436,21 +364,6 @@ class Ads {
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
-    }
-  }
-
-  /**
-   * @private
-   */
-  trackAdStackOnOffToDW() {
-    const { context, utils } = window.Wikia.adEngine;
-
-    if (context.get('state.disableAdStack')) {
-      pageTracker.trackProp('adengine', `off_${context.get('state.disableAdStackReason')}`);
-      utils.logger(logGroup, 'ad stack is disabled');
-    } else {
-      pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`);
-      utils.logger(logGroup, 'ad stack is disabled');
     }
   }
 
@@ -579,10 +492,6 @@ class Ads {
   waitForVideoBidders() {
     const { context, utils } = window.Wikia.adEngine;
 
-    if (!this.isAdStackEnabled()) {
-      return Promise.resolve();
-    }
-
     const timeout = new Promise((resolve) => {
       setTimeout(resolve, context.get('options.maxDelayTimeout'));
     });
@@ -596,28 +505,28 @@ class Ads {
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {
-    return new Promise((resolve) => {
-      if (this.isFastboot) {
-        if (noUapCallback && typeof noUapCallback === 'function') {
-          noUapCallback();
+    if (!Ads.enabled) {
+      noUapCallback();
+
+      return Promise.resolve(false);
+    }
+    return fanTakeoverResolver.getPromise().then((isFanTakeover) => {
+      if (isFanTakeover) {
+        if (uapCallback && typeof uapCallback === 'function') {
+          uapCallback();
+
+          return true;
         }
-        resolve(false);
-      } else {
-        fanTakeoverResolver.getPromise().then((isFanTakeover) => {
-          if (isFanTakeover) {
-            if (uapCallback && typeof uapCallback === 'function') {
-              uapCallback();
-            }
-          } else if (noUapCallback && typeof noUapCallback === 'function') {
-            noUapCallback();
-          }
-          resolve(!!isFanTakeover);
-        });
+      } else if (noUapCallback && typeof noUapCallback === 'function') {
+        noUapCallback();
+
+        return false;
       }
     });
   }
 }
 
 Ads.instance = null;
+Ads.enabled = false;
 
 export default Ads;

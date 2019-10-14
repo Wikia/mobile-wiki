@@ -1,8 +1,6 @@
 import { Promise } from 'rsvp';
-import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 import Ads from '../../modules/ads';
-import { pageTracker } from '../../modules/ads/tracking/page-tracker';
 
 export default Service.extend({
   module: Ads.getInstance(),
@@ -10,21 +8,6 @@ export default Service.extend({
   currentUser: service(),
   siteHeadOffset: 0,
   slotNames: null,
-  noAdsQueryParam: null,
-  disableAdsInMobileApp: null,
-  noAds: computed('noAdsQueryParam', 'disableAdsInMobileApp', function () {
-    const disablers = [
-      [['0', null, ''].indexOf(this.noAdsQueryParam) === -1, 'noads_querystring'],
-      [['0', null, ''].indexOf(this.disableAdsInMobileApp) === -1, 'mobile_app'],
-      [!!this.currentUser.isAuthenticated, 'logged_user'],
-    ].filter(disablerPair => !!disablerPair[0]).map(disablerPair => disablerPair[1]);
-
-    if (disablers.length > 0) {
-      pageTracker.trackProp('adengine', `off_${disablers[0]}`);
-    }
-
-    return disablers.length > 0;
-  }),
   adSlotComponents: null,
   waits: null,
 
@@ -43,10 +26,6 @@ export default Service.extend({
         floorAdhesion: 'floor_adhesion',
       },
     });
-
-    if (!this.fastboot.isFastBoot) {
-      this.module.enabled = !this.noAds;
-    }
   },
 
   pushAdSlotComponent(slotName, adSlotComponent) {
