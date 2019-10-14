@@ -1,4 +1,4 @@
-import { track } from '../../../utils/track';
+import { track, trackXClick } from '../../../utils/track';
 
 function trackEvent(eventData) {
   track(Object.assign(
@@ -16,6 +16,7 @@ export const videoTracker = {
     const { porvataTracker, playerEvents } = window.Wikia.adProducts;
 
     eventService.on(playerEvents.VIDEO_PLAYER_TRACKING_EVENT, trackEvent);
+    eventService.on(playerEvents.PLAYER_X_CLICK, trackXClick);
 
     porvataTracker.register();
   },

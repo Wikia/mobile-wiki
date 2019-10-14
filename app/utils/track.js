@@ -237,6 +237,20 @@ export function trackExperiment(experiment, params) {
 }
 
 /**
+ * Function to track ad slot x-click.
+ * @param adSlot {String}
+ * @return {void}
+ */
+
+export function trackXClick(adSlot) {
+  track({
+    action: 'click',
+    category: 'force_close',
+    label: adSlot.getSlotName(),
+  });
+}
+
+/**
   * @param {TrackContext} data
   * @returns {void}
   */
