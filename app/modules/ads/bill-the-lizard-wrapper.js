@@ -6,7 +6,7 @@ const bidPosKeyVal = 'mobile_in_content';
 const NOT_USED_STATUS = 'not_used';
 const logGroup = 'bill-the-lizard-wrapper';
 
-let config = null;
+let config = {};
 let cheshirecatCalled = false;
 let incontentsCounter = 0;
 let defaultStatus = NOT_USED_STATUS;
@@ -91,7 +91,7 @@ export const billTheLizardWrapper = {
       AdSlot, context, events, eventService, slotService, utils,
     } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
-    let baseSlotName = 'top_boxad';
+    const baseSlotName = 'top_boxad';
     defaultStatus = NOT_USED_STATUS;
     config = billTheLizardConfig;
 
