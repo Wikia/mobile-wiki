@@ -29,11 +29,13 @@
       "xkxd02"
     ],
     "wikiId": [
-      1575417
+      1575417,
+      1619010
     ],
     "query": [
       "spiderman",
-      "marvel"
+      "marvel",
+      "test"
     ]
   },
   {
@@ -42,7 +44,8 @@
       "xkxd02-small"
     ],
     "wikiId": [
-      1575417
+      1575417,
+      1619010
     ]
   }
 ]

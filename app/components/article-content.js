@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, observer } from '@ember/object';
+import { observer } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
@@ -44,9 +44,6 @@ export default Component.extend(
     lang: reads('wikiVariables.language.content'),
     dir: reads('wikiVariables.language.contentDir'),
     isFastBoot: reads('fastboot.isFastBoot'),
-    affiliateUnit: computed('displayTitle', function () {
-      return this.affiliateSlots.getBigUnitOnPage(this.get('displayTitle'));
-    }),
 
     /* eslint ember/no-on-calls-in-components:0 */
     articleContentObserver: on('didInsertElement', observer('content', function () {
@@ -63,7 +60,8 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
-          this.handleAffiliateUnit(this.affiliateUnit);
+          this.handleBigAffiliateUnit(this.displayTitle);
+          this.handlePostSearchResults(this.displayTitle);
           this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
@@ -599,10 +597,12 @@ export default Component.extend(
 
     /**
      * Injects an affiliate unit into the article content
-     * @param {Object} unitAttrs
+     * @param {string} title
      */
-    handleAffiliateUnit(unitAttrs) {
-      if (typeof unitAttrs === 'undefined') {
+    handleBigAffiliateUnit(title) {
+      const unit = this.affiliateSlots.getBigUnitOnPage(title);
+
+      if (typeof unit === 'undefined') {
         // There's no unit to display (not an error)
         return;
       }
@@ -613,13 +613,41 @@ export default Component.extend(
       if (h2Elements[1]) {
         const unitPlaceholder = document.createElement('div');
         const unitWrapper = document.createElement('div');
+        unitWrapper.className = 'affiliate-slot';
 
         unitWrapper.appendChild(unitPlaceholder);
         h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
 
         this.renderedComponents.push(this.renderComponent({
           name: 'affiliate-unit',
-          attrs: unitAttrs,
+          attrs: unit,
+          element: unitPlaceholder,
+        }));
+      }
+    },
+
+    /**
+     * Injects a post search results into the article content
+     * @param {string} title
+     */
+    handlePostSearchResults(title) {
+      // search for 4th section
+      const h2Elements = this.element.querySelectorAll('h2[section]');
+
+      if (h2Elements[3]) {
+        const unitPlaceholder = document.createElement('div');
+        const unitWrapper = document.createElement('div');
+        unitWrapper.className = 'affiliate-slot';
+
+        unitWrapper.appendChild(unitPlaceholder);
+        h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
+
+        this.renderedComponents.push(this.renderComponent({
+          name: 'post-search-results',
+          attrs: {
+            query: title,
+            isCrossWiki: true,
+          },
           element: unitPlaceholder,
         }));
       }

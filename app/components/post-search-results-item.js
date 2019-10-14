@@ -5,6 +5,7 @@ import { track, trackActions } from '../utils/track';
 import Thumbnailer from '../modules/thumbnailer';
 
 export default Component.extend({
+  classNames: ['post-search-results-item'],
   isQuizWithTakes: computed('post', function () {
     const type = this.post.type;
     const stats = this.post.stats;

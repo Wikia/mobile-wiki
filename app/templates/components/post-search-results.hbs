@@ -1,5 +1,6 @@
 {{#if isEnabled}}
   <aside class="post-search-results">
+    <div class="post-search-results__slant"></div>
     <header class="post-search-results__header">
       <div class="post-search-results__header-text wds-midlight-navy">
         <Icon @name="comment" @size="small" />
@@ -27,33 +28,19 @@
         class="post-search-results__loading"
       />
     {{else}}
-      {{#each posts as |post index|}}
-        {{post-search-results-item post=post postIndex=index}}
-        {{#if smallAffiliateUnit}}
-          {{!-- If there is only one post we want to show it after the first one --}}
-          {{#if (equal posts.length 1)}}
-            {{#if (equal index 0)}}
-              {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
-            {{/if}}
-          {{/if}}
-          {{!-- All other cases show it after the first index --}}
-          {{#if (equal index 1)}}
+      <div class="post-search-results__items">
+        {{#each posts as |post index|}}
+          {{#if (equal post.type "affiliate")}}
             {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
+          {{else}}
+            {{post-search-results-item post=post postIndex=index}}
           {{/if}}
-        {{/if}}
-      {{else}}
-        <div class="post-search-results__no-posts">
-          {{{i18n "main.search-post-item-no-posts" ns="search"}}}
-        </div>
-      {{/each}}
+        {{else}}
+          <div class="post-search-results__no-posts">
+            {{{i18n "main.search-post-item-no-posts" ns="search"}}}
+          </div>
+        {{/each}}
+      </div>
     {{/if}}
   </aside>
-{{/if}}
-{{#if bigAffiliateUnit}}
-  {{affiliate-unit
-    heading=bigAffiliateUnit.heading
-    image=bigAffiliateUnit.image
-    link=bigAffiliateUnit.link
-    subheading=bigAffiliateUnit.subheading
-  }}
 {{/if}}

@@ -93,7 +93,7 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 export const billTheLizardWrapper = {
   configureBillTheLizard(billTheLizardConfig) {
     const {
-      context, events, eventService, slotService, utils,
+      AdSlot, context, events, eventService, slotService, utils,
     } = window.Wikia.adEngine;
     const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
     let baseSlotName = 'incontent_boxad_1';
@@ -146,12 +146,10 @@ export const billTheLizardWrapper = {
       },
     );
 
-    context.push('listeners.slot', {
-      onRenderEnded: (adSlot) => {
-        if (adSlot.getSlotName() === baseSlotName && !cheshirecatCalled) {
-          this.callCheshireCat(baseSlotName);
-        }
-      },
+    eventService.on(AdSlot.SLOT_RENDERED_EVENT, (adSlot) => {
+      if (adSlot.getSlotName() === baseSlotName && !cheshirecatCalled) {
+        this.callCheshireCat(baseSlotName);
+      }
     });
 
     eventService.on(events.AD_SLOT_CREATED, (adSlot) => {
