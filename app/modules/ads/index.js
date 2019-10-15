@@ -44,11 +44,15 @@ class Ads {
       return adsPromise;
     }
 
-    adsPromise = new Promise((resolve) => {
-      Ads.loadAdEngine()
-        .then(() => Ads.getInstance())
-        .then(resolve);
-    });
+    if (Ads.enabled) {
+      adsPromise = new Promise((resolve) => {
+        Ads.loadAdEngine()
+          .then(() => Ads.getInstance())
+          .then(resolve);
+      });
+    } else {
+      adsPromise = new Promise();
+    }
 
     return adsPromise;
   }
