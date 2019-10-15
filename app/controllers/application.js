@@ -42,8 +42,6 @@ export default Controller.extend(
     isSearchPage: equal('currentRouteName', 'search'),
     mobileApp: oneWay('wikiPage.mobileApp'),
 
-    ads: Ads.getInstance(),
-
     actions: {
       /**
     * Bubbles up to ApplicationRoute
