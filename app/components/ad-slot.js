@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed, setProperties } from '@ember/object';
-import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
@@ -9,8 +8,6 @@ export default Component.extend(
   RenderComponentMixin,
   InViewportMixin,
   {
-    ads: service('ads/ads'),
-
     classNames: ['ad-slot-wrapper'],
     classNameBindings: ['nameLowerCase', 'noAds'],
     // This component is created dynamically, and this won't work without it
@@ -54,7 +51,7 @@ export default Component.extend(
      * @returns {void}
      */
     didEnterViewport() {
-      const ads = this.get('ads.module');
+      const ads = Ads.getInstance();
       const name = this.name;
 
       if (this.insertOnViewportEnter) {
@@ -71,7 +68,7 @@ export default Component.extend(
      * @private
      */
     pushSlotToQueue() {
-      const ads = this.get('ads.module');
+      const ads = Ads.getInstance();
 
       if (this.insertOnViewportEnter) {
         return;
