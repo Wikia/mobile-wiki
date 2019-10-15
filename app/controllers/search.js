@@ -4,10 +4,11 @@ import Controller, { inject as controller } from '@ember/controller';
 import { track, trackActions } from '../utils/track';
 
 export default Controller.extend({
-  queryParams: ['query', 'scope'],
   application: controller(),
   fastboot: service(),
   wikiVariables: service(),
+
+  queryParams: ['query', 'scope'],
 
   searchId: null,
   // TODO: to be removed as we'll be supporting more errors on search page,

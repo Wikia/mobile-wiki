@@ -43,7 +43,7 @@ export default EmberObject.extend({
       totalBatches: 0,
       query,
       items: A([]),
-      scope
+      scope,
     });
 
     if (query) {
