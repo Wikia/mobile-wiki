@@ -19,7 +19,7 @@ export const slotsLoader = {
     } = window.Wikia.adEngine;
     const bidsBackHandler = context.get('bidders.prebid.bidsRefreshing.bidsBackHandler');
 
-    if (!context.get('options.nonLazyIncontents.enabled')) {
+    if (!context.get('options.nonLazyLoading.enabled')) {
       return;
     }
 
