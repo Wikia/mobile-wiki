@@ -245,7 +245,7 @@ class Ads {
     });
 
     eventService.on(AdSlot.CUSTOM_EVENT, (adSlot, { status }) => {
-      if (status === SlotTweaker.SLOT_CLOSE_IMMEDIATELY) {
+      if (status === SlotTweaker.SLOT_CLOSE_IMMEDIATELY || status === 'force-unstick') {
         trackXClick(adSlot);
       }
     });
