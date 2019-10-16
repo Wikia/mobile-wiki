@@ -187,6 +187,7 @@ export const adsSetup = {
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
+    context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && instantConfig.isGeoEnabled('wgAdDriverKruxCountries') && !instantConfig.get('wgSitewideDisableKrux'));
     context.set('services.moatYi.enabled', instantConfig.isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
