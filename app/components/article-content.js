@@ -126,7 +126,13 @@ export default Component.extend(
     click(event) {
       this.handleReferences(event);
 
-      const anchor = event.target.closest('a');
+      let anchor = event.target.closest('a');
+
+      // TODO: remove after IW-2613 is done
+      if (!anchor) {
+        anchor = event.target.closest('[aria-controls$="-collapsible-section"]');
+      }
+
       const label = this.getTrackingEventLabel(anchor);
 
       if (label) {
@@ -294,6 +300,10 @@ export default Component.extend(
         }
         if (element.closest('.article-media-thumbnail')) {
           return 'image-link';
+        }
+        // TODO: remove after IW-2613 is done
+        if (element.closest('[aria-controls$="-collapsible-section"]')) {
+          return 'section-toggle';
         }
 
         return 'regular-link';
