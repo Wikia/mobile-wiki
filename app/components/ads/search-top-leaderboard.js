@@ -12,7 +12,11 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    this.renderAds();
+    Ads.getLoadedInstance()
+      .then(() => {
+        this.renderAds();
+      })
+      .catch(() => {}); // Ads not loaded
   },
 
   willDestroyElement() {
@@ -23,10 +27,6 @@ export default Component.extend({
    * @private
    */
   renderAds() {
-    Ads.waitForAdEngine().then((ads) => {
-      ads.onReady(() => {
-        this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
-      });
-    });
+    this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
   },
 });

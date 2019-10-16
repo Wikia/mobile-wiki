@@ -191,18 +191,27 @@ export default Route.extend(
                 .map(reasonAndContition => reasonAndContition[0]);
 
               if (disablers.length > 0) {
-                pageTracker.trackProp('adengine', `${disablers.map(disabler => `off_${disabler}`).join(',')}`, true);
-                Ads.enabled = false;
+                const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');
+                const ads = Ads.getInstance();
+
+                ads.initialization.reject(disablers);
+                pageTracker.trackProp('adengine', `${disablersSerialized}`, true);
               } else {
                 // 'wgAdDriverDisableAdStackCountries' - how to check this?
-                Ads.enabled = true;
                 model.adsContext.user = model.adsContext.user || {};
                 model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
 
-                Ads.waitForAdEngine().then((ads) => {
-                  ads.init(model.adsContext);
-                  pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
-                });
+                const ads = Ads.getInstance();
+
+                ads.init(model.adsContext);
+
+                Ads.getLoadedInstance()
+                  .then(() => {
+                    pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
+                  })
+                  .catch(() => {
+                    pageTracker.trackProp('adengine', 'off_failed_initialization', true);
+                  });
               }
             });
           }

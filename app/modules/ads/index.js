@@ -14,23 +14,38 @@ import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
 
-let adsPromise = null;
+class PromiseLock {
+  constructor() {
+    this.isFinished = false;
+    this.finished = new Promise((resolve, reject) => {
+      this.resolve = (x) => {
+        this.isFinished = true;
+        resolve(x);
+      };
+      this.reject = (x) => {
+        this.isFinished = true;
+        reject(x);
+      };
+    });
+  }
+}
 
 class Ads {
   constructor() {
     this.engine = null;
-    this.isLoaded = false;
-    this.onReadyCallbacks = [];
     this.spaInstanceId = null;
 
     /** @private */
-    this.readyResolve = null;
-    // A Promise which resolves when module is fully-loaded and returns instance of Ads module
-    this.ready = new Promise((resolve) => {
-      this.readyResolve = resolve;
-    });
+    this.isInitializationStarted = false;
+    this.initialization = new PromiseLock();
   }
 
+  /**
+   * Returns ads instance.
+   *
+   * @returns {Ads}
+   * @public
+   */
   static getInstance() {
     if (Ads.instance === null) {
       Ads.instance = new Ads();
@@ -39,34 +54,44 @@ class Ads {
     return Ads.instance;
   }
 
-  static waitForAdEngine() {
-    if (adsPromise) {
-      return adsPromise;
-    }
+  /**
+   * Returns loaded ads instance.
+   *
+   * @returns {Promise|RSVP.Promise|*}
+   */
+  static getLoadedInstance() {
+    return Ads.getInstance().initialization.finished;
+  }
 
-    if (Ads.enabled) {
-      adsPromise = new Promise((resolve) => {
-        Ads.loadAdEngine()
-          .then(() => Ads.getInstance())
-          .then(resolve);
-      });
-    } else {
-      adsPromise = new Promise();
-    }
+  /**
+   * @param mediaWikiAdsContext
+   * @public
+   */
+  init(mediaWikiAdsContext = {}) {
+    if (!this.isInitializationStarted) {
+      this.isInitializationStarted = true;
 
-    return adsPromise;
+      this.loadAdEngine()
+        .then(() => this.getInstantGlobals())
+        .then((instantGlobals) => {
+          M.trackingQueue.push(
+            isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
+          );
+        });
+    }
   }
 
   /**
    * @private
    */
-  static loadAdEngine() {
+  loadAdEngine() {
     return import('@wikia/ad-engine').then((module) => {
       window.Wikia = window.Wikia || {};
       window.Wikia.adEngine = module;
       window.Wikia.adProducts = module;
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
+
       return module;
     }).catch((error) => {
       logError('https://services.fandom.com', 'AdEngine.load', {
@@ -74,17 +99,8 @@ class Ads {
         stack: error.stack,
       });
 
-      return new Promise(res => res);
+      throw Error('Failed to load @wikia/ad-engine package.');
     });
-  }
-
-  init(mediaWikiAdsContext = {}) {
-    this.getInstantGlobals()
-      .then((instantGlobals) => {
-        M.trackingQueue.push(
-          isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
-        );
-      });
   }
 
   /**
@@ -101,11 +117,7 @@ class Ads {
    * @param isOptedIn
    */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-    if (this.isLoaded) {
-      return;
-    }
-
-    const { ScrollTracker, utils } = window.Wikia.adEngine;
+    const { ScrollTracker } = window.Wikia.adEngine;
 
     this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
@@ -113,27 +125,8 @@ class Ads {
       .then(() => {
         this.triggerAfterPageRenderServices();
 
-        this.isLoaded = true;
-        utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
-        this.onReadyCallbacks.start();
-        this.readyResolve(Ads.getInstance());
+        this.initialization.resolve(this);
       });
-  }
-
-  /**
-   * @private
-   */
-  startAdEngine() {
-    const { AdEngine } = window.Wikia.adEngine;
-
-    if (!this.engine) {
-      this.engine = new AdEngine();
-      this.engine.init();
-
-      this.loadGoogleTag();
-    } else {
-      this.engine.runAdQueue();
-    }
   }
 
   /**
@@ -143,6 +136,9 @@ class Ads {
     window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
   }
 
+  /**
+   * @private
+   */
   finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
@@ -150,18 +146,27 @@ class Ads {
     fanTakeoverResolver.resolve();
   }
 
+  /**
+   * @public
+   */
   createJWPlayerVideoAds(options) {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
     return jwplayerAdsFactory.create(options);
   }
 
+  /**
+   * @public
+   */
   loadJwplayerMoatTracking() {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
     jwplayerAdsFactory.loadMoatPlugin();
   }
 
+  /**
+   * @public
+   */
   getAdSlotComponentAttributes(slotName) {
     const { context } = window.Wikia.adEngine;
 
@@ -178,10 +183,6 @@ class Ads {
   }
 
   isTopBoxadEnabled() {
-    if (!this.isLoaded) {
-      return false;
-    }
-
     const { context } = window.Wikia.adEngine;
 
     return !!context.get('options.useTopBoxad');
@@ -207,8 +208,11 @@ class Ads {
     });
   }
 
+  /**
+   * @public
+   */
   beforeTransition() {
-    if (!this.isLoaded) {
+    if (!this.initialization.isFinished) {
       return;
     }
 
@@ -220,10 +224,14 @@ class Ads {
     utils.logger(logGroup, 'before transition');
   }
 
+  /**
+   * @public
+   */
   onTransition(options) {
-    if (!this.isLoaded) {
+    if (!this.initialization.isFinished) {
       return;
     }
+
     const {
       context, events, eventService, utils,
     } = window.Wikia.adEngine;
@@ -233,8 +241,11 @@ class Ads {
     utils.logger(logGroup, 'on transition');
   }
 
+  /**
+   * @public
+   */
   afterTransition(mediaWikiAdsContext) {
-    if (!this.isLoaded) {
+    if (!this.initialization.isFinished) {
       return;
     }
 
@@ -308,6 +319,22 @@ class Ads {
     this.callExternalTrackingServices();
     adblockDetector.run();
     this.triggerPageTracking();
+  }
+
+  /**
+   * @private
+   */
+  startAdEngine() {
+    const { AdEngine } = window.Wikia.adEngine;
+
+    if (!this.engine) {
+      this.engine = new AdEngine();
+      this.engine.init();
+
+      this.loadGoogleTag();
+    } else {
+      this.engine.runAdQueue();
+    }
   }
 
   /**
@@ -463,32 +490,9 @@ class Ads {
   }
 
   onMenuOpen() {
-    if (!this.isLoaded) {
-      return;
-    }
     const { eventService } = window.Wikia.adEngine;
 
     eventService.emit(appEvents.MENU_OPEN_EVENT);
-  }
-
-  /**
-   * Trigger callback when Ads module loads
-   *
-   * @param callback to trigger
-   */
-  onReady(callback) {
-    if (this.isLoaded) {
-      callback();
-    } else {
-      this.onReadyCallbacks.push(callback);
-    }
-  }
-
-  waitForReady() {
-    return Promise.all([
-      Ads.waitForAdEngine(),
-      new Promise(resolve => this.onReady(resolve)),
-    ]);
   }
 
   waitForVideoBidders() {
@@ -507,11 +511,6 @@ class Ads {
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {
-    if (!Ads.enabled) {
-      noUapCallback();
-
-      return Promise.resolve(false);
-    }
     return fanTakeoverResolver.getPromise().then((isFanTakeover) => {
       if (isFanTakeover) {
         if (uapCallback && typeof uapCallback === 'function') {
@@ -531,6 +530,5 @@ class Ads {
 }
 
 Ads.instance = null;
-Ads.enabled = false;
 
 export default Ads;

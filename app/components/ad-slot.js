@@ -3,6 +3,7 @@ import { computed, setProperties } from '@ember/object';
 import { dasherize } from '@ember/string';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
+import Ads from '../modules/ads';
 
 export default Component.extend(
   RenderComponentMixin,
@@ -51,37 +52,41 @@ export default Component.extend(
      * @returns {void}
      */
     didEnterViewport() {
-      const ads = Ads.getInstance();
-      const name = this.name;
-
-      if (this.insertOnViewportEnter) {
-        ads.pushSlotToQueue(name);
-      } else if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => ads.pushSlotToQueue(this.name),
-          () => {},
-        );
-      }
+      Ads.getLoadedInstance()
+        .then((ads) => {
+          if (this.insertOnViewportEnter) {
+            ads.pushSlotToQueue(this.name);
+          } else if (this.shouldWaitForUapResponse) {
+            ads.waitForUapResponse().then((isUapLoaded) => {
+              if (isUapLoaded) {
+                ads.pushSlotToQueue(this.name);
+              }
+            });
+          }
+        })
+        .catch(() => {}); // Ads not loaded.
     },
 
     /**
      * @private
      */
     pushSlotToQueue() {
-      const ads = Ads.getInstance();
-
       if (this.insertOnViewportEnter) {
         return;
       }
-
-      if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => {},
-          () => ads.pushSlotToQueue(this.name),
-        );
-      } else {
-        ads.pushSlotToQueue(this.name);
-      }
+      Ads.getLoadedInstance()
+        .then((ads) => {
+          if (this.shouldWaitForUapResponse) {
+            ads.waitForUapResponse().then((isUapLoaded) => {
+              if (!isUapLoaded) {
+                ads.pushSlotToQueue(this.name);
+              }
+            });
+          } else {
+            ads.pushSlotToQueue(this.name);
+          }
+        })
+        .catch(() => {}); // Ads not loaded.
     },
   },
 );

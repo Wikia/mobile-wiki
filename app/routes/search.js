@@ -10,6 +10,7 @@ import SearchModel from '../models/search';
 import closedWikiHandler from '../utils/closed-wiki-handler';
 import emptyDomainWithLanguageWikisHandler from '../utils/empty-domain-with-language-wikis-handler';
 import { track, trackActions, trackPageView } from '../utils/track';
+import Ads from '../modules/ads';
 
 export default Route.extend(
   ApplicationWrapperClassNamesMixin,
@@ -84,16 +85,14 @@ export default Route.extend(
           controller.trackResultsImpression();
         });
 
-        if (!this.get('fastboot.isFastBoot')) {
-          this.adsContextService.getAdsContext()
-            .then((adsContext) => {
-              if (this.get('ads.module.isLoaded')) {
+        Ads.getLoadedInstance()
+          .then(() => {
+            this.adsContextService.getAdsContext()
+              .then((adsContext) => {
                 this.ads.setupAdsContext(adsContext);
-              } else {
-                this.ads.module.init(adsContext);
-              }
-            });
-        }
+              });
+          })
+          .catch(() => {}); // Ads not loaded.
 
         return true;
       },

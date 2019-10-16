@@ -1,12 +1,10 @@
-import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import RenderComponentMixin from '../../mixins/render-component';
+import Ads from '../../modules/ads';
 
 export default Component.extend(RenderComponentMixin, {
-  ads: service('ads/ads'),
-
   name: null,
   nameLowerCase: computed('name', function () {
     return dasherize(this.name.toLowerCase());
@@ -15,9 +13,9 @@ export default Component.extend(RenderComponentMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    this.get('ads.module').ready
-      .then((adsModule) => {
-        adsModule.waitForUapResponse()
+    Ads.getLoadedInstance()
+      .then((ads) => {
+        ads.waitForUapResponse()
           .then((isUapLoaded) => {
             if (this.disableManualInsert && this.numberOfViewportsFromTopToPush) {
               const { scrollListener, utils } = window.Wikia.adEngine;
@@ -27,9 +25,10 @@ export default Component.extend(RenderComponentMixin, {
                 { distanceFromTop: distance },
               );
             } else if (!isUapLoaded) {
-              adsModule.pushSlotToQueue(this.name);
+              ads.pushSlotToQueue(this.name);
             }
           });
-      });
+      })
+      .catch(() => {}); // Ads not loaded.
   },
 });

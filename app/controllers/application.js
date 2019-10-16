@@ -2,7 +2,6 @@ import Controller, { inject as controller } from '@ember/controller';
 import { alias, equal, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
-import Ads from '../modules/ads';
 
 export default Controller.extend(
   AlertNotificationsMixin,
