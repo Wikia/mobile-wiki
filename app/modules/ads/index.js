@@ -294,11 +294,12 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn) {
     const { eventService } = window.Wikia.adEngine;
-    const { confiant, moatYiEvents } = window.Wikia.adServices;
+    const { confiant, durationMedia, moatYiEvents } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn)
       .then(() => {
         confiant.call();
+        durationMedia.call();
 
         eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
           pageTracker.trackProp('moat_yi', data);

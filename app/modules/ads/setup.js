@@ -162,8 +162,7 @@ export const adsSetup = {
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
 
-    context.set('options.gamLazyLoading.enabled', instantConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
-    context.set('options.nonLazyIncontents.enabled', instantConfig.get('icNonLazyIncontents'));
+    context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
@@ -188,6 +187,7 @@ export const adsSetup = {
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
+    context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && instantConfig.isGeoEnabled('wgAdDriverKruxCountries') && !instantConfig.get('wgSitewideDisableKrux'));
     context.set('services.moatYi.enabled', instantConfig.isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
@@ -306,18 +306,6 @@ export const adsSetup = {
       });
     }
 
-    if (context.get('options.gamLazyLoading.enabled')) {
-      context.set('options.gamLazyLoading.fetchMarginPercent', instantConfig.get('wgAdDriverGAMLazyLoadingFetchMarginPercent'));
-      context.set('options.gamLazyLoading.renderMarginPercent', instantConfig.get('wgAdDriverGAMLazyLoadingRenderMarginPercent'));
-      context.set('options.useTopBoxad', true);
-      context.set('options.incontentBoxad1EagerLoading', true);
-      context.set(
-        'slots.incontent_boxad_1.defaultClasses',
-        context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
-      );
-      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
-    }
-
     if (context.get('options.useTopBoxad')) {
       if (context.get('options.incontentBoxad1EagerLoading')) {
         context.set('events.pushAfterCreated.top_boxad', [
@@ -332,7 +320,7 @@ export const adsSetup = {
       }
     }
 
-    if (context.get('options.nonLazyIncontents.enabled')) {
+    if (context.get('options.nonLazyLoading.enabled')) {
       context.set('options.useTopBoxad', true);
       context.set('events.pushAfterCreated.top_boxad', []);
       context.set('events.pushAfterRendered.top_boxad', []);
