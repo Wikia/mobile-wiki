@@ -247,7 +247,8 @@ export function trackXClick(adSlot) {
     action: 'click',
     category: 'force_close',
     label: adSlot.getSlotName(),
-  });
+    trackingMethod: TrackingMethod.ga,
+  }, false);
 }
 
 /**
