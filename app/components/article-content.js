@@ -647,6 +647,8 @@ export default Component.extend(
           attrs: {
             query: title,
             isCrossWiki: true,
+            isPageInterrupt: true,
+            onlyShowWithAffiliateUnit: true,
           },
           element: unitPlaceholder,
         }));

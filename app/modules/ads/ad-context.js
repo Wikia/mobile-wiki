@@ -179,7 +179,7 @@ export const defaultAdContext = {
               [320, 50],
               [320, 100],
             ],
-            siteId: '413977',
+            siteId: '419027',
           },
         },
       },
@@ -449,6 +449,10 @@ export const defaultAdContext = {
     confiant: {
       enabled: false,
       propertyId: 'd-aIf3ibf0cYxCLB1HTWfBQOFEA',
+    },
+    durationMedia: {
+      enabled: false,
+      siteId: '1167',
     },
     instantConfig: {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
