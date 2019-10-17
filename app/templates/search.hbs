@@ -24,8 +24,8 @@
 
       <dropdown.content @scrollable={{false}}>
         <List @linked={{true}}>
-          <li><a href="#" onclick={{action "onScopeChange" "internal"}}>{{{i18n "main.search-scope-internal" ns="search" }}}</a></li>
-          <li><a href="#" onclick={{action "onScopeChange" "crosswiki"}}>{{{i18n "main.search-scope-crosswiki" ns="search" }}}</a></li>
+          <li>{{#link-to "search" (query-params query=model.query scope="internal")}}{{{i18n "main.search-scope-internal" ns="search" }}}{{/link-to}}</li>
+          <li>{{#link-to "search" (query-params query=model.query scope="crosswiki")}}{{{i18n "main.search-scope-crosswiki" ns="search" }}}{{/link-to}}</li>
         </List>
       </dropdown.content>
     </Dropdown>

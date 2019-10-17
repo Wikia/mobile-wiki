@@ -451,6 +451,10 @@ export const defaultAdContext = {
       enabled: false,
       propertyId: 'd-aIf3ibf0cYxCLB1HTWfBQOFEA',
     },
+    durationMedia: {
+      enabled: false,
+      siteId: '1167',
+    },
     instantConfig: {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
       fallbackConfigKey: 'fallbackInstantConfig',
