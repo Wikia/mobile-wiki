@@ -1,4 +1,5 @@
 import { inject as service } from '@ember/service';
+import { isEmpty } from '@ember/utils';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
@@ -31,13 +32,18 @@ export default EmberObject.extend({
     this.set('items', A([]));
   },
 
-  search(query) {
+  search(query, scope) {
+    if (isEmpty(scope)) {
+      scope = 'internal';
+    }
+
     this.setProperties({
       batch: 0,
       totalItems: 0,
       totalBatches: 0,
       query,
       items: A([]),
+      scope,
     });
 
     if (query) {
@@ -122,13 +128,10 @@ export default EmberObject.extend({
     return this;
   },
 
-  changeScope(newScope) {
-    this.set('scope', newScope);
-
-    return this.search(this.query);
-  },
-
   getScope() {
     return this.get('scope');
+  },
+  getQuery() {
+    return this.get('query');
   },
 });
