@@ -350,7 +350,7 @@ class Ads {
     const { krux, moatYi, nielsen } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
-    krux.call();
+    krux.call().then(this.trackKruxSegments);
     moatYi.call();
     nielsen.call({
       type: 'static',
@@ -410,6 +410,22 @@ class Ads {
     if (context.get('state.disableAdStack')) {
       pageTracker.trackProp('adengine', 'off');
       utils.logger(logGroup, 'ad stack is disabled');
+    }
+  }
+
+  /**
+   * @private
+   */
+  trackKruxSegments() {
+    const { context, utils } = window.Wikia.adEngine;
+    const kruxUserSegments = context.get('targeting.ksg') || [];
+    const kruxTrackedSegments = context.get('services.krux.trackedSegments') || [];
+
+    const kruxPropValue = kruxUserSegments.filter(segment => kruxTrackedSegments.includes(segment));
+
+    if (kruxPropValue.length) {
+      pageTracker.trackProp('krux_segments', kruxPropValue.join('|'));
+      utils.logger(logGroup, 'krux props', kruxPropValue);
     }
   }
 
