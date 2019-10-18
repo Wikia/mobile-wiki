@@ -248,7 +248,7 @@ export function trackXClick(adSlot) {
     category: 'force_close',
     label: adSlot.getSlotName(),
     trackingMethod: TrackingMethod.ga,
-  }, false);
+  });
 }
 
 /**

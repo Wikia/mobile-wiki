@@ -236,7 +236,9 @@ class Ads {
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
-    const { AdSlot, events, eventService, SlotTweaker } = window.Wikia.adEngine;
+    const {
+      AdSlot, events, eventService, SlotTweaker,
+    } = window.Wikia.adEngine;
 
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
