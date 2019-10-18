@@ -419,9 +419,9 @@ class Ads {
   trackKruxSegments() {
     const { context, utils } = window.Wikia.adEngine;
     const kruxUserSegments = context.get('targeting.ksg') || [];
-    const kruxICBMSegments = context.get('services.krux.icbmSegments') || [];
+    const kruxTrackedSegments = context.get('services.krux.trackedSegments') || [];
 
-    const kruxPropValue = kruxUserSegments.filter(segment => kruxICBMSegments.includes(segment));
+    const kruxPropValue = kruxUserSegments.filter(segment => kruxTrackedSegments.includes(segment));
 
     if (kruxPropValue.length) {
       pageTracker.trackProp('krux_segments', kruxPropValue.join('|'));

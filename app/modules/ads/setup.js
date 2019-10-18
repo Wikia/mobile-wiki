@@ -182,7 +182,7 @@ export const adsSetup = {
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && instantConfig.isGeoEnabled('wgAdDriverKruxCountries') && !instantConfig.get('wgSitewideDisableKrux'));
-    context.set('services.krux.icbmSegments', instantConfig.get('icKruxSegmentsTracking'));
+    context.set('services.krux.trackedSegments', instantConfig.get('icKruxSegmentsTracking'));
     context.set('services.moatYi.enabled', instantConfig.isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
     context.set('services.nielsen.enabled', instantConfig.isGeoEnabled('wgAdDriverNielsenCountries'));
 
