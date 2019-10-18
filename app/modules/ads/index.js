@@ -216,16 +216,6 @@ class Ads {
     };
   }
 
-  isTopBoxadEnabled() {
-    if (!this.isLoaded) {
-      return false;
-    }
-
-    const { context } = window.Wikia.adEngine;
-
-    return !!context.get('options.useTopBoxad');
-  }
-
   pushSlotToQueue(name) {
     const { context, utils } = window.Wikia.adEngine;
 
