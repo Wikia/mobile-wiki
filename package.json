@@ -33,7 +33,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v49.0.0",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v49.3.0",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#20adaf9b214b67c1046090b6caed91aec92c472a",
     "@wikia/search-tracking": "github:Wikia/search-tracking#2.0.0",
     "@wikia/tracking-opt-in": "2.0.6",
@@ -54,7 +54,7 @@
     "fastboot-app-server": "2.0.0",
     "hammerjs": "2.0.8",
     "js-cookie": "2.2.0",
-    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.6.5",
+    "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.7.0",
     "lazysizes": "5.1.1",
     "method-override": "3.0.0",
     "on-headers": "1.0.2",

@@ -9,7 +9,7 @@ import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
-import { trackScrollY } from '../../utils/track';
+import { trackScrollY, trackXClick } from '../../utils/track';
 import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
@@ -226,13 +226,20 @@ class Ads {
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
-    const { events } = window.Wikia.adEngine;
-    const { eventService } = window.Wikia.adEngine;
+    const {
+      AdSlot, events, eventService, SlotTweaker,
+    } = window.Wikia.adEngine;
 
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
     eventService.on(events.SCROLL_TRACKING_TIME_CHANGED, (time, position) => {
       trackScrollY(time / 1000, position);
+    });
+
+    eventService.on(AdSlot.CUSTOM_EVENT, (adSlot, { status }) => {
+      if (status === SlotTweaker.SLOT_CLOSE_IMMEDIATELY || status === 'force-unstick') {
+        trackXClick(adSlot);
+      }
     });
   }
 
