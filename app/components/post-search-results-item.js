@@ -8,7 +8,6 @@ export default Component.extend({
   classNames: ['post-search-results-item'],
   isQuizWithTakes: computed('post', function () {
     const type = this.post.type;
-    const stats = this.post.stats;
 
     if (type !== 'quiz') {
       return false;
