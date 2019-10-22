@@ -641,6 +641,13 @@ export default Component.extend(
      * @param {string} title
      */
     handlePostSearchResults(title) {
+      const unit = this.affiliateSlots.getSmallUnitOnPage(title);
+
+      if (typeof unit === 'undefined') {
+        // There's no unit to display (not an error)
+        return;
+      }
+
       // search for 4th section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
