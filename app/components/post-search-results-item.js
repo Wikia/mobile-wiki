@@ -29,6 +29,11 @@ export default Component.extend({
       return this.post.quizTakes;
     }
 
+    // this should never happen but let's just be safe
+    if (!this.posts.stats) {
+      return 0;
+    }
+
     // old format
     return this.post.stats.takes || 0;
   }),
