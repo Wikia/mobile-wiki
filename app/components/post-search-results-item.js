@@ -30,7 +30,7 @@ export default Component.extend({
     }
 
     // this should never happen but let's just be safe
-    if (!this.posts.stats) {
+    if (!this.post.stats) {
       return 0;
     }
 
