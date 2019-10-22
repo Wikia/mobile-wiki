@@ -14,28 +14,7 @@ export default Component.extend({
       return false;
     }
 
-    // new format
-    if (this.post.quizTakes && parseInt(this.post.quizTakes, 10) > 0) {
-      return true;
-    }
-
-    // old format
-    return stats && stats.takes && parseInt(stats.takes, 10) > 0;
-  }),
-
-  quizTakes: computed('post', function () {
-    // new format
-    if (this.post.quizTakes && parseInt(this.post.quizTakes, 10) > 0) {
-      return this.post.quizTakes;
-    }
-
-    // this should never happen but let's just be safe
-    if (!this.post.stats) {
-      return 0;
-    }
-
-    // old format
-    return this.post.stats.takes || 0;
+    return this.post.quizTakes && parseInt(this.post.quizTakes, 10) > 0;
   }),
 
   imageThumbnail: computed('post.image', function () {
