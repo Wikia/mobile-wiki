@@ -29,6 +29,7 @@ export default Component.extend(
     logger: service(),
     lightbox: service(),
     wikiVariables: service(),
+    affiliateSlots: service(),
 
     tagName: 'article',
     classNames: ['article-content', 'mw-content'],
@@ -59,6 +60,8 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
+          this.handleBigAffiliateUnit(this.displayTitle);
+          this.handlePostSearchResults(this.displayTitle);
           this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
@@ -123,7 +126,13 @@ export default Component.extend(
     click(event) {
       this.handleReferences(event);
 
-      const anchor = event.target.closest('a');
+      let anchor = event.target.closest('a');
+
+      // TODO: remove after IW-2613 is done
+      if (!anchor) {
+        anchor = event.target.closest('[aria-controls$="-collapsible-section"]');
+      }
+
       const label = this.getTrackingEventLabel(anchor);
 
       if (label) {
@@ -291,6 +300,10 @@ export default Component.extend(
         }
         if (element.closest('.article-media-thumbnail')) {
           return 'image-link';
+        }
+        // TODO: remove after IW-2613 is done
+        if (element.closest('[aria-controls$="-collapsible-section"]')) {
+          return 'section-toggle';
         }
 
         return 'regular-link';
@@ -588,6 +601,73 @@ export default Component.extend(
           name: 'watch-show',
           attrs: {},
           element: placeholder,
+        }));
+      }
+    },
+
+    /**
+     * Injects an affiliate unit into the article content
+     * @param {string} title
+     */
+    handleBigAffiliateUnit(title) {
+      const unit = this.affiliateSlots.getBigUnitOnPage(title);
+
+      if (typeof unit === 'undefined') {
+        // There's no unit to display (not an error)
+        return;
+      }
+
+      // search for second section
+      const h2Elements = this.element.querySelectorAll('h2[section]');
+
+      if (h2Elements[1]) {
+        const unitPlaceholder = document.createElement('div');
+        const unitWrapper = document.createElement('div');
+        unitWrapper.className = 'affiliate-slot';
+
+        unitWrapper.appendChild(unitPlaceholder);
+        h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
+
+        this.renderedComponents.push(this.renderComponent({
+          name: 'affiliate-unit',
+          attrs: unit,
+          element: unitPlaceholder,
+        }));
+      }
+    },
+
+    /**
+     * Injects a post search results into the article content
+     * @param {string} title
+     */
+    handlePostSearchResults(title) {
+      const unit = this.affiliateSlots.getSmallUnitOnPage(title);
+
+      if (typeof unit === 'undefined') {
+        // There's no unit to display (not an error)
+        return;
+      }
+
+      // search for 4th section
+      const h2Elements = this.element.querySelectorAll('h2[section]');
+
+      if (h2Elements[3]) {
+        const unitPlaceholder = document.createElement('div');
+        const unitWrapper = document.createElement('div');
+        unitWrapper.className = 'affiliate-slot';
+
+        unitWrapper.appendChild(unitPlaceholder);
+        h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
+
+        this.renderedComponents.push(this.renderComponent({
+          name: 'post-search-results',
+          attrs: {
+            query: title,
+            isCrossWiki: true,
+            isPageInterrupt: true,
+            onlyShowWithAffiliateUnit: true,
+          },
+          element: unitPlaceholder,
         }));
       }
     },

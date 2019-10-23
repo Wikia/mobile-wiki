@@ -1,4 +1,7 @@
 {
+  "affiliate-unit": {
+    "big-unit-heading": "ファンからのおすすめ"
+  }, 
   "app": {
     "advertisement-label": "広告", 
     "cancel-label": "キャンセル", 
@@ -63,7 +66,7 @@
     "pagination-last": "末尾", 
     "shortcut-to-other": "その他", 
     "subtitle": "カテゴリページ", 
-    "total-number": "総ページ数", 
+    "total-number": "総ページ数 ({totalNumberOfItems})", 
     "trending-pages": "人気のページ"
   }, 
   "edit": {

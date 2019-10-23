@@ -29,6 +29,7 @@ import targeting from './affiliate-slots-targeting';
   * @property {string} link
   * @property {boolean} isExternal
   * @property {number} priority
+  * @property {number} preferredIndex
   * @property {boolean} [disableOnSearch=false]
   * @property {boolean} [disableOnPage=false]
   * @property {boolean} [onlyOnAndroid=false]

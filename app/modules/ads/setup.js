@@ -19,6 +19,7 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
+import { slotsLoader } from './slots-loader';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -36,6 +37,7 @@ export const adsSetup = {
   configure(adsContext, instantGlobals, isOptedIn) {
     const { bidders } = window.Wikia.adBidders;
     const {
+      AdSlot,
       context,
       events,
       eventService,
@@ -68,23 +70,24 @@ export const adsSetup = {
       this.setupAdContext(instantConfig, adsContext, isOptedIn);
       setupNpaContext();
 
-      const useTopBoxad = context.get('options.useTopBoxad');
       const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
-      templateService.register(BigFancyAdAbove, getBfaaConfig(useTopBoxad));
+      templateService.register(BigFancyAdAbove, getBfaaConfig());
       templateService.register(BigFancyAdBelow, getBfabConfig());
       templateService.register(FloorAdhesion);
       templateService.register(HideOnViewability);
       templateService.register(Interstitial);
       templateService.register(PorvataTemplate, getPorvataConfig());
-      templateService.register(Roadblock, getRoadblockConfig(useTopBoxad));
+      templateService.register(Roadblock, getRoadblockConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
 
       registerClickPositionTracker();
       registerSlotTracker();
       registerViewabilityTracker();
       registerPostmessageTrackingTracker();
-      context.push('listeners.slot', fanTakeoverResolver);
+      eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
+        fanTakeoverResolver.resolve();
+      });
 
       if (instantConfig.get('icPorvataDirect')) {
         context.set('slots.incontent_player.customFiller', 'porvata');
@@ -106,6 +109,9 @@ export const adsSetup = {
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
       billTheLizardWrapper.configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+
+      // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
+      slotsLoader.configureSlotsLoader();
     });
   },
 
@@ -151,13 +157,11 @@ export const adsSetup = {
     context.set('state.deviceType', utils.client.getDeviceType());
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
+    context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
-
     context.set('options.video.iasTracking.enabled', instantConfig.get('icIASPorvataTracking'));
-
-    context.set('options.gamLazyLoading.enabled', instantConfig.isGeoEnabled('wgAdDriverGAMLazyLoadingCountries'));
 
     context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
@@ -172,18 +176,13 @@ export const adsSetup = {
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
-    // Switch for repeating incontent boxad ads
-    context.set('options.useTopBoxad', instantConfig.isGeoEnabled('wgAdDriverMobileTopBoxadCountries'));
-    context.set(
-      'options.incontentBoxad1EagerLoading',
-      instantConfig.isGeoEnabled('wgAdDriverEagerlyLoadedIncontentBoxad1MobileWikiCountries'),
-    );
-    context.set('options.slotRepeater', instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentCountries'));
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
+    context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
       && instantConfig.isGeoEnabled('wgAdDriverKruxCountries') && !instantConfig.get('wgSitewideDisableKrux'));
+    context.set('services.krux.trackedSegments', instantConfig.get('icKruxSegmentsTracking'));
     context.set('services.moatYi.enabled', instantConfig.isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
     context.set('services.nielsen.enabled', instantConfig.isGeoEnabled('wgAdDriverNielsenCountries'));
 
@@ -284,10 +283,7 @@ export const adsSetup = {
       'slots.incontent_player.insertBeforeSelector',
     ];
 
-    if (
-      context.get('options.slotRepeater')
-      && instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')
-    ) {
+    if (instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')) {
       insertBeforePaths.forEach((insertBeforePath) => {
         context.set(
           insertBeforePath,
@@ -300,30 +296,10 @@ export const adsSetup = {
       });
     }
 
-    if (context.get('options.gamLazyLoading.enabled')) {
-      context.set('options.gamLazyLoading.fetchMarginPercent', instantConfig.get('wgAdDriverGAMLazyLoadingFetchMarginPercent'));
-      context.set('options.gamLazyLoading.renderMarginPercent', instantConfig.get('wgAdDriverGAMLazyLoadingRenderMarginPercent'));
-      context.set('options.useTopBoxad', true);
-      context.set('options.incontentBoxad1EagerLoading', true);
-      context.set(
-        'slots.incontent_boxad_1.defaultClasses',
-        context.get('slots.incontent_boxad_1.defaultClasses').filter(defaultClass => defaultClass !== 'hide'),
-      );
+    if (context.get('options.nonLazyLoading.enabled')) {
+      context.set('events.pushAfterCreated.top_boxad', []);
+      context.set('events.pushAfterRendered.top_boxad', []);
       context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
-    }
-
-    if (context.get('options.useTopBoxad')) {
-      if (context.get('options.incontentBoxad1EagerLoading')) {
-        context.set('events.pushAfterCreated.top_boxad', [
-          'incontent_boxad_1',
-        ]);
-      } else {
-        context.remove('events.pushAfterRendered.incontent_boxad_1');
-        context.set('events.pushAfterRendered.top_boxad', [
-          'incontent_boxad_1',
-          'incontent_player',
-        ]);
-      }
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {

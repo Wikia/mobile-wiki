@@ -1,6 +1,6 @@
 $post-search-results-item-image-height: 48px;
 
-.post-search-results-item {
+.post-search-results-affiliate-item {
   margin: 18px 0;
   min-height: $post-search-results-item-image-height;
 
@@ -43,5 +43,9 @@ $post-search-results-item-image-height: 48px;
     margin-left: 12px;
     object-fit: cover;
     width: $post-search-results-item-image-height;
+  }
+
+  &__icon {
+    margin-left: 5px;
   }
 }

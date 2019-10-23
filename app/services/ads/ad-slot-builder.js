@@ -3,6 +3,22 @@ import Service, { inject as service } from '@ember/service';
 import { getRenderComponentFor } from '../../utils/render-component';
 
 const MIN_ZEROTH_SECTION_LENGTH = 700;
+const AFFILIATE_SLOT_SPACE = 600;
+
+/**
+ * Check if element is too close `.affiliate-slot`
+ *
+ * @param {DOMElement} element
+ * @returns {boolean}
+ */
+function tooCloseToAffiliateSlots(element) {
+  const elementTop = offset(element).top || 0;
+
+  return Array.prototype.slice
+    .call(element.parentNode.querySelectorAll('.article-content > .affiliate-slot'))
+    .map(e => (offset(e).top || 0))
+    .some(top => (Math.abs(top - elementTop) < AFFILIATE_SLOT_SPACE));
+}
 
 export default Service.extend({
   ads: service('ads/ads'),
@@ -23,13 +39,13 @@ export default Service.extend({
     const element = this.component.element;
     const firstSection = Array.prototype.slice
       .call(element.parentNode.querySelectorAll('.article-content > h2'))
+      .filter(el => !tooCloseToAffiliateSlots(el))
       .find(el => (offset(el).top || 0) > MIN_ZEROTH_SECTION_LENGTH);
     const articleFooter = document.querySelector('.article-footer');
     const pi = document.querySelector('.portable-infobox-wrapper');
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.ads.slotNames;
     const globalFooter = document.querySelector('.wds-global-footer');
-    const isTopBoxadEnabled = this.ads.module.isTopBoxadEnabled();
     this.pageHasFeaturedVideo = !!component.featuredVideo;
 
     if (pi) {
@@ -42,7 +58,7 @@ export default Service.extend({
     }
 
     if (firstSection) {
-      this.appendAd(isTopBoxadEnabled ? adsData.topBoxad : adsData.incontentBoxad, 'beforebegin', firstSection);
+      this.appendAd(adsData.topBoxad, 'beforebegin', firstSection);
     }
 
     if (articleFooter) {
@@ -84,12 +100,11 @@ export default Service.extend({
     const curatedContent = element.querySelector('.curated-content');
     const trendingArticles = element.querySelector('.trending-articles');
     const globalFooter = document.querySelector('.wds-global-footer');
-    const isTopBoxadEnabled = this.ads.module.isTopBoxadEnabled();
 
     this.appendAd(adsData.topLeaderBoard, 'beforebegin', element);
 
     if (curatedContent) {
-      this.appendAd(isTopBoxadEnabled ? adsData.topBoxad : adsData.incontentBoxad, 'afterend', curatedContent);
+      this.appendAd(adsData.topBoxad, 'afterend', curatedContent);
     }
 
     if (trendingArticles) {

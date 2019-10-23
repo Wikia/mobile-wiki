@@ -8,6 +8,8 @@ export default Controller.extend({
   fastboot: service(),
   wikiVariables: service(),
 
+  queryParams: ['query', 'scope'],
+
   searchId: null,
   // TODO: to be removed as we'll be supporting more errors on search page,
   // see: https://wikia-inc.atlassian.net/browse/DAT-4324
@@ -28,10 +30,6 @@ export default Controller.extend({
     onResultClick(result) {
       this.trackItemClick(result);
     },
-
-    onScopeChange(newScope) {
-      this.model.changeScope(newScope).then(() => this.trackResultsImpression());
-    },
   },
 
   trackItemClick(result) {
@@ -40,16 +38,16 @@ export default Controller.extend({
     }
 
     const payload = {
-      searchPhrase: this.inputPhrase,
+      searchPhrase: this.model.getQuery(),
+      filters: {
+        searchType: this.model.getScope(),
+      },
       clicked: {
         type: 'article', // currently the only displayed type in the search
         id: `${result.wikiId}_${result.id}`,
         title: result.title,
         position: result.position + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
-      },
-      filters: {
-        searchType: this.model.getScope(),
       },
       target: 'redirect',
       app: 'mw-mobile',
@@ -70,7 +68,7 @@ export default Controller.extend({
     const batchBegin = this.model.batch * batchSize;
     const batchEnd = batchBegin + batchSize;
     const payload = {
-      searchPhrase: this.inputPhrase,
+      searchPhrase: this.model.getQuery(),
       filters: {
         searchType: this.model.getScope(),
       },

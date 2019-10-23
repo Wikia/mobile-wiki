@@ -38,6 +38,20 @@ export const defaultAdContext = {
         enabled: false,
         slots: ['mobile_in_content'],
       },
+      '33across': {
+        enabled: false,
+        slots: {
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: 'adXWum5iSr6z9AaKlId8sQ',
+            productId: 'inview',
+          },
+        },
+      },
       aol: {
         enabled: false,
         network: '9435.1',
@@ -87,6 +101,14 @@ export const defaultAdContext = {
               [320, 50],
             ],
           },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            placementId: '17062362',
+          },
         },
         placements: {
           ent: '9412992',
@@ -124,7 +146,6 @@ export const defaultAdContext = {
               [300, 50],
               [320, 50],
               [320, 100],
-              [728, 90],
             ],
             inScreen: 'vbzbl1nw',
           },
@@ -151,6 +172,14 @@ export const defaultAdContext = {
               [320, 50],
             ],
             siteId: '185056',
+          },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: '419027',
           },
         },
       },
@@ -313,6 +342,15 @@ export const defaultAdContext = {
             siteId: '23565',
             zoneId: '87671',
           },
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            siteId: '23565',
+            zoneId: '1422262',
+          },
         },
       },
       vmg: {
@@ -341,6 +379,11 @@ export const defaultAdContext = {
           bottom_leaderboard: {
             sizes: [
               [300, 250],
+            ],
+          },
+          floor_adhesion: {
+            sizes: [
+              [320, 50],
             ],
           },
         },
@@ -376,14 +419,11 @@ export const defaultAdContext = {
       threshold: 100,
     },
     pushAfterRendered: {
-      incontent_boxad_1: [
+      top_boxad: [
+        'incontent_boxad_1',
         'incontent_player',
       ],
     },
-  },
-  listeners: {
-    porvata: [],
-    slot: [],
   },
   slots: {},
   vast: {
@@ -410,6 +450,10 @@ export const defaultAdContext = {
     confiant: {
       enabled: false,
       propertyId: 'd-aIf3ibf0cYxCLB1HTWfBQOFEA',
+    },
+    durationMedia: {
+      enabled: false,
+      siteId: '1167',
     },
     instantConfig: {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',

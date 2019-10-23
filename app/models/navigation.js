@@ -19,6 +19,7 @@ export default EmberObject.extend({
         id: wikiId,
         lang: language,
         version: 2,
+        footer_version: 2,
       },
     });
 

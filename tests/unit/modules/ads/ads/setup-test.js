@@ -15,6 +15,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdEngine() {
         this.init = () => {};
       },
+      AdSlot: {
+        SLOT_RENDERED_EVENT: 'onRenderEnded',
+      },
       clickPositionTracker: {
         register: () => {},
       },
@@ -27,7 +30,7 @@ module('Unit | Module | ads | setup', (hooks) => {
       events,
       eventService,
       InstantConfigService: {
-        init: (globals = {}) => Promise.resolve({
+        init: (globals = { wgAdDriverBillTheLizardConfig: {} }) => Promise.resolve({
           get: key => globals[key],
           isGeoEnabled: () => undefined,
         }),
