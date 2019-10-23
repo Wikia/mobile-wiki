@@ -495,8 +495,8 @@ export const defaultAdContext = {
       iasTracking: {
         enabled: false,
         config: {
-          anId: 'TBD',
-          campId: 'TBD',
+          anId: '930616',
+          campId: '640x480',
         },
       },
     },
