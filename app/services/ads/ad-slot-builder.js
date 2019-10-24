@@ -46,7 +46,6 @@ export default Service.extend({
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.ads.slotNames;
     const globalFooter = document.querySelector('.wds-global-footer');
-    const isTopBoxadEnabled = this.ads.module.isTopBoxadEnabled();
     this.pageHasFeaturedVideo = !!component.featuredVideo;
 
     if (pi) {
@@ -59,7 +58,7 @@ export default Service.extend({
     }
 
     if (firstSection) {
-      this.appendAd(isTopBoxadEnabled ? adsData.topBoxad : adsData.incontentBoxad, 'beforebegin', firstSection);
+      this.appendAd(adsData.topBoxad, 'beforebegin', firstSection);
     }
 
     if (articleFooter) {
@@ -101,12 +100,11 @@ export default Service.extend({
     const curatedContent = element.querySelector('.curated-content');
     const trendingArticles = element.querySelector('.trending-articles');
     const globalFooter = document.querySelector('.wds-global-footer');
-    const isTopBoxadEnabled = this.ads.module.isTopBoxadEnabled();
 
     this.appendAd(adsData.topLeaderBoard, 'beforebegin', element);
 
     if (curatedContent) {
-      this.appendAd(isTopBoxadEnabled ? adsData.topBoxad : adsData.incontentBoxad, 'afterend', curatedContent);
+      this.appendAd(adsData.topBoxad, 'afterend', curatedContent);
     }
 
     if (trendingArticles) {

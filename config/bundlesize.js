@@ -33,6 +33,6 @@ module.exports = {
   },
   'jwplayer:js': {
     pattern: `${assetsFolder}/jwplayer/*.js`,
-    limit: '55KB',
+    limit: '56KB',
   },
 };

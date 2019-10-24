@@ -28,8 +28,6 @@ export function getAdsModuleMock(adsContext) {
         isAboveTheFold: false,
       }
     ),
-    isTopBoxadEnabled() {
-    },
   };
 
   if (adsContext) {

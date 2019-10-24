@@ -9,7 +9,7 @@ import { biddersDelayer } from './bidders-delayer';
 import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
-import { trackScrollY } from '../../utils/track';
+import { trackScrollY, trackXClick } from '../../utils/track';
 import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
@@ -182,12 +182,6 @@ class Ads {
     };
   }
 
-  isTopBoxadEnabled() {
-    const { context } = window.Wikia.adEngine;
-
-    return !!context.get('options.useTopBoxad');
-  }
-
   pushSlotToQueue(name) {
     const { context, utils } = window.Wikia.adEngine;
 
@@ -198,13 +192,20 @@ class Ads {
   }
 
   registerActions({ onHeadOffsetChange, onSmartBannerChange }) {
-    const { events } = window.Wikia.adEngine;
-    const { eventService } = window.Wikia.adEngine;
+    const {
+      AdSlot, events, eventService, SlotTweaker,
+    } = window.Wikia.adEngine;
 
     eventService.on(appEvents.HEAD_OFFSET_CHANGE, onHeadOffsetChange);
     eventService.on(appEvents.SMART_BANNER_CHANGE, onSmartBannerChange);
     eventService.on(events.SCROLL_TRACKING_TIME_CHANGED, (time, position) => {
       trackScrollY(time / 1000, position);
+    });
+
+    eventService.on(AdSlot.CUSTOM_EVENT, (adSlot, { status }) => {
+      if (status === SlotTweaker.SLOT_CLOSE_IMMEDIATELY || status === 'force-unstick') {
+        trackXClick(adSlot);
+      }
     });
   }
 
@@ -346,7 +347,7 @@ class Ads {
     const { krux, moatYi, nielsen } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
-    krux.call();
+    krux.call().then(this.trackKruxSegments);
     moatYi.call();
     nielsen.call({
       type: 'static',
@@ -393,6 +394,22 @@ class Ads {
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
+    }
+  }
+
+  /**
+   * @private
+   */
+  trackKruxSegments() {
+    const { context, utils } = window.Wikia.adEngine;
+    const kruxUserSegments = context.get('targeting.ksg') || [];
+    const kruxTrackedSegments = context.get('services.krux.trackedSegments') || [];
+
+    const kruxPropValue = kruxUserSegments.filter(segment => kruxTrackedSegments.includes(segment));
+
+    if (kruxPropValue.length) {
+      pageTracker.trackProp('krux_segments', kruxPropValue.join('|'));
+      utils.logger(logGroup, 'krux props', kruxPropValue);
     }
   }
 

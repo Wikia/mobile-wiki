@@ -27,6 +27,9 @@ export default Route.extend(
       query: {
         refreshModel: true,
       },
+      scope: {
+        refreshModel: true,
+      },
     },
 
     applicationWrapperClassNames: null,
@@ -55,7 +58,7 @@ export default Route.extend(
 
       return SearchModel
         .create(getOwner(this).ownerInjection())
-        .search(params.query);
+        .search(params.query, params.scope);
     },
 
     actions: {

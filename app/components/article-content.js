@@ -126,7 +126,13 @@ export default Component.extend(
     click(event) {
       this.handleReferences(event);
 
-      const anchor = event.target.closest('a');
+      let anchor = event.target.closest('a');
+
+      // TODO: remove after IW-2613 is done
+      if (!anchor) {
+        anchor = event.target.closest('[aria-controls$="-collapsible-section"]');
+      }
+
       const label = this.getTrackingEventLabel(anchor);
 
       if (label) {
@@ -294,6 +300,10 @@ export default Component.extend(
         }
         if (element.closest('.article-media-thumbnail')) {
           return 'image-link';
+        }
+        // TODO: remove after IW-2613 is done
+        if (element.closest('[aria-controls$="-collapsible-section"]')) {
+          return 'section-toggle';
         }
 
         return 'regular-link';
@@ -631,6 +641,13 @@ export default Component.extend(
      * @param {string} title
      */
     handlePostSearchResults(title) {
+      const unit = this.affiliateSlots.getSmallUnitOnPage(title);
+
+      if (typeof unit === 'undefined') {
+        // There's no unit to display (not an error)
+        return;
+      }
+
       // search for 4th section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
