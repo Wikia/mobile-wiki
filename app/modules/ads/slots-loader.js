@@ -138,20 +138,24 @@ export const slotsLoader = {
   },
 
   loadIcp() {
+    const { context } = window.Wikia.adEngine;
+
     const icp = 'incontent_player';
+    const icpDisabledOnPush = context.get('slots.incontent_player.disablePushOnScroll');
 
     this.handleBidsRefreshPromise(
       this.injectFirstSlot,
       icp,
+      icpDisabledOnPush,
     );
   },
 
-  injectFirstSlot(firstSlotName) {
+  injectFirstSlot(firstSlotName, disableSlotOnPush = null) {
     const { context, slotInjector, utils } = window.Wikia.adEngine;
 
 
     utils.logger(logGroup, `injection started: ${firstSlotName}`);
-    slotInjector.inject(firstSlotName);
+    slotInjector.inject(firstSlotName, disableSlotOnPush);
     context.push('state.adStack', { id: firstSlotName });
   },
 
