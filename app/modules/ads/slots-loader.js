@@ -121,6 +121,7 @@ export const slotsLoader = {
 
     if (adProduct === 'top_boxad') {
       this.loadFirstSlot();
+      this.loadIcp();
     }
     if (adProduct.indexOf(this.baseSlotName) === 0) {
       this.loadNextSlot(adSlot);
@@ -136,8 +137,18 @@ export const slotsLoader = {
     );
   },
 
+  loadIcp() {
+    const icp = 'incontent_player';
+
+    this.handleBidsRefreshPromise(
+      this.injectFirstSlot,
+      icp,
+    );
+  },
+
   injectFirstSlot(firstSlotName) {
     const { context, slotInjector, utils } = window.Wikia.adEngine;
+
 
     utils.logger(logGroup, `injection started: ${firstSlotName}`);
     slotInjector.inject(firstSlotName);
