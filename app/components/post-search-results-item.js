@@ -8,9 +8,12 @@ export default Component.extend({
   classNames: ['post-search-results-item'],
   isQuizWithTakes: computed('post', function () {
     const type = this.post.type;
-    const stats = this.post.stats;
 
-    return type === 'quiz' && stats && stats.takes && parseInt(stats.takes, 10) > 0;
+    if (type !== 'quiz') {
+      return false;
+    }
+
+    return this.post.quizTakes && parseInt(this.post.quizTakes, 10) > 0;
   }),
 
   imageThumbnail: computed('post.image', function () {
