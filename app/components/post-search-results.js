@@ -168,13 +168,13 @@ export default Component.extend({
 
   update(state) {
     if (!this.isDestroyed) {
-      const results = state.results.map(item => ({
+      const results = state.results.map(item => (Object.assign({}, item, {
         image: item.image,
         stats: item.stats || {},
         title: item.title,
         type: item.type,
         url: item.url,
-      }));
+      })));
 
       if (this.smallAffiliateUnit) {
         const preferredIndex = getAffiliateSlot(this.smallAffiliateUnit, state.results);
