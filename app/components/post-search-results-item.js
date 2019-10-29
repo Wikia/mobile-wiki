@@ -9,15 +9,17 @@ export default Component.extend({
 
   // some old posts do not have title, we'll fake it here
   getTitle: computed('post', function () {
-    if (this.post.title) {
-      return this.post.title;
+    const post = this.post;
+
+    if (post.title) {
+      return post.title;
     }
 
-    if (this.post.content.length > 100) {
-      return this.post.content.substring(0, 100) + '&hellip;';
+    if (typeof post.content === 'string' && post.content.length > 100) {
+      return post.content.substring(0, 100) + '&hellip;';
     }
 
-    return this.post.content;
+    return post.content;
   }),
 
   isQuizWithTakes: computed('post', function () {
