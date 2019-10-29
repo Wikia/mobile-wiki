@@ -22,9 +22,7 @@ module('Acceptance | category page', (hooks) => {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
 
-    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
-      then: cb => cb(getAdsModuleMock({})),
-    });
+    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock({})));
   });
 
   hooks.afterEach(() => {

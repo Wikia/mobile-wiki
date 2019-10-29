@@ -114,16 +114,18 @@ export default Route.extend(
         !fastboot.get('isFastBoot')
         && !transition.queryParams.noexternals
       ) {
-        Ads.waitForAdEngine().then((ads) => {
-          ads.registerActions({
-            onHeadOffsetChange: (offset) => {
-              this.set('ads.siteHeadOffset', offset);
-            },
-            onSmartBannerChange: (visibility) => {
-              this.set('smartBanner.smartBannerVisible', visibility);
-            },
-          });
-        });
+        Ads.getLoadedInstance()
+          .then((ads) => {
+            ads.registerActions({
+              onHeadOffsetChange: (offset) => {
+                this.set('ads.siteHeadOffset', offset);
+              },
+              onSmartBannerChange: (visibility) => {
+                this.set('smartBanner.smartBannerVisible', visibility);
+              },
+            });
+          })
+          .catch(() => {}); // Ads not loaded
 
         this.fastlyInsights.loadFastlyInsightsScript();
       }

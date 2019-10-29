@@ -76,10 +76,9 @@ export default Component.extend(
     },
 
     onModalOpen() {
-      Ads.waitForAdEngine()
-        .then((ads) => {
-          ads.onMenuOpen();
-        });
+      Ads.getLoadedInstance()
+        .then(ads => ads.onMenuOpen())
+        .catch(() => {}); // Ads not loaded.
     },
 
     getSearchTrackingBasePayload(suggestions, suggestionsSearchId) {

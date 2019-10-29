@@ -1,17 +1,14 @@
 import Component from '@ember/component';
 import { computed, setProperties } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
-import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
 import InViewportMixin from 'ember-in-viewport';
 import RenderComponentMixin from '../mixins/render-component';
+import Ads from '../modules/ads';
 
 export default Component.extend(
   RenderComponentMixin,
   InViewportMixin,
   {
-    ads: service('ads/ads'),
-
     classNames: ['ad-slot-wrapper'],
     classNameBindings: ['nameLowerCase', 'noAds'],
     // This component is created dynamically, and this won't work without it
@@ -22,8 +19,6 @@ export default Component.extend(
     name: null,
     adEngine3ClassName: 'gpt-ad',
     pageHasFeaturedVideo: false,
-
-    noAds: readOnly('ads.noAds'),
 
     nameLowerCase: computed('name', function () {
       return dasherize((this.name || '').toLowerCase());
@@ -37,10 +32,6 @@ export default Component.extend(
       this._super(...arguments);
 
       if (this.disableManualInsert) {
-        return;
-      }
-
-      if (this.noAds) {
         return;
       }
 
@@ -61,41 +52,41 @@ export default Component.extend(
      * @returns {void}
      */
     didEnterViewport() {
-      const ads = this.get('ads.module');
-      const name = this.name;
-
-      if (this.noAds) {
-        return;
-      }
-
-      if (this.insertOnViewportEnter) {
-        ads.pushSlotToQueue(name);
-      } else if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => ads.pushSlotToQueue(this.name),
-          () => {},
-        );
-      }
+      Ads.getLoadedInstance()
+        .then((ads) => {
+          if (this.insertOnViewportEnter) {
+            ads.pushSlotToQueue(this.name);
+          } else if (this.shouldWaitForUapResponse) {
+            ads.waitForUapResponse().then((isUapLoaded) => {
+              if (isUapLoaded) {
+                ads.pushSlotToQueue(this.name);
+              }
+            });
+          }
+        })
+        .catch(() => {}); // Ads not loaded.
     },
 
     /**
      * @private
      */
     pushSlotToQueue() {
-      const ads = this.get('ads.module');
-
       if (this.insertOnViewportEnter) {
         return;
       }
-
-      if (this.shouldWaitForUapResponse) {
-        ads.waitForUapResponse(
-          () => {},
-          () => ads.pushSlotToQueue(this.name),
-        );
-      } else {
-        ads.pushSlotToQueue(this.name);
-      }
+      Ads.getLoadedInstance()
+        .then((ads) => {
+          if (this.shouldWaitForUapResponse) {
+            ads.waitForUapResponse().then((isUapLoaded) => {
+              if (!isUapLoaded) {
+                ads.pushSlotToQueue(this.name);
+              }
+            });
+          } else {
+            ads.pushSlotToQueue(this.name);
+          }
+        })
+        .catch(() => {}); // Ads not loaded.
     },
   },
 );
