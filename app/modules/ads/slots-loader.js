@@ -153,7 +153,6 @@ export const slotsLoader = {
   injectFirstSlot(firstSlotName, disableSlotOnPush = null) {
     const { context, slotInjector, utils } = window.Wikia.adEngine;
 
-
     utils.logger(logGroup, `injection started: ${firstSlotName}`);
     slotInjector.inject(firstSlotName, disableSlotOnPush);
     context.push('state.adStack', { id: firstSlotName });
