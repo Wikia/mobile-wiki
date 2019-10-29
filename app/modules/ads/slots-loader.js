@@ -121,7 +121,7 @@ export const slotsLoader = {
 
     if (adProduct === 'top_boxad') {
       this.loadFirstSlot();
-      this.loadIcp();
+      this.loadIncontentPlayer();
     }
     if (adProduct.indexOf(this.baseSlotName) === 0) {
       this.loadNextSlot(adSlot);
@@ -137,16 +137,16 @@ export const slotsLoader = {
     );
   },
 
-  loadIcp() {
+  loadIncontentPlayer() {
     const { context } = window.Wikia.adEngine;
 
-    const icp = 'incontent_player';
-    const icpDisabledOnPush = context.get('slots.incontent_player.disablePushOnScroll');
+    const slotName = 'incontent_player';
+    const isDisabledOnPush = context.get('slots.incontent_player.disablePushOnScroll');
 
     this.handleBidsRefreshPromise(
       this.injectFirstSlot,
-      icp,
-      icpDisabledOnPush,
+      slotName,
+      isDisabledOnPush,
     );
   },
 
