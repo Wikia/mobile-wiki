@@ -38,6 +38,7 @@ export default Component.extend(
     content: null,
     displayEmptyArticleInfo: true,
     displayTitle: null,
+    id: null,
     isPreview: false,
     media: null,
 

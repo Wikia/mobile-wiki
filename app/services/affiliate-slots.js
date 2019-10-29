@@ -81,8 +81,9 @@ const checkMobileSystem = (unit) => {
 };
 
 export default Service.extend({
-  wikiVariables: service(),
+  fetch: service(),
   geo: service(),
+  wikiVariables: service(),
 
   currentWikiId: readOnly('wikiVariables.id'),
   currentVertical: readOnly('wikiVariables.vertical'),
