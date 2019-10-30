@@ -61,8 +61,8 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
-          this.handleBigAffiliateUnit(this.displayTitle);
-          this.handlePostSearchResults(this.displayTitle);
+          this.handleBigAffiliateUnit(this.id, this.displayTitle);
+          this.handlePostSearchResults(this.id, this.displayTitle);
           this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
@@ -608,10 +608,11 @@ export default Component.extend(
 
     /**
      * Injects an affiliate unit into the article content
+     * @param {number} id
      * @param {string} title
      */
-    handleBigAffiliateUnit(title) {
-      const unit = this.affiliateSlots.getBigUnitOnPage(title);
+    handleBigAffiliateUnit(id, title) {
+      const unit = this.affiliateSlots.getBigUnitOnPage(id, title);
 
       if (typeof unit === 'undefined') {
         // There's no unit to display (not an error)
@@ -638,10 +639,11 @@ export default Component.extend(
 
     /**
      * Injects a post search results into the article content
+     * @param {number} id
      * @param {string} title
      */
-    handlePostSearchResults(title) {
-      const unit = this.affiliateSlots.getSmallUnitOnPage(title);
+    handlePostSearchResults(id, title) {
+      const unit = this.affiliateSlots.getSmallUnitOnPage(id, title);
 
       if (typeof unit === 'undefined') {
         // There's no unit to display (not an error)
