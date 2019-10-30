@@ -132,7 +132,7 @@ export const slotsLoader = {
     const firstSlotName = `${this.baseSlotName}_1`;
 
     this.handleBidsRefreshPromise(
-      this.injectFirstSlot,
+      this.injectSlot,
       firstSlotName,
     );
   },
@@ -141,21 +141,21 @@ export const slotsLoader = {
     const { context } = window.Wikia.adEngine;
 
     const slotName = 'incontent_player';
-    const isDisabledOnPush = context.get('slots.incontent_player.disablePushOnScroll');
+    const isDisabledOnScroll = context.get('slots.incontent_player.disablePushOnScroll');
 
     this.handleBidsRefreshPromise(
-      this.injectFirstSlot,
+      this.injectSlot,
       slotName,
-      isDisabledOnPush,
+      isDisabledOnScroll,
     );
   },
 
-  injectFirstSlot(firstSlotName, disableSlotOnPush = null) {
+  injectSlot(slotName, isDisabledOnScroll = false) {
     const { context, slotInjector, utils } = window.Wikia.adEngine;
 
-    utils.logger(logGroup, `injection started: ${firstSlotName}`);
-    slotInjector.inject(firstSlotName, disableSlotOnPush);
-    context.push('state.adStack', { id: firstSlotName });
+    utils.logger(logGroup, `injection started: ${slotName}`);
+    slotInjector.inject(slotName, isDisabledOnScroll);
+    context.push('state.adStack', { id: slotName });
   },
 
   handleBidsRefreshPromise(injectingCallback, slotName, ...args) {
