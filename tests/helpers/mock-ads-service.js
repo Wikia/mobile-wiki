@@ -7,7 +7,6 @@ export function getAdsModuleMock(adsContext) {
     },
     pushSlotToQueue() {
     },
-    onReady: cb => cb(),
     onTransition() {
     },
     reload() {
@@ -17,8 +16,6 @@ export function getAdsModuleMock(adsContext) {
     removeSlot() {
     },
     registerActions() {
-    },
-    waitForAdEngine() {
     },
     waitForUapResponse: () => Promise.resolve(true),
     onMenuOpen() {
@@ -31,9 +28,6 @@ export function getAdsModuleMock(adsContext) {
         isAboveTheFold: false,
       }
     ),
-    waitForReady(cb) {
-      cb();
-    },
   };
 
   if (adsContext) {

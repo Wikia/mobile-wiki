@@ -7,18 +7,11 @@ export default Controller.extend(
   AlertNotificationsMixin,
   {
     wikiPage: controller(),
-    ads: service('ads/ads'),
     lightbox: service(),
     logger: service(),
     wikiVariables: service(),
 
     queryParams: ['file', 'theme',
-      {
-        noAds: 'noads',
-      },
-      {
-        mobileApp: 'mobile-app',
-      },
       // TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
       {
         commentsPage: 'comments_page',
@@ -44,10 +37,9 @@ export default Controller.extend(
     },
 
     file: alias('lightbox.file'),
-    fullPage: oneWay('mobileApp'),
+    fullPage: oneWay('wikiPage.mobileApp'),
     isSearchPage: equal('currentRouteName', 'search'),
-    noAds: alias('ads.noAdsQueryParam'),
-    mobileApp: alias('ads.disableAdsInMobileApp'),
+    mobileApp: oneWay('wikiPage.mobileApp'),
 
     actions: {
       /**

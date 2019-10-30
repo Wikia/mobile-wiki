@@ -26,7 +26,7 @@ module('Integration | Component | article content', (hooks) => {
   let adsModuleStub;
 
   hooks.beforeEach(function () {
-    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({ then: cb => cb(getAdsModuleMock()) });
+    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock()));
     this.owner.register('component:ad-slot', adSlotComponentStub);
     this.owner.register('service:i18n', i18nService);
     mockAdsService(this.owner);
@@ -52,8 +52,6 @@ module('Integration | Component | article content', (hooks) => {
       content,
       setupAdsContext: setupAdsContextSpy,
     });
-
-    this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
 
     await render(hbs`{{#article-content
         setupAdsContext=setupAdsContext
@@ -81,8 +79,6 @@ module('Integration | Component | article content', (hooks) => {
       content,
       setupAdsContext: setupAdsContextSpy,
     });
-
-    this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
 
     await render(hbs`{{#article-content
         setupAdsContext=setupAdsContext
@@ -113,8 +109,6 @@ module('Integration | Component | article content', (hooks) => {
       content,
       setupAdsContext: setupAdsContextSpy,
     });
-
-    this.owner.lookup('component:article-content').get('ads.module').isLoaded = true;
 
     await render(hbs`{{#article-content
         setupAdsContext=setupAdsContext

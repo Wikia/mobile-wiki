@@ -21,20 +21,21 @@ export default Component.extend(
     },
 
     /**
-   * @returns {void}
-   */
+     * @returns {void}
+     */
     didInsertElement() {
       this._super(...arguments);
 
       run.scheduleOnce('afterRender', this, () => {
-        Ads.waitForAdEngine().then((ads) => {
-          this.ads.setupAdsContext(this.adsContext);
-          ads.onReady(() => {
+        Ads.getLoadedInstance()
+          .then(() => {
+            this.ads.setupAdsContext(this.adsContext);
+
             if (!this.isDestroyed) {
               this.adSlotBuilder.injectMainPageAds(this);
             }
-          });
-        });
+          })
+          .catch(() => {}); // AdEngine not loaded.
       });
     },
   },

@@ -5,7 +5,7 @@ import { setupTest } from 'ember-qunit';
 import require from 'require';
 import sinon from 'sinon';
 import Ads from 'mobile-wiki/modules/ads';
-import { getAdsModuleMock, mockAdsService } from '../../helpers/mock-ads-service';
+import { mockAdsService } from '../../helpers/mock-ads-service';
 import { mockAdSlotBuilder } from '../../helpers/mock-ad-slot-builder';
 
 const trackModule = require('mobile-wiki/utils/track');
@@ -19,7 +19,13 @@ module('Unit | Component | main page', (hooks) => {
   let adsModuleStub;
 
   hooks.beforeEach(function () {
-    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({ then: cb => cb(getAdsModuleMock()) });
+    // no idea why it does not work with returning Promise.resolve(getAdsModuleMock())
+    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns({
+      then: (cb) => {
+        cb();
+        return { catch: () => {} };
+      },
+    });
     setTrackContextStub = sinon.stub(trackModule, 'setTrackContext');
     trackPageViewStub = sinon.stub(trackModule, 'trackPageView');
     this.owner.register('component:ad-slot', adSlotComponentStub);
@@ -38,10 +44,11 @@ module('Unit | Component | main page', (hooks) => {
     const adsContext = {
       valid: true,
     };
+    setTrackContextStub = sinon.stub(adsService, 'setupAdsContext');
+
     const component = this.owner.factoryFor('component:main-page').create({
       adsContext,
     });
-    setTrackContextStub = sinon.stub(adsService, 'setupAdsContext');
 
     run(() => {
       component.didInsertElement();

@@ -7,6 +7,7 @@ import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
 import { track, trackActions } from '../utils/track';
 import config from '../config/environment';
+import extend from '../utils/extend';
 
 const DEFAULT_AFFILIATE_SLOT = 1;
 
@@ -140,8 +141,6 @@ export default Component.extend({
 
     const queryParams = {
       query,
-      // TODO: Remove when releasing search for all post types
-      type: 'quiz',
       page: 0,
       lang: this.wikiVariables.language.content,
       limit: 3,
@@ -168,18 +167,12 @@ export default Component.extend({
 
   update(state) {
     if (!this.isDestroyed) {
-      const results = state.results.map(item => ({
-        image: item.image,
-        stats: item.stats || {},
-        title: item.title,
-        type: item.type,
-        url: item.url,
-      }));
+      const results = state.results.map(item => extend({}, item));
 
       if (this.smallAffiliateUnit) {
-        const preferredIndex = getAffiliateSlot(this.smallAffiliateUnit, state.results);
-        this.smallAffiliateUnit.type = 'affiliate';
-        results.splice(preferredIndex, 0, this.smallAffiliateUnit);
+        const unit = this.smallAffiliateUnit;
+        const preferredIndex = getAffiliateSlot(unit, state.results);
+        results.splice(preferredIndex, 0, extend({}, unit, {type: 'affiliate'}));
 
         if (results.length > 3) {
           results.pop();
