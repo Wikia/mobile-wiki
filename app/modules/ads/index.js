@@ -257,7 +257,6 @@ class Ads {
     });
 
     this.triggerAfterPageRenderServices();
-    this.triggerPageTracking();
 
     utils.logger(logGroup, 'after transition');
   }
@@ -320,6 +319,7 @@ class Ads {
 
     this.callExternalTrackingServices();
     adblockDetector.run();
+    this.triggerPageTracking();
   }
 
   /**
