@@ -623,7 +623,6 @@ export default Component.extend(
       if (h2Elements[1]) {
         const unitPlaceholder = document.createElement('div');
         const unitWrapper = document.createElement('div');
-        unitWrapper.className = 'affiliate-slot';
 
         unitWrapper.appendChild(unitPlaceholder);
         h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
@@ -654,7 +653,6 @@ export default Component.extend(
       if (h2Elements[3]) {
         const unitPlaceholder = document.createElement('div');
         const unitWrapper = document.createElement('div');
-        unitWrapper.className = 'affiliate-slot';
 
         unitWrapper.appendChild(unitPlaceholder);
         h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
