@@ -16,7 +16,7 @@ export default Component.extend({
     }
 
     if (typeof post.content === 'string' && post.content.length > 100) {
-      return post.content.substring(0, 100) + '&hellip;';
+      return `${post.content.substring(0, 100)}&hellip;`;
     }
 
     return post.content;
