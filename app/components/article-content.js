@@ -61,8 +61,8 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
-          this.handleBigAffiliateUnit(this.id, this.displayTitle);
-          this.handlePostSearchResults(this.id, this.displayTitle);
+          this.handleBigAffiliateUnit();
+          this.handlePostSearchResults();
           this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
@@ -608,33 +608,33 @@ export default Component.extend(
 
     /**
      * Injects an affiliate unit into the article content
-     * @param {number} id
-     * @param {string} title
      */
-    handleBigAffiliateUnit(id, title) {
-      const unit = this.affiliateSlots.getBigUnitOnPage(id, title);
+    handleBigAffiliateUnit() {
+      this.affiliateSlots
+        .fetchUnitForPage(this.id, true)
+        .then(unit => {
+          console.log('handleBigAffiliateUnit', unit);
+          if (typeof unit === 'undefined') {
+            // There's no unit to display (not an error)
+            return;
+          }
 
-      if (typeof unit === 'undefined') {
-        // There's no unit to display (not an error)
-        return;
-      }
+          // search for second section
+          const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      // search for second section
-      const h2Elements = this.element.querySelectorAll('h2[section]');
+          if (h2Elements[1]) {
+            const unitPlaceholder = document.createElement('div');
+            const unitWrapper = document.createElement('div');
+            unitWrapper.appendChild(unitPlaceholder);
+            h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
 
-      if (h2Elements[1]) {
-        const unitPlaceholder = document.createElement('div');
-        const unitWrapper = document.createElement('div');
-
-        unitWrapper.appendChild(unitPlaceholder);
-        h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
-
-        this.renderedComponents.push(this.renderComponent({
-          name: 'affiliate-unit',
-          attrs: unit,
-          element: unitPlaceholder,
-        }));
-      }
+            this.renderedComponents.push(this.renderComponent({
+              name: 'affiliate-unit',
+              attrs: unit,
+              element: unitPlaceholder,
+            }));
+          }
+        })
     },
 
     /**
@@ -643,34 +643,26 @@ export default Component.extend(
      * @param {string} title
      */
     handlePostSearchResults(id, title) {
-      const unit = this.affiliateSlots.getSmallUnitOnPage(id, title);
-
-      if (typeof unit === 'undefined') {
-        // There's no unit to display (not an error)
-        return;
-      }
-
       // search for 4th section
-      const h2Elements = this.element.querySelectorAll('h2[section]');
+      // const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      if (h2Elements[3]) {
-        const unitPlaceholder = document.createElement('div');
-        const unitWrapper = document.createElement('div');
+      // if (h2Elements[3]) {
+      // const unitPlaceholder = document.createElement('div');
+      // const unitWrapper = document.createElement('div');
+      // unitWrapper.appendChild(unitPlaceholder);
+      // h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
 
-        unitWrapper.appendChild(unitPlaceholder);
-        h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
-
-        this.renderedComponents.push(this.renderComponent({
-          name: 'post-search-results',
-          attrs: {
-            query: title,
-            isCrossWiki: true,
-            isPageInterrupt: true,
-            onlyShowWithAffiliateUnit: true,
-          },
-          element: unitPlaceholder,
-        }));
-      }
+      //   this.renderedComponents.push(this.renderComponent({
+      //     name: 'post-search-results',
+      //     attrs: {
+      //       query: title,
+      //       isCrossWiki: true,
+      //       isPageInterrupt: true,
+      //       onlyShowWithAffiliateUnit: true,
+      //     },
+      //     element: unitPlaceholder,
+      //   }));
+      // }
     },
   },
 );

@@ -127,9 +127,9 @@ export default Service.extend({
       availableUnits.forEach(u => {
         // if we have a match, then let's add that unit to the list along with its' targeting `tracking` prop
         if (u.campaign === t.campaign && u.category === t.category) {
-          units.push(extend({}, unit, {
+          units.push(extend({}, u, {
             tracking: t.tracking || {},
-          });
+          }));
         }
       });
     });
@@ -200,11 +200,13 @@ export default Service.extend({
           targeting.sort((a, b) => b.score - a.score);
 
           // get the units that fulfill the campaign and category
-          const units = _getUnitsForCampaigns(targeting)
+          const units = this._getUnitsWithTargeting(targeting)
             // filter type of ad
             .filter(u => !!u.isBig === !!isBig)
             // filter units disabled on article page
-            .filter(u => !u.disableOnPage)
+            .filter(u => !u.disableOnPage);
+
+          console.log('targeting', targeting, units);
 
           // fetch only the first unit if available
           const unit = units.length > 0 ? units[0] : undefined
