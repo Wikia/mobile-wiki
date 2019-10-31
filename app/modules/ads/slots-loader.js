@@ -121,6 +121,7 @@ export const slotsLoader = {
 
     if (adProduct === 'top_boxad') {
       this.loadFirstSlot();
+      this.loadIncontentPlayer();
     }
     if (adProduct.indexOf(this.baseSlotName) === 0) {
       this.loadNextSlot(adSlot);
@@ -131,17 +132,30 @@ export const slotsLoader = {
     const firstSlotName = `${this.baseSlotName}_1`;
 
     this.handleBidsRefreshPromise(
-      this.injectFirstSlot,
+      this.injectSlot,
       firstSlotName,
     );
   },
 
-  injectFirstSlot(firstSlotName) {
+  loadIncontentPlayer() {
+    const { context } = window.Wikia.adEngine;
+
+    const slotName = 'incontent_player';
+    const isDisabledOnScroll = context.get('slots.incontent_player.disablePushOnScroll');
+
+    this.handleBidsRefreshPromise(
+      this.injectSlot,
+      slotName,
+      isDisabledOnScroll,
+    );
+  },
+
+  injectSlot(slotName, isDisabledOnScroll = false) {
     const { context, slotInjector, utils } = window.Wikia.adEngine;
 
-    utils.logger(logGroup, `injection started: ${firstSlotName}`);
-    slotInjector.inject(firstSlotName);
-    context.push('state.adStack', { id: firstSlotName });
+    utils.logger(logGroup, `injection started: ${slotName}`);
+    slotInjector.inject(slotName, isDisabledOnScroll);
+    context.push('state.adStack', { id: slotName });
   },
 
   handleBidsRefreshPromise(injectingCallback, slotName, ...args) {
