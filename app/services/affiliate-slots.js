@@ -122,6 +122,7 @@ export default Service.extend({
 
     // at this point we should have a prioritized list of units and prioritized list of targting params
     // we're going to iterate for each targeting in order to build the final list of units
+    // NOTE: here we have a nested loop - this is O(n^2), but since both have snall values we should be good
     targeting.forEach(t => {
       // we're checing all units
       availableUnits.forEach(u => {
@@ -161,15 +162,13 @@ export default Service.extend({
       // get the units that fulfill the targeting on search
       const targeting = this._getTargetingOnSearch(query);
       const units = this._getUnitsWithTargeting(targeting)
-        // filter type of ad
+        // filter type of ad - isBig can be undefined, let's convert both to boolean 
         .filter(u => !!u.isBig === !!isBig)
         // filter units disabled on search page
         .filter(u => !u.disableOnSearch);
       
       // fetch only the first unit if available
-      const unit = units.length > 0 ? units[0] : undefined
-
-      resolve(unit);
+      resolve(units.length > 0 ? units[0] : undefined);
     });
   },
 
@@ -202,15 +201,13 @@ export default Service.extend({
 
           // get the units that fulfill the campaign and category
           const units = this._getUnitsWithTargeting(targeting)
-            // filter type of ad
+            // filter type of ad - isBig can be undefined, let's convert both to boolean 
             .filter(u => !!u.isBig === !!isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
           // fetch only the first unit if available
-          const unit = units.length > 0 ? units[0] : undefined
-
-          resolve(unit);
+          resolve(units.length > 0 ? units[0] : undefined);
         })
         .catch((error) => {
           this.logger.error(error.message);
