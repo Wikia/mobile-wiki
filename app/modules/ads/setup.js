@@ -269,6 +269,9 @@ export const adsSetup = {
       if (!instantConfig.get('icPrebidPubmaticOutstream')) {
         context.remove('bidders.prebid.pubmatic.slots.incontent_player');
       }
+
+      const priceFloorRule = instantConfig.get('icPrebidSizePriceFloorRule');
+      context.set('bidders.prebid.priceFloor', priceFloorRule || null);
     }
 
     const insertBeforePaths = [
