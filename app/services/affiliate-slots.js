@@ -12,8 +12,8 @@ import extend from '../utils/extend';
   * @property {string[]} campaign
   * @property {string[]} category
   * @property {string[]} unit
-  * @property {number} [wikiId=[]]
-  * @property {number} [query=[]]
+  * @property {number[]} query
+  * @property {number[]} wikiId
 */
 import searchPageTargeting from './affiliate-slots-targeting';
 
@@ -33,7 +33,7 @@ import searchPageTargeting from './affiliate-slots-targeting';
   * @property {boolean} [disableOnPage=false]
   * @property {boolean} [onlyOnAndroid=false]
   * @property {boolean} [onlyOnIOS=false]
-  * @property {number} [country=[]]
+  * @property {number[]} [country=[]]
 */
 import units from './affiliate-slots-units';
 
@@ -186,6 +186,7 @@ export default Service.extend({
           // convert API to nicer, more useful format
           const targeting = [];
 
+          // convert from tree structure to flat structure for easier comparison later
           response.forEach(e => {
             e.categories.forEach(c => {
               targeting.push({
@@ -197,6 +198,7 @@ export default Service.extend({
             });
           });
 
+          // sort by the scores, to get better results first
           targeting.sort((a, b) => b.score - a.score);
 
           // get the units that fulfill the campaign and category
