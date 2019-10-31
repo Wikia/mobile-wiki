@@ -1,6 +1,4 @@
-import {
-  readOnly,
-} from '@ember/object/computed';
+import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
 import { system } from '../utils/browser';
@@ -91,7 +89,6 @@ const checkMobileSystem = (unit) => {
 export default Service.extend({
   fetch: service(),
   geo: service(),
-  logger: service(),
   wikiVariables: service(),
 
   currentWikiId: readOnly('wikiVariables.id'),
@@ -212,9 +209,9 @@ export default Service.extend({
           resolve(units.length > 0 ? units[0] : undefined);
         })
         .catch((error) => {
-          this.logger.error(error.message);
-
-          reject(error);
+          // log and do not raise anything
+          console.error(error);
+          resolve(undefined);
         });
     });
   },
