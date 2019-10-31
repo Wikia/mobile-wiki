@@ -27,7 +27,7 @@
     "comment": "Target xkxd02 wiki which is on both devbox and prod",
     "unit": [
       "xkxd02",
-      "keikosandbox-big"
+      "fandom-long-heading"
     ],
     "wikiId": [
       1575417,
@@ -43,7 +43,7 @@
     "comment": "Target xkxd02 wiki which is on both devbox and prod",
     "unit": [
       "xkxd02-small",
-      "keikosandbox"
+      "fandom-long-subheading"
     ],
     "wikiId": [
       1575417,

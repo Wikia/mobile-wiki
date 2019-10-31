@@ -3,6 +3,7 @@ $post-search-results-item-image-height: 48px;
 .post-search-results-affiliate-item {
   margin-top: 18px;
   min-height: $post-search-results-item-image-height;
+  position: relative;
 
   // Clearfix
   &::after {
@@ -19,16 +20,18 @@ $post-search-results-item-image-height: 48px;
     font-size: $wds-font-size-xs;
     font-weight: $wds-font-weight-medium;
     letter-spacing: .03px;
-    margin-bottom: 9px;
+    line-height: normal;
   }
 
   &__details {
     align-items: center;
+    bottom: 0;
     color: $wds-fandom-color-dark-gray;
     display: flex;
     font-size: $wds-font-size-xs;
     font-weight: $wds-font-weight-normal;
-    line-height: 1;
+    line-height: normal;
+    position: absolute;
 
     & > svg {
       margin-right: 6px;

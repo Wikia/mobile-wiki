@@ -33,6 +33,25 @@
     "priority": 1
   },
   {
+    "name": "fandom-long-heading",
+    "isBig": true,
+    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
+    "heading": "This Heading usessome realllylongwords and reallylongand sometimestheymight break.",
+    "subheading": "Presented by Disney+",
+    "link": "https://www.fandom.com",
+    "isExternal": false,
+    "priority": 1
+  },
+  {
+    "name": "fandom-long-subheading",
+    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
+    "heading": "BIG Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
+    "subheading": "Presented by Disney+ Presented by Disney+",
+    "link": "https://www.fandom.com",
+    "isExternal": false,
+    "priority": 1
+  },
+  {
     "name": "xkxd02-small",
     "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
     "heading": "Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
@@ -40,24 +59,5 @@
     "link": "https://www.fandom.com",
     "isExternal": false,
     "priority": 2
-  },
-  {
-    "name": "keikosandbox-big",
-    "isBig": "true",
-    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
-    "heading": "What happens if you get a heading with a super long title that goes over the character limit by a bunch a bunch a bunch.",
-    "subheading": "Presented by Disney+ and Friends",
-    "link": "https://www.fandom.com",
-    "isExternal": false,
-    "priority": 1,
-  },
-  {
-    "name": "keikosandbox",
-    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
-    "heading": "What happens if you get a heading with a super long title that goes over the character limit by a bunch a bunch a bunch.",
-    "subheading": "Presented by Disney+ and Friends",
-    "link": "https://www.fandom.com",
-    "isExternal": false,
-    "priority": 2,
   }
 ]
