@@ -613,7 +613,6 @@ export default Component.extend(
       this.affiliateSlots
         .fetchUnitForPage(this.id, true)
         .then(unit => {
-          console.log('handleBigAffiliateUnit', unit);
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
             return;
@@ -634,35 +633,41 @@ export default Component.extend(
               element: unitPlaceholder,
             }));
           }
-        })
+        });
     },
 
     /**
      * Injects a post search results into the article content
-     * @param {number} id
-     * @param {string} title
      */
-    handlePostSearchResults(id, title) {
-      // search for 4th section
-      // const h2Elements = this.element.querySelectorAll('h2[section]');
+    handlePostSearchResults() {
+      this.affiliateSlots
+        .fetchUnitForPage(this.id, false)
+        .then(unit => {
+          if (typeof unit === 'undefined') {
+            // There's no unit to display (not an error)
+            return;
+          }
 
-      // if (h2Elements[3]) {
-      // const unitPlaceholder = document.createElement('div');
-      // const unitWrapper = document.createElement('div');
-      // unitWrapper.appendChild(unitPlaceholder);
-      // h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
+          // search for second section
+          const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      //   this.renderedComponents.push(this.renderComponent({
-      //     name: 'post-search-results',
-      //     attrs: {
-      //       query: title,
-      //       isCrossWiki: true,
-      //       isPageInterrupt: true,
-      //       onlyShowWithAffiliateUnit: true,
-      //     },
-      //     element: unitPlaceholder,
-      //   }));
-      // }
+          if (h2Elements[3]) {
+            const unitPlaceholder = document.createElement('div');
+            const unitWrapper = document.createElement('div');
+            unitWrapper.appendChild(unitPlaceholder);
+            h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
+
+            this.renderedComponents.push(this.renderComponent({
+              name: 'post-search-results',
+              attrs: {
+                query: this.title,
+                unit,
+                isCrossWiki: true,
+              },
+              element: unitPlaceholder,
+            }));
+          }
+        });
     },
   },
 );

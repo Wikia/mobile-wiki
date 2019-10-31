@@ -159,11 +159,12 @@ export default Service.extend({
       }
 
       // get the units that fulfill the targeting on search
-      const units = _getUnitsForCampaigns(this._getTargetingOnSearch(query))
+      const targeting = this._getTargetingOnSearch(query);
+      const units = this._getUnitsWithTargeting(targeting)
         // filter type of ad
         .filter(u => !!u.isBig === !!isBig)
         // filter units disabled on search page
-        .filter(u => !u.disableOnSearch)
+        .filter(u => !u.disableOnSearch);
       
       // fetch only the first unit if available
       const unit = units.length > 0 ? units[0] : undefined
@@ -179,7 +180,7 @@ export default Service.extend({
         resolve(undefined);
       }
       
-      const url = this.fetch.getServiceUrl('taxonomy', `/affiliates/${this.currentWikiId}/${id}`);
+      const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${id}`);
 
       this.fetch.fetchAndParseResponse(url, {}, AffiiatesFetchError)
         .then((response) => {
@@ -205,8 +206,6 @@ export default Service.extend({
             .filter(u => !!u.isBig === !!isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
-
-          console.log('targeting', targeting, units);
 
           // fetch only the first unit if available
           const unit = units.length > 0 ? units[0] : undefined

@@ -71,10 +71,10 @@ This file defines all the active targeting on the SEARCH RESULTS page.
 
 ### Fields
 
-**NOTE**: All the fields are arrays. If the array is empty (`[]`) **OR** it is not present in the object - filtering for that field is ignored.
+**NOTE**: Some the fields are arrays. If the array is empty (`[]`) **OR** it is not present in the object - filtering for that field is ignored. Both `campaign` and `category` are not arrays and are not used for filtering.
 
-* `campaign` - list of allowed campaing names
-* `category` - list of allowed category names
+* `campaign` - allowed campaing name
+* `category` - allowed category name
 * `wikiId` - IDs of communities that the unit should display on
 * `query` - search queries that the unit should display on
 * `vertical` - list of verticals that the unit should display on

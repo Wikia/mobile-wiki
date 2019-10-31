@@ -28,12 +28,8 @@
     ]
   },
   {
-    "campaign": [
-      "fandom-test"
-    ],
-    "category": [
-      "fandom-test-xkxd"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test-search-big",
     "wikiId": [
       1575417,
       1619010
@@ -45,12 +41,8 @@
     ]
   },
   {
-    "campaign": [
-      "fandom-test"
-    ],
-    "category": [
-      "fandom-test-xkxd"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test-search",
     "wikiId": [
       1575417,
       1619010

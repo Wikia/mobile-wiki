@@ -68,32 +68,19 @@ export default Component.extend({
 
   isLoading: true,
   isCrossWiki: false,
-  onlyShowWithAffiliateUnit: false,
-  isPageInterrupt: false,
   posts: null,
+  unit: null,
 
   // TODO: Use when releasing search for all post types
   // seeMoreButtonEnabled: not('isCrossWiki'),
   seeMoreButtonEnabled: false,
-
-  smallAffiliateUnit: computed('query', 'isPageInterrupt', function () {
-    if (this.isPageInterrupt) {
-      return this.affiliateSlots.getSmallUnitOnPage(this.get('query'));
-    }
-    return this.affiliateSlots.getSmallUnitOnSearch(this.get('query'));
-  }),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
   seeMoreUrl: computed('wikiVariables.articlePath', function () {
     return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('smallAffiliateUnit', 'onlyShowWithAffiliateUnit', 'wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
-    // if we have `onlyShowWithAffiliateUnit` flag and there's no uint, disable
-    if (this.onlyShowWithAffiliateUnit && !this.smallAffiliateUnit) {
-      return false;
-    }
-
+  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
     // Enable on non-production wikis
     if (config.environment !== 'production') {
       return true;
@@ -169,8 +156,8 @@ export default Component.extend({
     if (!this.isDestroyed) {
       const results = state.results.map(item => extend({}, item));
 
-      if (this.smallAffiliateUnit) {
-        const unit = this.smallAffiliateUnit;
+      if (this.unit) {
+        const unit = this.unit;
         const preferredIndex = getAffiliateSlot(unit, state.results);
         results.splice(preferredIndex, 0, extend({}, unit, { type: 'affiliate' }));
 
