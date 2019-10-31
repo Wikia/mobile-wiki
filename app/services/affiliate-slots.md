@@ -45,9 +45,9 @@ This file defines all the available affiliate units.
 
 ## `affiliate-slots-targeting.json`
 
-This file defines all the active targeting on the search results page.
+This file defines all the active targeting on the SEARCH RESULTS page.
 
-**NOTE**: Article-level search is driven by taxonomy service.
+**NOTE**: Article-level units are driven by taxonomy service.
 
 ### Structure of single targeting entry
 
@@ -78,8 +78,3 @@ This file defines all the active targeting on the search results page.
 * `wikiId` - IDs of communities that the unit should display on
 * `query` - search queries that the unit should display on
 * `vertical` - list of verticals that the unit should display on
-
-Those are non-array fields for targeting:
-
-* `disableOnSearch` is set to `true` the targeting will be disabled on search; `false` is the default
-* `disableOnPage` is set to `true` the targeting will be disabled on article pages; `false` is the default
