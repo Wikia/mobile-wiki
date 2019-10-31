@@ -26,7 +26,6 @@
   {
     "comment": "Target xkxd02 wiki which is on both devbox and prod",
     "unit": [
-      "xkxd02",
       "fandom-long-heading"
     ],
     "wikiId": [
@@ -42,7 +41,6 @@
   {
     "comment": "Target xkxd02 wiki which is on both devbox and prod",
     "unit": [
-      "xkxd02-small",
       "fandom-long-subheading"
     ],
     "wikiId": [
