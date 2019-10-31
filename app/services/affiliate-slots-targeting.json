@@ -26,7 +26,8 @@
   {
     "comment": "Target xkxd02 wiki which is on both devbox and prod",
     "unit": [
-      "xkxd02"
+      "xkxd02",
+      "keikosandbox-big"
     ],
     "wikiId": [
       1575417,
@@ -41,7 +42,8 @@
   {
     "comment": "Target xkxd02 wiki which is on both devbox and prod",
     "unit": [
-      "xkxd02-small"
+      "xkxd02-small",
+      "keikosandbox"
     ],
     "wikiId": [
       1575417,
