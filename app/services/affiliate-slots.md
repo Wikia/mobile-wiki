@@ -53,12 +53,8 @@ This file defines all the active targeting on the SEARCH RESULTS page.
 
 ```json
   {
-    "campaign": [
-      "disneyplus",
-    ],
-    "category": [
-      "disney",
-    ],
+    "campaign":  "disneyplus",
+    "category": "disney",
     "wikiId": [
       1081891,
       123
