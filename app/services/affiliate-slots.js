@@ -124,7 +124,7 @@ export default Service.extend({
     // we're going to iterate for each targeting in order to build the final list of units
     // NOTE: here we have a nested loop - this is O(n^2), but since both have small values we should be good
     targeting.forEach(t => {
-      // we're checing all units
+      // we're checking all units
       availableUnits.forEach(u => {
         // if we have a match, then let's add that unit to the list along with its' targeting `tracking` prop
         if (u.campaign === t.campaign && u.category === t.category) {
