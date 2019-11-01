@@ -1,11 +1,7 @@
 [
   {
-    "campaign": [
-      "fandom-test"
-    ],
-    "category": [
-      "fandom-test"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test",
     "wikiId": [
       1081891
     ],
@@ -14,12 +10,8 @@
     ]
   },
   {
-    "campaign": [
-      "fandom-test"
-    ],
-    "category": [
-      "fandom-test"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test",
     "wikiId": [
       1081891
     ],
