@@ -102,7 +102,7 @@ export default Service.extend({
     // get all the units based on name and additional checks
     return units
       // check for mobile-system-specific units
-      .filter(u => checkMobileSystem(u))
+      .filter(checkMobileSystem)
       // filter targeting by GEO cookie (country)
       .filter(u => checkFilter(u.country, this.currentCountry))
       // sort them according to the priority
