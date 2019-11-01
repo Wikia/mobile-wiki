@@ -64,8 +64,8 @@ const RecommendedDataFetchError = defineError({
   message: 'Recommended data couldn\'t be fetched',
 });
 
-const AffiiatesFetchError = defineError({
-  name: 'AffiiatesFetchError',
+const AffiliatesFetchError = defineError({
+  name: 'AffiliatesFetchError',
   message: 'Affiliates data couldn\'t be fetched',
 });
 
@@ -125,4 +125,5 @@ export {
   WikiVariablesFetchError,
   canAttemptRefresh,
   getProductionErrorMessage,
+  AffiliatesFetchError,
 };

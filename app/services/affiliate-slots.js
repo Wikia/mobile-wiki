@@ -2,7 +2,7 @@ import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
 import { system } from '../utils/browser';
-import { AffiiatesFetchError } from '../utils/errors';
+import { AffiliatesFetchError } from '../utils/errors';
 import extend from '../utils/extend';
 
 /**
@@ -178,7 +178,7 @@ export default Service.extend({
       
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${id}`);
 
-      this.fetch.fetchAndParseResponse(url, {}, AffiiatesFetchError)
+      this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
         .then((response) => {
           // convert API to nicer, more useful format
           const targeting = [];
