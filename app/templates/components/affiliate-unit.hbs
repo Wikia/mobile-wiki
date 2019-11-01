@@ -1,11 +1,12 @@
-<div class="affiliate-unit__slant"></div>
 <div class="affiliate-unit__header wds-font-weight-medium wds-midlight-navy">
-  <Icon @name="users" @size="small" class="affiliate-unit__header-icon" />
+  <Icon @name="user" @size="small" class="affiliate-unit__header-icon" />
   {{i18n "affiliate-unit.big-unit-heading"}}
 </div>
-<a href={{link}} class="affiliate-unit__link" style={{concat-background image}}>
+<a href={{link}} class="affiliate-unit__link">
+  <img class="affiliate-unit__image" src={{image}} alt="">
   <div class="affiliate-unit__content">
     <div class="affiliate-unit__heading wds-font-weight-bold wds-leading-tight">{{heading}}</div>
     <div class="affiliate-unit__subheading wds-font-weight-bold">{{subheading}}</div>
   </div>
 </a>
+<div class="affiliate-unit__slant"></div>

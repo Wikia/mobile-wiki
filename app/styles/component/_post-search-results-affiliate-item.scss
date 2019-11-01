@@ -19,7 +19,8 @@ $post-search-results-item-image-height: 48px;
     font-size: $wds-font-size-xs;
     font-weight: $wds-font-weight-medium;
     letter-spacing: .03px;
-    margin-bottom: 9px;
+    line-height: normal;
+    margin-bottom: 6px;
   }
 
   &__details {
@@ -28,7 +29,7 @@ $post-search-results-item-image-height: 48px;
     display: flex;
     font-size: $wds-font-size-xs;
     font-weight: $wds-font-weight-normal;
-    line-height: 1;
+    line-height: normal;
 
     & > svg {
       margin-right: 6px;
