@@ -155,10 +155,25 @@ export default Service.extend({
     return false;
   },
 
+  _getDebugUnit(debugString, isBig) {
+    const debugArray = debugString.split(',');
+    const campaign = debugArray[0];
+    const category = debugArray[1];
+
+    return units.find((unit) => {
+      return unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig;
+    });
+  },
+
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve, reject) => {
       if (!this._isLaunched() && !debugAffiliateUnits) {
         resolve(undefined);
+      }
+
+      // special use case for debuggin
+      if (debugAffiliateUnits.indexOf(',') > -1) {
+        resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
       }
 
       // check if we have possible units (we can fail early if we don't)
@@ -183,6 +198,11 @@ export default Service.extend({
     return new Promise((resolve, reject) => {
       if (!this._isLaunched() && !debugAffiliateUnits) {
         resolve(undefined);
+      }
+
+      // special use case for debuggin
+      if (debugAffiliateUnits.indexOf(',') > -1) {
+        resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
       }
 
       // check if we have possible units (we can fail early if we don't)

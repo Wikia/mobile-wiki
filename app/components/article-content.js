@@ -41,6 +41,7 @@ export default Component.extend(
     id: null,
     isPreview: false,
     media: null,
+    debugAffiliateUnits: false,
 
     lang: reads('wikiVariables.language.content'),
     dir: reads('wikiVariables.language.contentDir'),
@@ -621,7 +622,7 @@ export default Component.extend(
       }
 
       this.affiliateSlots
-        .fetchUnitForPage(this.id, true)
+        .fetchUnitForPage(this.id, true, this.debugAffiliateUnits)
         .then(unit => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
@@ -656,7 +657,7 @@ export default Component.extend(
       }
 
       this.affiliateSlots
-        .fetchUnitForPage(this.id, false)
+        .fetchUnitForPage(this.id, false, this.debugAffiliateUnits)
         .then(unit => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
