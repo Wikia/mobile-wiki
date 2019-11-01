@@ -4,6 +4,10 @@ import { track, trackActions } from '../utils/track';
 
 export default Component.extend({
   classNames: ['post-search-results-affiliate-item'],
+  didRender() {
+    // So that an ancestor component can show the disclaimer
+    this.setHasAffiliateUnit();
+  },
   actions: {
     trackClick(number) {
       track({
