@@ -169,14 +169,14 @@ export default Service.extend({
     });
   },
 
-  fetchUnitForPage(id, isBig = false) {
+  fetchUnitForPage(pageId, isBig = false) {
     return new Promise((resolve, reject) => {
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
         resolve(undefined);
       }
       
-      const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${id}`);
+      const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${pageId}`);
 
       this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
         .then((response) => {
