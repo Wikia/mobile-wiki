@@ -47,8 +47,8 @@
   padding-bottom: none;
 
   &__slant {
-    background-image: linear-gradient(-5deg, $wds-color-white 0%, $wds-color-white 50%, rgba(255, 255, 255, 0) 50%);
-    height: 74px;
+    background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $wds-color-white 60%, rgba(255, 255, 255, 0) 60%);
+    height: 130px;
     margin: 0 -12px;
   }
 
