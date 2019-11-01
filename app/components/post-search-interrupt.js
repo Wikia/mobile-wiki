@@ -12,16 +12,18 @@ export default Component.extend({
   isSmallFinished: false,
 
   isEnabled: and('isBigFinished', 'isSmallFinished'),
+  debugAffiliateUnits: false,
 
   init() {
     this._super(...arguments);
 
-    this.affiliateSlots.fetchUnitForSearch(this.query, false).then(u => {
+
+    this.affiliateSlots.fetchUnitForSearch(this.query, false, this.debugAffiliateUnits).then(u => {
       this.set('smallUnit', u);
       this.set('isSmallFinished', true);
     });
 
-    this.affiliateSlots.fetchUnitForSearch(this.query, true).then(u => {
+    this.affiliateSlots.fetchUnitForSearch(this.query, true, this.debugAffiliateUnits).then(u => {
       this.set('bigUnit', u);
       this.set('isBigFinished', true);
     });

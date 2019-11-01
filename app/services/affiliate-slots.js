@@ -149,8 +149,18 @@ export default Service.extend({
       .filter(t => checkFilter(t.query, query));
   },
 
-  fetchUnitForSearch(query, isBig = false) {
+  _isLaunched() {
+    // check/pass in the wikifactory date here
+    // return launchDate > wfData;
+    return false;
+  },
+
+  fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve, reject) => {
+      if (!this._isLaunched() && !debugAffiliateUnits) {
+        resolve(undefined);
+      }
+
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
         resolve(undefined);
@@ -159,23 +169,27 @@ export default Service.extend({
       // get the units that fulfill the targeting on search
       const targeting = this._getTargetingOnSearch(query);
       const units = this._getUnitsWithTargeting(targeting)
-        // filter type of ad - isBig can be undefined, let's convert both to boolean 
+        // filter type of ad - isBig can be undefined, let's convert both to boolean
         .filter(u => !!u.isBig === !!isBig)
         // filter units disabled on search page
         .filter(u => !u.disableOnSearch);
-      
+
       // fetch only the first unit if available
       resolve(units.length > 0 ? units[0] : undefined);
     });
   },
 
-  fetchUnitForPage(id, isBig = false) {
+  fetchUnitForPage(id, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve, reject) => {
+      if (!this._isLaunched() && !debugAffiliateUnits) {
+        resolve(undefined);
+      }
+
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
         resolve(undefined);
       }
-      
+
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${id}`);
 
       this.fetch.fetchAndParseResponse(url, {}, AffiiatesFetchError)
@@ -200,7 +214,7 @@ export default Service.extend({
 
           // get the units that fulfill the campaign and category
           const units = this._getUnitsWithTargeting(targeting)
-            // filter type of ad - isBig can be undefined, let's convert both to boolean 
+            // filter type of ad - isBig can be undefined, let's convert both to boolean
             .filter(u => !!u.isBig === !!isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
