@@ -617,6 +617,9 @@ export default Component.extend(
         return;
       }
 
+      // So that the article-wrapper can show the disclaimer
+      this.setHasAffiliateUnit();
+
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
@@ -646,6 +649,9 @@ export default Component.extend(
         // There's no unit to display (not an error)
         return;
       }
+
+      // So that the article-wrapper can show the disclaimer
+      this.setHasAffiliateUnit();
 
       // search for 4th section
       const h2Elements = this.element.querySelectorAll('h2[section]');
