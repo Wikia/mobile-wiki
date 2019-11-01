@@ -610,6 +610,16 @@ export default Component.extend(
      * Injects an affiliate unit into the article content
      */
     handleBigAffiliateUnit() {
+      const indexForUnit = 1; // 2nd section
+
+      // search for second section
+      const h2Elements = this.element.querySelectorAll('h2[section]');
+
+      // if there's no section that we want, just exit
+      if (!h2Elements[indexForUnit]) {
+        return;
+      }
+
       this.affiliateSlots
         .fetchUnitForPage(this.id, true)
         .then(unit => {
@@ -618,21 +628,16 @@ export default Component.extend(
             return;
           }
 
-          // search for second section
-          const h2Elements = this.element.querySelectorAll('h2[section]');
+          const unitPlaceholder = document.createElement('div');
+          const unitWrapper = document.createElement('div');
+          unitWrapper.appendChild(unitPlaceholder);
+          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
 
-          if (h2Elements[1]) {
-            const unitPlaceholder = document.createElement('div');
-            const unitWrapper = document.createElement('div');
-            unitWrapper.appendChild(unitPlaceholder);
-            h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
-
-            this.renderedComponents.push(this.renderComponent({
-              name: 'affiliate-unit',
-              attrs: unit,
-              element: unitPlaceholder,
-            }));
-          }
+          this.renderedComponents.push(this.renderComponent({
+            name: 'affiliate-unit',
+            attrs: unit,
+            element: unitPlaceholder,
+          }));
         });
     },
 
@@ -640,6 +645,16 @@ export default Component.extend(
      * Injects a post search results into the article content
      */
     handlePostSearchResults() {
+      const indexForUnit = 3; // 4th section
+
+      // search for second section
+      const h2Elements = this.element.querySelectorAll('h2[section]');
+
+      // if there's no section that we want, just exit
+      if (!h2Elements[indexForUnit]) {
+        return;
+      }
+
       this.affiliateSlots
         .fetchUnitForPage(this.id, false)
         .then(unit => {
@@ -648,25 +663,20 @@ export default Component.extend(
             return;
           }
 
-          // search for second section
-          const h2Elements = this.element.querySelectorAll('h2[section]');
+          const unitPlaceholder = document.createElement('div');
+          const unitWrapper = document.createElement('div');
+          unitWrapper.appendChild(unitPlaceholder);
+          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
 
-          if (h2Elements[3]) {
-            const unitPlaceholder = document.createElement('div');
-            const unitWrapper = document.createElement('div');
-            unitWrapper.appendChild(unitPlaceholder);
-            h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
-
-            this.renderedComponents.push(this.renderComponent({
-              name: 'post-search-results',
-              attrs: {
-                query: this.title,
-                unit,
-                isCrossWiki: true,
-              },
-              element: unitPlaceholder,
-            }));
-          }
+          this.renderedComponents.push(this.renderComponent({
+            name: 'post-search-results',
+            attrs: {
+              query: this.title,
+              unit,
+              isCrossWiki: true,
+            },
+            element: unitPlaceholder,
+          }));
         });
     },
   },
