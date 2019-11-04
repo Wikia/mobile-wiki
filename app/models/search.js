@@ -22,6 +22,7 @@ export default EmberObject.extend({
   tracing: service(),
   scope: 'internal',
   isInteralScope: equal('scope', 'internal'),
+  debugAffiliateUnits: '',
 
   canLoadMore: computed('batch', 'totalBatches', function () {
     return this.batch + 1 < this.totalBatches;
@@ -32,9 +33,13 @@ export default EmberObject.extend({
     this.set('items', A([]));
   },
 
-  search(query, scope) {
+  search(query, scope, debugAffiliateUnits) {
     if (isEmpty(scope)) {
       scope = 'internal';
+    }
+
+    if (isEmpty(debugAffiliateUnits)) {
+      debugAffiliateUnits = false;
     }
 
     this.setProperties({
@@ -44,6 +49,7 @@ export default EmberObject.extend({
       query,
       items: A([]),
       scope,
+      debugAffiliateUnits,
     });
 
     if (query) {
@@ -64,6 +70,7 @@ export default EmberObject.extend({
   },
 
   fetchResults(query) {
+    console.log('param', this.debugAffiliateUnits, this.get('debugAffiliateUnits'));
     this.setProperties({
       error: '',
       loading: true,

@@ -31,7 +31,7 @@
         {{#each posts as |post index|}}
           {{#if (equal post.type "affiliate")}}
             {{post-search-results-affiliate-item
-              affiliateUnit=smallAffiliateUnit
+              affiliateUnit=unit
               postIndex=index
               setHasAffiliateUnit=setHasAffiliateUnit
             }}

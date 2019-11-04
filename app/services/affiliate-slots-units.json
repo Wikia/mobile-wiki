@@ -1,6 +1,7 @@
 [
   {
-    "name": "fandom-com",
+    "campaign": "fandom-test",
+    "category": "fandom-test",
     "isBig": false,
     "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
     "heading": "Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
@@ -14,7 +15,8 @@
     "onlyOnIOS": false
   },
   {
-    "name": "fandom-big",
+    "campaign": "fandom-test",
+    "category": "fandom-test",
     "isBig": true,
     "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
     "heading": "BIG Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
@@ -23,7 +25,8 @@
     "priority": 2
   },
   {
-    "name": "xkxd02",
+    "campaign": "fandom-test",
+    "category": "fandom-test-search-big",
     "isBig": true,
     "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20190830144754",
     "heading": "BIG Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
@@ -33,8 +36,9 @@
     "priority": 1
   },
   {
-    "name": "xkxd02-small",
-    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20190830144754",
+    "campaign": "fandom-test",
+    "category": "fandom-test-search",
+    "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
     "heading": "Ewan McGregor Returns as Obi-Wan Kenobi in Disney+ Series",
     "subheading": "Presented by Disney+",
     "link": "https://www.fandom.com",

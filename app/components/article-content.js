@@ -38,8 +38,10 @@ export default Component.extend(
     content: null,
     displayEmptyArticleInfo: true,
     displayTitle: null,
+    id: null,
     isPreview: false,
     media: null,
+    debugAffiliateUnits: false,
 
     lang: reads('wikiVariables.language.content'),
     dir: reads('wikiVariables.language.contentDir'),
@@ -60,8 +62,8 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
-          this.handleBigAffiliateUnit(this.displayTitle);
-          this.handlePostSearchResults(this.displayTitle);
+          this.handleBigAffiliateUnit();
+          this.handlePostSearchResults();
           this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
@@ -607,73 +609,82 @@ export default Component.extend(
 
     /**
      * Injects an affiliate unit into the article content
-     * @param {string} title
      */
-    handleBigAffiliateUnit(title) {
-      const unit = this.affiliateSlots.getBigUnitOnPage(title);
-
-      if (typeof unit === 'undefined') {
-        // There's no unit to display (not an error)
-        return;
-      }
+    handleBigAffiliateUnit() {
+      const indexForUnit = 1; // 2nd section
 
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      if (h2Elements[1]) {
-        const unitPlaceholder = document.createElement('div');
-        const unitWrapper = document.createElement('div');
-
-        unitWrapper.appendChild(unitPlaceholder);
-        h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
-
-        this.renderedComponents.push(this.renderComponent({
-          name: 'affiliate-unit',
-          attrs: unit,
-          element: unitPlaceholder,
-        }));
-
-        // So that the article-wrapper can show the disclaimer
-        this.setHasAffiliateUnit();
+      // if there's no section that we want, just exit
+      if (!h2Elements[indexForUnit]) {
+        return;
       }
+
+      this.affiliateSlots
+        .fetchUnitForPage(this.id, true, this.debugAffiliateUnits)
+        .then(unit => {
+          if (typeof unit === 'undefined') {
+            // There's no unit to display (not an error)
+            return;
+          }
+
+          const unitPlaceholder = document.createElement('div');
+          const unitWrapper = document.createElement('div');
+          unitWrapper.appendChild(unitPlaceholder);
+          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
+
+          this.renderedComponents.push(this.renderComponent({
+            name: 'affiliate-unit',
+            attrs: unit,
+            element: unitPlaceholder,
+          }));
+
+          // So that the article-wrapper can show the disclaimer
+          this.setHasAffiliateUnit();
+        });
     },
 
     /**
      * Injects a post search results into the article content
-     * @param {string} title
      */
-    handlePostSearchResults(title) {
-      const unit = this.affiliateSlots.getSmallUnitOnPage(title);
+    handlePostSearchResults() {
+      const indexForUnit = 3; // 4th section
 
-      if (typeof unit === 'undefined') {
-        // There's no unit to display (not an error)
+      // search for second section
+      const h2Elements = this.element.querySelectorAll('h2[section]');
+
+      // if there's no section that we want, just exit
+      if (!h2Elements[indexForUnit]) {
         return;
       }
 
-      // search for 4th section
-      const h2Elements = this.element.querySelectorAll('h2[section]');
+      this.affiliateSlots
+        .fetchUnitForPage(this.id, false, this.debugAffiliateUnits)
+        .then(unit => {
+          if (typeof unit === 'undefined') {
+            // There's no unit to display (not an error)
+            return;
+          }
 
-      if (h2Elements[3]) {
-        const unitPlaceholder = document.createElement('div');
-        const unitWrapper = document.createElement('div');
+          const unitPlaceholder = document.createElement('div');
+          const unitWrapper = document.createElement('div');
+          unitWrapper.appendChild(unitPlaceholder);
+          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
 
-        unitWrapper.appendChild(unitPlaceholder);
-        h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
+          this.renderedComponents.push(this.renderComponent({
+            name: 'post-search-results',
+            attrs: {
+              query: this.title,
+              unit,
+              isCrossWiki: true,
+            },
+            element: unitPlaceholder,
+          }));
 
-        this.renderedComponents.push(this.renderComponent({
-          name: 'post-search-results',
-          attrs: {
-            query: title,
-            isCrossWiki: true,
-            isPageInterrupt: true,
-            onlyShowWithAffiliateUnit: true,
-          },
-          element: unitPlaceholder,
-        }));
-
-        // So that the article-wrapper can show the disclaimer
-        this.setHasAffiliateUnit();
-      }
+          // So that the article-wrapper can show the disclaimer
+          this.setHasAffiliateUnit();
+        });
     },
   },
 );
