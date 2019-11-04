@@ -37,8 +37,12 @@ export default Component.extend(
       return this.wikiVariables.watchShowURLAndroid;
     }),
 
-    isVisible: computed('url', 'buttonLabel', 'geo', function () {
-      return this.url && this.buttonLabel && this.geo.country === 'US';
+    isVisible: computed('url', 'buttonLabel', 'geo', 'wikiVariables', function () {
+      const isEnabled = Date.parse(this.wikiVariables.watchShowEnabledDate) < Date.now();
+      const isProperGeo Array.isArray(this.wikiVariables.watchShowGeos)
+        && watchShowGeos.indexOf(this.geo.country) > -1
+
+      return isEnabled && isProperGeo && this.url && this.buttonLabel;
     }),
 
     didInsertElement() {

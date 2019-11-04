@@ -1,3 +1,4 @@
+import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
@@ -95,6 +96,10 @@ export default Service.extend({
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
 
+  isLaunched: computed('wikiVariables.affiliateUnitEnabledDate', function () {
+    return Date.parse(this.wikiVariables.affiliateUnitEnabledDate) < Date.now();
+  }),
+
   /**
    * @returns {AffiliateUnit}
    */
@@ -149,12 +154,6 @@ export default Service.extend({
       .filter(t => checkFilter(t.query, query));
   },
 
-  _isLaunched() {
-    // check/pass in the wikifactory date here
-    // return launchDate > wfData;
-    return false;
-  },
-
   _getDebugUnit(debugString, isBig) {
     const debugArray = debugString.split(',');
     const campaign = debugArray[0];
@@ -167,7 +166,7 @@ export default Service.extend({
 
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve, reject) => {
-      if (!this._isLaunched() && !debugAffiliateUnits) {
+      if (!this.isLaunched && !debugAffiliateUnits) {
         resolve(undefined);
       }
 
@@ -196,7 +195,7 @@ export default Service.extend({
 
   fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve, reject) => {
-      if (!this._isLaunched() && !debugAffiliateUnits) {
+      if (!this.isLaunched && !debugAffiliateUnits) {
         resolve(undefined);
       }
 
