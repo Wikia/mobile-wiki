@@ -70,6 +70,7 @@ export default Component.extend({
   isCrossWiki: false,
   posts: null,
   unit: null,
+  debugAffiliateUnits: false,
 
   // TODO: Use when releasing search for all post types
   // seeMoreButtonEnabled: not('isCrossWiki'),
@@ -156,6 +157,7 @@ export default Component.extend({
     if (!this.isDestroyed) {
       const results = state.results.map(item => extend({}, item));
 
+      // check query param here
       if (this.unit) {
         const unit = this.unit;
         const preferredIndex = getAffiliateSlot(unit, state.results);
