@@ -56,16 +56,6 @@ const checkFilter = (filter, value) => (
 );
 
 /**
- * Distinct filter for arrays
- *
- * @param {*} value
- * @param {number} index
- * @param {Array} self
- * @returns {boolean}
- */
-const distinct = (value, index, self) => (self.indexOf(value) === index);
-
-/**
  * Check if the unit can be displayed on current system
  *
  * @param {string} unit
@@ -115,24 +105,29 @@ export default Service.extend({
    */
   _getUnitsWithTargeting(targeting) {
     const availableUnits = this._getAvailableUnits();
-    const units = [];
+    const unitsWithTargeting = [];
 
-    // at this point we should have a prioritized list of units and prioritized list of targting params
-    // we're going to iterate for each targeting in order to build the final list of units
-    // NOTE: here we have a nested loop - this is O(n^2), but since both have small values we should be good
-    targeting.forEach(t => {
+    /**
+     * At this point we should have a prioritized list of units and prioritized
+     * list of targeting params; we're going to iterate for each targeting
+     * in order to build the final list of units
+     *
+     * NOTE: here we have a nested loop - this is O(n^2), but since
+     * both have small values we should be good
+     */
+    targeting.forEach((t) => {
       // we're checking all units
-      availableUnits.forEach(u => {
-        // if we have a match, then let's add that unit to the list along with its' targeting `tracking` prop
+      availableUnits.forEach((u) => {
         if (u.campaign === t.campaign && u.category === t.category) {
-          units.push(extend({}, u, {
+          // let's add that unit to the list along with its' targeting `tracking` prop
+          unitsWithTargeting.push(extend({}, u, {
             tracking: t.tracking || {},
           }));
         }
       });
     });
 
-    return units;
+    return unitsWithTargeting;
   },
 
   /**
@@ -160,20 +155,20 @@ export default Service.extend({
     const campaign = debugArray[0];
     const category = debugArray[1];
 
-    return units.find((unit) => {
-      return unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig;
-    });
+    return units.find(
+      unit => unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig,
+    );
   },
 
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (!this._isLaunched() && !debugAffiliateUnits) {
         resolve(undefined);
       }
 
-      // special use case for debuggin
+      // special use case for debugging
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
+        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
       // check if we have possible units (we can fail early if we don't)
@@ -183,26 +178,26 @@ export default Service.extend({
 
       // get the units that fulfill the targeting on search
       const targeting = this._getTargetingOnSearch(query);
-      const units = this._getUnitsWithTargeting(targeting)
+      const availableUnits = this._getUnitsWithTargeting(targeting)
         // filter type of ad - isBig can be undefined, let's convert both to boolean
         .filter(u => !!u.isBig === !!isBig)
         // filter units disabled on search page
         .filter(u => !u.disableOnSearch);
 
       // fetch only the first unit if available
-      resolve(units.length > 0 ? units[0] : undefined);
+      resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
     });
   },
 
   fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (!this._isLaunched() && !debugAffiliateUnits) {
         resolve(undefined);
       }
 
-      // special use case for debuggin
+      // special use case for debugging
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
+        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
       // check if we have possible units (we can fail early if we don't)
@@ -218,8 +213,8 @@ export default Service.extend({
           const targeting = [];
 
           // convert from tree structure to flat structure for easier comparison later
-          response.forEach(e => {
-            e.categories.forEach(c => {
+          response.forEach((e) => {
+            e.categories.forEach((c) => {
               targeting.push({
                 campaign: e.campaign,
                 category: c.name,
@@ -233,18 +228,19 @@ export default Service.extend({
           targeting.sort((a, b) => b.score - a.score);
 
           // get the units that fulfill the campaign and category
-          const units = this._getUnitsWithTargeting(targeting)
+          const availableUnits = this._getUnitsWithTargeting(targeting)
             // filter type of ad - isBig can be undefined, let's convert both to boolean
             .filter(u => !!u.isBig === !!isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
           // fetch only the first unit if available
-          resolve(units.length > 0 ? units[0] : undefined);
+          resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
         .catch((error) => {
           // log and do not raise anything
           console.error(error);
+
           resolve(undefined);
         });
     });

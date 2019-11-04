@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { and } from '@ember/object/computed';
 
@@ -10,22 +9,24 @@ export default Component.extend({
   isBigFinished: false,
   smallUnit: null,
   isSmallFinished: false,
+  debugAffiliateUnits: false,
 
   isEnabled: and('isBigFinished', 'isSmallFinished'),
-  debugAffiliateUnits: false,
 
   init() {
     this._super(...arguments);
 
 
-    this.affiliateSlots.fetchUnitForSearch(this.query, false, this.debugAffiliateUnits).then(u => {
-      this.set('smallUnit', u);
-      this.set('isSmallFinished', true);
-    });
+    this.affiliateSlots.fetchUnitForSearch(this.query, false, this.debugAffiliateUnits)
+      .then((unit) => {
+        this.set('smallUnit', unit);
+        this.set('isSmallFinished', true);
+      });
 
-    this.affiliateSlots.fetchUnitForSearch(this.query, true, this.debugAffiliateUnits).then(u => {
-      this.set('bigUnit', u);
-      this.set('isBigFinished', true);
-    });
+    this.affiliateSlots.fetchUnitForSearch(this.query, true, this.debugAffiliateUnits)
+      .then((unit) => {
+        this.set('bigUnit', unit);
+        this.set('isBigFinished', true);
+      });
   },
 });
