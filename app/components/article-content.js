@@ -639,6 +639,9 @@ export default Component.extend(
             attrs: unit,
             element: unitPlaceholder,
           }));
+
+          // So that the article-wrapper can show the disclaimer
+          this.setHasAffiliateUnit();
         });
     },
 
@@ -678,6 +681,9 @@ export default Component.extend(
             },
             element: unitPlaceholder,
           }));
+
+          // So that the article-wrapper can show the disclaimer
+          this.setHasAffiliateUnit();
         });
     },
   },
