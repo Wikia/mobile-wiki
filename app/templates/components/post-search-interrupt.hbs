@@ -6,5 +6,9 @@
     subheading=affiliateUnit.subheading
   }}
 {{else}}
-  {{post-search-results query=query isCrossWiki=isCrossWiki}}
+  {{post-search-results
+    query=query
+    isCrossWiki=isCrossWiki
+    setHasAffiliateUnit=setHasAffiliateUnit
+  }}
 {{/if}}

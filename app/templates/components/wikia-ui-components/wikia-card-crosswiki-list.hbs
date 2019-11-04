@@ -11,7 +11,11 @@
     </li>
     {{#if includePostsForQuery}}
       {{#if (equal key 1)}}
-        {{post-search-interrupt query=includePostsForQuery isCrossWiki=true}}
+        {{post-search-interrupt
+          query=includePostsForQuery
+          isCrossWiki=true
+          setHasAffiliateUnit=setHasAffiliateUnit
+        }}
       {{/if}}
     {{/if}}
   {{/each}}
