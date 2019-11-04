@@ -25,6 +25,7 @@ export default Component.extend(
     classNameBindings: ['hasFeaturedVideo'],
     displayEmptyArticleInfo: true,
     displayArticleWrapper: true,
+    hasAffiliateUnit: false,
 
     showComments: gte('model.comments', 0),
     hasFeaturedVideo: bool('model.featuredVideo'),
@@ -58,6 +59,10 @@ export default Component.extend(
 
       forceFeaturedVideoVisibility() {
         this.set('hasFeaturedVideo', true);
+      },
+
+      setHasAffiliateUnit() {
+        this.set('hasAffiliateUnit', true);
       },
     },
   },

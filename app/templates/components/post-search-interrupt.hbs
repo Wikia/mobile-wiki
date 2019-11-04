@@ -7,6 +7,12 @@
       subheading=bigUnit.subheading
     }}
   {{else}}
-    {{post-search-results query=query unit=smallUnit isCrossWiki=isCrossWiki debugAffiliateUnits=debugAffiliateUnits}}
+    {{post-search-results
+      query=query
+      unit=smallUnit
+      isCrossWiki=isCrossWiki
+      debugAffiliateUnits=debugAffiliateUnits
+      setHasAffiliateUnit=setHasAffiliateUnit
+    }}
   {{/if}}
 {{/if}}

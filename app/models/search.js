@@ -70,7 +70,6 @@ export default EmberObject.extend({
   },
 
   fetchResults(query) {
-    console.log('param', this.debugAffiliateUnits, this.get('debugAffiliateUnits'));
     this.setProperties({
       error: '',
       loading: true,

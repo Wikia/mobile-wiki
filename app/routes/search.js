@@ -61,7 +61,11 @@ export default Route.extend(
 
       return SearchModel
         .create(getOwner(this).ownerInjection())
-        .search(params.query, params.scope, params.debugAffiliateUnits ? params.debugAffiliateUnits : false);
+        .search(
+          params.query,
+          params.scope,
+          params.debugAffiliateUnits ? params.debugAffiliateUnits : false,
+        );
     },
 
     actions: {
