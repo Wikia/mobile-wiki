@@ -616,17 +616,17 @@ export default Component.extend(
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      // if there's no section that we want, just exit
-      if (!h2Elements[indexForUnit]) {
-        this.setHasAffiliateUnitButNoSlot();
-        return;
-      }
-
       this.affiliateSlots
         .fetchUnitForPage(this.id, true, this.debugAffiliateUnits)
         .then(unit => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
+            return;
+          }
+
+          // keep here for tracking purposes. We want to know if we have targeting but no space for the unit
+          if (!h2Elements[indexForUnit]) {
+            this.setHasAffiliateUnitButNoSlot();
             return;
           }
 
@@ -652,17 +652,17 @@ export default Component.extend(
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      // if there's no section that we want, just exit
-      if (!h2Elements[indexForUnit]) {
-        this.setHasAffiliateUnitButNoSlot();
-        return;
-      }
-
       this.affiliateSlots
         .fetchUnitForPage(this.id, false, this.debugAffiliateUnits)
         .then(unit => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
+            return;
+          }
+
+          // keep here for tracking purposes. We want to know if we have targeting but no space for the unit
+          if (!h2Elements[indexForUnit]) {
+            this.setHasAffiliateUnitButNoSlot();
             return;
           }
 
