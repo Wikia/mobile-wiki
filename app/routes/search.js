@@ -30,6 +30,9 @@ export default Route.extend(
       scope: {
         refreshModel: true,
       },
+      debugAffiliateUnits: {
+        refreshModel: true,
+      },
     },
 
     applicationWrapperClassNames: null,
@@ -58,7 +61,7 @@ export default Route.extend(
 
       return SearchModel
         .create(getOwner(this).ownerInjection())
-        .search(params.query, params.scope);
+        .search(params.query, params.scope, params.debugAffiliateUnits ? params.debugAffiliateUnits : false);
     },
 
     actions: {

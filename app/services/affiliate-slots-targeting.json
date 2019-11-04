@@ -1,9 +1,7 @@
 [
   {
-    "comment": "Fandom.com test for keiko-test wiki on searching for 'coffee'",
-    "unit": [
-      "fandom-com"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test",
     "wikiId": [
       1081891
     ],
@@ -12,10 +10,8 @@
     ]
   },
   {
-    "comment": "Fandom.com 2 test for keiko-test wiki on dev on searching for 'foo'",
-    "unit": [
-      "fandom-big"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test",
     "wikiId": [
       1081891
     ],
@@ -24,10 +20,8 @@
     ]
   },
   {
-    "comment": "Target xkxd02 wiki which is on both devbox and prod",
-    "unit": [
-      "xkxd02"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test-search-big",
     "wikiId": [
       1575417,
       1619010
@@ -39,10 +33,8 @@
     ]
   },
   {
-    "comment": "Target xkxd02 wiki which is on both devbox and prod",
-    "unit": [
-      "xkxd02-small"
-    ],
+    "campaign": "fandom-test",
+    "category": "fandom-test-search",
     "wikiId": [
       1575417,
       1619010

@@ -64,6 +64,11 @@ const RecommendedDataFetchError = defineError({
   message: 'Recommended data couldn\'t be fetched',
 });
 
+const AffiliatesFetchError = defineError({
+  name: 'AffiliatesFetchError',
+  message: 'Affiliates data couldn\'t be fetched',
+});
+
 const WikiaInYourLangFetchError = defineError({
   name: 'WikiaInYourLangFetchError',
   message: 'WikiaInYourLang data couldn\'t be fetched',
@@ -120,4 +125,5 @@ export {
   WikiVariablesFetchError,
   canAttemptRefresh,
   getProductionErrorMessage,
+  AffiliatesFetchError,
 };
