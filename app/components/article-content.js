@@ -618,6 +618,7 @@ export default Component.extend(
 
       // if there's no section that we want, just exit
       if (!h2Elements[indexForUnit]) {
+        this.setHasAffiliateUnitButNoSlot();
         return;
       }
 
@@ -653,6 +654,7 @@ export default Component.extend(
 
       // if there's no section that we want, just exit
       if (!h2Elements[indexForUnit]) {
+        this.setHasAffiliateUnitButNoSlot();
         return;
       }
 

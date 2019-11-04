@@ -29,6 +29,7 @@ export default Component.extend(
     showComments: gte('model.comments', 0),
     hasFeaturedVideo: bool('model.featuredVideo'),
     smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
+    hasAffiliateUnitButNoSlot: false,
 
     init() {
       this._super(...arguments);
@@ -60,5 +61,9 @@ export default Component.extend(
         this.set('hasFeaturedVideo', true);
       },
     },
+
+    setHasAffiliateUnitButNoSlot() {
+      this.set('hasAffiliateUnitButNoSlot', true);
+    }
   },
 );
