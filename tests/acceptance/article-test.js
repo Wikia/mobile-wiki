@@ -23,9 +23,7 @@ module('Acceptance | Article page', (hooks) => {
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
 
-    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
-      then: cb => cb(getAdsModuleMock({})),
-    });
+    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock({})));
 
     await visit('/');
     await visit('/wiki/Qaga2');

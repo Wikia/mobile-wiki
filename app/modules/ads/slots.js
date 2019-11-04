@@ -161,7 +161,7 @@ export const slots = {
       },
       top_boxad: {
         adProduct: 'top_boxad',
-        avoidConflictWith: '.affiliate-slot,.ad-slot',
+        avoidConflictWith: '.ad-slot',
         bidderAlias: 'mobile_in_content',
         cheshireCatSlot: true,
         slotNameSuffix: '',
@@ -185,7 +185,7 @@ export const slots = {
       // as this slot can be repeated many, it uses bidderAlias mobile_in_content
       incontent_boxad_1: {
         adProduct: 'incontent_boxad_1',
-        avoidConflictWith: '.affiliate-slot,.ad-slot,#incontent_player',
+        avoidConflictWith: '.ad-slot,#incontent_player',
         bidderAlias: 'mobile_in_content',
         viewabilityCounterId: 'incontent_boxad',
         cheshireCatSlot: true,
@@ -222,7 +222,7 @@ export const slots = {
       },
       incontent_player: {
         adProduct: 'incontent_player',
-        avoidConflictWith: '.affiliate-slot,.ad-slot,#incontent_boxad_1',
+        avoidConflictWith: '.ad-slot,#incontent_boxad_1',
         autoplay: true,
         audio: false,
         insertBeforeSelector: '.article-content > h2',
@@ -353,11 +353,11 @@ export const slots = {
     slot.setConfigProperty('targeting.ctp', clickToPlaySuffix ? 'yes' : 'no');
   },
 
-  setupStates(isAdStackEnabled) {
+  setupStates() {
     const { context, slotService } = window.Wikia.adEngine;
     const incontentState = isInContentApplicable();
     const setSlotState = (slotName, state) => {
-      if (isAdStackEnabled && state) {
+      if (state) {
         slotService.enable(slotName);
       } else {
         slotService.disable(slotName);

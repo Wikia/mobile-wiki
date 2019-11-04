@@ -14,25 +14,38 @@ import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
 
-let adsPromise = null;
+class PromiseLock {
+  constructor() {
+    this.isFinished = false;
+    this.finished = new Promise((resolve, reject) => {
+      this.resolve = (x) => {
+        this.isFinished = true;
+        resolve(x);
+      };
+      this.reject = (x) => {
+        this.isFinished = true;
+        reject(x);
+      };
+    });
+  }
+}
 
 class Ads {
   constructor() {
-    this.enabled = true;
     this.engine = null;
-    this.isLoaded = false;
-    this.isFastboot = typeof FastBoot !== 'undefined';
-    this.onReadyCallbacks = [];
     this.spaInstanceId = null;
 
     /** @private */
-    this.readyResolve = null;
-    // A Promise which resolves when module is fully-loaded and returns instance of Ads module
-    this.ready = new Promise((resolve) => {
-      this.readyResolve = resolve;
-    });
+    this.isInitializationStarted = false;
+    this.initialization = new PromiseLock();
   }
 
+  /**
+   * Returns ads instance.
+   *
+   * @returns {Ads}
+   * @public
+   */
   static getInstance() {
     if (Ads.instance === null) {
       Ads.instance = new Ads();
@@ -41,36 +54,44 @@ class Ads {
     return Ads.instance;
   }
 
-  static waitForAdEngine() {
-    if (adsPromise) {
-      return adsPromise;
+  /**
+   * Returns loaded ads instance.
+   *
+   * @returns {Promise|RSVP.Promise|*}
+   */
+  static getLoadedInstance() {
+    return Ads.getInstance().initialization.finished;
+  }
+
+  /**
+   * @param mediaWikiAdsContext
+   * @public
+   */
+  init(mediaWikiAdsContext = {}) {
+    if (!this.isInitializationStarted) {
+      this.isInitializationStarted = true;
+
+      this.loadAdEngine()
+        .then(() => this.getInstantGlobals())
+        .then((instantGlobals) => {
+          M.trackingQueue.push(
+            isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
+          );
+        });
     }
-
-    if (typeof FastBoot !== 'undefined') {
-      return Promise.reject();
-    }
-
-    adsPromise = new Promise((resolve) => {
-      Promise.all([Ads.getShouldStartAdEngine(), Ads.loadAdEngine()]).then(([shouldLoad]) => {
-        if (shouldLoad === true) {
-          resolve(Ads.getInstance());
-        }
-      });
-    });
-
-    return adsPromise;
   }
 
   /**
    * @private
    */
-  static loadAdEngine() {
+  loadAdEngine() {
     return import('@wikia/ad-engine').then((module) => {
       window.Wikia = window.Wikia || {};
       window.Wikia.adEngine = module;
       window.Wikia.adProducts = module;
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
+
       return module;
     }).catch((error) => {
       logError('https://services.fandom.com', 'AdEngine.load', {
@@ -78,41 +99,8 @@ class Ads {
         stack: error.stack,
       });
 
-      return new Promise(res => res);
+      throw Error('Failed to load @wikia/ad-engine package.');
     });
-  }
-
-  /**
-   * @private
-   */
-  static getShouldStartAdEngine() {
-    return new Promise((resolve) => {
-      window.getInstantGlobals((instantGlobals) => {
-        const noExternalsSearchParam = (window.location.search.match(/noexternals=([a-z0-9]+)/i) || [])[1];
-        const noExternals = noExternalsSearchParam === '1' || noExternalsSearchParam === 'true';
-
-        resolve(!(instantGlobals.wgSitewideDisableAdsOnMercury || noExternals));
-      });
-    });
-  }
-
-  init(mediaWikiAdsContext = {}) {
-    this.getInstantGlobals()
-      .then((instantGlobals) => {
-        M.trackingQueue.push(
-          isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
-        );
-      });
-  }
-
-  isAdStackEnabled() {
-    const { context } = window.Wikia.adEngine;
-
-    if (context.get('state.disableAdStack')) {
-      return false;
-    }
-
-    return this.enabled;
   }
 
   /**
@@ -129,11 +117,7 @@ class Ads {
    * @param isOptedIn
    */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
-    if (this.isLoaded) {
-      return;
-    }
-
-    const { ScrollTracker, utils } = window.Wikia.adEngine;
+    const { ScrollTracker } = window.Wikia.adEngine;
 
     this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
@@ -141,32 +125,8 @@ class Ads {
       .then(() => {
         this.triggerAfterPageRenderServices();
 
-        this.isLoaded = true;
-        utils.makeLazyQueue(this.onReadyCallbacks, callback => callback());
-        this.onReadyCallbacks.start();
-        this.readyResolve(Ads.getInstance());
+        this.initialization.resolve(this);
       });
-  }
-
-  /**
-   * @private
-   */
-  startAdEngine() {
-    const { AdEngine } = window.Wikia.adEngine;
-
-    if (!this.isAdStackEnabled()) {
-      fanTakeoverResolver.resolve();
-      return;
-    }
-
-    if (!this.engine) {
-      this.engine = new AdEngine();
-      this.engine.init();
-
-      this.loadGoogleTag();
-    } else {
-      this.engine.runAdQueue();
-    }
   }
 
   /**
@@ -176,31 +136,37 @@ class Ads {
     window.M.loadScript('//www.googletagservices.com/tag/js/gpt.js', true);
   }
 
+  /**
+   * @private
+   */
   finishFirstCall() {
     const { btfBlockerService } = window.Wikia.adEngine;
 
-    if (this.isAdStackEnabled()) {
-      btfBlockerService.finishFirstCall();
-      fanTakeoverResolver.resolve();
-    }
+    btfBlockerService.finishFirstCall();
+    fanTakeoverResolver.resolve();
   }
 
+  /**
+   * @public
+   */
   createJWPlayerVideoAds(options) {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
-    if (this.isAdStackEnabled()) {
-      return jwplayerAdsFactory.create(options);
-    }
-
-    return null;
+    return jwplayerAdsFactory.create(options);
   }
 
+  /**
+   * @public
+   */
   loadJwplayerMoatTracking() {
     const { jwplayerAdsFactory } = window.Wikia.adProducts;
 
     jwplayerAdsFactory.loadMoatPlugin();
   }
 
+  /**
+   * @public
+   */
   getAdSlotComponentAttributes(slotName) {
     const { context } = window.Wikia.adEngine;
 
@@ -243,8 +209,11 @@ class Ads {
     });
   }
 
+  /**
+   * @public
+   */
   beforeTransition() {
-    if (!this.isLoaded) {
+    if (!this.initialization.isFinished) {
       return;
     }
 
@@ -256,10 +225,14 @@ class Ads {
     utils.logger(logGroup, 'before transition');
   }
 
+  /**
+   * @public
+   */
   onTransition(options) {
-    if (!this.isLoaded) {
+    if (!this.initialization.isFinished) {
       return;
     }
+
     const {
       context, events, eventService, utils,
     } = window.Wikia.adEngine;
@@ -269,8 +242,11 @@ class Ads {
     utils.logger(logGroup, 'on transition');
   }
 
+  /**
+   * @public
+   */
   afterTransition(mediaWikiAdsContext) {
-    if (!this.isLoaded) {
+    if (!this.initialization.isFinished) {
       return;
     }
 
@@ -281,6 +257,7 @@ class Ads {
     });
 
     this.triggerAfterPageRenderServices();
+    this.triggerPageTracking();
 
     utils.logger(logGroup, 'after transition');
   }
@@ -331,21 +308,34 @@ class Ads {
     const { bidders } = window.Wikia.adBidders;
     const { slotService } = window.Wikia.adEngine;
 
-    if (this.isAdStackEnabled()) {
-      biddersDelayer.resetPromise();
-      bidders.requestBids({
-        responseListener: biddersDelayer.markAsReady,
-      });
-      this.startAdEngine();
+    biddersDelayer.resetPromise();
+    bidders.requestBids({
+      responseListener: biddersDelayer.markAsReady,
+    });
+    this.startAdEngine();
 
-      if (!slotService.getState('top_leaderboard')) {
-        this.finishFirstCall();
-      }
+    if (!slotService.getState('top_leaderboard')) {
+      this.finishFirstCall();
     }
 
     this.callExternalTrackingServices();
     adblockDetector.run();
-    this.triggerPageTracking();
+  }
+
+  /**
+   * @private
+   */
+  startAdEngine() {
+    const { AdEngine } = window.Wikia.adEngine;
+
+    if (!this.engine) {
+      this.engine = new AdEngine();
+      this.engine.init();
+
+      this.loadGoogleTag();
+    } else {
+      this.engine.runAdQueue();
+    }
   }
 
   /**
@@ -373,7 +363,6 @@ class Ads {
     this.trackViewabilityToDW();
     this.initScrollSpeedTracking();
     this.trackLabradorToDW();
-    this.trackDisableAdStackToDW();
     this.trackLikhoToDW();
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
@@ -405,18 +394,6 @@ class Ads {
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
-    }
-  }
-
-  /**
-   * @private
-   */
-  trackDisableAdStackToDW() {
-    const { context, utils } = window.Wikia.adEngine;
-
-    if (context.get('state.disableAdStack')) {
-      pageTracker.trackProp('adengine', 'off');
-      utils.logger(logGroup, 'ad stack is disabled');
     }
   }
 
@@ -530,40 +507,13 @@ class Ads {
   }
 
   onMenuOpen() {
-    if (!this.isLoaded) {
-      return;
-    }
     const { eventService } = window.Wikia.adEngine;
 
     eventService.emit(appEvents.MENU_OPEN_EVENT);
   }
 
-  /**
-   * Trigger callback when Ads module loads
-   *
-   * @param callback to trigger
-   */
-  onReady(callback) {
-    if (this.isLoaded) {
-      callback();
-    } else {
-      this.onReadyCallbacks.push(callback);
-    }
-  }
-
-  waitForReady() {
-    return Promise.all([
-      Ads.waitForAdEngine(),
-      new Promise(resolve => this.onReady(resolve)),
-    ]);
-  }
-
   waitForVideoBidders() {
     const { context, utils } = window.Wikia.adEngine;
-
-    if (!this.isAdStackEnabled()) {
-      return Promise.resolve();
-    }
 
     const timeout = new Promise((resolve) => {
       setTimeout(resolve, context.get('options.maxDelayTimeout'));
@@ -578,24 +528,20 @@ class Ads {
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {
-    return new Promise((resolve) => {
-      if (this.isFastboot) {
-        if (noUapCallback && typeof noUapCallback === 'function') {
-          noUapCallback();
+    return fanTakeoverResolver.getPromise().then((isFanTakeover) => {
+      if (isFanTakeover) {
+        if (uapCallback && typeof uapCallback === 'function') {
+          uapCallback();
+
+          return true;
         }
-        resolve(false);
-      } else {
-        fanTakeoverResolver.getPromise().then((isFanTakeover) => {
-          if (isFanTakeover) {
-            if (uapCallback && typeof uapCallback === 'function') {
-              uapCallback();
-            }
-          } else if (noUapCallback && typeof noUapCallback === 'function') {
-            noUapCallback();
-          }
-          resolve(!!isFanTakeover);
-        });
+      } else if (noUapCallback && typeof noUapCallback === 'function') {
+        noUapCallback();
+
+        return false;
       }
+
+      return isFanTakeover;
     });
   }
 }

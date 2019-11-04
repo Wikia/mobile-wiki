@@ -6,11 +6,18 @@
   class="post-search-results-item__title wds-leading-tight"
   onclick={{action "trackClick" postIndex}}
 >
-  {{post.title}}
+  {{getTitle}}
 </a>
 <div class="post-search-results-item__details">
   {{#if isQuizWithTakes}}
     <Icon @name="quiz" @size="tiny" />
-    {{{i18n "main.search-post-item-quiz-takes" count=post.stats.takes ns="search"}}}
+    {{{i18n "main.search-post-item-quiz-takes" count=post.quizTakes ns="search"}}}
+  {{/if}}
+  {{#if isPollWithVotes}}
+    <Icon @name="poll" @size="tiny" />
+    {{{i18n "main.search-post-item-poll-votes" count=post.pollVotes ns="search"}}}
+  {{/if}}
+  {{#if isPost}}
+    {{{i18n "main.search-post-item-post-posted" time=(time-ago post.createdAt) ns="search"}}}
   {{/if}}
 </div>

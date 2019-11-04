@@ -23,7 +23,7 @@ import { track, trackActions } from '../utils/track';
 export default Component.extend(
   {
     adSlotBuilder: service('ads/ad-slot-builder'),
-    ads: service('ads/ads'),
+    adsService: service('ads/ads'),
     fastboot: service(),
     i18n: service(),
     logger: service(),
@@ -82,16 +82,16 @@ export default Component.extend(
         }
 
         if (!this.isPreview && this.adsContext) {
-          Ads.waitForAdEngine().then((ads) => {
-            this.ads.setupAdsContext(this.adsContext);
-            ads.onReady(() => {
+          Ads.getLoadedInstance()
+            .then(() => {
+              this.adsService.setupAdsContext(this.adsContext);
               if (!this.isDestroyed) {
                 // Uncollapse sections first so that we can insert ads in correct places
                 this.uncollapseSections();
                 this.adSlotBuilder.injectAds(this);
               }
-            });
-          });
+            })
+            .catch(() => {}); // Ads not loaded.
         }
 
         this.openLightboxIfNeeded();
@@ -623,7 +623,6 @@ export default Component.extend(
       if (h2Elements[1]) {
         const unitPlaceholder = document.createElement('div');
         const unitWrapper = document.createElement('div');
-        unitWrapper.className = 'affiliate-slot';
 
         unitWrapper.appendChild(unitPlaceholder);
         h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
@@ -654,7 +653,6 @@ export default Component.extend(
       if (h2Elements[3]) {
         const unitPlaceholder = document.createElement('div');
         const unitWrapper = document.createElement('div');
-        unitWrapper.className = 'affiliate-slot';
 
         unitWrapper.appendChild(unitPlaceholder);
         h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);

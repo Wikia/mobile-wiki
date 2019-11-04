@@ -11,8 +11,7 @@ module('Unit | Component | ads | search top leaderboard', (hooks) => {
 
   hooks.beforeEach(function () {
     mockAdSlotBuilder(this.owner);
-    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine')
-      .returns({ then: cb => cb(getAdsModuleMock()) });
+    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock()));
 
 
     this.adSlotBuilder = this.owner.lookup('service:ads/ad-slot-builder');

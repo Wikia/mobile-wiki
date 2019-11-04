@@ -1,7 +1,5 @@
-import { Promise } from 'rsvp';
 import Service, { inject as service } from '@ember/service';
 import fetch from 'fetch';
-import Ads from '../../modules/ads';
 
 export default Service.extend({
   currentUser: service(),
@@ -16,8 +14,8 @@ export default Service.extend({
    */
   getAdsContext() {
     if (this.adsContextPromise === null) {
-      this.adsContextPromise = Promise.all([this.fetchAdsContextPromise(), Ads.waitForAdEngine()])
-        .then(([adsContext]) => {
+      this.adsContextPromise = this.fetchAdsContextPromise()
+        .then((adsContext) => {
           adsContext.user = adsContext.user || {};
           adsContext.user.isAuthenticated = this.currentUser.isAuthenticated;
 

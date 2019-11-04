@@ -27,9 +27,7 @@ module('Acceptance | file page', (hooks) => {
     mockFastlyInsights(this.owner);
     window.Image = sinon.stub();
 
-    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
-      then: cb => cb(getAdsModuleMock({})),
-    });
+    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock({})));
   });
 
   hooks.afterEach(() => {

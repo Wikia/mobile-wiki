@@ -22,9 +22,7 @@ module('Acceptance | search', (hooks) => {
     oldAdEngine = window.Wikia.adEngine || {};
 
     window.Wikia.adEngine = adEngineMock;
-    adsModuleStub = sinon.stub(Ads, 'waitForAdEngine').returns({
-      then: cb => cb(getAdsModuleMock()),
-    });
+    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock()));
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);

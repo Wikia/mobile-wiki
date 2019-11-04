@@ -1,5 +1,4 @@
 import Service from '@ember/service';
-import { run } from '@ember/runloop';
 import sinon from 'sinon';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
@@ -15,6 +14,7 @@ module('Unit | Component | ad slot', (hooks) => {
   let isUapLoaded = false;
 
   hooks.beforeEach(function () {
+    Ads.enabled = false;
     this.owner.register('service:ads/ads', adsStub);
     this.ads = this.owner.lookup('service:ads/ads');
     window.Wikia.adProducts = {
@@ -94,6 +94,7 @@ module('Unit | Component | ad slot', (hooks) => {
     ];
 
     testCases.forEach((testCase) => {
+      Ads.enabled = true;
       const ads = new Ads();
       const spyUap = sinon.spy();
       const spyNoUap = sinon.spy();
@@ -111,56 +112,6 @@ module('Unit | Component | ad slot', (hooks) => {
         assert.equal(spyUap.callCount, testCase.uapCallbackCount, testCase.message);
         assert.equal(spyNoUap.callCount, testCase.noUapCallbackCount, testCase.message);
       }, 0);
-    });
-  });
-
-  test('behaves correctly depending on noAds value', function (assert) {
-    const testCases = [
-      {
-        properties: {
-          isAboveTheFold: true,
-          name: 'Test ad 1',
-        },
-        expectedResult: true,
-        message: 'Element added to slot because no noAds property was passed',
-      }, {
-        properties: {
-          isAboveTheFold: true,
-          name: 'Test ad 2',
-        },
-        noAds: true,
-        expectedResult: false,
-        message: 'Element not added to slot because of noAds property value set to true',
-      }, {
-        properties: {
-          isAboveTheFold: true,
-          name: 'Test ad 3',
-        },
-        noAds: false,
-        expectedResult: true,
-        message: 'Element added to slot because of noAds property value set to false',
-      },
-    ];
-
-    testCases.forEach((testCase) => {
-      const component = this.owner.factoryFor('component:ad-slot').create();
-      const pushSlotSpy = sinon.spy(component.get('ads.module'), 'pushSlotToQueue');
-
-      this.ads.set('noAds', testCase.noAds);
-
-      component.setProperties(testCase.properties);
-      run(() => {
-        component.didInsertElement();
-        component.didEnterViewport();
-      });
-
-      assert.equal(
-        pushSlotSpy.called,
-        testCase.expectedResult,
-        testCase.message,
-      );
-
-      component.get('ads.module').pushSlotToQueue.restore();
     });
   });
 });

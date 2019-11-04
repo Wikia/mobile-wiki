@@ -133,12 +133,6 @@ export const adsSetup = {
     }
 
     instantConfig.isGeoEnabled('wgAdDriverLABradorTestCountries');
-
-    const isAdStackEnabled = (
-      !instantConfig.isGeoEnabled('wgAdDriverDisableAdStackCountries')
-      && adsContext.opts.pageType !== 'no_ads'
-    );
-
     context.set('slots', slots.getContext());
 
     if (!adsContext.targeting.hasFeaturedVideo && adsContext.targeting.pageType !== 'search') {
@@ -153,7 +147,6 @@ export const adsSetup = {
     }
 
     context.set('state.disableTopLeaderboard', instantConfig.isGeoEnabled('wgAdDriverCollapseTopLeaderboardMobileWikiCountries'));
-    context.set('state.disableAdStack', !isAdStackEnabled);
     context.set('state.deviceType', utils.client.getDeviceType());
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
@@ -300,6 +293,7 @@ export const adsSetup = {
       context.set('events.pushAfterCreated.top_boxad', []);
       context.set('events.pushAfterRendered.top_boxad', []);
       context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
+      context.set('slots.incontent_player.disablePushOnScroll', true);
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {
@@ -315,7 +309,7 @@ export const adsSetup = {
     context.set('targeting.labrador', cacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
 
     slots.setupIdentificators();
-    slots.setupStates(isAdStackEnabled);
+    slots.setupStates();
     slots.setupSizesAvailability();
 
     context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
