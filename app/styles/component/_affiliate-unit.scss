@@ -69,10 +69,10 @@
 
 .affiliate-unit-disclaimer {
   font-size: $wds-font-size-xs;
-  line-height: 1.25;
+  line-height: $wds-line-height-tight;
   margin: 24px 0;
 }
 
-.search-results .affiliate-unit-disclaimer {
+.search-result-page .affiliate-unit-disclaimer {
   margin: 24px 12px;
 }
