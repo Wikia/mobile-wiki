@@ -150,11 +150,11 @@ export const adsSetup = {
     context.set('state.deviceType', utils.client.getDeviceType());
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
+    context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
-
-    context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
+    context.set('options.video.iasTracking.enabled', instantConfig.get('icIASVideoTracking'));
 
     context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
