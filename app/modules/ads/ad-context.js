@@ -492,6 +492,13 @@ export const defaultAdContext = {
         partnerCode: 'wikiaimajsint377461931603',
         sampling: 0,
       },
+      iasTracking: {
+        enabled: false,
+        config: {
+          anId: '930616',
+          campId: '640x480',
+        },
+      },
     },
     viewabilityCounter: {
       enabled: true,

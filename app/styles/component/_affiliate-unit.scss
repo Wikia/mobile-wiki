@@ -1,5 +1,5 @@
 .affiliate-unit {
-  font-size: $wds-font-size-base;
+  font-size: $wds-font-size-s;
   margin: 0;
   text-align: center;
 
@@ -16,41 +16,35 @@
   }
 
   &__link {
-    background-size: cover;
-    border-radius: 3px;
-    display: block;
-    position: relative;
+    align-items: center;
+    display: flex;
+  }
 
-    &::after {
-      content: '';
-      display: block;
-      padding-top: (3 / 4) * 100%; /* 4:3 aspect ratio */
-    }
+  &__image {
+    background-size: cover;
+    border: 1px solid $wds-fandom-color-mid-light-gray;
+    border-radius: 3px;
+    height: 80px;
+    width: 80px;
   }
 
   &__content {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000);
-    border: 1px solid $wds-fandom-color-mid-light-gray;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: flex-end;
-    left: 0;
-    padding: 14px 18px;
-    position: absolute;
+    flex: 1;
+    padding-left: 10px;
     text-align: left;
-    top: 0;
-    width: 100%;
   }
 
   &__heading {
-    color: $wds-color-white;
+    color: $wds-fandom-color-navy;
+    font-weight: $wds-fandom-font-weight-medium;
+    line-height: 1.29;
+    margin-bottom: 6px;
   }
 
   &__subheading {
-    color: $wds-color-white;
-    opacity: .5;
+    color: $wds-fandom-color-dark-gray;
+    font-weight: $wds-fandom-font-weight-regular;
+    line-height: normal;
   }
 }
 
@@ -60,12 +54,11 @@
 }
 
 .article-content .affiliate-unit {
-  background-image: linear-gradient(to bottom, $wds-color-white, $wds-color-off-white);
   margin: 0 -.75rem 48px;
 
   &__slant {
-    background-image: linear-gradient(-5deg, $wds-color-white 0%, $wds-color-white 50%, $wds-color-off-white 50%);
-    height: 36px;
+    background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $wds-color-white 60%, rgba(255, 255, 255, 0) 60%);
+    height: 130px;
     margin-bottom: 12px;
   }
 
