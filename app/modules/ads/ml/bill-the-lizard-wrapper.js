@@ -1,5 +1,5 @@
-import { targeting } from './targeting';
-import { pageTracker } from './tracking/page-tracker';
+import { targeting } from '../targeting';
+import { pageTracker } from '../tracking/page-tracker';
 
 const AD_SLOT_CATLAPSED_STATUS = 'catlapsed';
 const bidPosKeyVal = 'mobile_in_content';

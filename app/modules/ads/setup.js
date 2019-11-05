@@ -2,7 +2,7 @@
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
 import { biddersDelayer } from './bidders-delayer';
-import { billTheLizardWrapper } from './bill-the-lizard-wrapper';
+import { billTheLizardWrapper } from './ml/bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import {
