@@ -57,7 +57,7 @@ export default Component.extend(
       track({
         action: trackActions.impression,
         category: 'article',
-        label: `watch-${this.wikiVariables.watchShowTrackingLabel}`,
+        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
       });
 
       if (this.trackingPixelURL) {
@@ -75,7 +75,7 @@ export default Component.extend(
       track({
         action: trackActions.click,
         category: 'article',
-        label: `watch-${this.wikiVariables.watchShowTrackingLabel}`,
+        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
       });
     },
   },
