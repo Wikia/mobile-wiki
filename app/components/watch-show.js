@@ -38,7 +38,9 @@ export default Component.extend(
     }),
 
     isVisible: computed('url', 'buttonLabel', 'geo', 'wikiVariables', function () {
-      const isEnabled = Date.parse(this.wikiVariables.watchShowEnabledDate) < Date.now();
+      const isEnabled = this.wikiVariables.watchShowEnabledDate
+        && Date.parse(this.wikiVariables.watchShowEnabledDate) < Date.now();
+
       // proper geo is always if the variable is empty
       const isProperGeo = !this.wikiVariables.watchShowGeos
         // proper geo check
