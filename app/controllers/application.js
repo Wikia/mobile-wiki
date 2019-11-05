@@ -12,6 +12,9 @@ export default Controller.extend(
     wikiVariables: service(),
 
     queryParams: ['file', 'theme',
+      {
+        mobileApp: 'mobile-app',
+      },
       // TODO: should be on articles controller https://wikia-inc.atlassian.net/browse/HG-815
       {
         commentsPage: 'comments_page',
@@ -21,6 +24,7 @@ export default Controller.extend(
     applicationWrapperClassNames: null,
     commentsPage: null,
     userMenuVisible: false,
+    mobileApp: false,
 
     /**
    * @returns {void}
@@ -37,9 +41,8 @@ export default Controller.extend(
     },
 
     file: alias('lightbox.file'),
-    fullPage: oneWay('wikiPage.mobileApp'),
+    fullPage: oneWay('mobileApp'),
     isSearchPage: equal('currentRouteName', 'search'),
-    mobileApp: oneWay('wikiPage.mobileApp'),
 
     actions: {
       /**
