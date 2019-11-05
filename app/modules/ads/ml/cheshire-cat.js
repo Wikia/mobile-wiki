@@ -91,15 +91,12 @@ export const cheshireCat = {
     } = window.Wikia.adEngine;
     const { billTheLizard, billTheLizardEvents, BillTheLizard } = window.Wikia.adServices;
     const baseSlotName = 'top_boxad';
-    defaultStatus = NOT_USED_STATUS;
     config = billTheLizardConfig;
+    defaultStatus = NOT_USED_STATUS;
 
     if (!this.hasAvailableModels(config, 'cheshirecat')) {
       return;
     }
-
-    context.set('services.billTheLizard.projects', config.projects);
-    context.set('services.billTheLizard.timeout', config.timeout || 0);
 
     const enableCheshireCat = context.get('options.billTheLizard.cheshireCat');
 
@@ -111,8 +108,6 @@ export const cheshireCat = {
       const slotNameToCatlapse = getCallId(incontentsCounter);
       slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
         utils.logger(logGroup, `Catlapsing ${slotNameToCatlapse}`);
-        // eslint-disable-next-line no-console
-        console.log(`Catlapsing ${slotNameToCatlapse}`);
       });
       slotService.disable(getCallId(incontentsCounter), AD_SLOT_CATLAPSED_STATUS);
     });
@@ -123,7 +118,6 @@ export const cheshireCat = {
         const callId = getCallId(refreshedSlotNumber);
 
         if (refreshedSlotNumber && refreshedSlotNumber > 0) {
-          console.log('callCheshire - refresh');
           this.callCheshireCat(callId);
         }
       },
@@ -131,7 +125,6 @@ export const cheshireCat = {
 
     eventService.on(AdSlot.SLOT_RENDERED_EVENT, (adSlot) => {
       if (adSlot.getSlotName() === baseSlotName && !cheshirecatCalled) {
-        console.log('callCheshire - slot_rendered');
         this.callCheshireCat(baseSlotName);
       }
     });
@@ -158,6 +151,8 @@ export const cheshireCat = {
         defaultStatus = BillTheLizard.REUSED;
       }
     });
+
+    utils.logger(logGroup, 'configured');
   },
 
   /**
