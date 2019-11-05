@@ -1,43 +1,74 @@
 [
   {
-    "campaign": "fandom-test",
-    "category": "fandom-test",
+    "campaign": "disneyplus",
+    "category": "disney",
     "wikiId": [
-      1081891
-    ],
-    "query": [
-      "coffee"
+      374,
+      2233,
+      177996,
+      147,
+      4097,
+      673
     ]
   },
   {
-    "campaign": "fandom-test",
-    "category": "fandom-test",
+    "campaign": "disneyplus",
+    "category": "mandalorian",
     "wikiId": [
-      1081891
-    ],
-    "query": [
-      "foo"
+      374,
+      2233,
+      177996,
+      147,
+      4097,
+      673
     ]
   },
   {
-    "campaign": "fandom-test",
-    "category": "fandom-test-search-big",
+    "campaign": "disneyplus",
+    "category": "marvel",
     "wikiId": [
-      1575417,
-      1619010
-    ],
-    "query": [
-      "spiderman",
-      "marvel",
-      "test"
+      374,
+      2233,
+      177996,
+      147,
+      4097,
+      673
     ]
   },
   {
-    "campaign": "fandom-test",
-    "category": "fandom-test-search",
+    "campaign": "disneyplus",
+    "category": "pixar",
     "wikiId": [
-      1575417,
-      1619010
+      374,
+      2233,
+      177996,
+      147,
+      4097,
+      673
+    ]
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "starwars",
+    "wikiId": [
+      374,
+      2233,
+      177996,
+      147,
+      4097,
+      673
+    ]
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "simpsons",
+    "wikiId": [
+      374,
+      2233,
+      177996,
+      147,
+      4097,
+      673
     ]
   }
 ]
