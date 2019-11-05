@@ -56,7 +56,7 @@ const designSystemLazyLoadedSVGs = [
   'wds-icons-upvote-small',
   'wds-icons-upvote-tiny',
   'wds-icons-user',
-  'wds-icons-users-small',
+  'wds-icons-user-small',
   'wds-icons-youtube',
   'wds-player-icon-play',
   'wds-company-store-appstore',

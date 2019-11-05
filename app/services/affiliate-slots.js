@@ -1,27 +1,24 @@
-import {
-  readOnly,
-} from '@ember/object/computed';
+import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
 import { system } from '../utils/browser';
+import { AffiliatesFetchError } from '../utils/errors';
+import extend from '../utils/extend';
 
 /**
   * @typedef {Object} AffiliateTargeting
-  * @property {string} [comment]
+  * @property {string[]} campaign
+  * @property {string[]} category
   * @property {string[]} unit
-  * @property {number} [wikiId=[]]
-  * @property {number} [country=[]]
-  * @property {number|false} [page=[]]
-  * @property {number|false} [query=[]]
-  * @property {number} [vertical=[]]
-  * @property {boolean} [disableOnSearch=false]
-  * @property {boolean} [disableOnPage=false]
+  * @property {number[]} query
+  * @property {number[]} wikiId
 */
-import targeting from './affiliate-slots-targeting';
+import searchPageTargeting from './affiliate-slots-targeting';
 
 /**
   * @typedef {Object} AffiliateUnit
-  * @property {string} name
+  * @property {string} campaign
+  * @property {string} category
   * @property {string} [isBig]
   * @property {string} image
   * @property {string} heading
@@ -34,8 +31,17 @@ import targeting from './affiliate-slots-targeting';
   * @property {boolean} [disableOnPage=false]
   * @property {boolean} [onlyOnAndroid=false]
   * @property {boolean} [onlyOnIOS=false]
+  * @property {number[]} [country=[]]
 */
 import units from './affiliate-slots-units';
+
+/**
+ * @typedef {Object} Targeting
+ * @property {string} campaign
+ * @property {string} category
+ * @property {Object} [tracking={}]
+ * @property {number} [score]
+ */
 
 /**
  *  Returns `true` if filter is undefined OR if it has the value
@@ -48,16 +54,6 @@ const checkFilter = (filter, value) => (
   typeof filter === 'undefined'
     || (Array.isArray(filter) && (filter.length === 0 || filter.indexOf(value) > -1))
 );
-
-/**
- * Distinct filter for arrays
- *
- * @param {*} value
- * @param {number} index
- * @param {Array} self
- * @returns {boolean}
- */
-const distinct = (value, index, self) => (self.indexOf(value) === index);
 
 /**
  * Check if the unit can be displayed on current system
@@ -81,133 +77,172 @@ const checkMobileSystem = (unit) => {
 };
 
 export default Service.extend({
-  wikiVariables: service(),
+  fetch: service(),
   geo: service(),
+  wikiVariables: service(),
 
   currentWikiId: readOnly('wikiVariables.id'),
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
 
   /**
-   * Get one BIG unit that can be displayed on search page with given `query`
-   *
-   * @param {string} query
-   * @returns {AffiliateUnit|undefined}
+   * @returns {AffiliateUnit}
    */
-  getBigUnitOnSearch(query) {
-    const allUnits = this.getAllUnitsOnSearch(query)
-      .filter(u => u.isBig);
-
-    return allUnits.length > 0 ? allUnits[0] : undefined;
-  },
-
-  /**
-   * Get one SMALL unit that can be displayed on search page with given `query`
-   *
-   * @param {string} query
-   * @returns {AffiliateUnit|undefined}
-   */
-  getSmallUnitOnSearch(query) {
-    const allUnits = this.getAllUnitsOnSearch(query)
-      .filter(u => !u.isBig);
-
-    return allUnits.length > 0 ? allUnits[0] : undefined;
-  },
-
-  /**
-   * Get all units that can be displayed on search page with given `query`
-   *
-   * @param {string} query
-   * @returns {AffiliateUnit[]}
-   */
-  getAllUnitsOnSearch(query) {
-    return this.getAllUnits([
-      t => !t.disableOnSearch,
-      t => checkFilter(t.query, query),
-    ]).filter(
-      u => !u.disableOnSearch,
-    );
-  },
-
-  /**
-   * Get one BIG unit that can be displayed on current wiki with given `title`
-   *
-   * @param {string} title
-   * @returns {AffiliateUnit|undefined}
-   */
-  getBigUnitOnPage(title) {
-    const allUnits = this.getAllUnitsOnPage(title)
-      .filter(u => u.isBig);
-
-    return allUnits.length > 0 ? allUnits[0] : undefined;
-  },
-
-  /**
-   * Get one SMALL unit that can be displayed on current wiki with given `title`
-   *
-   * @param {string} title
-   * @returns {AffiliateUnit|undefined}
-   */
-  getSmallUnitOnPage(title) {
-    const allUnits = this.getAllUnitsOnPage(title)
-      .filter(u => !u.isBig);
-
-    return allUnits.length > 0 ? allUnits[0] : undefined;
-  },
-
-  /**
-   * Get all units that can be displayed on current wiki with given `title`
-   *
-   * @param {string} title
-   * @returns {AffiliateUnit[]}
-   */
-  getAllUnitsOnPage(title) {
-    return this.getAllUnits([
-      t => !t.disableOnPage,
-      t => checkFilter(t.page, title),
-    ]).filter(
-      u => !u.disableOnPage,
-    );
-  },
-
-  /**
-   * Get all units that can be displayed on current wiki
-   *
-   * @param {Function[]} filter functions for targeting
-   * @returns {AffiliateUnit[]}
-   */
-  getAllUnits(filters = []) {
-    let activeTargeting = targeting
+  _getAvailableUnits() {
+    // get all the units based on name and additional checks
+    return units
+      // check for mobile-system-specific units
+      .filter(checkMobileSystem)
       // filter targeting by GEO cookie (country)
-      .filter(t => checkFilter(t.country, this.currentCountry))
+      .filter(u => checkFilter(u.country, this.currentCountry))
+      // sort them according to the priority
+      .sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
+  },
+
+  /**
+   * @param {Targeting[]} targeting
+   * @returns {AffiliateUnit}
+   */
+  _getUnitsWithTargeting(targeting) {
+    const availableUnits = this._getAvailableUnits();
+    const unitsWithTargeting = [];
+
+    /**
+     * At this point we should have a prioritized list of units and prioritized
+     * list of targeting params; we're going to iterate for each targeting
+     * in order to build the final list of units
+     *
+     * NOTE: here we have a nested loop - this is O(n^2), but since
+     * both have small values we should be good
+     */
+    targeting.forEach((t) => {
+      // we're checking all units
+      availableUnits.forEach((u) => {
+        if (u.campaign === t.campaign && u.category === t.category) {
+          // let's add that unit to the list along with its' targeting `tracking` prop
+          unitsWithTargeting.push(extend({}, u, {
+            tracking: t.tracking || {},
+          }));
+        }
+      });
+    });
+
+    return unitsWithTargeting;
+  },
+
+  /**
+   * @param {string} query
+   * @returns {Targeting[]}
+   */
+  _getTargetingOnSearch(query) {
+    return searchPageTargeting
       // filter targeting by vertical name
       .filter(t => checkFilter(t.vertical, this.currentVertical))
       // filter targeting by current wiki ID
-      .filter(t => checkFilter(t.wikiId, this.currentWikiId));
+      .filter(t => checkFilter(t.wikiId, this.currentWikiId))
+      // filter targeting for search `query`
+      .filter(t => checkFilter(t.query, query));
+  },
 
-    // apply additional criteria
-    filters.forEach((f) => {
-      activeTargeting = activeTargeting.filter(f);
+  _isLaunched() {
+    // check/pass in the wikifactory date here
+    // return launchDate > wfData;
+    return false;
+  },
+
+  _getDebugUnit(debugString, isBig) {
+    const debugArray = debugString.split(',');
+    const campaign = debugArray[0];
+    const category = debugArray[1];
+
+    return units.find(
+      unit => unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig,
+    );
+  },
+
+  fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
+    return new Promise((resolve) => {
+      if (!this._isLaunched() && !debugAffiliateUnits) {
+        resolve(undefined);
+      }
+
+      // special use case for debugging
+      if (debugAffiliateUnits.indexOf(',') > -1) {
+        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+      }
+
+      // check if we have possible units (we can fail early if we don't)
+      if (!this._getAvailableUnits()) {
+        resolve(undefined);
+      }
+
+      // get the units that fulfill the targeting on search
+      const targeting = this._getTargetingOnSearch(query);
+      const availableUnits = this._getUnitsWithTargeting(targeting)
+        // filter type of ad - isBig can be undefined, let's convert both to boolean
+        .filter(u => !!u.isBig === !!isBig)
+        // filter units disabled on search page
+        .filter(u => !u.disableOnSearch);
+
+      // fetch only the first unit if available
+      resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
     });
+  },
 
-    // extract unit names from available targeting
-    const availableUnitNames = activeTargeting
-      // grab only names of allowed units
-      .map(t => t.unit)
-      // flatten the array
-      .reduce((prev, curr) => prev.concat(curr), [])
-      // make the list unique
-      .filter(distinct);
+  fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
+    return new Promise((resolve) => {
+      if (!this._isLaunched() && !debugAffiliateUnits) {
+        resolve(undefined);
+      }
 
-    // get all the units based on name and additional checks
-    const availableUnits = units
-      // filter only units that are actually allowed (because of targeting)
-      .filter(u => availableUnitNames.indexOf(u.name) > -1)
-      // check for mobile-system-specific units
-      .filter(u => checkMobileSystem(u))
-      // sort them according to the priority
-      .sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
+      // special use case for debugging
+      if (debugAffiliateUnits.indexOf(',') > -1) {
+        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+      }
 
-    return availableUnits;
+      // check if we have possible units (we can fail early if we don't)
+      if (!this._getAvailableUnits()) {
+        resolve(undefined);
+      }
+
+      const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${pageId}`);
+
+      this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
+        .then((response) => {
+          // convert API to nicer, more useful format
+          const targeting = [];
+
+          // convert from tree structure to flat structure for easier comparison later
+          response.forEach((e) => {
+            e.categories.forEach((c) => {
+              targeting.push({
+                campaign: e.campaign,
+                category: c.name,
+                score: c.score,
+                tracking: c.tracking,
+              });
+            });
+          });
+
+          // sort by the scores, to get better results first
+          targeting.sort((a, b) => b.score - a.score);
+
+          // get the units that fulfill the campaign and category
+          const availableUnits = this._getUnitsWithTargeting(targeting)
+            // filter type of ad - isBig can be undefined, let's convert both to boolean
+            .filter(u => !!u.isBig === !!isBig)
+            // filter units disabled on article page
+            .filter(u => !u.disableOnPage);
+
+          // fetch only the first unit if available
+          resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+        })
+        .catch((error) => {
+          // log and do not raise anything
+          console.error(error);
+
+          resolve(undefined);
+        });
+    });
   },
 });

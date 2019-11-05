@@ -1,6 +1,5 @@
 {{#if isEnabled}}
   <aside class="post-search-results">
-    <div class="post-search-results__slant"></div>
     <header class="post-search-results__header">
       <div class="post-search-results__header-text wds-midlight-navy">
         <Icon @name="comment" @size="small" />
@@ -31,7 +30,11 @@
       <div class="post-search-results__items">
         {{#each posts as |post index|}}
           {{#if (equal post.type "affiliate")}}
-            {{post-search-results-affiliate-item affiliateUnit=smallAffiliateUnit postIndex=index}}
+            {{post-search-results-affiliate-item
+              affiliateUnit=unit
+              postIndex=index
+              setHasAffiliateUnit=setHasAffiliateUnit
+            }}
           {{else}}
             {{post-search-results-item post=post postIndex=index}}
           {{/if}}
@@ -43,4 +46,5 @@
       </div>
     {{/if}}
   </aside>
+  <div class="post-search-results__slant"></div>
 {{/if}}

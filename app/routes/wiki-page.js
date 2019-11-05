@@ -54,6 +54,9 @@ export default Route.extend(
         // but I wasn't able to reload the model on history change
         replace: true,
       },
+      debugAffiliateUnits: {
+        refreshModel: true,
+      },
     },
 
     redirectEmptyTarget: false,
@@ -113,6 +116,10 @@ export default Route.extend(
 
       if (params.from) {
         modelParams.from = params.from;
+      }
+
+      if (params.debugAffiliateUnits) {
+        modelParams.debugAffiliateUnits = params.debugAffiliateUnits;
       }
 
       return resolve(this.getPageModel(modelParams));

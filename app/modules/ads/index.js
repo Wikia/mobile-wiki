@@ -16,14 +16,13 @@ const logGroup = 'mobile-wiki-ads-module';
 
 class PromiseLock {
   constructor() {
-    this.isFinished = false;
+    this.isLoaded = false;
     this.finished = new Promise((resolve, reject) => {
       this.resolve = (x) => {
-        this.isFinished = true;
+        this.isLoaded = true;
         resolve(x);
       };
       this.reject = (x) => {
-        this.isFinished = true;
         reject(x);
       };
     });
@@ -213,7 +212,7 @@ class Ads {
    * @public
    */
   beforeTransition() {
-    if (!this.initialization.isFinished) {
+    if (!this.initialization.isLoaded) {
       return;
     }
 
@@ -229,7 +228,7 @@ class Ads {
    * @public
    */
   onTransition(options) {
-    if (!this.initialization.isFinished) {
+    if (!this.initialization.isLoaded) {
       return;
     }
 
@@ -246,7 +245,7 @@ class Ads {
    * @public
    */
   afterTransition(mediaWikiAdsContext) {
-    if (!this.initialization.isFinished) {
+    if (!this.initialization.isLoaded) {
       return;
     }
 
@@ -257,6 +256,7 @@ class Ads {
     });
 
     this.triggerAfterPageRenderServices();
+    this.triggerPageTracking();
 
     utils.logger(logGroup, 'after transition');
   }
@@ -319,7 +319,6 @@ class Ads {
 
     this.callExternalTrackingServices();
     adblockDetector.run();
-    this.triggerPageTracking();
   }
 
   /**
