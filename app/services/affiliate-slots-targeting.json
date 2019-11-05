@@ -3,71 +3,42 @@
     "campaign": "disneyplus",
     "category": "disney",
     "wikiId": [
-      374,
-      2233,
-      177996,
-      147,
-      4097,
-      673
+      374
     ]
   },
   {
     "campaign": "disneyplus",
     "category": "mandalorian",
     "wikiId": [
-      374,
-      2233,
-      177996,
-      147,
-      4097,
-      673
+      147
     ]
   },
   {
     "campaign": "disneyplus",
     "category": "marvel",
     "wikiId": [
-      374,
       2233,
-      177996,
-      147,
-      4097,
-      673
+      177996
     ]
   },
   {
     "campaign": "disneyplus",
     "category": "pixar",
     "wikiId": [
-      374,
-      2233,
-      177996,
-      147,
-      4097,
-      673
+      4097
     ]
   },
   {
     "campaign": "disneyplus",
     "category": "starwars",
     "wikiId": [
-      374,
-      2233,
-      177996,
-      147,
-      4097,
-      673
+      147
     ]
   },
   {
     "campaign": "disneyplus",
     "category": "simpsons",
     "wikiId": [
-      374,
-      2233,
-      177996,
-      147,
-      4097,
       673
     ]
   }
