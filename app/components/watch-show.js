@@ -39,8 +39,8 @@ export default Component.extend(
 
     isVisible: computed('url', 'buttonLabel', 'geo', 'wikiVariables', function () {
       const isEnabled = Date.parse(this.wikiVariables.watchShowEnabledDate) < Date.now();
-      const isProperGeo Array.isArray(this.wikiVariables.watchShowGeos)
-        && watchShowGeos.indexOf(this.geo.country) > -1
+      const isProperGeo = Array.isArray(this.wikiVariables.watchShowGeos)
+        && this.wikiVariables.watchShowGeos.indexOf(this.geo.country) > -1;
 
       return isEnabled && isProperGeo && this.url && this.buttonLabel;
     }),
@@ -55,7 +55,7 @@ export default Component.extend(
       track({
         action: trackActions.impression,
         category: 'article',
-        label: 'watch-show',
+        label: `watch-${this.wikiVariables.watchShowTrackingLabel}`,
       });
 
       if (this.trackingPixelURL) {
@@ -73,7 +73,7 @@ export default Component.extend(
       track({
         action: trackActions.click,
         category: 'article',
-        label: 'watch-show',
+        label: `watch-${this.wikiVariables.watchShowTrackingLabel}`,
       });
     },
   },
