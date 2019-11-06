@@ -644,7 +644,7 @@ export default Component.extend(
             name: 'affiliate-unit',
             attrs: {
               unit,
-              isInContent: this.id,
+              isInContent: true,
             },
             element: unitPlaceholder,
           }));
@@ -693,7 +693,7 @@ export default Component.extend(
               query: this.title,
               unit,
               isCrossWiki: true,
-              isInContent: this.id,
+              isInContent: true,
               setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,

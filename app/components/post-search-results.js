@@ -169,7 +169,6 @@ export default Component.extend({
             action: 'impression',
             category: 'mercury-affiliate_incontent_posts',
             label: 'affiliate_shown',
-            articleId: this.isInContent,
           });
         } else {
           trackAffiliateUnit(unit, {
