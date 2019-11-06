@@ -242,6 +242,7 @@ export default Service.extend({
           console.error(error);
           return resolve(undefined);
         });
+      return resolve(undefined);
     });
   },
 });
