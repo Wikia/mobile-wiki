@@ -64,7 +64,6 @@ export default Component.extend(
 
           this.handleBigAffiliateUnit();
           this.handlePostSearchResults();
-   
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
           this.handleWatchShow();
