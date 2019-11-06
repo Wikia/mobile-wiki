@@ -2,7 +2,7 @@
   <Icon @name="user" @size="small" class="affiliate-unit__header-icon" />
   {{i18n "affiliate-unit.big-unit-heading"}}
 </div>
-<a href={{unit.link}} class="affiliate-unit__link" @onClick={{action "trackAffiliateClick"}}>
+<a href={{unit.link}} class="affiliate-unit__link" onClick={{action "trackAffiliateClick"}}>
   <img class="affiliate-unit__image" src={{unit.image}} alt="">
   <div class="affiliate-unit__content">
     <div class="affiliate-unit__heading wds-font-weight-bold wds-leading-tight">{{unit.heading}}</div>

@@ -161,7 +161,6 @@ export default Service.extend({
 
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
-      debugger
       if (!this.isLaunched && !debugAffiliateUnits) {
         return resolve(undefined);
       }
