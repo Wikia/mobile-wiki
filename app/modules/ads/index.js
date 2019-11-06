@@ -37,6 +37,7 @@ class Ads {
     /** @private */
     this.isInitializationStarted = false;
     this.initialization = new PromiseLock();
+    this.afterPageRenderExecuted = false;
   }
 
   /**
@@ -116,6 +117,10 @@ class Ads {
    * @param isOptedIn
    */
   setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn) {
+    if (this.initialization.isLoaded) {
+      return;
+    }
+
     const { ScrollTracker } = window.Wikia.adEngine;
 
     this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
@@ -296,6 +301,7 @@ class Ads {
     fanTakeoverResolver.reset();
     billTheLizardWrapper.reset();
     slotsLoader.reset();
+    this.afterPageRenderExecuted = false;
   }
 
   /**
@@ -304,10 +310,15 @@ class Ads {
    * Context service is fully configured at this moment
    */
   triggerAfterPageRenderServices() {
+    if (this.afterPageRenderExecuted) {
+      return;
+    }
+
     const { bidders } = window.Wikia.adBidders;
     const { slotService } = window.Wikia.adEngine;
 
     biddersDelayer.resetPromise();
+
     bidders.requestBids({
       responseListener: biddersDelayer.markAsReady,
     });
@@ -319,6 +330,8 @@ class Ads {
 
     this.callExternalTrackingServices();
     adblockDetector.run();
+
+    this.afterPageRenderExecuted = true;
   }
 
   /**

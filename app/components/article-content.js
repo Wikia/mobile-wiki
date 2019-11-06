@@ -618,7 +618,7 @@ export default Component.extend(
 
       this.affiliateSlots
         .fetchUnitForPage(this.id, true, this.debugAffiliateUnits)
-        .then(unit => {
+        .then((unit) => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
             return;
@@ -647,6 +647,9 @@ export default Component.extend(
             },
             element: unitPlaceholder,
           }));
+
+          // So that the article-wrapper can show the disclaimer
+          this.setHasAffiliateUnit();
         });
     },
 
@@ -661,7 +664,7 @@ export default Component.extend(
 
       this.affiliateSlots
         .fetchUnitForPage(this.id, false, this.debugAffiliateUnits)
-        .then(unit => {
+        .then((unit) => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
             return;
@@ -689,9 +692,13 @@ export default Component.extend(
               unit,
               isCrossWiki: true,
               isInContent: true,
+              setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,
           }));
+
+          // So that the article-wrapper can show the disclaimer
+          this.setHasAffiliateUnit();
         });
     },
   },

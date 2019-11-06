@@ -5,6 +5,10 @@ import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 export default Component.extend({
   isInContent: false,
   classNames: ['post-search-results-affiliate-item'],
+  didRender() {
+    // So that the search controller can show the disclaimer
+    this.setHasAffiliateUnit();
+  },
   actions: {
     trackClick(number, unit) {
       trackAffiliateUnit(unit, {
