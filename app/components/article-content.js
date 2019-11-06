@@ -64,7 +64,14 @@ export default Component.extend(
 
           this.handleBigAffiliateUnit();
           this.handlePostSearchResults();
-          this.handleWatchShow();
+
+          // look for top leaderboard ad before displaying affiliate unit
+          const x = setInterval(() => {
+            if (document.querySelector('.top-leaderboard')) {
+              this.handleWatchShow();
+              clearInterval(x);
+            }
+          }, 100);
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
 
