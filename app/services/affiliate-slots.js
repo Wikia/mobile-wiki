@@ -86,8 +86,7 @@ export default Service.extend({
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
 
-  is
-  : computed('wikiVariables.affiliateUnitEnabledDate', function () {
+  isLaunched: computed('wikiVariables.affiliateUnitEnabledDate', function () {
     return Date.parse(this.wikiVariables.affiliateUnitEnabledDate) < Date.now();
   }),
 
@@ -162,6 +161,7 @@ export default Service.extend({
 
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
+      debugger
       if (!this.isLaunched && !debugAffiliateUnits) {
         return resolve(undefined);
       }
