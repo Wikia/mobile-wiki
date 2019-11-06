@@ -1,10 +1,7 @@
 {{#if isEnabled}}
   {{#if bigUnit}}
     {{affiliate-unit
-      heading=bigUnit.heading
-      image=bigUnit.image
-      link=bigUnit.link
-      subheading=bigUnit.subheading
+      unit=bigUnit
     }}
   {{else}}
     {{post-search-results query=query unit=smallUnit isCrossWiki=isCrossWiki debugAffiliateUnits=debugAffiliateUnits}}

@@ -168,17 +168,17 @@ export default Service.extend({
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve, reject) => {
       if (!this._isLaunched() && !debugAffiliateUnits) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       // special use case for debuggin
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
+        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       // get the units that fulfill the targeting on search
@@ -190,24 +190,24 @@ export default Service.extend({
         .filter(u => !u.disableOnSearch);
 
       // fetch only the first unit if available
-      resolve(units.length > 0 ? units[0] : undefined);
+      return resolve(units.length > 0 ? units[0] : undefined);
     });
   },
 
   fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve, reject) => {
       if (!this._isLaunched() && !debugAffiliateUnits) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
-      // special use case for debuggin
+      // special use case for debugging
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
+        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig))
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${pageId}`);
@@ -239,13 +239,14 @@ export default Service.extend({
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
+
           // fetch only the first unit if available
-          resolve(units.length > 0 ? units[0] : undefined);
+          return resolve(units.length > 0 ? units[0] : undefined);
         })
         .catch((error) => {
           // log and do not raise anything
           console.error(error);
-          resolve(undefined);
+          return resolve(undefined);
         });
     });
   },

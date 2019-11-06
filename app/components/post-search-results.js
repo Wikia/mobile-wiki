@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
-import { track, trackActions } from '../utils/track';
+import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 import config from '../config/environment';
 import extend from '../utils/extend';
 
@@ -75,6 +75,7 @@ export default Component.extend({
   // TODO: Use when releasing search for all post types
   // seeMoreButtonEnabled: not('isCrossWiki'),
   seeMoreButtonEnabled: false,
+  isInContent: false,
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
   seeMoreUrl: computed('wikiVariables.articlePath', function () {
@@ -162,6 +163,20 @@ export default Component.extend({
         const unit = this.unit;
         const preferredIndex = getAffiliateSlot(unit, state.results);
         results.splice(preferredIndex, 0, extend({}, unit, { type: 'affiliate' }));
+
+        if (this.isInContent) {
+          trackAffiliateUnit(unit, {
+            action: 'impression',
+            category: 'mercury-affiliate_incontent_posts',
+            label: 'affiliate_shown',
+          });
+        } else {
+          trackAffiliateUnit(unit, {
+            action: 'impression',
+            category: 'mercury-affiliate_search_posts',
+            label: 'affiliate_shown',
+          });
+        }
 
         if (results.length > 3) {
           results.pop();

@@ -12,7 +12,7 @@ import {
 } from '../utils/render-component';
 import scrollToTop from '../utils/scroll-to-top';
 import toArray from '../utils/toArray';
-import { track, trackActions } from '../utils/track';
+import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 
 /**
   * HTMLElement
@@ -626,7 +626,11 @@ export default Component.extend(
 
           // keep here for tracking purposes. We want to know if we have targeting but no space for the unit
           if (!h2Elements[indexForUnit]) {
-            this.setHasAffiliateUnitButNoSlot();
+            trackAffiliateUnit(unit, {
+              category: '',
+              label: '',
+              action: '',
+            })
             return;
           }
 
@@ -637,7 +641,10 @@ export default Component.extend(
 
           this.renderedComponents.push(this.renderComponent({
             name: 'affiliate-unit',
-            attrs: unit,
+            attrs: {
+              unit,
+              isInContent: true,
+            },
             element: unitPlaceholder,
           }));
         });
@@ -662,7 +669,11 @@ export default Component.extend(
 
           // keep here for tracking purposes. We want to know if we have targeting but no space for the unit
           if (!h2Elements[indexForUnit]) {
-            this.setHasAffiliateUnitButNoSlot();
+            trackAffiliateUnit(unit, {
+              category: '',
+              label: '',
+              action: '',
+            })
             return;
           }
 
@@ -677,6 +688,7 @@ export default Component.extend(
               query: this.title,
               unit,
               isCrossWiki: true,
+              isInContent: true,
             },
             element: unitPlaceholder,
           }));
