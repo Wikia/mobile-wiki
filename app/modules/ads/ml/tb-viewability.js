@@ -9,15 +9,45 @@ export const tbViewability = {
     config = billTheLizardConfig;
 
     if (!this.hasAvailableModels(config, 'tbviewability')) {
-      console.log('tbview not available')
       return;
     }
+
     const enableTbViewability = context.get('options.billTheLizard.tbViewability');
 
     if (enableTbViewability === true) {
       billTheLizard.projectsHandler.enable('tbviewability');
     }
-    console.log('tbview configured');
+
+    context.set('services.billTheLizard.parameters', {
+      tbviewability: {
+        a: 'a',
+        b: 'b',
+        c: 'c',
+      },
+    });
+  },
+
+  calculateScrollY() {
+    const scrollY = (window.scrollY || window.pageYOffset || 0) / 4500;
+    this.resultsProcessor(scrollY);
+  },
+
+  calculateSessionScrollSpeed() {
+    const { ScrollSpeedCalculator } = window.Wikia.adServices;
+    const scrollSpeedCalculator = ScrollSpeedCalculator.make();
+    const scrollSpeed = (scrollSpeedCalculator.getAverageSessionScrollSpeed()) / 1000;
+    this.resultsProcessor(scrollSpeed);
+  },
+
+  resultsProcessor(lol) {
+    if (lol >= 0 && lol < 1) {
+      return lol;
+    }
+    if (lol > 1) {
+      return 1;
+    }
+
+    return 0;
   },
 
   hasAvailableModels(btlConfig, projectName) {
