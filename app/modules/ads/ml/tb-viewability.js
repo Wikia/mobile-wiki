@@ -28,11 +28,10 @@ export const tbViewability = {
         ref: context.get('targeting.ref') || null,
         scrollY: this.calculateScrollY(),
         session_scroll_speed: this.calculateSessionScrollSpeed() || 0,
+        s0v: context.get('targeting.s0v') || null,
         s2: context.get('targeting.s2') || null,
       },
     });
-
-    console.log(context.get('services.billTheLizard.parameters'));
   },
 
   calculateScrollY() {
