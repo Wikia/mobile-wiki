@@ -56,7 +56,6 @@ export default Service.extend({
   },
 
   setupAdsContext(adsContext) {
-    console.error('SETUP ADS CONTEXT!');
     adsContext.user = {
       isAuthenticated: this.currentUser.isAuthenticated,
     };

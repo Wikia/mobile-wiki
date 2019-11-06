@@ -74,7 +74,6 @@ class Ads {
    * @public
    */
   init(instantGlobals, adsContext = {}, queryParams = {}) {
-    console.error('INIT CALLED');
     const reasonConditionMap = {
       noexternals_querystring: isQueryParamActive(queryParams.noexternals),
       noads_querystring: isQueryParamActive(queryParams.noads),
@@ -282,7 +281,6 @@ class Ads {
    * @public
    */
   afterTransition(mediaWikiAdsContext) {
-    console.error('AFTER TRANSITION CALLED');
     if (!this.initialization.isLoaded) {
       return;
     }

@@ -18,7 +18,6 @@ export default Route.extend(
   {
     ads: service('ads/ads'),
     adsContextService: service('ads/search-page-ads-context'),
-    currentUser: service(),
     i18n: service(),
     initialPageView: service(),
     fastboot: service(),
@@ -98,11 +97,13 @@ export default Route.extend(
 
         this.adsContextService.getAdsContext()
           .then((adsContext) => {
+            const ads = Ads.getInstance();
+
             window.getInstantGlobals((instantGlobals) => {
-              Ads.getInstance().init(instantGlobals, adsContext);
+              ads.init(instantGlobals, adsContext);
             });
 
-            this.ads.setupAdsContext(adsContext);
+            ads.afterTransition(adsContext);
           });
 
         return true;
