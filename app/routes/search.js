@@ -18,6 +18,7 @@ export default Route.extend(
   {
     ads: service('ads/ads'),
     adsContextService: service('ads/search-page-ads-context'),
+    currentUser: service(),
     i18n: service(),
     initialPageView: service(),
     fastboot: service(),
@@ -95,14 +96,14 @@ export default Route.extend(
           controller.trackResultsImpression();
         });
 
-        Ads.getLoadedInstance()
-          .then(() => {
-            this.adsContextService.getAdsContext()
-              .then((adsContext) => {
-                this.ads.setupAdsContext(adsContext);
-              });
-          })
-          .catch(() => {}); // Ads not loaded.
+        this.adsContextService.getAdsContext()
+          .then((adsContext) => {
+            window.getInstantGlobals((instantGlobals) => {
+              Ads.getInstance().init(instantGlobals, adsContext);
+            });
+
+            this.ads.setupAdsContext(adsContext);
+          });
 
         return true;
       },

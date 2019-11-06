@@ -14,6 +14,10 @@ import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
 
+function isQueryParamActive(paramValue) {
+  return ['0', null, '', 'false', undefined].indexOf(paramValue) === -1;
+}
+
 class PromiseLock {
   constructor() {
     this.isLoaded = false;
@@ -64,20 +68,48 @@ class Ads {
   }
 
   /**
-   * @param mediaWikiAdsContext
+   * @param instantGlobals
+   * @param adsContext
+   * @param queryParams
    * @public
    */
-  init(mediaWikiAdsContext = {}) {
-    if (!this.isInitializationStarted) {
-      this.isInitializationStarted = true;
+  init(instantGlobals, adsContext = {}, queryParams = {}) {
+    console.error('INIT CALLED');
+    const reasonConditionMap = {
+      noexternals_querystring: isQueryParamActive(queryParams.noexternals),
+      noads_querystring: isQueryParamActive(queryParams.noads),
+      mobileapp_querystring: isQueryParamActive(queryParams['mobile-app']),
+      noads_pagetype: adsContext.opts.pageType === 'no_ads',
+      ig: !!instantGlobals.wgSitewideDisableAdsOnMercury,
+    };
+    const disablers = Object.entries(reasonConditionMap)
+        .filter(reasonAndCondition => reasonAndCondition[1])
+        .map(reasonAndContition => reasonAndContition[0]);
 
-      this.loadAdEngine()
-        .then(() => this.getInstantGlobals())
-        .then((instantGlobals) => {
+    if (disablers.length > 0) {
+      const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');
+
+      this.initialization.reject(disablers);
+      pageTracker.trackProp('adengine', `${disablersSerialized}`, true);
+    } else {
+      // 'wgAdDriverDisableAdStackCountries' - how to check this?
+      if (!this.isInitializationStarted) {
+        this.isInitializationStarted = true;
+
+        this.loadAdEngine().then(() => {
           M.trackingQueue.push(
-            isOptedIn => this.setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn),
+              isOptedIn => this.setupAdEngine(adsContext, instantGlobals, isOptedIn),
           );
         });
+      }
+
+      Ads.getLoadedInstance()
+          .then(() => {
+            pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
+          })
+          .catch(() => {
+            pageTracker.trackProp('adengine', 'off_failed_initialization', true);
+          });
     }
   }
 
@@ -250,6 +282,7 @@ class Ads {
    * @public
    */
   afterTransition(mediaWikiAdsContext) {
+    console.error('AFTER TRANSITION CALLED');
     if (!this.initialization.isLoaded) {
       return;
     }
