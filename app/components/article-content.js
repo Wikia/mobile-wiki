@@ -678,6 +678,7 @@ export default Component.extend(
               query: this.title,
               unit,
               isCrossWiki: true,
+              setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,
           }));
