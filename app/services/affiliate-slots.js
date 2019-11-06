@@ -77,6 +77,35 @@ const checkMobileSystem = (unit) => {
   return true;
 };
 
+
+/**
+ * Convert service response to flat structure
+ * 
+ * @param {Object} response 
+ * @returns {Targeting[]}
+ */
+const flattenKnowledgeGraphTargeting = (response) => {
+  // convert API to nicer, more useful format
+  const targeting = [];
+
+  // convert from tree structure to flat structure for easier comparison later
+  response.forEach((e) => {
+    e.categories.forEach((c) => {
+      targeting.push({
+        campaign: e.campaign,
+        category: c.name,
+        score: c.score,
+        tracking: c.tracking,
+      });
+    });
+  });
+
+  // sort by the scores, to get better results first
+  targeting.sort((a, b) => b.score - a.score);
+
+  return targeting;
+}
+
 export default Service.extend({
   fetch: service(),
   geo: service(),
@@ -175,16 +204,41 @@ export default Service.extend({
         resolve(undefined);
       }
 
-      // get the units that fulfill the targeting on search
-      const targeting = this._getTargetingOnSearch(query);
-      const availableUnits = this._getUnitsWithTargeting(targeting)
-        // filter type of ad - isBig can be undefined, let's convert both to boolean
-        .filter(u => !!u.isBig === !!isBig)
-        // filter units disabled on search page
-        .filter(u => !u.disableOnSearch);
+      if (isBig) {
+        // get the units that fulfill the targeting on search
+        const targeting = this._getTargetingOnSearch(query);
+        const availableUnits = this._getUnitsWithTargeting(targeting)
+          // we only want big units at this point
+          .filter(u => !!u.isBig)
+          // filter units disabled on search page
+          .filter(u => !u.disableOnSearch);
 
-      // fetch only the first unit if available
-      resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+        // fetch only the first unit if available
+        resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+      } else {
+        const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}`);
+
+        this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
+          .then((response) => {
+            const targeting = flattenKnowledgeGraphTargeting(response);
+
+            // get the units that fulfill the campaign and category
+            const availableUnits = this._getUnitsWithTargeting(targeting)
+              // we only want only small at this point
+              .filter(u => !u.isBig)
+              // filter units disabled on article page
+              .filter(u => !u.disableOnSearch);
+
+            // fetch only the first unit if available
+            resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          })
+          .catch((error) => {
+            // log and do not raise anything
+            console.error(error);
+
+            resolve(undefined);
+          });
+      }
     });
   },
 
@@ -208,23 +262,7 @@ export default Service.extend({
 
       this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
         .then((response) => {
-          // convert API to nicer, more useful format
-          const targeting = [];
-
-          // convert from tree structure to flat structure for easier comparison later
-          response.forEach((e) => {
-            e.categories.forEach((c) => {
-              targeting.push({
-                campaign: e.campaign,
-                category: c.name,
-                score: c.score,
-                tracking: c.tracking,
-              });
-            });
-          });
-
-          // sort by the scores, to get better results first
-          targeting.sort((a, b) => b.score - a.score);
+          const targeting = flattenKnowledgeGraphTargeting(response);
 
           // get the units that fulfill the campaign and category
           const availableUnits = this._getUnitsWithTargeting(targeting)
