@@ -275,18 +275,22 @@ export function trackAffiliateUnit(unit, params) {
   const campaignId = unit.campaign;
   const unitId = unit.category;
   const articleId = params.articleId || 'search-page';
-  const taxonomyId = 'some-concatendated-string-value'; // V TODO
+  const extraTracking = {};
+  
+  if (unit.tracking) {
+    unit.tracking.forEach((kv) => {
+      extraTracking[kv.key] = kv.val;
+    });
+  }
 
   // set dimensions for GA
   setDimension(31, campaignId);
   setDimension(32, unitId);
   setDimension(33, articleId);
-  setDimension(34, taxonomyId);
+  setDimension(34, Object.keys(extraTracking).map(k => `${k}=${test[k]}`).join(','));
 
   // set the ga dimensions for 31,32,33,34
-  const allParams = Object.assign({
-    campaignId, unitId, taxonomyId, articleId,
-  }, params);
+  const allParams = Object.assign({}, extraTracking, {campaignId, unitId, articleId}, params);
   track(allParams);
 }
 
