@@ -89,13 +89,13 @@ const flattenKnowledgeGraphTargeting = (response) => {
   const targeting = [];
 
   // convert from tree structure to flat structure for easier comparison later
-  response.forEach((e) => {
-    e.categories.forEach((c) => {
+  response.forEach((campaign) => {
+    campaign.categories.forEach((category) => {
       targeting.push({
-        campaign: e.campaign,
-        category: c.name,
-        score: c.score,
-        tracking: c.tracking,
+        campaign: campaign.campaign, // name of the campaign
+        category: category.name,
+        score: category.score,
+        tracking: category.tracking,
       });
     });
   });
@@ -108,6 +108,7 @@ const flattenKnowledgeGraphTargeting = (response) => {
 
 export default Service.extend({
   fetch: service(),
+  logger: service(),
   geo: service(),
   wikiVariables: service(),
 
@@ -149,13 +150,13 @@ export default Service.extend({
      * NOTE: here we have a nested loop - this is O(n^2), but since
      * both have small values we should be good
      */
-    targeting.forEach((t) => {
+    targeting.forEach((target) => {
       // we're checking all units
-      availableUnits.forEach((u) => {
-        if (u.campaign === t.campaign && u.category === t.category) {
+      availableUnits.forEach((unit) => {
+        if (unit.campaign === target.campaign && unit.category === target.category) {
           // let's add that unit to the list along with its' targeting `tracking` prop
-          unitsWithTargeting.push(extend({}, u, {
-            tracking: t.tracking || {},
+          unitsWithTargeting.push(extend({}, unit, {
+            tracking: target.tracking || {},
           }));
         }
       });
@@ -234,7 +235,7 @@ export default Service.extend({
           })
           .catch((error) => {
             // log and do not raise anything
-            console.error(error);
+            this.logger.error(error);
 
             resolve(undefined);
           });
@@ -276,7 +277,7 @@ export default Service.extend({
         })
         .catch((error) => {
           // log and do not raise anything
-          console.error(error);
+          this.logger.error(error);
 
           resolve(undefined);
         });
