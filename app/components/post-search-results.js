@@ -166,13 +166,13 @@ export default Component.extend({
 
         if (this.isInContent) {
           trackAffiliateUnit(unit, {
-            action: 'impression',
+            action: trackActions.impression,
             category: 'mercury-affiliate_incontent_posts',
             label: 'affiliate_shown',
           });
         } else {
-          trackAffiliateUnit(unit, {
-            action: 'impression',
+          trackAffiliateUnit(unit, { 
+            action: trackActions.impression,
             category: 'mercury-affiliate_search_posts',
             label: 'affiliate_shown',
           });
