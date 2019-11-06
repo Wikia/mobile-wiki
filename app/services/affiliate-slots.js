@@ -80,8 +80,8 @@ const checkMobileSystem = (unit) => {
 
 /**
  * Convert service response to flat structure
- * 
- * @param {Object} response 
+ *
+ * @param {Object} response
  * @returns {Targeting[]}
  */
 const flattenKnowledgeGraphTargeting = (response) => {
@@ -104,7 +104,7 @@ const flattenKnowledgeGraphTargeting = (response) => {
   targeting.sort((a, b) => b.score - a.score);
 
   return targeting;
-}
+};
 
 export default Service.extend({
   fetch: service(),
