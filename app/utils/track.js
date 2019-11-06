@@ -276,7 +276,7 @@ export function trackAffiliateUnit(unit, params) {
   const unitId = unit.category;
   const articleId = params.articleId || 'search-page';
   const extraTracking = {};
-  
+
   if (unit.tracking) {
     unit.tracking.forEach((kv) => {
       extraTracking[kv.key] = kv.val;
@@ -287,10 +287,10 @@ export function trackAffiliateUnit(unit, params) {
   setDimension(31, campaignId);
   setDimension(32, unitId);
   setDimension(33, articleId);
-  setDimension(34, Object.keys(extraTracking).map(k => `${k}=${test[k]}`).join(','));
+  setDimension(34, Object.keys(extraTracking).map(k => `${k}=${extraTracking[k]}`).join(','));
 
   // set the ga dimensions for 31,32,33,34
-  const allParams = Object.assign({}, extraTracking, {campaignId, unitId, articleId}, params);
+  const allParams = Object.assign({}, extraTracking, { campaignId, unitId, articleId }, params);
   track(allParams);
 }
 
