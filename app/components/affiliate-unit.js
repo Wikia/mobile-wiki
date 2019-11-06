@@ -6,24 +6,6 @@ export default Component.extend({
   unit: null,
 
   classNames: ['affiliate-unit'],
-  actions: {
-    trackAffiliateClick() {
-     if (this.isIncontent) {
-      trackAffiliateUnit(this.unit, {
-        action: trackActions.click,
-        category: 'mercury-affiliate_incontent_recommend',
-        label: 'only-item',
-      });
-    } else {
-      trackAffiliateUnit(this.unit, {
-        action: trackActions.click,
-        category: 'mercury-affiliate_search_recommend',
-        label: 'only-item',
-      });
-    }
-    },
-  },
-
   didInsertElement() {
     this._super(...arguments);
     if (this.isIncontent) {
@@ -39,6 +21,23 @@ export default Component.extend({
         label: 'affiliate_shown',
       });
     }
+  },
+  actions: {
+    trackAffiliateClick() {
+      if (this.isIncontent) {
+        trackAffiliateUnit(this.unit, {
+          action: trackActions.click,
+          category: 'mercury-affiliate_incontent_recommend',
+          label: 'only-item',
+        });
+      } else {
+        trackAffiliateUnit(this.unit, {
+          action: trackActions.click,
+          category: 'mercury-affiliate_search_recommend',
+          label: 'only-item',
+        });
+      }
+    },
+  },
 
-  }
 });

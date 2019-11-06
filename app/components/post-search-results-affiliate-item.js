@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 
-import { track, trackActions, trackAffiliateUnit } from '../utils/track';
+import { trackActions, trackAffiliateUnit } from '../utils/track';
 
 export default Component.extend({
   isInContent: false,
@@ -11,11 +11,19 @@ export default Component.extend({
   },
   actions: {
     trackClick(number, unit) {
-      trackAffiliateUnit(unit, {
-        action: trackActions.click,
-        category: 'mercury-affiliate_search_posts',
-        label: `item-${parseInt(number, 10) + 2}`, // offset of two is required
-      });
+      if (this.isInContent) {
+        trackAffiliateUnit(unit, {
+          action: trackActions.click,
+          category: 'mercury-affiliate_incontent_posts',
+          label: `item-${parseInt(number, 10) + 2}`, // offset of two is required
+        })
+      } else {
+        trackAffiliateUnit(unit, {
+          action: trackActions.click,
+          category: 'mercury-affiliate_search_posts',
+          label: `item-${parseInt(number, 10) + 2}`, // offset of two is required
+        });
+      }
     },
   },
 });

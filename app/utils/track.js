@@ -284,7 +284,9 @@ export function trackAffiliateUnit(unit, params) {
   setDimension(34, taxonomyId);
 
   // set the ga dimensions for 31,32,33,34
-  const allParams = Object.assign({campaignId, unitId, taxonomyId, articleId}, params);
+  const allParams = Object.assign({
+    campaignId, unitId, taxonomyId, articleId,
+  }, params);
   track(allParams);
 }
 
