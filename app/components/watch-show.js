@@ -13,8 +13,18 @@ export default Component.extend(
 
     tagName: '',
 
-    buttonLabel: oneWay('wikiVariables.watchShowButtonLabel'),
-    cta: oneWay('wikiVariables.watchShowCTA'),
+    buttonLabel: computed('wikiVariables', 'geo', function () {
+      return this.geo.country === 'CA'
+        ? this.wikiVariables.watchShowButtonLabelCA
+        : this.wikiVariables.watchShowButtonLabel;
+    }),
+
+    cta: computed('wikiVariables', 'geo', function () {
+      return this.geo.country === 'CA'
+        ? this.wikiVariables.watchShowCTACA
+        : this.wikiVariables.watchShowCTA;
+    }),
+
     trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
 
     imageUrl: computed('wikiVariables.{watchShowImageURL,watchShowImageURLDarkTheme}', function () {
