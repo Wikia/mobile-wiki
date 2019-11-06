@@ -1,5 +1,6 @@
 import { pageTracker } from '../tracking/page-tracker';
 import { cheshireCat } from './cheshire-cat';
+import { tbViewability } from './tb-viewability';
 
 export const billTheLizardWrapper = {
   configureBillTheLizard(billTheLizardConfig) {
@@ -31,6 +32,7 @@ export const billTheLizardWrapper = {
     });
 
     cheshireCat.configureCheshireCat(billTheLizardConfig);
+    tbViewability.configureTbViewability(billTheLizardConfig);
   },
 };
 
