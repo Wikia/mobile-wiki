@@ -275,7 +275,7 @@ export function trackAffiliateUnit(unit, params) {
   const campaignId = unit.campaign;
   const unitId = unit.category;
   const articleId = params.articleId || 'search-page';
-  const taxonomyId = ''; // V TODO
+  const taxonomyId = 'some-concatendated-string-value'; // V TODO
 
   // set dimensions for GA
   setDimension(31, campaignId);
