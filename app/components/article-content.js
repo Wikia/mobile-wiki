@@ -66,11 +66,14 @@ export default Component.extend(
           this.handlePostSearchResults();
 
           // look for top leaderboard ad before displaying affiliate unit
+          // Use counter to stop looking after 5 seconds
+          let x = 0;
           const waitForTopLeaderBoardAd = setInterval(() => {
-            if (document.querySelector('.top-leaderboard')) {
+            if (document.querySelector('.top-leaderboard') || x === 50) {
               this.handleWatchShow();
               clearInterval(waitForTopLeaderBoardAd);
             }
+            x += 1;
           }, 100);
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
