@@ -13,6 +13,7 @@ export default Component.extend({
         action: trackActions.impression,
         category: 'mercury-affiliate_incontent_recommend',
         label: 'affiliate_shown',
+        articleId: this.isIncontent,
       });
     } else {
       trackAffiliateUnit(this.unit, {
