@@ -13,6 +13,8 @@ export default Component.extend(
 
     tagName: '',
 
+    trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
+
     buttonLabel: computed('wikiVariables', 'geo', function () {
       return this.geo.country === 'CA'
         ? this.wikiVariables.watchShowButtonLabelCA
@@ -24,8 +26,6 @@ export default Component.extend(
         ? this.wikiVariables.watchShowCTACA
         : this.wikiVariables.watchShowCTA;
     }),
-
-    trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
 
     imageUrl: computed('wikiVariables.{watchShowImageURL,watchShowImageURLDarkTheme}', function () {
       if (isDarkTheme() && this.wikiVariables.watchShowImageURLDarkTheme) {
