@@ -15,10 +15,12 @@
   }
 
   .wds-button {
-    @include button-theming(#00acac, $wds-fandom-color-black);
+    @include button-theming($wds-fandom-color-button-background, $wds-fandom-color-black);
 
+    height: 36px;
     margin-bottom: 12px;
     min-width: 236px;
+    padding: 0;
   }
 
   &__image-wrapper {
