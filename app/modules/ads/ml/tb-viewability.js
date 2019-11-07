@@ -10,28 +10,28 @@ export const tbViewability = {
     const viewabilityCounter = ViewabilityCounter.make();
     config = billTheLizardConfig;
 
-    if (!this.hasAvailableModels(config, 'tbviewability')) {
+    if (!this.hasAvailableModels(config, 'tb_viewability')) {
       return;
     }
 
-    const enableTbViewability = context.get('options.billTheLizard.tbViewability');
+    billTheLizard.projectsHandler.enable('tb_viewability');
 
-    if (enableTbViewability === true) {
-      billTheLizard.projectsHandler.enable('tbviewability');
-    }
-
+    // viewabilityCounter already sets default to 0.5 and is between 0-1
     context.set('services.billTheLizard.parameters', {
-      tbviewability: {
+      tb_viewability: {
         session_viewability_all: viewabilityCounter.getViewability(),
         session_viewability_icb: viewabilityCounter.getViewability('incontent_boxad'),
         session_viewability_tb: viewabilityCounter.getViewability('top_boxad'),
         ref: context.get('targeting.ref') || null,
-        scrollY: this.calculateScrollY(),
+        scroll_y: this.calculateScrollY(),
         session_scroll_speed: this.calculateSessionScrollSpeed() || 0,
         s0v: context.get('targeting.s0v') || null,
         s2: context.get('targeting.s2') || null,
       },
     });
+
+    // consulted 'top_page' parameter with Martyna, if we sent top_boxad cheshire is going mad
+    billTheLizard.call(['tb_viewability'], 'top_page');
   },
 
   calculateScrollY() {

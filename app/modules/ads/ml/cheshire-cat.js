@@ -147,8 +147,10 @@ export const cheshireCat = {
     });
 
     eventService.on(billTheLizardEvents.BILL_THE_LIZARD_RESPONSE, (event) => {
-      if (event.callId) {
-        defaultStatus = BillTheLizard.REUSED;
+      if (event.response.includes('cheshire')) {
+        if (event.callId) {
+          defaultStatus = BillTheLizard.REUSED;
+        }
       }
     });
 
