@@ -288,7 +288,7 @@ export function trackAffiliateUnit(unit, params) {
   setDimension(33, Object.keys(extraTracking).map(k => `${k}=${extraTracking[k]}`).join(','));
 
   // set the ga dimensions for 31,32,33,34
-  const allParams = Object.assign({}, extraTracking, { campaignId, unitId }, params);
+  const allParams = Object.assign({}, extraTracking, { campaign_id: campaignId, unit_id: unitId }, params);
   track(allParams);
 }
 
