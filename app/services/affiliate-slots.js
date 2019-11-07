@@ -232,14 +232,15 @@ export default Service.extend({
             .filter(u => !u.disableOnSearch);
 
           // fetch only the first unit if available
-          resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
         .catch((error) => {
           // log and do not raise anything
           this.logger.error(error);
+          return resolve(undefined);
         });
 
-      return resolve(undefined);
+      return undefined;
     });
   },
 
@@ -279,8 +280,10 @@ export default Service.extend({
         .catch((error) => {
           // log and do not raise anything
           this.logger.error(error);
+          return resolve(undefined);
         });
-      return resolve(undefined);
+
+      return undefined;
     });
   },
 });
