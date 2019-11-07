@@ -38,9 +38,9 @@ class Ads {
     this.engine = null;
     this.spaInstanceId = null;
 
-    /** @private */
     this.isInitializationStarted = false;
     this.initialization = new PromiseLock();
+    /** @private */
     this.afterPageRenderExecuted = false;
   }
 

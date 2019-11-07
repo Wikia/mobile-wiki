@@ -100,10 +100,13 @@ export default Route.extend(
             const ads = Ads.getInstance();
 
             window.getInstantGlobals((instantGlobals) => {
-              ads.init(instantGlobals, adsContext);
+              if (ads.isInitializationStarted) {
+                ads.afterTransition(adsContext);
+              } else {
+                ads.init(instantGlobals, adsContext);
+              }
             });
 
-            ads.afterTransition(adsContext);
           });
 
         return true;
