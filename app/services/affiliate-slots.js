@@ -192,17 +192,17 @@ export default Service.extend({
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
       if (!this.isLaunched && !debugAffiliateUnits) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       // special use case for debugging
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       if (isBig) {
@@ -215,48 +215,48 @@ export default Service.extend({
           .filter(u => !u.disableOnSearch);
 
         // fetch only the first unit if available
-        resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
-      } else {
-        const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}`);
-
-        this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
-          .then((response) => {
-            const targeting = flattenKnowledgeGraphTargeting(response);
-
-            // get the units that fulfill the campaign and category
-            const availableUnits = this._getUnitsWithTargeting(targeting)
-              // we only want only small at this point
-              .filter(u => !u.isBig)
-              // filter units disabled on article page
-              .filter(u => !u.disableOnSearch);
-
-            // fetch only the first unit if available
-            resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
-          })
-          .catch((error) => {
-            // log and do not raise anything
-            this.logger.error(error);
-
-            resolve(undefined);
-          });
+        return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
       }
+
+      const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}`);
+
+      this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
+        .then((response) => {
+          const targeting = flattenKnowledgeGraphTargeting(response);
+
+          // get the units that fulfill the campaign and category
+          const availableUnits = this._getUnitsWithTargeting(targeting)
+            // we only want only small at this point
+            .filter(u => !u.isBig)
+            // filter units disabled on article page
+            .filter(u => !u.disableOnSearch);
+
+          // fetch only the first unit if available
+          resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+        })
+        .catch((error) => {
+          // log and do not raise anything
+          this.logger.error(error);
+        });
+
+      return resolve(undefined);
     });
   },
 
   fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
       if (!this.isLaunched && !debugAffiliateUnits) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       // special use case for debugging
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${pageId}`);
@@ -272,15 +272,15 @@ export default Service.extend({
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
+
           // fetch only the first unit if available
-          resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
         .catch((error) => {
           // log and do not raise anything
           this.logger.error(error);
-
-          resolve(undefined);
         });
+      return resolve(undefined);
     });
   },
 });
