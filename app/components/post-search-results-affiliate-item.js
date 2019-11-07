@@ -18,13 +18,13 @@ export default Component.extend({
         trackAffiliateUnit(unit, {
           action: trackActions.click,
           category: 'mercury-affiliate_incontent_posts',
-          label: `item-${parseInt(number, 10) + 2}`, // offset of two is required
+          label: `item-${parseInt(number, 10)}`,
         });
       } else {
         trackAffiliateUnit(unit, {
           action: trackActions.click,
           category: 'mercury-affiliate_search_posts',
-          label: `item-${parseInt(number, 10) + 2}`, // offset of two is required
+          label: `item-${parseInt(number, 10)}`,
         });
       }
     },
