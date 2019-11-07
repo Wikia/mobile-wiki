@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-// TODO: Use when releasing search for all post types
-// import { not } from '@ember/object/computed';
+import { not } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
@@ -25,41 +24,6 @@ function getAffiliateSlot(smallAffiliateUnit, posts) {
   return preferredIndex;
 }
 
-// TODO: Remove this when all discussions' posts are in the index
-const QUIZZES_WHITELIST = [
-  'keikosandbox.fandom.com',
-  'keiko-test.fandom.com',
-  'xkxd.fandom.com',
-  'gameofthrones.fandom.com',
-  'attackontitan.fandom.com',
-  'marvelcinematicuniverse.fandom.com',
-  'marvel.fandom.com',
-  'southpark.fandom.com',
-  'starwars.fandom.com',
-  'strangerthings.fandom.com',
-  'xmenmovies.fandom.com',
-  'arrow.fandom.com',
-  'bojackhorseman.fandom.com',
-  'dc.fandom.com',
-  'dcextendeduniverse.fandom.com',
-  'disney.fandom.com',
-  'fastandfurious.fandom.com',
-  'godzilla.fandom.com',
-  'lionguard.fandom.com',
-  'miraculousladybug.fandom.com',
-  'riverdale.fandom.com',
-  'spongebob.fandom.com',
-  'tardis.fandom.com',
-  'thehungergames.fandom.com',
-  '13reasonswhy.fandom.com',
-  'battlefield.fandom.com',
-  'dragonage.fandom.com',
-  'acecombat.fandom.com',
-  'borderlands.fandom.com',
-  'pixelgun-wiki.fandom.com',
-];
-
-
 export default Component.extend({
   fetchService: service('fetch'),
   logger: service(),
@@ -71,38 +35,18 @@ export default Component.extend({
   posts: null,
   unit: null,
   debugAffiliateUnits: false,
-
-  // TODO: Use when releasing search for all post types
-  // seeMoreButtonEnabled: not('isCrossWiki'),
-  seeMoreButtonEnabled: false,
   isInContent: false,
+
+  seeMoreButtonEnabled: not('isCrossWiki'),
 
   // fortunately we can compute the feeds path from articlePath (it has lang part)
   seeMoreUrl: computed('wikiVariables.articlePath', function () {
     return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isInternal', function () {
-    // Enable on non-production wikis
-    if (config.environment !== 'production') {
-      return true;
-    }
-
-    // TODO: When removing whitelist, delete code below
-    // Enable on whitelisted wiki, remove sandbox string from host
-    const host = this.wikiVariables.host.replace(/\.sandbox-s[0-9]?/g, '');
-    return QUIZZES_WHITELIST.indexOf(host) > -1;
-
-    // TODO: When removing whitelist, enable code block below
-    /*
-    // on inter-wiki searches disable the module if discussions are not enabled
-    if (this.isInternal && !this.get('wikiVariables.enableDiscussions')) {
-      return false;
-    }
-
-    // otherwise it is enabled
-    return true;
-    */
+  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isCrossWiki', function () {
+    // enabled on cross wiki and if community has discussions enabled
+    return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
   }),
 
   didInsertElement() {
