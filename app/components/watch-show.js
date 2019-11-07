@@ -13,9 +13,19 @@ export default Component.extend(
 
     tagName: '',
 
-    buttonLabel: oneWay('wikiVariables.watchShowButtonLabel'),
-    cta: oneWay('wikiVariables.watchShowCTA'),
     trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
+
+    buttonLabel: computed('wikiVariables', 'geo', function () {
+      return this.geo.country === 'CA'
+        ? this.wikiVariables.watchShowButtonLabelCA
+        : this.wikiVariables.watchShowButtonLabel;
+    }),
+
+    cta: computed('wikiVariables', 'geo', function () {
+      return this.geo.country === 'CA'
+        ? this.wikiVariables.watchShowCTACA
+        : this.wikiVariables.watchShowCTA;
+    }),
 
     imageUrl: computed('wikiVariables.{watchShowImageURL,watchShowImageURLDarkTheme}', function () {
       if (isDarkTheme() && this.wikiVariables.watchShowImageURLDarkTheme) {
@@ -37,8 +47,16 @@ export default Component.extend(
       return this.wikiVariables.watchShowURLAndroid;
     }),
 
-    isVisible: computed('url', 'buttonLabel', 'geo', function () {
-      return this.url && this.buttonLabel && this.geo.country === 'US';
+    isVisible: computed('url', 'buttonLabel', 'geo', 'wikiVariables', function () {
+      const isEnabled = this.wikiVariables.watchShowEnabledDate
+        && Date.parse(this.wikiVariables.watchShowEnabledDate) < Date.now();
+
+      // proper geo is always if the variable is empty
+      const isProperGeo = !this.wikiVariables.watchShowGeos
+        // proper geo check
+        || (this.wikiVariables.watchShowGeos.split(',').indexOf(this.geo.country) > -1);
+
+      return isEnabled && isProperGeo && this.url && this.buttonLabel;
     }),
 
     didInsertElement() {
@@ -51,7 +69,7 @@ export default Component.extend(
       track({
         action: trackActions.impression,
         category: 'article',
-        label: 'watch-show',
+        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
       });
 
       if (this.trackingPixelURL) {
@@ -69,7 +87,7 @@ export default Component.extend(
       track({
         action: trackActions.click,
         category: 'article',
-        label: 'watch-show',
+        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
       });
     },
   },

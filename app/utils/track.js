@@ -160,6 +160,7 @@ export function track(params, usePrefix = true, force = false) {
   // We rely on ga_* params in both trackers
   pruneParams(params);
 
+  // GA Tracking
   if (trackingMethod === TrackingMethod.both || trackingMethod === TrackingMethod.ga) {
     if (!category || !action) {
       throw new Error('Missing required GA params');
@@ -170,6 +171,7 @@ export function track(params, usePrefix = true, force = false) {
     });
   }
 
+  // DW Tracking
   if (trackingMethod === TrackingMethod.both || trackingMethod === TrackingMethod.internal) {
     const eventName = params.eventName || 'trackingevent';
 
@@ -259,6 +261,35 @@ export function trackXClick(adSlot) {
   */
 export function setTrackContext(data) {
   context = data;
+}
+/**
+ * Set GA dimensions
+ * @param {number} index
+ * @param {string} value
+ */
+export function setDimension(index, value) {
+  M.tracker.UniversalAnalytics.setDimension(index, value.toString());
+}
+
+export function trackAffiliateUnit(unit, params) {
+  const campaignId = unit.campaign;
+  const unitId = unit.category;
+  const extraTracking = {};
+
+  if (unit.tracking) {
+    unit.tracking.forEach((kv) => {
+      extraTracking[kv.key] = kv.val;
+    });
+  }
+
+  // set dimensions for GA
+  setDimension(31, campaignId);
+  setDimension(32, unitId);
+  setDimension(33, Object.keys(extraTracking).map(k => `${k}=${extraTracking[k]}`).join(','));
+
+  // set the ga dimensions for 31,32,33,34
+  const allParams = Object.assign({}, extraTracking, { campaign_id: campaignId, unit_id: unitId }, params);
+  track(allParams);
 }
 
 export { trackActions };

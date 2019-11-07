@@ -12,7 +12,7 @@ import {
 } from '../utils/render-component';
 import scrollToTop from '../utils/scroll-to-top';
 import toArray from '../utils/toArray';
-import { track, trackActions } from '../utils/track';
+import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 
 /**
   * HTMLElement
@@ -613,16 +613,22 @@ export default Component.extend(
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      // if there's no section that we want, just exit
-      if (!h2Elements[indexForUnit]) {
-        return;
-      }
-
       this.affiliateSlots
         .fetchUnitForPage(this.id, true, this.debugAffiliateUnits)
         .then((unit) => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
+            return;
+          }
+
+          // keep here for tracking purposes.
+          // We want to know if we have targeting but no space for the unit
+          if (!h2Elements[indexForUnit]) {
+            trackAffiliateUnit(unit, {
+              category: 'mercury-affiliate_incontent_recommend',
+              label: 'affiliate_not_shown',
+              action: 'no-impression',
+            });
             return;
           }
 
@@ -633,7 +639,10 @@ export default Component.extend(
 
           this.renderedComponents.push(this.renderComponent({
             name: 'affiliate-unit',
-            attrs: unit,
+            attrs: {
+              unit,
+              isInContent: true,
+            },
             element: unitPlaceholder,
           }));
 
@@ -651,16 +660,22 @@ export default Component.extend(
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      // if there's no section that we want, just exit
-      if (!h2Elements[indexForUnit]) {
-        return;
-      }
-
       this.affiliateSlots
         .fetchUnitForPage(this.id, false, this.debugAffiliateUnits)
         .then((unit) => {
           if (typeof unit === 'undefined') {
             // There's no unit to display (not an error)
+            return;
+          }
+
+          // keep here for tracking purposes.
+          // We want to know if we have targeting but no space for the unit
+          if (!h2Elements[indexForUnit]) {
+            trackAffiliateUnit(unit, {
+              category: 'mercury-affiliate_incontent_posts',
+              label: 'affiliate_not_shown',
+              action: 'no-impression',
+            });
             return;
           }
 
@@ -675,6 +690,8 @@ export default Component.extend(
               query: this.title,
               unit,
               isCrossWiki: true,
+              isInContent: true,
+              setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,
           }));
