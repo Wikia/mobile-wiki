@@ -171,7 +171,7 @@ export default Component.extend({
             label: 'affiliate_shown',
           });
         } else {
-          trackAffiliateUnit(unit, { 
+          trackAffiliateUnit(unit, {
             action: trackActions.impression,
             category: 'mercury-affiliate_search_posts',
             label: 'affiliate_shown',
