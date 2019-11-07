@@ -36,6 +36,7 @@ export default Route.extend(
     },
 
     applicationWrapperClassNames: null,
+    transitionQueryParams: null,
 
     init() {
       this._super(...arguments);
@@ -48,7 +49,7 @@ export default Route.extend(
       this.applicationWrapperClassNames = ['search-result-page'];
     },
 
-    model(params) {
+    model(params, transition) {
       if (this.get('fastboot.isFastBoot')) {
         // First pageview is tracked from outside of Ember and it will only be tracked
         // if the trackingData for the page is set in shoebox (nulls are default values as search
@@ -58,6 +59,8 @@ export default Route.extend(
           namespace: null,
         });
       }
+
+      this.transitionQueryParams = transition.queryParams;
 
       return SearchModel
         .create(getOwner(this).ownerInjection())
@@ -103,10 +106,9 @@ export default Route.extend(
               if (ads.isInitializationStarted) {
                 ads.afterTransition(adsContext);
               } else {
-                ads.init(instantGlobals, adsContext);
+                ads.init(instantGlobals, adsContext, this.transitionQueryParams);
               }
             });
-
           });
 
         return true;

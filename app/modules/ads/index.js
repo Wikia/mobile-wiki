@@ -82,8 +82,8 @@ class Ads {
       ig: !!instantGlobals.wgSitewideDisableAdsOnMercury,
     };
     const disablers = Object.entries(reasonConditionMap)
-        .filter(reasonAndCondition => reasonAndCondition[1])
-        .map(reasonAndContition => reasonAndContition[0]);
+      .filter(reasonAndCondition => reasonAndCondition[1])
+      .map(reasonAndContition => reasonAndContition[0]);
 
     if (disablers.length > 0) {
       const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');
@@ -97,18 +97,18 @@ class Ads {
 
         this.loadAdEngine().then(() => {
           M.trackingQueue.push(
-              isOptedIn => this.setupAdEngine(adsContext, instantGlobals, isOptedIn),
+            isOptedIn => this.setupAdEngine(adsContext, instantGlobals, isOptedIn),
           );
         });
       }
 
       Ads.getLoadedInstance()
-          .then(() => {
-            pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
-          })
-          .catch(() => {
-            pageTracker.trackProp('adengine', 'off_failed_initialization', true);
-          });
+        .then(() => {
+          pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
+        })
+        .catch(() => {
+          pageTracker.trackProp('adengine', 'off_failed_initialization', true);
+        });
     }
   }
 
