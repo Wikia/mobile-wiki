@@ -4,7 +4,8 @@
     "category": "disney",
     "image": "https://static.wikia.nocookie.net/a136ba04-c922-40f2-89a6-f455b5ce895a",
     "heading": "Moana, a heroine kids and adults alike will admire and cheer for",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"]
   },
   {
@@ -12,7 +13,8 @@
     "category": "disney",
     "image": "https://static.wikia.nocookie.net/a136ba04-c922-40f2-89a6-f455b5ce895a",
     "heading": "Moana, a heroine kids and adults alike will admire and cheer for",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"],
     "isBig": true
   },
@@ -21,7 +23,8 @@
     "category": "mandalorian",
     "image": "https://static.wikia.nocookie.net/a2ea4f98-6c5b-4cf3-9ee8-e58ec23ba686",
     "heading": "A thrilling new adventure on the galactic frontier",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"]
   },
   {
@@ -29,7 +32,8 @@
     "category": "mandalorian",
     "image": "https://static.wikia.nocookie.net/a2ea4f98-6c5b-4cf3-9ee8-e58ec23ba686",
     "heading": "A thrilling new adventure on the galactic frontier",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"],
     "isBig": true
   },
@@ -38,7 +42,8 @@
     "category": "marvel",
     "image": "https://static.wikia.nocookie.net/d8374c50-15b4-4ee6-97be-fa8dc4d5976e",
     "heading": "All Avengers, All the Time",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"]
   },
   {
@@ -46,7 +51,8 @@
     "category": "marvel",
     "image": "https://static.wikia.nocookie.net/d8374c50-15b4-4ee6-97be-fa8dc4d5976e",
     "heading": "All Avengers, All the Time",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"],
     "isBig": true
   },
@@ -55,7 +61,8 @@
     "category": "pixar",
     "image": "https://static.wikia.nocookie.net/5815ecac-01d2-4330-9116-887172ced2af",
     "heading": "The Incredibles- a family who saves the world together sticks together",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"]
   },
   {
@@ -63,7 +70,8 @@
     "category": "pixar",
     "image": "https://static.wikia.nocookie.net/5815ecac-01d2-4330-9116-887172ced2af",
     "heading": "The Incredibles- a family who saves the world together sticks together",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"],
     "isBig": true
   },
@@ -72,7 +80,8 @@
     "category": "starwars",
     "image": "https://static.wikia.nocookie.net/29803c98-f93a-4291-bda3-8b44c8bbfcab",
     "heading": "The Star Wars story lives forever",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"]
   },
   {
@@ -80,7 +89,8 @@
     "category": "starwars",
     "image": "https://static.wikia.nocookie.net/29803c98-f93a-4291-bda3-8b44c8bbfcab",
     "heading": "The Star Wars story lives forever",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"],
     "isBig": true
   },
@@ -89,7 +99,8 @@
     "category": "simpsons",
     "image": "https://static.wikia.nocookie.net/2d18111c-bc45-458f-9898-d2d4e3a50589",
     "heading": "Don't have a cow man, relive the Simpsons",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"]
   },
   {
@@ -97,7 +108,8 @@
     "category": "simpsons",
     "image": "https://static.wikia.nocookie.net/2d18111c-bc45-458f-9898-d2d4e3a50589",
     "heading": "Don't have a cow man, relive the Simpsons",
-    "subheading": "Watch It On Disney+",
+    "subheading": "Watch Now On Disney+",
+    "link": "https://www.fandom.com",
     "country": ["US", "CA", "NL"],
     "isBig": true
   }
