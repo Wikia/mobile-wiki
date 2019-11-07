@@ -83,7 +83,7 @@ class Ads {
     };
     const disablers = Object.entries(reasonConditionMap)
       .filter(reasonAndCondition => reasonAndCondition[1])
-      .map(reasonAndContition => reasonAndContition[0]);
+      .map(reasonAndCondition => reasonAndCondition[0]);
 
     if (disablers.length > 0) {
       const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');

@@ -104,7 +104,7 @@ export default Route.extend(
 
             window.getInstantGlobals((instantGlobals) => {
               if (ads.isInitializationStarted) {
-                ads.afterTransition(adsContext);
+                Ads.getLoadedInstance().afterTransition(adsContext);
               } else {
                 ads.init(instantGlobals, adsContext, this.transitionQueryParams);
               }
