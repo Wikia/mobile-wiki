@@ -1,3 +1,4 @@
+import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
@@ -76,14 +77,48 @@ const checkMobileSystem = (unit) => {
   return true;
 };
 
+
+/**
+ * Convert service response to flat structure
+ *
+ * @param {Object} response
+ * @returns {Targeting[]}
+ */
+const flattenKnowledgeGraphTargeting = (response) => {
+  // convert API to nicer, more useful format
+  const targeting = [];
+
+  // convert from tree structure to flat structure for easier comparison later
+  response.forEach((campaign) => {
+    campaign.categories.forEach((category) => {
+      targeting.push({
+        campaign: campaign.campaign, // name of the campaign
+        category: category.name,
+        score: category.score,
+        tracking: category.tracking,
+      });
+    });
+  });
+
+  // sort by the scores, to get better results first
+  targeting.sort((a, b) => b.score - a.score);
+
+  return targeting;
+};
+
 export default Service.extend({
   fetch: service(),
+  logger: service(),
   geo: service(),
   wikiVariables: service(),
 
   currentWikiId: readOnly('wikiVariables.id'),
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
+
+  isLaunched: computed('wikiVariables.affiliateUnitEnabledDate', function () {
+    return Date.parse(this.wikiVariables.affiliateUnitEnabledDate) < Date.now();
+  }),
 
   /**
    * @returns {AffiliateUnit}
@@ -115,13 +150,13 @@ export default Service.extend({
      * NOTE: here we have a nested loop - this is O(n^2), but since
      * both have small values we should be good
      */
-    targeting.forEach((t) => {
+    targeting.forEach((target) => {
       // we're checking all units
-      availableUnits.forEach((u) => {
-        if (u.campaign === t.campaign && u.category === t.category) {
+      availableUnits.forEach((unit) => {
+        if (unit.campaign === target.campaign && unit.category === target.category) {
           // let's add that unit to the list along with its' targeting `tracking` prop
-          unitsWithTargeting.push(extend({}, u, {
-            tracking: t.tracking || {},
+          unitsWithTargeting.push(extend({}, unit, {
+            tracking: target.tracking || {},
           }));
         }
       });
@@ -144,12 +179,6 @@ export default Service.extend({
       .filter(t => checkFilter(t.query, query));
   },
 
-  _isLaunched() {
-    // check/pass in the wikifactory date here
-    // return launchDate > wfData;
-    return false;
-  },
-
   _getDebugUnit(debugString, isBig) {
     const debugArray = debugString.split(',');
     const campaign = debugArray[0];
@@ -162,70 +191,80 @@ export default Service.extend({
 
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
-      if (!this._isLaunched() && !debugAffiliateUnits) {
-        resolve(undefined);
+      if (!this.isLaunched && !debugAffiliateUnits) {
+        return resolve(undefined);
       }
 
       // special use case for debugging
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
-      // get the units that fulfill the targeting on search
-      const targeting = this._getTargetingOnSearch(query);
-      const availableUnits = this._getUnitsWithTargeting(targeting)
-        // filter type of ad - isBig can be undefined, let's convert both to boolean
-        .filter(u => !!u.isBig === !!isBig)
-        // filter units disabled on search page
-        .filter(u => !u.disableOnSearch);
+      if (isBig) {
+        // get the units that fulfill the targeting on search
+        const targeting = this._getTargetingOnSearch(query);
+        const availableUnits = this._getUnitsWithTargeting(targeting)
+          // we only want big units at this point
+          .filter(u => !!u.isBig)
+          // filter units disabled on search page
+          .filter(u => !u.disableOnSearch);
 
-      // fetch only the first unit if available
-      resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+        // fetch only the first unit if available
+        return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+      }
+
+      const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}`);
+
+      this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
+        .then((response) => {
+          const targeting = flattenKnowledgeGraphTargeting(response);
+
+          // get the units that fulfill the campaign and category
+          const availableUnits = this._getUnitsWithTargeting(targeting)
+            // we only want only small at this point
+            .filter(u => !u.isBig)
+            // filter units disabled on article page
+            .filter(u => !u.disableOnSearch);
+
+          // fetch only the first unit if available
+          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+        })
+        .catch((error) => {
+          // log and do not raise anything
+          this.logger.error(error);
+          return resolve(undefined);
+        });
+
+      return undefined;
     });
   },
 
   fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
-      if (!this._isLaunched() && !debugAffiliateUnits) {
-        resolve(undefined);
+      if (!this.isLaunched && !debugAffiliateUnits) {
+        return resolve(undefined);
       }
 
       // special use case for debugging
       if (debugAffiliateUnits.indexOf(',') > -1) {
-        resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        resolve(undefined);
+        return resolve(undefined);
       }
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${pageId}`);
 
       this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError)
         .then((response) => {
-          // convert API to nicer, more useful format
-          const targeting = [];
-
-          // convert from tree structure to flat structure for easier comparison later
-          response.forEach((e) => {
-            e.categories.forEach((c) => {
-              targeting.push({
-                campaign: e.campaign,
-                category: c.name,
-                score: c.score,
-                tracking: c.tracking,
-              });
-            });
-          });
-
-          // sort by the scores, to get better results first
-          targeting.sort((a, b) => b.score - a.score);
+          const targeting = flattenKnowledgeGraphTargeting(response);
 
           // get the units that fulfill the campaign and category
           const availableUnits = this._getUnitsWithTargeting(targeting)
@@ -234,15 +273,17 @@ export default Service.extend({
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
+
           // fetch only the first unit if available
-          resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
         .catch((error) => {
           // log and do not raise anything
-          console.error(error);
-
-          resolve(undefined);
+          this.logger.error(error);
+          return resolve(undefined);
         });
+
+      return undefined;
     });
   },
 });
