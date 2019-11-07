@@ -44,7 +44,7 @@ export default Component.extend({
     return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
   }),
 
-  isEnabled: computed('wikiVariables.{host,enableDiscussions}', 'isCrossWiki', function () {
+  isEnabled: computed('wikiVariables.enableDiscussions', 'isCrossWiki', function () {
     // enabled on cross wiki and if community has discussions enabled
     return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
   }),
