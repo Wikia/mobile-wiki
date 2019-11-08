@@ -1,7 +1,6 @@
 {{#if isVisible}}
   <div class="watch-show">
     <h2>{{cta}}</h2>
-    <img src={{imageUrl}} alt={{cta}} class="watch-show__image">
     <a
       class="wds-button"
       onclick={{this.trackClick}}
@@ -11,5 +10,11 @@
     >
       {{buttonLabel}}
     </a>
+    <div class="watch-show__image-wrapper">
+      <hr class="watch-show__hr">
+      <img src={{imageUrl}} alt={{cta}} class="watch-show__image">
+      <hr class="watch-show__hr">
+    </div>
   </div>
+  <div class="watch-show__slant"></div>
 {{/if}}

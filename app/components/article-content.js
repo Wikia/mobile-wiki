@@ -64,10 +64,9 @@ export default Component.extend(
 
           this.handleBigAffiliateUnit();
           this.handlePostSearchResults();
-          this.handleWatchShow();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
-
+          this.handleWatchShow();
           this.renderDataComponents(this.element);
 
           this.loadIcons();
@@ -590,14 +589,12 @@ export default Component.extend(
      * Injects watch show button (IW-1470) just after the first infobox
      */
     handleWatchShow() {
-      const infobox = this.element.querySelector('.portable-infobox,.infobox');
+      const infoboxWrapper = this.element.querySelector('.portable-infobox-wrapper');
 
-      if (infobox) {
+      if (infoboxWrapper) {
         const placeholder = document.createElement('div');
-        const wrapper = document.createElement('div');
 
-        wrapper.appendChild(placeholder);
-        infobox.insertAdjacentElement('afterend', wrapper);
+        infoboxWrapper.appendChild(placeholder);
 
         this.renderedComponents.push(this.renderComponent({
           name: 'watch-show',
