@@ -8,7 +8,7 @@ export default Component.extend({
   classNames: ['post-search-results-affiliate-item'],
 
   didRender() {
-    // So that the search controller can show the disclaimer
+    // For showing the disclaimer text
     this.setHasAffiliateUnit();
   },
 

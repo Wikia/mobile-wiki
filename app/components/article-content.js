@@ -642,12 +642,10 @@ export default Component.extend(
             attrs: {
               unit,
               isInContent: true,
+              setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,
           }));
-
-          // So that the article-wrapper can show the disclaimer
-          this.setHasAffiliateUnit();
         });
     },
 
@@ -695,9 +693,6 @@ export default Component.extend(
             },
             element: unitPlaceholder,
           }));
-
-          // So that the article-wrapper can show the disclaimer
-          this.setHasAffiliateUnit();
         });
     },
   },
