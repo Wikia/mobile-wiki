@@ -1,4 +1,5 @@
 import { targeting } from '../targeting';
+import hasAvailableModels from './utils';
 
 const AD_SLOT_CATLAPSED_STATUS = 'catlapsed';
 const bidPosKeyVal = 'mobile_in_content';
@@ -101,7 +102,7 @@ export const cheshireCat = {
     config = billTheLizardConfig;
     defaultStatus = NOT_USED_STATUS;
 
-    if (!this.hasAvailableModels(config, 'cheshirecat')) {
+    if (!hasAvailableModels(config, 'cheshirecat')) {
       return;
     }
 
@@ -185,16 +186,6 @@ export const cheshireCat = {
 
   getBtlSlotStatus,
 
-  hasAvailableModels(btlConfig, projectName) {
-    const { utils } = window.Wikia.adEngine;
-    const projects = btlConfig.projects || config.projects;
-
-    return projects && projects[projectName]
-      && projects[projectName].some(
-        model => utils.geoService.isProperGeo(model.countries, model.name),
-      );
-  },
-
   reset() {
     const { billTheLizard } = window.Wikia.adServices;
 
@@ -204,7 +195,7 @@ export const cheshireCat = {
     refreshedSlotNumber = null;
 
     // Recheck available models for Labrador decisions
-    this.hasAvailableModels(config, 'cheshirecat');
+    hasAvailableModels(config, 'cheshirecat');
 
     // Reset predictions from previous page views
     billTheLizard.reset();

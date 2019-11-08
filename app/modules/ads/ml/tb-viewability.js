@@ -1,16 +1,26 @@
-let config = {};
+import hasAvailableModels from './utils';
+
+function resultsProcessor(param) {
+  if (param >= 0 && param < 1) {
+    return param;
+  }
+  if (param > 1) {
+    return 1;
+  }
+
+  return 0;
+}
 
 export const tbViewability = {
-  configure(billTheLizardConfig) {
+  configure(config) {
     const {
       billTheLizard,
       context,
       ViewabilityCounter,
     } = window.Wikia.adEngine;
     const viewabilityCounter = ViewabilityCounter.make();
-    config = billTheLizardConfig;
 
-    if (!this.hasAvailableModels(config, 'tb_viewability')) {
+    if (!hasAvailableModels(config, 'tb_viewability')) {
       return;
     }
 
@@ -37,7 +47,7 @@ export const tbViewability = {
   calculateScrollY() {
     const scrollY = (window.scrollY || window.pageYOffset || 0) / 4500;
 
-    return this.resultsProcessor(scrollY);
+    return resultsProcessor(scrollY);
   },
 
   calculateSessionScrollSpeed() {
@@ -45,28 +55,7 @@ export const tbViewability = {
     const scrollSpeedCalculator = ScrollSpeedCalculator.make();
     const scrollSpeed = (scrollSpeedCalculator.getAverageSessionScrollSpeed()) / 1000;
 
-    return this.resultsProcessor(scrollSpeed);
-  },
-
-  hasAvailableModels(btlConfig, projectName) {
-    const { utils } = window.Wikia.adEngine;
-    const projects = btlConfig.projects || config.projects;
-
-    return projects && projects[projectName]
-      && projects[projectName].some(
-        model => utils.geoService.isProperGeo(model.countries, model.name),
-      );
-  },
-
-  resultsProcessor(param) {
-    if (param >= 0 && param < 1) {
-      return param;
-    }
-    if (param > 1) {
-      return 1;
-    }
-
-    return 0;
+    return resultsProcessor(scrollSpeed);
   },
 };
 

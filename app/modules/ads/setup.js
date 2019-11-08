@@ -2,7 +2,7 @@
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
 import { biddersDelayer } from './bidders-delayer';
-import { billTheLizardWrapper } from './ml/bill-the-lizard-wrapper';
+import configureBillTheLizard from './ml/bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import {
@@ -108,7 +108,7 @@ export const adsSetup = {
 
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
-      billTheLizardWrapper.configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+      configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
 
       // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
       slotsLoader.configureSlotsLoader();

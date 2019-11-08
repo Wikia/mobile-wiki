@@ -6,7 +6,7 @@ import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
 import { biddersDelayer } from './bidders-delayer';
-import { billTheLizardWrapper } from './ml/bill-the-lizard-wrapper';
+import { cheshireCat } from './ml/cheshire-cat';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { trackScrollY, trackXClick } from '../../utils/track';
@@ -299,7 +299,7 @@ class Ads {
     sessionCookie.readSessionId();
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
-    billTheLizardWrapper.reset();
+    cheshireCat.reset();
     slotsLoader.reset();
     this.afterPageRenderExecuted = false;
   }
