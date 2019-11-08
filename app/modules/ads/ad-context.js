@@ -190,7 +190,7 @@ export const defaultAdContext = {
             sizes: [
               [300, 250],
             ],
-            placementId: '_cGWUgEUv0T',
+            placementId: '_oMn9XHKEp3',
           },
         },
       },
