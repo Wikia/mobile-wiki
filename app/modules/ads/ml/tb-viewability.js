@@ -1,12 +1,12 @@
 let config = {};
 
 export const tbViewability = {
-  configureTbViewability(billTheLizardConfig) {
+  configure(billTheLizardConfig) {
     const {
+      billTheLizard,
       context,
       ViewabilityCounter,
     } = window.Wikia.adEngine;
-    const { billTheLizard } = window.Wikia.adServices;
     const viewabilityCounter = ViewabilityCounter.make();
     config = billTheLizardConfig;
 

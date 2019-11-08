@@ -3,14 +3,13 @@ import { cheshireCat } from './cheshire-cat';
 import { tbViewability } from './tb-viewability';
 
 export const billTheLizardWrapper = {
-  configureBillTheLizard(billTheLizardConfig) {
+  configureBillTheLizard(config) {
     const {
-      context, eventService,
+      billTheLizardEvents, context, eventService,
     } = window.Wikia.adEngine;
-    const { billTheLizardEvents } = window.Wikia.adServices;
 
-    context.set('services.billTheLizard.projects', billTheLizardConfig.projects);
-    context.set('services.billTheLizard.timeout', billTheLizardConfig.timeout || 0);
+    context.set('services.billTheLizard.projects', config.projects);
+    context.set('services.billTheLizard.timeout', config.timeout);
 
     eventService.on(billTheLizardEvents.BILL_THE_LIZARD_REQUEST, (event) => {
       const { query, callId } = event;
@@ -31,8 +30,8 @@ export const billTheLizardWrapper = {
       pageTracker.trackProp(propName, response);
     });
 
-    cheshireCat.configureCheshireCat(billTheLizardConfig);
-    tbViewability.configureTbViewability(billTheLizardConfig);
+    cheshireCat.configure(config);
+    tbViewability.configure(config);
   },
 };
 

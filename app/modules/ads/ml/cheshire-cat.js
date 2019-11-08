@@ -43,7 +43,7 @@ function serializeBids(slotName) {
 }
 
 function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
-  const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+  const { billTheLizard, BillTheLizard } = window.Wikia.adEngine;
   let slotStatus;
 
   switch (btlStatus) {
@@ -85,11 +85,18 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 }
 
 export const cheshireCat = {
-  configureCheshireCat(billTheLizardConfig) {
+  configure(billTheLizardConfig) {
     const {
-      AdSlot, context, events, eventService, slotService, utils,
+      AdSlot,
+      billTheLizard,
+      billTheLizardEvents,
+      BillTheLizard,
+      context,
+      events,
+      eventService,
+      slotService,
+      utils,
     } = window.Wikia.adEngine;
-    const { billTheLizard, billTheLizardEvents, BillTheLizard } = window.Wikia.adServices;
     const baseSlotName = 'top_boxad';
     config = billTheLizardConfig;
     defaultStatus = NOT_USED_STATUS;
