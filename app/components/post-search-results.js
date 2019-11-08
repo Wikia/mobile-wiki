@@ -5,7 +5,6 @@ import { inject as service } from '@ember/service';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
 import { track, trackActions, trackAffiliateUnit } from '../utils/track';
-import config from '../config/environment';
 import extend from '../utils/extend';
 
 const DEFAULT_AFFILIATE_SLOT = 1;
