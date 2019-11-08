@@ -196,7 +196,7 @@ export default Service.extend({
       }
 
       // special use case for debugging
-      if (debugAffiliateUnits.indexOf(',') > -1) {
+      if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
         return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
@@ -251,7 +251,7 @@ export default Service.extend({
       }
 
       // special use case for debugging
-      if (debugAffiliateUnits.indexOf(',') > -1) {
+      if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
         return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
       }
 
