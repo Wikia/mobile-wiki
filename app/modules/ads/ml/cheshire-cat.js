@@ -12,6 +12,9 @@ let incontentsCounter = 0;
 let defaultStatus = NOT_USED_STATUS;
 let refreshedSlotNumber = null;
 
+/**
+ * @param {number} counter
+ */
 function getCallId(counter) {
   if (!counter) {
     return 'top_boxad';
@@ -20,6 +23,12 @@ function getCallId(counter) {
   return `incontent_boxad_${counter}`;
 }
 
+/**
+ * Check bids from prebid and concatinates all the values
+ *
+ * @param {string} slotName
+ * @returns {string}
+ */
 function serializeBids(slotName) {
   return targeting.getBiddersPrices(slotName, false).then(bidderPrices => [
     bidderPrices.bidder_0 || 0, // wikia adapter
@@ -43,6 +52,14 @@ function serializeBids(slotName) {
   ].join(','));
 }
 
+/**
+ * Check response from bill the lizard and passes status for ad slot
+ *
+ * @param {string} btlStatus
+ * @param {number|string} callId
+ * @param {string} fallbackStatus
+ * @returns {string}
+ */
 function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
   const { billTheLizard, BillTheLizard } = window.Wikia.adEngine;
   let slotStatus;
@@ -86,6 +103,9 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
 }
 
 export const cheshireCat = {
+  /**
+   * @param {Object} billTheLizardConfig
+   */
   configure(billTheLizardConfig) {
     const {
       AdSlot,

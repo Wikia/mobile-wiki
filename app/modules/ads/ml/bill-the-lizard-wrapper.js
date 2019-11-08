@@ -2,6 +2,9 @@ import { pageTracker } from '../tracking/page-tracker';
 import { cheshireCat } from './cheshire-cat';
 import { tbViewability } from './tb-viewability';
 
+/**
+ * @param {Object} config
+ */
 export default function configureBillTheLizard(config) {
   const {
     billTheLizardEvents, context, eventService,

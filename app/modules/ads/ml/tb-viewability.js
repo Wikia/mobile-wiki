@@ -1,5 +1,11 @@
 import hasAvailableModels from './utils';
 
+/**
+ * Converts parameter to value between 0-1 to be passed to the model
+ *
+ * @param {number} param
+ * @returns {number}
+ */
 function resultsProcessor(param) {
   if (param >= 0 && param < 1) {
     return param;
@@ -12,6 +18,9 @@ function resultsProcessor(param) {
 }
 
 export const tbViewability = {
+  /**
+   * @param {Object} config
+   */
   configure(config) {
     const {
       billTheLizard,
@@ -40,7 +49,9 @@ export const tbViewability = {
       },
     });
 
-    // consulted 'top_page' parameter with Martyna, if we sent top_boxad cheshire is going mad
+    // Even though the model is for top_boxad viewability we are passing 'top_page' param.
+    // It was changed because passing 'top_boxad' makes bill-the-lizard responses tracked to DW
+    // a bit weird since there is another model already sending request for that slot (cheshire cat)
     billTheLizard.call(['tb_viewability'], 'top_page');
   },
 
