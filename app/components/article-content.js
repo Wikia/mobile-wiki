@@ -687,7 +687,7 @@ export default Component.extend(
           this.renderedComponents.push(this.renderComponent({
             name: 'post-search-results',
             attrs: {
-              query: this.title,
+              query: this.displayTitle,
               unit,
               isCrossWiki: true,
               isInContent: true,
