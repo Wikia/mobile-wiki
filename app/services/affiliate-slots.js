@@ -234,10 +234,8 @@ export default Service.extend({
           // fetch only the first unit if available
           return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
-        .catch((error) => {
-          // not raise anything
-          return resolve(undefined);
-        });
+        // not raise anything
+        .catch(() => resolve(undefined));
 
       return undefined;
     });
@@ -276,10 +274,8 @@ export default Service.extend({
           // fetch only the first unit if available
           return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
-        .catch((error) => {
-          // not raise anything
-          return resolve(undefined);
-        });
+        // not raise anything
+        .catch(() => resolve(undefined));
 
       return undefined;
     });
