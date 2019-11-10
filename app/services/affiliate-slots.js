@@ -234,11 +234,8 @@ export default Service.extend({
           // fetch only the first unit if available
           return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
-        .catch((error) => {
-          // log and do not raise anything
-          this.logger.error(error);
-          return resolve(undefined);
-        });
+        // not raise anything
+        .catch(() => resolve(undefined));
 
       return undefined;
     });
@@ -277,11 +274,8 @@ export default Service.extend({
           // fetch only the first unit if available
           return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
-        .catch((error) => {
-          // log and do not raise anything
-          this.logger.error(error);
-          return resolve(undefined);
-        });
+        // not raise anything
+        .catch(() => resolve(undefined));
 
       return undefined;
     });

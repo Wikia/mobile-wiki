@@ -2,11 +2,13 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { oneWay } from '@ember/object/computed';
 import { computed } from '@ember/object';
+import InViewportMixin from 'ember-in-viewport';
 import { track, trackActions } from '../utils/track';
 import { system } from '../utils/browser';
 import { isDarkTheme } from '../utils/mobile-app';
 
 export default Component.extend(
+  InViewportMixin,
   {
     wikiVariables: service(),
     geo: service(),
@@ -62,16 +64,6 @@ export default Component.extend(
     didInsertElement() {
       this._super(...arguments);
 
-      if (!this.isVisible) {
-        return;
-      }
-
-      track({
-        action: trackActions.impression,
-        category: 'article',
-        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
-      });
-
       if (this.trackingPixelURL) {
         const img = document.createElement('img');
 
@@ -83,9 +75,23 @@ export default Component.extend(
       }
     },
 
-    trackClick() {
+    actions: {
+      trackClick() {
+        track({
+          action: trackActions.click,
+          category: 'article',
+          label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
+        });
+      },
+    },
+
+    didEnterViewport() {
+      if (!this.isVisible) {
+        return;
+      }
+
       track({
-        action: trackActions.click,
+        action: trackActions.impression,
         category: 'article',
         label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
       });

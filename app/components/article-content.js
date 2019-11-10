@@ -625,7 +625,7 @@ export default Component.extend(
           // We want to know if we have targeting but no space for the unit
           if (!h2Elements[indexForUnit]) {
             trackAffiliateUnit(unit, {
-              category: 'mercury-affiliate_incontent_recommend',
+              category: 'affiliate_incontent_recommend',
               label: 'affiliate_not_shown',
               action: 'no-impression',
             });
@@ -670,7 +670,7 @@ export default Component.extend(
           // We want to know if we have targeting but no space for the unit
           if (!h2Elements[indexForUnit]) {
             trackAffiliateUnit(unit, {
-              category: 'mercury-affiliate_incontent_posts',
+              category: 'affiliate_incontent_posts',
               label: 'affiliate_not_shown',
               action: 'no-impression',
             });
