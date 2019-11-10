@@ -61,6 +61,16 @@ export default Component.extend(
       return isEnabled && isProperGeo && this.url && this.buttonLabel;
     }),
 
+    actions: {
+      trackClick() {
+        track({
+          action: trackActions.click,
+          category: 'article',
+          label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
+        });
+      },
+    },
+
     didInsertElement() {
       this._super(...arguments);
 
@@ -76,20 +86,13 @@ export default Component.extend(
     },
 
     didEnterViewport() {
+      debugger;
       if (!this.isVisible) {
         return;
       }
 
       track({
         action: trackActions.impression,
-        category: 'article',
-        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
-      });
-    },
-
-    trackClick() {
-      track({
-        action: trackActions.click,
         category: 'article',
         label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
       });
