@@ -235,8 +235,7 @@ export default Service.extend({
           return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
         .catch((error) => {
-          // log and do not raise anything
-          this.logger.error(error);
+          // not raise anything
           return resolve(undefined);
         });
 
@@ -278,8 +277,7 @@ export default Service.extend({
           return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
         })
         .catch((error) => {
-          // log and do not raise anything
-          this.logger.error(error);
+          // not raise anything
           return resolve(undefined);
         });
 
