@@ -17,13 +17,13 @@ export default Component.extend({
       if (this.isInContent) {
         trackAffiliateUnit(unit, {
           action: trackActions.click,
-          category: 'mercury-affiliate_incontent_posts',
+          category: 'affiliate_incontent_posts',
           label: `item-${parseInt(number, 10)}`,
         });
       } else {
         trackAffiliateUnit(unit, {
           action: trackActions.click,
-          category: 'mercury-affiliate_search_posts',
+          category: 'affiliate_search_posts',
           label: `item-${parseInt(number, 10)}`,
         });
       }

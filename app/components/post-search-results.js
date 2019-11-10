@@ -142,13 +142,13 @@ export default Component.extend(
       if (this.isInContent) {
         trackAffiliateUnit(this.unit, {
           action: trackActions.impression,
-          category: 'mercury-affiliate_incontent_posts',
+          category: 'affiliate_incontent_posts',
           label: 'affiliate_shown',
         });
       } else {
         trackAffiliateUnit(this.unit, {
           action: trackActions.impression,
-          category: 'mercury-affiliate_search_posts',
+          category: 'affiliate_search_posts',
           label: 'affiliate_shown',
         });
       }

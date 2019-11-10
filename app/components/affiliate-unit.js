@@ -19,13 +19,13 @@ export default Component.extend(
         if (this.isIncontent) {
           trackAffiliateUnit(this.unit, {
             action: trackActions.click,
-            category: 'mercury-affiliate_incontent_recommend',
+            category: 'affiliate_incontent_recommend',
             label: 'only-item',
           });
         } else {
           trackAffiliateUnit(this.unit, {
             action: trackActions.click,
-            category: 'mercury-affiliate_search_recommend',
+            category: 'affiliate_search_recommend',
             label: 'only-item',
           });
         }
@@ -36,13 +36,13 @@ export default Component.extend(
       if (this.isIncontent) {
         trackAffiliateUnit(this.unit, {
           action: trackActions.impression,
-          category: 'mercury-affiliate_incontent_recommend',
+          category: 'affiliate_incontent_recommend',
           label: 'affiliate_shown',
         });
       } else {
         trackAffiliateUnit(this.unit, {
           action: trackActions.impression,
-          category: 'mercury-affiliate_search_recommend',
+          category: 'affiliate_search_recommend',
           label: 'affiliate_shown',
         });
       }
