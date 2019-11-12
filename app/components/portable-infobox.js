@@ -113,14 +113,14 @@ export default Component.extend(
 
     collapse() {
       this.set('collapsed', true);
-      this.element.style.height = `${this.collapsedHeight}px`;
-      this.element.querySelector('aside').style.height = `${this.collapsedHeight}px`;
+      this.element.querySelector('aside.portable-infobox').style.height = `${this.collapsedHeight}px`;
+      this.element.querySelector('.pi-expand-button').style.top = `${this.collapsedHeight}px`;
     },
 
     expand() {
       this.set('collapsed', false);
-      this.element.style.height = 'auto';
-      this.element.querySelector('aside').style.height = 'auto';
+      this.element.querySelector('aside.portable-infobox').style.height = 'auto';
+      this.element.querySelector('.pi-expand-button').style.top = 'auto';
     },
   },
 );
