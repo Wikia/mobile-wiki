@@ -1,4 +1,9 @@
 {{#if isEnabled}}
+  {{#if hasAffiliatePost}}
+    <div class="affiliate-unit-disclaimer">
+      {{i18n "affiliate-unit.disclaimer"}}
+    </div>
+  {{/if}}
   <aside class="post-search-results">
     <header class="post-search-results__header">
       <div class="post-search-results__header-text wds-midlight-navy">
@@ -33,7 +38,6 @@
             {{post-search-results-affiliate-item
               affiliateUnit=unit
               postIndex=index
-              setHasAffiliateUnit=setHasAffiliateUnit
               isInContent=isInContent
             }}
           {{else}}
