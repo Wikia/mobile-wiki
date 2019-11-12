@@ -44,4 +44,11 @@
     height: 130px;
     margin: 0 -12px;
   }
+
+  &__disclaimer {
+    color: $wds-fandom-color-dark-gray;
+    font-size: $wds-font-size-xxs;
+    line-height: $wds-line-height-tight;
+    margin: 30px 0;
+  }
 }

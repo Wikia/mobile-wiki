@@ -68,11 +68,9 @@
 }
 
 .affiliate-unit-disclaimer {
-  font-size: $wds-font-size-xs;
+  color: $wds-fandom-color-dark-gray;
+  font-size: $wds-font-size-xxs;
   line-height: $wds-line-height-tight;
-  margin: 24px 0;
-}
-
-.search-result-page .affiliate-unit-disclaimer {
-  margin: 12px 12px 24px;
+  margin: 30px .75rem;
+  text-align: left;
 }

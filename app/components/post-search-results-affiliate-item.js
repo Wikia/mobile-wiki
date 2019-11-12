@@ -7,11 +7,6 @@ export default Component.extend({
 
   classNames: ['post-search-results-affiliate-item'],
 
-  didRender() {
-    // For showing the disclaimer text
-    this.setHasAffiliateUnit();
-  },
-
   actions: {
     trackClick(number, unit) {
       if (this.isInContent) {
