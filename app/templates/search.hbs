@@ -39,7 +39,6 @@
         trackingLabel="search-result"
         itemClick=(action "onResultClick")
         debugAffiliateUnits=model.debugAffiliateUnits
-        setHasAffiliateUnit=(action "setHasAffiliateUnit")
       }}
     {{else}}
       {{wikia-ui-components/wikia-card-crosswiki-list
@@ -49,7 +48,6 @@
         trackingLabel="search-result"
         itemClick=(action "onResultClick")
         debugAffiliateUnits=model.debugAffiliateUnits
-        setHasAffiliateUnit=(action "setHasAffiliateUnit")
       }}
     {{/if}}
   {{else if notFoundError}}
@@ -69,10 +67,5 @@
     >
       {{i18n "main.load-more-results" ns="search"}}
     </Button>
-  </div>
-{{/if}}
-{{#if hasAffiliateUnit}}
-  <div class="affiliate-unit-disclaimer">
-    {{i18n "affiliate-unit.disclaimer"}}
   </div>
 {{/if}}

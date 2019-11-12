@@ -9,11 +9,7 @@ export default Component.extend(
     unit: null,
 
     classNames: ['affiliate-unit'],
-    didInsertElement() {
-      this._super(...arguments);
-      // For showing the disclaimer text
-      this.setHasAffiliateUnit();
-    },
+
     actions: {
       trackAffiliateClick() {
         if (this.isIncontent) {
