@@ -11,7 +11,6 @@ export default Controller.extend({
   queryParams: ['query', 'scope'],
 
   searchId: null,
-  hasAffiliateUnit: false,
   // TODO: to be removed as we'll be supporting more errors on search page,
   // see: https://wikia-inc.atlassian.net/browse/DAT-4324
   notFoundError: equal('model.error', 'search-error-not-found'),
@@ -30,10 +29,6 @@ export default Controller.extend({
 
     onResultClick(result) {
       this.trackItemClick(result);
-    },
-
-    setHasAffiliateUnit() {
-      this.set('hasAffiliateUnit', true);
     },
   },
 

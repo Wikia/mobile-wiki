@@ -51,6 +51,10 @@ export default Component.extend(
       return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
     }),
 
+    hasAffiliatePost: computed('posts', function () {
+      return this.posts.some(post => post.type === 'affiliate');
+    }),
+
     didInsertElement() {
       this._super(...arguments);
 
