@@ -262,6 +262,7 @@ export function trackXClick(adSlot) {
 export function setTrackContext(data) {
   context = data;
 }
+
 /**
  * Set GA dimensions
  * @param {number} index
@@ -278,7 +279,7 @@ export function trackAffiliateUnit(unit, params) {
 
   if (unit.tracking) {
     unit.tracking.forEach((kv) => {
-      extraTracking[kv.key] = kv.val;
+      extraTracking[`affiliation_${kv.key}`] = kv.val;
     });
   }
 
@@ -291,11 +292,7 @@ export function trackAffiliateUnit(unit, params) {
   const allParams = Object.assign(
     {},
     extraTracking,
-    {
-      campaign_id:
-      campaignId,
-      unit_id: unitId,
-    },
+    { campaign_id: campaignId, unit_id: unitId },
     params,
   );
   track(allParams);

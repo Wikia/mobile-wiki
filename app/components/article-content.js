@@ -625,7 +625,7 @@ export default Component.extend(
           // We want to know if we have targeting but no space for the unit
           if (!h2Elements[indexForUnit]) {
             trackAffiliateUnit(unit, {
-              category: 'mercury-affiliate_incontent_recommend',
+              category: 'affiliate_incontent_recommend',
               label: 'affiliate_not_shown',
               action: 'no-impression',
             });
@@ -642,12 +642,10 @@ export default Component.extend(
             attrs: {
               unit,
               isInContent: true,
+              setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,
           }));
-
-          // So that the article-wrapper can show the disclaimer
-          this.setHasAffiliateUnit();
         });
     },
 
@@ -672,7 +670,7 @@ export default Component.extend(
           // We want to know if we have targeting but no space for the unit
           if (!h2Elements[indexForUnit]) {
             trackAffiliateUnit(unit, {
-              category: 'mercury-affiliate_incontent_posts',
+              category: 'affiliate_incontent_posts',
               label: 'affiliate_not_shown',
               action: 'no-impression',
             });
@@ -687,7 +685,7 @@ export default Component.extend(
           this.renderedComponents.push(this.renderComponent({
             name: 'post-search-results',
             attrs: {
-              query: this.title,
+              query: this.displayTitle,
               unit,
               isCrossWiki: true,
               isInContent: true,
@@ -695,9 +693,6 @@ export default Component.extend(
             },
             element: unitPlaceholder,
           }));
-
-          // So that the article-wrapper can show the disclaimer
-          this.setHasAffiliateUnit();
         });
     },
   },
