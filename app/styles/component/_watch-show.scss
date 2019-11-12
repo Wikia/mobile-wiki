@@ -44,4 +44,10 @@
     height: 130px;
     margin: 0 -12px;
   }
+
+  &__disclaimer {
+    font-size: $wds-font-size-xs;
+    line-height: $wds-line-height-tight;
+    margin: 30px 0;
+  }
 }

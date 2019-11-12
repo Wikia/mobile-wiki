@@ -52,7 +52,7 @@ export default Component.extend(
     }),
 
     hasAffiliatePost: computed('posts', function () {
-      return this.posts.some(post => post.type === 'affiliate');
+      return this.posts && this.posts.some(post => post.type === 'affiliate');
     }),
 
     didInsertElement() {
