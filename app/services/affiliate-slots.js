@@ -116,10 +116,6 @@ export default Service.extend({
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
 
-  isLaunched: computed('wikiVariables.affiliateUnitEnabledDate', function () {
-    return Date.parse(this.wikiVariables.affiliateUnitEnabledDate) < Date.now();
-  }),
-
   /**
    * @returns {AffiliateUnit}
    */
@@ -191,10 +187,6 @@ export default Service.extend({
 
   fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
-      if (!this.isLaunched && !debugAffiliateUnits) {
-        return resolve(undefined);
-      }
-
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
         return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
@@ -243,10 +235,6 @@ export default Service.extend({
 
   fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
-      if (!this.isLaunched && !debugAffiliateUnits) {
-        return resolve(undefined);
-      }
-
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
         return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
