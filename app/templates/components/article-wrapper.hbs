@@ -35,7 +35,6 @@
     media=model.media
     data-test-article-content=true
     debugAffiliateUnits=model.debugAffiliateUnits
-    setHasAffiliateUnit=(action "setHasAffiliateUnit")
   }}
 </section>
 {{yield}}
@@ -106,10 +105,5 @@
     <div class="license-description wds-font-size-s wds-leading-tight">
       {{{i18n "license-description" ns="design-system" license=(wrap-me wikiVariables.licenseText tagName="a" href=wikiVariables.licenseUrl className="wds-font-weight-medium")}}}
     </div>
-    {{#if hasAffiliateUnit}}
-      <div class="affiliate-unit-disclaimer">
-        {{i18n "affiliate-unit.disclaimer"}}
-      </div>
-    {{/if}}
   </section>
 {{/if}}

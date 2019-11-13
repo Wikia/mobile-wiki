@@ -51,6 +51,10 @@ export default Component.extend(
       return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
     }),
 
+    hasAffiliatePost: computed('posts', function () {
+      return this.posts && this.posts.some(post => post.type === 'affiliate');
+    }),
+
     didInsertElement() {
       this._super(...arguments);
 
@@ -63,7 +67,7 @@ export default Component.extend(
       trackMoreClick() {
         track({
           action: trackActions.click,
-          category: 'search_posts',
+          category: this.isInContent ? 'incontent_posts' : 'search_posts',
           label: 'see-more',
         });
       },
@@ -126,7 +130,7 @@ export default Component.extend(
         if (state.results.length) {
           track({
             action: trackActions.impression,
-            category: 'search_posts',
+            category: this.isInContent ? 'incontent_posts' : 'search_posts',
             label: 'recent_posts_shown',
           });
         }
@@ -139,19 +143,11 @@ export default Component.extend(
         return;
       }
 
-      if (this.isInContent) {
-        trackAffiliateUnit(this.unit, {
-          action: trackActions.impression,
-          category: 'affiliate_incontent_posts',
-          label: 'affiliate_shown',
-        });
-      } else {
-        trackAffiliateUnit(this.unit, {
-          action: trackActions.impression,
-          category: 'affiliate_search_posts',
-          label: 'affiliate_shown',
-        });
-      }
+      trackAffiliateUnit(this.unit, {
+        action: trackActions.impression,
+        category: this.isInContent ? 'affiliate_incontent_posts' : 'affiliate_search_posts',
+        label: 'affiliate_shown',
+      });
     },
   },
 );

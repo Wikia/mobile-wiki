@@ -1,4 +1,7 @@
 {{#if isVisible}}
+  <div class="watch-show__disclaimer">
+    {{i18n "affiliate-unit.disclaimer"}}
+  </div>
   <div class="watch-show">
     <h2>{{cta}}</h2>
     <a
@@ -6,7 +9,7 @@
       onClick={{action "trackClick"}}
       href={{url}}
       target="_blank"
-      rel="noopener"
+      rel="noopener sponsored"
     >
       {{buttonLabel}}
     </a>

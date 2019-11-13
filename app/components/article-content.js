@@ -642,7 +642,6 @@ export default Component.extend(
             attrs: {
               unit,
               isInContent: true,
-              setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,
           }));
@@ -689,7 +688,6 @@ export default Component.extend(
               unit,
               isCrossWiki: true,
               isInContent: true,
-              setHasAffiliateUnit: this.setHasAffiliateUnit,
             },
             element: unitPlaceholder,
           }));

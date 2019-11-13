@@ -277,7 +277,7 @@ export function trackAffiliateUnit(unit, params) {
   const unitId = unit.category;
   const extraTracking = {};
 
-  if (unit.tracking) {
+  if (unit.tracking && unit.tracking.forEach && typeof unit.tracking.forEach === 'function') {
     unit.tracking.forEach((kv) => {
       extraTracking[`affiliation_${kv.key}`] = kv.val;
     });

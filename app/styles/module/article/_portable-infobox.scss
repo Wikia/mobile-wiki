@@ -50,9 +50,7 @@ $overflow-color: $wds-color-white;
   }
 
   &.collapsed ~ .pi-expand-button {
-    bottom: 0;
     box-shadow: none;
-    position: absolute;
 
     svg {
       transform: none;
