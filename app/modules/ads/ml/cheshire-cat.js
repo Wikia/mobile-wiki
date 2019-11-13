@@ -1,10 +1,10 @@
-import { targeting } from './targeting';
-import { pageTracker } from './tracking/page-tracker';
+import { targeting } from '../targeting';
+import hasAvailableModels from './utils';
 
 const AD_SLOT_CATLAPSED_STATUS = 'catlapsed';
 const bidPosKeyVal = 'mobile_in_content';
 const NOT_USED_STATUS = 'not_used';
-const logGroup = 'bill-the-lizard-wrapper';
+const logGroup = 'cheshire-cat-model';
 
 let config = {};
 let cheshirecatCalled = false;
@@ -12,6 +12,9 @@ let incontentsCounter = 0;
 let defaultStatus = NOT_USED_STATUS;
 let refreshedSlotNumber = null;
 
+/**
+ * @param {number} counter
+ */
 function getCallId(counter) {
   if (!counter) {
     return 'top_boxad';
@@ -20,6 +23,12 @@ function getCallId(counter) {
   return `incontent_boxad_${counter}`;
 }
 
+/**
+ * Check bids from prebid and concatinates all the values
+ *
+ * @param {string} slotName
+ * @returns {string}
+ */
 function serializeBids(slotName) {
   return targeting.getBiddersPrices(slotName, false).then(bidderPrices => [
     bidderPrices.bidder_0 || 0, // wikia adapter
@@ -43,8 +52,16 @@ function serializeBids(slotName) {
   ].join(','));
 }
 
+/**
+ * Check response from bill the lizard and passes status for ad slot
+ *
+ * @param {string} btlStatus
+ * @param {number|string} callId
+ * @param {string} fallbackStatus
+ * @returns {string}
+ */
 function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
-  const { billTheLizard, BillTheLizard } = window.Wikia.adServices;
+  const { billTheLizard, BillTheLizard } = window.Wikia.adEngine;
   let slotStatus;
 
   switch (btlStatus) {
@@ -85,22 +102,29 @@ function getBtlSlotStatus(btlStatus, callId, fallbackStatus) {
   return slotStatus;
 }
 
-export const billTheLizardWrapper = {
-  configureBillTheLizard(billTheLizardConfig) {
+export const cheshireCat = {
+  /**
+   * @param {Object} billTheLizardConfig
+   */
+  configure(billTheLizardConfig) {
     const {
-      AdSlot, context, events, eventService, slotService, utils,
+      AdSlot,
+      billTheLizard,
+      billTheLizardEvents,
+      BillTheLizard,
+      context,
+      events,
+      eventService,
+      slotService,
+      utils,
     } = window.Wikia.adEngine;
-    const { billTheLizard, BillTheLizard, billTheLizardEvents } = window.Wikia.adServices;
     const baseSlotName = 'top_boxad';
-    defaultStatus = NOT_USED_STATUS;
     config = billTheLizardConfig;
+    defaultStatus = NOT_USED_STATUS;
 
-    if (!this.hasAvailableModels(config, 'cheshirecat')) {
+    if (!hasAvailableModels(config, 'cheshirecat')) {
       return;
     }
-
-    context.set('services.billTheLizard.projects', config.projects);
-    context.set('services.billTheLizard.timeout', config.timeout || 0);
 
     const enableCheshireCat = context.get('options.billTheLizard.cheshireCat');
 
@@ -112,8 +136,6 @@ export const billTheLizardWrapper = {
       const slotNameToCatlapse = getCallId(incontentsCounter);
       slotService.on(slotNameToCatlapse, AD_SLOT_CATLAPSED_STATUS, () => {
         utils.logger(logGroup, `Catlapsing ${slotNameToCatlapse}`);
-        // eslint-disable-next-line no-console
-        console.log(`Catlapsing ${slotNameToCatlapse}`);
       });
       slotService.disable(getCallId(incontentsCounter), AD_SLOT_CATLAPSED_STATUS);
     });
@@ -152,25 +174,15 @@ export const billTheLizardWrapper = {
       refreshedSlotNumber = incontentsCounter;
     });
 
-    eventService.on(billTheLizardEvents.BILL_THE_LIZARD_REQUEST, (event) => {
-      const { query, callId } = event;
-      let propName = 'btl_request';
-      if (callId) {
-        propName = `${propName}_${callId}`;
-      }
-
-      pageTracker.trackProp(propName, query);
-    });
-
     eventService.on(billTheLizardEvents.BILL_THE_LIZARD_RESPONSE, (event) => {
-      const { response, callId } = event;
-      let propName = 'btl_response';
-      if (callId) {
-        propName = `${propName}_${callId}`;
-        defaultStatus = BillTheLizard.REUSED;
+      if (event.response.includes('cheshire')) {
+        if (event.callId) {
+          defaultStatus = BillTheLizard.REUSED;
+        }
       }
-      pageTracker.trackProp(propName, response);
     });
+
+    utils.logger(logGroup, 'configured');
   },
 
   /**
@@ -194,16 +206,6 @@ export const billTheLizardWrapper = {
 
   getBtlSlotStatus,
 
-  hasAvailableModels(btlConfig, projectName) {
-    const { utils } = window.Wikia.adEngine;
-    const projects = btlConfig.projects || config.projects;
-
-    return projects && projects[projectName]
-      && projects[projectName].some(
-        model => utils.geoService.isProperGeo(model.countries, model.name),
-      );
-  },
-
   reset() {
     const { billTheLizard } = window.Wikia.adServices;
 
@@ -213,11 +215,11 @@ export const billTheLizardWrapper = {
     refreshedSlotNumber = null;
 
     // Recheck available models for Labrador decisions
-    this.hasAvailableModels(config, 'cheshirecat');
+    hasAvailableModels(config, 'cheshirecat');
 
     // Reset predictions from previous page views
     billTheLizard.reset();
   },
 };
 
-export default billTheLizardWrapper;
+export default cheshireCat;
