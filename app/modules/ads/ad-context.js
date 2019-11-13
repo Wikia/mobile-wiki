@@ -190,7 +190,7 @@ export const defaultAdContext = {
             sizes: [
               [300, 250],
             ],
-            placementId: '_cGWUgEUv0T',
+            placementId: '_oMn9XHKEp3',
           },
         },
       },
@@ -367,6 +367,37 @@ export const defaultAdContext = {
           },
         },
       },
+      triplelift: {
+        enabled: false,
+        slots: {
+          mobile_top_leaderboard: {
+            sizes: [
+              [320, 50],
+            ],
+            inventoryCodes: [
+              'Fandom_MW_LB_320x50_hdx_prebid',
+            ],
+          },
+          mobile_in_content: {
+            sizes: [
+              [300, 250],
+            ],
+            inventoryCodes: [
+              'Fandom_Mobile_InContent_prebid',
+            ],
+          },
+          bottom_leaderboard: {
+            sizes: [
+              [300, 250],
+              [320, 50],
+            ],
+            inventoryCodes: [
+              'Fandom_MW_PF_300x250_hdx_prebid',
+              'Fandom_MW_PF_320x50_hdx_prebid',
+            ],
+          },
+        },
+      },
       vmg: {
         enabled: false,
         slots: {
@@ -505,6 +536,13 @@ export const defaultAdContext = {
         jwplayerPluginUrl: 'https://z.moatads.com/jwplayerplugin0938452/moatplugin.js',
         partnerCode: 'wikiaimajsint377461931603',
         sampling: 0,
+      },
+      iasTracking: {
+        enabled: false,
+        config: {
+          anId: '930616',
+          campId: '640x480',
+        },
       },
     },
     viewabilityCounter: {

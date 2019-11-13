@@ -6,71 +6,89 @@ import { track, trackActions } from '../utils/track';
 import { system } from '../utils/browser';
 import { isDarkTheme } from '../utils/mobile-app';
 
-export default Component.extend(
-  {
-    wikiVariables: service(),
-    geo: service(),
+export default Component.extend({
+  wikiVariables: service(),
+  geo: service(),
 
-    tagName: '',
+  tagName: '',
 
-    buttonLabel: oneWay('wikiVariables.watchShowButtonLabel'),
-    cta: oneWay('wikiVariables.watchShowCTA'),
-    trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
+  trackingPixelURL: oneWay('wikiVariables.watchShowTrackingPixelURL'),
 
-    imageUrl: computed('wikiVariables.{watchShowImageURL,watchShowImageURLDarkTheme}', function () {
-      if (isDarkTheme() && this.wikiVariables.watchShowImageURLDarkTheme) {
-        return this.wikiVariables.watchShowImageURLDarkTheme;
-      }
+  buttonLabel: computed('wikiVariables', 'geo', function () {
+    return this.geo.country === 'CA'
+      ? this.wikiVariables.watchShowButtonLabelCA
+      : this.wikiVariables.watchShowButtonLabel;
+  }),
 
-      return this.wikiVariables.watchShowImageURL;
-    }),
+  cta: computed('wikiVariables', 'geo', function () {
+    return this.geo.country === 'CA'
+      ? this.wikiVariables.watchShowCTACA
+      : this.wikiVariables.watchShowCTA;
+  }),
 
-    url: computed('wikiVariables.{watchShowURL,watchShowURLIOS,watchShowURLAndroid}', function () {
-      if (this.wikiVariables.watchShowURL) {
-        return this.wikiVariables.watchShowURL;
-      }
+  imageUrl: computed('wikiVariables.{watchShowImageURL,watchShowImageURLDarkTheme}', function () {
+    if (isDarkTheme() && this.wikiVariables.watchShowImageURLDarkTheme) {
+      return this.wikiVariables.watchShowImageURLDarkTheme;
+    }
 
-      if (system === 'ios') {
-        return this.wikiVariables.watchShowURLIOS;
-      }
+    return this.wikiVariables.watchShowImageURL;
+  }),
 
-      return this.wikiVariables.watchShowURLAndroid;
-    }),
+  url: computed('wikiVariables.{watchShowURL,watchShowURLIOS,watchShowURLAndroid}', function () {
+    if (this.wikiVariables.watchShowURL) {
+      return this.wikiVariables.watchShowURL;
+    }
 
-    isVisible: computed('url', 'buttonLabel', 'geo', function () {
-      return this.url && this.buttonLabel && this.geo.country === 'US';
-    }),
+    if (system === 'ios') {
+      return this.wikiVariables.watchShowURLIOS;
+    }
 
-    didInsertElement() {
-      this._super(...arguments);
+    return this.wikiVariables.watchShowURLAndroid;
+  }),
 
-      if (!this.isVisible) {
-        return;
-      }
+  isVisible: computed('url', 'buttonLabel', 'geo', 'wikiVariables', function () {
+    const isEnabled = this.wikiVariables.watchShowEnabledDate
+      && Date.parse(this.wikiVariables.watchShowEnabledDate) < Date.now();
 
-      track({
-        action: trackActions.impression,
-        category: 'article',
-        label: 'watch-show',
-      });
+    // proper geo is always if the variable is empty
+    const isProperGeo = !this.wikiVariables.watchShowGeos
+      // proper geo check
+      || (this.wikiVariables.watchShowGeos.split(',').indexOf(this.geo.country) > -1);
 
-      if (this.trackingPixelURL) {
-        const img = document.createElement('img');
+    return isEnabled && isProperGeo && this.url && this.buttonLabel;
+  }),
 
-        img.width = 0;
-        img.height = 0;
-        img.src = this.trackingPixelURL;
+  didInsertElement() {
+    this._super(...arguments);
 
-        document.body.appendChild(img);
-      }
-    },
+    if (!this.isVisible) {
+      return;
+    }
 
+    track({
+      action: trackActions.impression,
+      category: 'article',
+      label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
+    });
+
+    if (this.trackingPixelURL) {
+      const img = document.createElement('img');
+
+      img.width = 0;
+      img.height = 0;
+      img.src = this.trackingPixelURL;
+
+      document.body.appendChild(img);
+    }
+  },
+
+  actions: {
     trackClick() {
       track({
         action: trackActions.click,
         category: 'article',
-        label: 'watch-show',
+        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
       });
     },
   },
-);
+});

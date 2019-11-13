@@ -12,7 +12,7 @@ import {
 } from '../utils/render-component';
 import scrollToTop from '../utils/scroll-to-top';
 import toArray from '../utils/toArray';
-import { track, trackActions } from '../utils/track';
+import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 
 /**
   * HTMLElement
@@ -38,8 +38,10 @@ export default Component.extend(
     content: null,
     displayEmptyArticleInfo: true,
     displayTitle: null,
+    id: null,
     isPreview: false,
     media: null,
+    debugAffiliateUnits: false,
 
     lang: reads('wikiVariables.language.content'),
     dir: reads('wikiVariables.language.contentDir'),
@@ -60,12 +62,11 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
-          this.handleBigAffiliateUnit(this.displayTitle);
-          this.handlePostSearchResults(this.displayTitle);
-          this.handleWatchShow();
+          this.handleBigAffiliateUnit();
+          this.handlePostSearchResults();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
-
+          this.handleWatchShow();
           this.renderDataComponents(this.element);
 
           this.loadIcons();
@@ -588,14 +589,12 @@ export default Component.extend(
      * Injects watch show button (IW-1470) just after the first infobox
      */
     handleWatchShow() {
-      const infobox = this.element.querySelector('.portable-infobox,.infobox');
+      const infoboxWrapper = this.element.querySelector('.portable-infobox-wrapper');
 
-      if (infobox) {
+      if (infoboxWrapper) {
         const placeholder = document.createElement('div');
-        const wrapper = document.createElement('div');
 
-        wrapper.appendChild(placeholder);
-        infobox.insertAdjacentElement('afterend', wrapper);
+        infoboxWrapper.appendChild(placeholder);
 
         this.renderedComponents.push(this.renderComponent({
           name: 'watch-show',
@@ -607,67 +606,92 @@ export default Component.extend(
 
     /**
      * Injects an affiliate unit into the article content
-     * @param {string} title
      */
-    handleBigAffiliateUnit(title) {
-      const unit = this.affiliateSlots.getBigUnitOnPage(title);
-
-      if (typeof unit === 'undefined') {
-        // There's no unit to display (not an error)
-        return;
-      }
+    handleBigAffiliateUnit() {
+      const indexForUnit = 1; // 2nd section
 
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      if (h2Elements[1]) {
-        const unitPlaceholder = document.createElement('div');
-        const unitWrapper = document.createElement('div');
+      this.affiliateSlots
+        .fetchUnitForPage(this.id, true, this.debugAffiliateUnits)
+        .then((unit) => {
+          if (typeof unit === 'undefined') {
+            // There's no unit to display (not an error)
+            return;
+          }
 
-        unitWrapper.appendChild(unitPlaceholder);
-        h2Elements[1].insertAdjacentElement('beforebegin', unitWrapper);
+          // keep here for tracking purposes.
+          // We want to know if we have targeting but no space for the unit
+          if (!h2Elements[indexForUnit]) {
+            trackAffiliateUnit(unit, {
+              category: 'affiliate_incontent_recommend',
+              label: 'affiliate_not_shown',
+              action: 'no-impression',
+            });
+            return;
+          }
 
-        this.renderedComponents.push(this.renderComponent({
-          name: 'affiliate-unit',
-          attrs: unit,
-          element: unitPlaceholder,
-        }));
-      }
+          const unitPlaceholder = document.createElement('div');
+          const unitWrapper = document.createElement('div');
+          unitWrapper.appendChild(unitPlaceholder);
+          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
+
+          this.renderedComponents.push(this.renderComponent({
+            name: 'affiliate-unit',
+            attrs: {
+              unit,
+              isInContent: true,
+            },
+            element: unitPlaceholder,
+          }));
+        });
     },
 
     /**
      * Injects a post search results into the article content
-     * @param {string} title
      */
-    handlePostSearchResults(title) {
-      const unit = this.affiliateSlots.getSmallUnitOnPage(title);
+    handlePostSearchResults() {
+      const indexForUnit = 3; // 4th section
 
-      if (typeof unit === 'undefined') {
-        // There's no unit to display (not an error)
-        return;
-      }
-
-      // search for 4th section
+      // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
-      if (h2Elements[3]) {
-        const unitPlaceholder = document.createElement('div');
-        const unitWrapper = document.createElement('div');
+      this.affiliateSlots
+        .fetchUnitForPage(this.id, false, this.debugAffiliateUnits)
+        .then((unit) => {
+          if (typeof unit === 'undefined') {
+            // There's no unit to display (not an error)
+            return;
+          }
 
-        unitWrapper.appendChild(unitPlaceholder);
-        h2Elements[3].insertAdjacentElement('beforebegin', unitWrapper);
+          // keep here for tracking purposes.
+          // We want to know if we have targeting but no space for the unit
+          if (!h2Elements[indexForUnit]) {
+            trackAffiliateUnit(unit, {
+              category: 'affiliate_incontent_posts',
+              label: 'affiliate_not_shown',
+              action: 'no-impression',
+            });
+            return;
+          }
 
-        this.renderedComponents.push(this.renderComponent({
-          name: 'post-search-results',
-          attrs: {
-            query: title,
-            isCrossWiki: true,
-            isPageInterrupt: true,
-            onlyShowWithAffiliateUnit: true,
-          },
-          element: unitPlaceholder,
-        }));
-      }
+          const unitPlaceholder = document.createElement('div');
+          const unitWrapper = document.createElement('div');
+          unitWrapper.appendChild(unitPlaceholder);
+          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
+
+          this.renderedComponents.push(this.renderComponent({
+            name: 'post-search-results',
+            attrs: {
+              query: this.displayTitle,
+              unit,
+              isCrossWiki: true,
+              isInContent: true,
+            },
+            element: unitPlaceholder,
+          }));
+        });
     },
   },
 );

@@ -24,11 +24,6 @@ import {
 import Ads from '../modules/ads';
 import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
-import { pageTracker } from '../modules/ads/tracking/page-tracker';
-
-function isQueryParamActive(paramValue) {
-  return ['0', null, '', 'false', undefined].indexOf(paramValue) === -1;
-}
 
 export default Route.extend(
   HeadTagsDynamicMixin,
@@ -53,6 +48,9 @@ export default Route.extend(
         // Would be better to support back and forward buttons
         // but I wasn't able to reload the model on history change
         replace: true,
+      },
+      debugAffiliateUnits: {
+        refreshModel: true,
       },
     },
 
@@ -113,6 +111,10 @@ export default Route.extend(
 
       if (params.from) {
         modelParams.from = params.from;
+      }
+
+      if (params.debugAffiliateUnits) {
+        modelParams.debugAffiliateUnits = params.debugAffiliateUnits;
       }
 
       return resolve(this.getPageModel(modelParams));
@@ -178,41 +180,11 @@ export default Route.extend(
           });
 
           if (!fastboot.get('isFastBoot')) {
+            model.adsContext.user = model.adsContext.user || {};
+            model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
+
             window.getInstantGlobals((instantGlobals) => {
-              const reasonConditionMap = {
-                noexternals_querystring: isQueryParamActive(transition.queryParams.noexternals),
-                noads_querystring: isQueryParamActive(transition.queryParams.noads),
-                mobileapp_querystring: isQueryParamActive(transition.queryParams['mobile-app']),
-                noads_pagetype: model.adsContext.opts.pageType === 'no_ads',
-                ig: !!instantGlobals.wgSitewideDisableAdsOnMercury,
-              };
-              const disablers = Object.entries(reasonConditionMap)
-                .filter(reasonAndCondition => reasonAndCondition[1])
-                .map(reasonAndContition => reasonAndContition[0]);
-
-              if (disablers.length > 0) {
-                const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');
-                const ads = Ads.getInstance();
-
-                ads.initialization.reject(disablers);
-                pageTracker.trackProp('adengine', `${disablersSerialized}`, true);
-              } else {
-                // 'wgAdDriverDisableAdStackCountries' - how to check this?
-                model.adsContext.user = model.adsContext.user || {};
-                model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-
-                const ads = Ads.getInstance();
-
-                ads.init(model.adsContext);
-
-                Ads.getLoadedInstance()
-                  .then(() => {
-                    pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
-                  })
-                  .catch(() => {
-                    pageTracker.trackProp('adengine', 'off_failed_initialization', true);
-                  });
-              }
+              Ads.getInstance().init(instantGlobals, model.adsContext, transition.queryParams);
             });
           }
 

@@ -1,10 +1,14 @@
-{{#if affiliateUnit}}
-  {{affiliate-unit
-    heading=affiliateUnit.heading
-    image=affiliateUnit.image
-    link=affiliateUnit.link
-    subheading=affiliateUnit.subheading
-  }}
-{{else}}
-  {{post-search-results query=query isCrossWiki=isCrossWiki}}
+{{#if isEnabled}}
+  {{#if bigUnit}}
+    {{affiliate-unit
+      unit=bigUnit
+    }}
+  {{else}}
+    {{post-search-results
+      query=query
+      unit=smallUnit
+      isCrossWiki=isCrossWiki
+      debugAffiliateUnits=debugAffiliateUnits
+    }}
+  {{/if}}
 {{/if}}

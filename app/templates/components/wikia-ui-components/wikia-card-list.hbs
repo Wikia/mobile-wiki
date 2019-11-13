@@ -16,7 +16,10 @@
     </li>
     {{#if includePostsForQuery}}
       {{#if (equal key 1)}}
-        {{post-search-interrupt query=includePostsForQuery}}
+        {{post-search-interrupt
+          query=includePostsForQuery
+          debugAffiliateUnits=debugAffiliateUnits
+        }}
       {{/if}}
     {{/if}}
   {{/each}}

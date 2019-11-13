@@ -1,51 +1,45 @@
 [
   {
-    "comment": "Fandom.com test for keiko-test wiki on searching for 'coffee'",
-    "unit": [
-      "fandom-com"
-    ],
+    "campaign": "disneyplus",
+    "category": "disney",
     "wikiId": [
-      1081891
-    ],
-    "query": [
-      "coffee"
+      374
     ]
   },
   {
-    "comment": "Fandom.com 2 test for keiko-test wiki on dev on searching for 'foo'",
-    "unit": [
-      "fandom-big"
-    ],
+    "campaign": "disneyplus",
+    "category": "mandalorian",
     "wikiId": [
-      1081891
-    ],
-    "query": [
-      "foo"
+      147
     ]
   },
   {
-    "comment": "Target xkxd02 wiki which is on both devbox and prod",
-    "unit": [
-      "xkxd02"
-    ],
+    "campaign": "disneyplus",
+    "category": "marvel",
     "wikiId": [
-      1575417,
-      1619010
-    ],
-    "query": [
-      "spiderman",
-      "marvel",
-      "test"
+      2233,
+      177996
     ]
   },
   {
-    "comment": "Target xkxd02 wiki which is on both devbox and prod",
-    "unit": [
-      "xkxd02-small"
-    ],
+    "campaign": "disneyplus",
+    "category": "pixar",
     "wikiId": [
-      1575417,
-      1619010
+      4097
+    ]
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "starwars",
+    "wikiId": [
+      147
+    ]
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "simpsons",
+    "wikiId": [
+      673
     ]
   }
 ]
