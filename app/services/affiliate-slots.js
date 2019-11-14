@@ -1,4 +1,3 @@
-import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
@@ -62,10 +61,10 @@ const checkFilter = (filter, value) => (
  * @param {AffiliateUnit} unit
  * @returns {boolean}
  */
-const checkLaunchOn = (unit) => (
+const checkLaunchOn = unit => (
   typeof unit.launchOn === 'undefined'
     || (typeof unit.launchOn === 'string'
-      && (filter.length === 0 || (Date.parse(unit.launchOn) < Date.now()))
+      && (unit.launchOn.length === 0 || (Date.parse(unit.launchOn) < Date.now()))
     )
 );
 
