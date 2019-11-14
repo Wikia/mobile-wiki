@@ -56,9 +56,22 @@ const checkFilter = (filter, value) => (
 );
 
 /**
+ *  Returns `true` if `launchOn` is undefined, empty or in the past
+ *
+ * @param {AffiliateUnit} unit
+ * @returns {boolean}
+ */
+const checkLaunchOn = unit => (
+  typeof unit.launchOn === 'undefined'
+    || (typeof unit.launchOn === 'string'
+      && (unit.launchOn.length === 0 || (Date.parse(unit.launchOn) < Date.now()))
+    )
+);
+
+/**
  * Check if the unit can be displayed on current system
  *
- * @param {string} unit
+ * @param {AffiliateUnit} unit
  * @returns {boolean}
  */
 const checkMobileSystem = (unit) => {
@@ -123,8 +136,10 @@ export default Service.extend({
     return units
       // check for mobile-system-specific units
       .filter(checkMobileSystem)
-      // filter targeting by GEO cookie (country)
+      // filter units by GEO cookie (country)
       .filter(u => checkFilter(u.country, this.currentCountry))
+      // filter units by `launchOn` if present
+      .filter(checkLaunchOn)
       // sort them according to the priority
       .sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
   },
@@ -174,39 +189,60 @@ export default Service.extend({
       .filter(t => checkFilter(t.query, query));
   },
 
+  /**
+   * @param {string} debugString
+   * @param {boolean} isBig
+   * @returns {AffiliateUnit}
+   */
   _getDebugUnit(debugString, isBig) {
     const debugArray = debugString.split(',');
     const campaign = debugArray[0];
     const category = debugArray[1];
+    const ignoreIsBig = debugArray[2] ? debugArray[2] === 'true' : false;
+
+    if (isBig && ignoreIsBig) {
+      return undefined;
+    }
 
     return units.find(
       unit => unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig,
     );
   },
 
-  fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
+  /**
+   * @param {string} query
+   * @returns {AffiliateUnit[]}
+   */
+  _fetchBigUnitsOnSearch(query) {
+    // get the units that fulfill the targeting on search
+    const targeting = this._getTargetingOnSearch(query);
+    const availableUnits = this._getUnitsWithTargeting(targeting)
+      // we only want big units at this point
+      .filter(u => !!u.isBig)
+      // filter units disabled on search page
+      .filter(u => !u.disableOnSearch);
+
+    return availableUnits;
+  },
+
+  /**
+   * @param {string} query
+   * @param {string|false} debugAffiliateUnits
+   * @returns {Promise}
+   */
+  fetchUnitsForSearch(query, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
-        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve({
+          big: this._getDebugUnit(debugAffiliateUnits, true),
+          small: this._getDebugUnit(debugAffiliateUnits, false),
+        });
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        return resolve(undefined);
-      }
-
-      if (isBig) {
-        // get the units that fulfill the targeting on search
-        const targeting = this._getTargetingOnSearch(query);
-        const availableUnits = this._getUnitsWithTargeting(targeting)
-          // we only want big units at this point
-          .filter(u => !!u.isBig)
-          // filter units disabled on search page
-          .filter(u => !u.disableOnSearch);
-
-        // fetch only the first unit if available
-        return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+        return resolve({ big: undefined, small: undefined });
       }
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}`);
@@ -216,32 +252,43 @@ export default Service.extend({
           const targeting = flattenKnowledgeGraphTargeting(response);
 
           // get the units that fulfill the campaign and category
-          const availableUnits = this._getUnitsWithTargeting(targeting)
+          const availableSmallUnits = this._getUnitsWithTargeting(targeting)
             // we only want only small at this point
             .filter(u => !u.isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnSearch);
 
           // fetch only the first unit if available
-          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          return resolve({
+            big: this._fetchBigUnitsOnSearch(query),
+            small: availableSmallUnits[0],
+          });
         })
         // not raise anything
-        .catch(() => resolve(undefined));
+        .catch(() => resolve({ big: undefined, small: undefined }));
 
       return undefined;
     });
   },
 
-  fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
+  /**
+   * @param {string} query
+   * @param {string|false} debugAffiliateUnits
+   * @returns {Promise}
+   */
+  fetchUnitsForPage(pageId, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
-        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve({
+          big: this._getDebugUnit(debugAffiliateUnits, true),
+          small: this._getDebugUnit(debugAffiliateUnits, false),
+        });
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        return resolve(undefined);
+        return resolve({ big: undefined, small: undefined });
       }
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${pageId}`);
@@ -252,17 +299,17 @@ export default Service.extend({
 
           // get the units that fulfill the campaign and category
           const availableUnits = this._getUnitsWithTargeting(targeting)
-            // filter type of ad - isBig can be undefined, let's convert both to boolean
-            .filter(u => !!u.isBig === !!isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
-
           // fetch only the first unit if available
-          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          return resolve({
+            big: availableUnits.filter(u => !!u.isBig === true)[0],
+            small: availableUnits.filter(u => !!u.isBig === false)[0],
+          });
         })
         // not raise anything
-        .catch(() => resolve(undefined));
+        .catch(() => resolve({ big: undefined, small: undefined }));
 
       return undefined;
     });
