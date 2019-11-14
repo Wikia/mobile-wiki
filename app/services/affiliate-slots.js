@@ -174,6 +174,11 @@ export default Service.extend({
       .filter(t => checkFilter(t.query, query));
   },
 
+  /**
+   * @param {string} debugString
+   * @param {boolean} isBig
+   * @returns {AffiliateUnit}
+   */
   _getDebugUnit(debugString, isBig) {
     const debugArray = debugString.split(',');
     const campaign = debugArray[0];
@@ -184,29 +189,40 @@ export default Service.extend({
     );
   },
 
-  fetchUnitForSearch(query, isBig = false, debugAffiliateUnits = false) {
+  /**
+   * @param {string} query
+   * @returns {AffiliateUnit[]}
+   */
+  _fetchBigUnitsOnSearch(query) {
+    // get the units that fulfill the targeting on search
+    const targeting = this._getTargetingOnSearch(query);
+    const availableUnits = this._getUnitsWithTargeting(targeting)
+      // we only want big units at this point
+      .filter(u => !!u.isBig)
+      // filter units disabled on search page
+      .filter(u => !u.disableOnSearch);
+
+    return availableUnits;
+  },
+
+  /**
+   * @param {string} query
+   * @param {string|false} debugAffiliateUnits
+   * @returns {Promise}
+   */
+  fetchUnitsForSearch(query, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
-        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve({
+          big: this._getDebugUnit(debugAffiliateUnits, true),
+          small: this._getDebugUnit(debugAffiliateUnits, false),
+        });
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        return resolve(undefined);
-      }
-
-      if (isBig) {
-        // get the units that fulfill the targeting on search
-        const targeting = this._getTargetingOnSearch(query);
-        const availableUnits = this._getUnitsWithTargeting(targeting)
-          // we only want big units at this point
-          .filter(u => !!u.isBig)
-          // filter units disabled on search page
-          .filter(u => !u.disableOnSearch);
-
-        // fetch only the first unit if available
-        return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+        return resolve({ big: undefined, small: undefined });
       }
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}`);
@@ -216,32 +232,43 @@ export default Service.extend({
           const targeting = flattenKnowledgeGraphTargeting(response);
 
           // get the units that fulfill the campaign and category
-          const availableUnits = this._getUnitsWithTargeting(targeting)
+          const availableSmallUnits = this._getUnitsWithTargeting(targeting)
             // we only want only small at this point
             .filter(u => !u.isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnSearch);
 
           // fetch only the first unit if available
-          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          return resolve({
+            big: this._fetchBigUnitsOnSearch(query),
+            small: availableSmallUnits[0],
+          });
         })
         // not raise anything
-        .catch(() => resolve(undefined));
+        .catch(() => resolve({ big: undefined, small: undefined }));
 
       return undefined;
     });
   },
 
-  fetchUnitForPage(pageId, isBig = false, debugAffiliateUnits = false) {
+  /**
+   * @param {string} query
+   * @param {string|false} debugAffiliateUnits
+   * @returns {Promise}
+   */
+  fetchUnitsForPage(pageId, debugAffiliateUnits = false) {
     return new Promise((resolve) => {
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
-        return resolve(this._getDebugUnit(debugAffiliateUnits, isBig));
+        return resolve({
+          big: this._getDebugUnit(debugAffiliateUnits, true),
+          small: this._getDebugUnit(debugAffiliateUnits, false),
+        });
       }
 
       // check if we have possible units (we can fail early if we don't)
       if (!this._getAvailableUnits()) {
-        return resolve(undefined);
+        return resolve({ big: undefined, small: undefined });
       }
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}/${pageId}`);
@@ -252,17 +279,17 @@ export default Service.extend({
 
           // get the units that fulfill the campaign and category
           const availableUnits = this._getUnitsWithTargeting(targeting)
-            // filter type of ad - isBig can be undefined, let's convert both to boolean
-            .filter(u => !!u.isBig === !!isBig)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
-
           // fetch only the first unit if available
-          return resolve(availableUnits.length > 0 ? availableUnits[0] : undefined);
+          return resolve({
+            big: availableUnits.filter(u => !!u.isBig === true)[0],
+            small: availableUnits.filter(u => !!u.isBig === false)[0],
+          });
         })
         // not raise anything
-        .catch(() => resolve(undefined));
+        .catch(() => resolve({ big: undefined, small: undefined }));
 
       return undefined;
     });
