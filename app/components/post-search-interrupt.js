@@ -13,9 +13,8 @@ export default Component.extend({
 
   isEnabled: and('isBigFinished', 'isSmallFinished'),
 
-  init() {
+  didInsertElement() {
     this._super(...arguments);
-
 
     this.affiliateSlots.fetchUnitForSearch(this.query, false, this.debugAffiliateUnits)
       .then((unit) => {
