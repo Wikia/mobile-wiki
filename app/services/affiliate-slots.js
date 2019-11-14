@@ -1,4 +1,3 @@
-import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
