@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import sinon from 'sinon';
-import BillTheLizard from 'mobile-wiki/modules/ads/bill-the-lizard-wrapper';
-
+import BillTheLizard from 'mobile-wiki/modules/ads/ml/bill-the-lizard-wrapper';
 
 module('Unit | Module | ads | bill-the-lizard', (hooks) => {
   hooks.beforeEach(() => {
