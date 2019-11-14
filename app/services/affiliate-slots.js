@@ -247,7 +247,6 @@ export default Service.extend({
 
       const url = this.fetch.getServiceUrl('knowledge-graph', `/affiliates/${this.currentWikiId}`);
 
-      debugger
       this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError, true)
         .then((response) => {
           const targeting = flattenKnowledgeGraphTargeting(response);
