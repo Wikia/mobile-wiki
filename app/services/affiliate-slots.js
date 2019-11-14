@@ -57,9 +57,22 @@ const checkFilter = (filter, value) => (
 );
 
 /**
+ *  Returns `true` if `launchOn` is undefined, empty or in the past
+ *
+ * @param {AffiliateUnit} unit
+ * @returns {boolean}
+ */
+const checkLaunchOn = (unit) => (
+  typeof unit.launchOn === 'undefined'
+    || (typeof unit.launchOn === 'string'
+      && (filter.length === 0 || (Date.parse(unit.launchOn) < Date.now()))
+    )
+);
+
+/**
  * Check if the unit can be displayed on current system
  *
- * @param {string} unit
+ * @param {AffiliateUnit} unit
  * @returns {boolean}
  */
 const checkMobileSystem = (unit) => {
@@ -124,8 +137,10 @@ export default Service.extend({
     return units
       // check for mobile-system-specific units
       .filter(checkMobileSystem)
-      // filter targeting by GEO cookie (country)
+      // filter units by GEO cookie (country)
       .filter(u => checkFilter(u.country, this.currentCountry))
+      // filter units by `launchOn` if present
+      .filter(checkLaunchOn)
       // sort them according to the priority
       .sort((a, b) => ((a.priority > b.priority) ? 1 : -1));
   },
