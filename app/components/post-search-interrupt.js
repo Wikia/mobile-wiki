@@ -9,7 +9,7 @@ export default Component.extend({
   smallUnit: null,
   debugAffiliateUnits: false,
 
-  init() {
+  didInsertElement() {
     this._super(...arguments);
 
     this.affiliateSlots.fetchUnitsForSearch(this.query, this.debugAffiliateUnits)
