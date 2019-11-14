@@ -183,6 +183,11 @@ export default Service.extend({
     const debugArray = debugString.split(',');
     const campaign = debugArray[0];
     const category = debugArray[1];
+    const ignoreIsBig = debugArray[2] ? debugArray[2] === 'true' : false;
+
+    if (isBig && ignoreIsBig) {
+      return undefined;
+    }
 
     return units.find(
       unit => unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig,
