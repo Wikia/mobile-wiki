@@ -10,6 +10,7 @@ export default fetch.extend({
       internalCache: this.runtimeConfig.internalCache,
       servicesExternalHost: this.runtimeConfig.servicesExternalHost,
       servicesInternalHost: this.runtimeConfig.servicesInternalHost,
+      wikiaEnv: this.runtimeConfig.wikiaEnv,
     };
 
     this._super(...arguments);
