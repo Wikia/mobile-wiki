@@ -119,6 +119,20 @@ const flattenKnowledgeGraphTargeting = (response) => {
 };
 
 /**
+ * Generate the unit type based on if it's the search page and is big
+ *
+ * @param {boolean} isBig
+ * @param {boolean}} isSearchPage
+ */
+const _getUnitIdForLink = (isBig, isSearchPage) => {
+  if (isSearchPage) {
+    return isBig ? 'search_recommend' : 'search_posts';
+  }
+
+  return isBig ? 'incontent_recommend' : 'incontent_posts';
+};
+
+/**
  * Create a link with query param for tracking purposes
  *
  * @param {object} unit
@@ -126,7 +140,9 @@ const flattenKnowledgeGraphTargeting = (response) => {
  * @param {number} pageId
  */
 const _createAffiliateLink = (unit, wikiId, pageId) => {
-  const queryParam = `?unit_id=${unit.category}&community=${wikiId}&page=${pageId}`;
+  const unitId = _getUnitIdForLink(unit.isBig, pageId === 'search');
+  const queryParam = `?unit_id=${unitId}&community=${wikiId}&page=${pageId}`;
+
   return `${unit.link}${queryParam}`;
 };
 
