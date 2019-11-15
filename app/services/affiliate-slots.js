@@ -118,6 +118,18 @@ const flattenKnowledgeGraphTargeting = (response) => {
   return targeting;
 };
 
+/**
+ * Create a link with query param for tracking purposes
+ *
+ * @param {object} unit
+ * @param {number} wikiId
+ * @param {number} pageId
+ */
+const _createAffiliateLink = (unit, wikiId, pageId) => {
+  const queryParam = `?unit_id=${unit.category}&community=${wikiId}&page=${pageId}`;
+  return `${unit.link}${queryParam}`;
+};
+
 export default Service.extend({
   fetch: service(),
   logger: service(),
@@ -148,7 +160,7 @@ export default Service.extend({
    * @param {Targeting[]} targeting
    * @returns {AffiliateUnit}
    */
-  _getUnitsWithTargeting(targeting) {
+  _getUnitsWithTargeting(targeting, pageId = 'search') {
     const availableUnits = this._getAvailableUnits();
     const unitsWithTargeting = [];
 
@@ -167,6 +179,7 @@ export default Service.extend({
           // let's add that unit to the list along with its' targeting `tracking` prop
           unitsWithTargeting.push(extend({}, unit, {
             tracking: target.tracking || {},
+            link: _createAffiliateLink(unit, this.currentWikiId, pageId),
           }));
         }
       });
@@ -298,7 +311,7 @@ export default Service.extend({
           const targeting = flattenKnowledgeGraphTargeting(response);
 
           // get the units that fulfill the campaign and category
-          const availableUnits = this._getUnitsWithTargeting(targeting)
+          const availableUnits = this._getUnitsWithTargeting(targeting, pageId)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
