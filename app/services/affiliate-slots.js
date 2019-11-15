@@ -122,7 +122,7 @@ const flattenKnowledgeGraphTargeting = (response) => {
  * Generate the unit type based on if it's the search page and is big
  *
  * @param {boolean} isBig
- * @param {boolean}} isSearchPage
+ * @param {boolean} isSearchPage
  */
 const _getUnitIdForLink = (isBig, isSearchPage) => {
   if (isSearchPage) {
