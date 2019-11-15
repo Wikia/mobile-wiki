@@ -261,7 +261,7 @@ export default Service.extend({
 
           // fetch only the first unit if available
           return resolve({
-            big: this._fetchBigUnitsOnSearch(query),
+            big: this._fetchBigUnitsOnSearch(query)[0],
             small: availableSmallUnits[0],
           });
         })
