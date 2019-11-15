@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import InViewportMixin from 'ember-in-viewport';
+import exists from '../utils/exists';
 import { trackAffiliateUnit, trackActions } from '../utils/track';
 
 export default Component.extend(
@@ -10,7 +11,7 @@ export default Component.extend(
 
     classNames: ['affiliate-unit'],
 
-    showAffiiateUnitDisclaimer: document.querySelector('.watch-show__disclaimer') ? false : true,
+    showAffiiateUnitDisclaimer: !exists('.watch-show__disclaimer'),
 
     actions: {
       trackAffiliateClick() {
