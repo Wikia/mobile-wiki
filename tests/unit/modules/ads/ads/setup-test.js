@@ -33,9 +33,6 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       events,
       eventService,
-      InstantConfigCacheStorage: {
-        make: () => {},
-      },
       InstantConfigService: {
         init: (globals = { wgAdDriverBillTheLizardConfig: {} }) => Promise.resolve({
           get: key => globals[key],
@@ -63,6 +60,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       viewabilityTracker: {
         add: () => window.Wikia.adEngine.slotTracker,
         register: () => {},
+      },
+      ViewabilityCounter: {
+        make: () => {},
       },
     };
     window.Wikia.adBidders = {};
