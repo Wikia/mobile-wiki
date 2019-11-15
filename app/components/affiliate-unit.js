@@ -1,14 +1,25 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 import InViewportMixin from 'ember-in-viewport';
 import { trackAffiliateUnit, trackActions } from '../utils/track';
 
 export default Component.extend(
   InViewportMixin,
   {
+    i18n: service(),
+
     isInContent: false,
     unit: null,
 
     classNames: ['affiliate-unit'],
+
+    heading: computed('unit', function () {
+      if (this.unit && this.unit.tagline) {
+        return this.unit.tagline;
+      }
+      return this.i18n.t('affiliate-unit.big-unit-heading');
+    }),
 
     actions: {
       trackAffiliateClick() {
