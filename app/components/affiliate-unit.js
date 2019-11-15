@@ -10,6 +10,8 @@ export default Component.extend(
 
     classNames: ['affiliate-unit'],
 
+    showAffiiateUnitDisclaimer: document.querySelector('.watch-show__disclaimer') ? false : true,
+
     actions: {
       trackAffiliateClick() {
         trackAffiliateUnit(this.unit, {

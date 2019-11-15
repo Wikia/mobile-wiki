@@ -51,6 +51,13 @@ export default Component.extend(
       return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
     }),
 
+    showPostSearchResultsDisclaimer: computed('posts', function () {
+      const isWSDisclaimer = document.querySelector('.watch-show__disclaimer');
+      const isAffiliateDisclaimer = document.querySelector('.affiliate-unit__disclaimer');
+
+      return this.hasAffiliatePost && !isWSDisclaimer && !isAffiliateDisclaimer;
+    }),
+
     hasAffiliatePost: computed('posts', function () {
       return this.posts && this.posts.some(post => post.type === 'affiliate');
     }),
