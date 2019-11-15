@@ -178,8 +178,12 @@ export const adsSetup = {
     context.set('services.krux.trackedSegments', instantConfig.get('icKruxSegmentsTracking'));
     context.set('services.moatYi.enabled', instantConfig.isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
     context.set('services.nielsen.enabled', instantConfig.isGeoEnabled('wgAdDriverNielsenCountries'));
-    context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
-    context.set('services.taxonomy.pageArticleId', adsContext.targeting.pageArticleId);
+
+    if (instantConfig.get('icTaxonomyComixologyTag')) {
+      context.set('services.taxonomy.comixology.enabled', instantConfig.get('icTaxonomyComixologyTag'));
+      context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
+      context.set('services.taxonomy.pageArticleId', adsContext.targeting.pageArticleId);
+    }
 
     const isMoatTrackingEnabledForVideo = instantConfig.isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
         && utils.sampler.sample('moat_video_tracking', instantConfig.get('wgAdDriverMoatTrackingForFeaturedVideoAdSampling'));
