@@ -18,6 +18,10 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdSlot: {
         SLOT_RENDERED_EVENT: 'onRenderEnded',
       },
+      billTheLizardEvents: {
+        BILL_THE_LIZARD_REQUEST: '',
+        BILL_THE_LIZARD_RESPONSE: '',
+      },
       clickPositionTracker: {
         register: () => {},
       },
@@ -29,6 +33,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       events,
       eventService,
+      InstantConfigCacheStorage: {
+        make: () => {},
+      },
       InstantConfigService: {
         init: (globals = { wgAdDriverBillTheLizardConfig: {} }) => Promise.resolve({
           get: key => globals[key],
