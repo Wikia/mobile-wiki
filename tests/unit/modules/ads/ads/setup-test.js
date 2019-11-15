@@ -18,6 +18,10 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdSlot: {
         SLOT_RENDERED_EVENT: 'onRenderEnded',
       },
+      billTheLizardEvents: {
+        BILL_THE_LIZARD_REQUEST: '',
+        BILL_THE_LIZARD_RESPONSE: '',
+      },
       clickPositionTracker: {
         register: () => {},
       },
@@ -56,6 +60,9 @@ module('Unit | Module | ads | setup', (hooks) => {
       viewabilityTracker: {
         add: () => window.Wikia.adEngine.slotTracker,
         register: () => {},
+      },
+      ViewabilityCounter: {
+        make: () => {},
       },
     };
     window.Wikia.adBidders = {};
