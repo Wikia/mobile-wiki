@@ -133,17 +133,46 @@ const _getUnitIdForLink = (isBig, isSearchPage) => {
 };
 
 /**
+ * Convert the tracking object to an easy to use object
+ * @param {*} target
+ */
+const getTrackingKeys = (target) => {
+  const targeting = { algo: '', method: '', version: '' };
+
+  target.tracking.forEach((trackParam) => {
+    targeting[trackParam.key] = trackParam.val;
+  });
+
+  return targeting;
+};
+
+/**
  * Create a link with query param for tracking purposes
  *
  * @param {object} unit
  * @param {number} wikiId
  * @param {number} pageId
  */
-const _createAffiliateLink = (unit, wikiId, pageId) => {
-  const unitId = _getUnitIdForLink(unit.isBig, pageId === 'search');
-  const queryParam = `?unit_id=${unitId}&community=${wikiId}&page=${pageId}`;
+const _createAffiliateLink = (unit, target, wikiId, pageId) => {
+  try {
+    const unitId = _getUnitIdForLink(unit.isBig, pageId === 'search');
+    const trackingObj = getTrackingKeys(target);
 
-  return `${unit.link}${queryParam}`;
+    // category,method,algo,version
+    const taxonomyValueString = `${target.category},${trackingObj.method},${trackingObj.algo},${trackingObj.version}`;
+    // wikiId,pageId
+    const contextParam = `${wikiId},${pageId}`;
+    // unitId
+    const displayParam = `${unitId}`;
+
+    // taxonomy, context, display
+    const queryParam = `?taxonomy=${taxonomyValueString}&context=${contextParam}&display=${displayParam}`;
+
+    return `${unit.link}${queryParam}`;
+  } catch (e) {
+    console.error('_createAffiliateLink Error', e);
+    return unit.link;
+  }
 };
 
 export default Service.extend({
@@ -195,7 +224,7 @@ export default Service.extend({
           // let's add that unit to the list along with its' targeting `tracking` prop
           unitsWithTargeting.push(extend({}, unit, {
             tracking: target.tracking || {},
-            link: _createAffiliateLink(unit, this.currentWikiId, pageId),
+            link: _createAffiliateLink(unit, target, this.currentWikiId, pageId),
           }));
         }
       });
