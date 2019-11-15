@@ -269,7 +269,9 @@ export function setTrackContext(data) {
  * @param {string} value
  */
 export function setDimension(index, value) {
-  M.tracker.UniversalAnalytics.setDimension(index, value.toString());
+  if (typeof value !== 'undefined') {
+    M.tracker.UniversalAnalytics.setDimension(index, value.toString());
+  }
 }
 
 export function trackAffiliateUnit(unit, params) {
