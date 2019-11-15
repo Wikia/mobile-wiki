@@ -6,6 +6,7 @@ import InViewportMixin from 'ember-in-viewport';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
 
 import { track, trackActions, trackAffiliateUnit } from '../utils/track';
+import exists from '../utils/exists';
 import extend from '../utils/extend';
 
 const DEFAULT_AFFILIATE_SLOT = 1;
@@ -50,6 +51,13 @@ export default Component.extend(
     isEnabled: computed('wikiVariables.enableDiscussions', 'isCrossWiki', function () {
     // enabled on cross wiki and if community has discussions enabled
       return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
+    }),
+
+    showPostSearchResultsDisclaimer: computed('posts', function () {
+      const isWSDisclaimer = exists('.watch-show__disclaimer');
+      const isAffiliateDisclaimer = exists('.affiliate-unit__disclaimer');
+
+      return this.hasAffiliatePost && !isWSDisclaimer && !isAffiliateDisclaimer;
     }),
 
     hasAffiliatePost: computed('posts', function () {

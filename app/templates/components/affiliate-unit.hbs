@@ -14,7 +14,9 @@
     <div class="affiliate-unit__subheading wds-font-weight-bold">{{unit.subheading}}</div>
   </div>
 </a>
-<div class="affiliate-unit__disclaimer">
-  {{i18n "affiliate-unit.disclaimer"}}
-</div>
+{{#if showAffiiateUnitDisclaimer}}
+  <div class="affiliate-unit__disclaimer">
+    {{i18n "affiliate-unit.disclaimer"}}
+  </div>
+{{/if}}
 <div class="affiliate-unit__slant"></div>

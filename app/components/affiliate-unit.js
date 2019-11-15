@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import InViewportMixin from 'ember-in-viewport';
+import exists from '../utils/exists';
 import { trackAffiliateUnit, trackActions } from '../utils/track';
 
 export default Component.extend(
@@ -13,6 +14,8 @@ export default Component.extend(
     unit: null,
 
     classNames: ['affiliate-unit'],
+
+    showAffiiateUnitDisclaimer: !exists('.watch-show__disclaimer'),
 
     heading: computed('unit', function () {
       if (this.unit && this.unit.tagline) {
