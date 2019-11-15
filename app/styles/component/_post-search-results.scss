@@ -40,6 +40,24 @@
     justify-content: center;
     margin: 18px;
   }
+
+  &__disclaimer {
+    color: $wds-fandom-color-dark-gray;
+    font-size: $wds-font-size-xxs;
+    font-style: italic;
+    letter-spacing: .03px;
+    line-height: 1.4;
+    margin: 24px 0 0;
+    padding: 0 4px;
+    text-align: left;
+
+    &::before {
+      border-top: 1px solid $wds-fandom-color-mid-light-gray;
+      content: "";
+      display: block;
+      margin: 0 -4px 16px;
+    }
+  }
 }
 
 .article-content .post-search-results {
@@ -52,8 +70,15 @@
     height: 130px;
     margin: 0 -12px;
   }
+}
 
-  &__items {
-    margin: 0 .75rem;
+.search-results .post-search-results {
+  &__disclaimer {
+    margin-top: 18px;
+  }
+
+  &__disclaimer::before {
+    border-top: none;
+    margin-top: 0;
   }
 }
