@@ -163,10 +163,10 @@ const _createAffiliateLink = (unit, target, wikiId, pageId) => {
     // wikiId,pageId
     const contextParam = `${wikiId},${pageId}`;
     // unitId
-    const displayParam = `${unitId}`;
+    const otherParam = `${unitId}`;
 
     // taxonomy, context, display
-    const queryParam = `?taxonomy=${taxonomyParam}&context=${contextParam}&display=${displayParam}`;
+    const queryParam = `?taxonomy=${taxonomyParam}&context=${contextParam}&other=${displayParam}`;
 
     return `${unit.link}${queryParam}`;
   } catch (e) {
