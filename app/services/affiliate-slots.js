@@ -159,14 +159,14 @@ const _createAffiliateLink = (unit, target, wikiId, pageId) => {
     const trackingObj = getTrackingKeys(target);
 
     // category,method,algo,version
-    const taxonomyValueString = `${target.category},${trackingObj.method},${trackingObj.algo},${trackingObj.version}`;
+    const taxonomyParam = `${target.category},${trackingObj.method},${trackingObj.algo},${trackingObj.version}`;
     // wikiId,pageId
     const contextParam = `${wikiId},${pageId}`;
     // unitId
     const displayParam = `${unitId}`;
 
     // taxonomy, context, display
-    const queryParam = `?taxonomy=${taxonomyValueString}&context=${contextParam}&display=${displayParam}`;
+    const queryParam = `?taxonomy=${taxonomyParam}&context=${contextParam}&display=${displayParam}`;
 
     return `${unit.link}${queryParam}`;
   } catch (e) {
