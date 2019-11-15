@@ -371,6 +371,9 @@ class Ads {
   startAdEngine() {
     const { AdEngine } = window.Wikia.adEngine;
 
+    const { taxonomyService } = window.Wikia.adServices;
+    taxonomyService.configureComixologyTargeting();
+
     if (!this.engine) {
       this.engine = new AdEngine();
       this.engine.init();
