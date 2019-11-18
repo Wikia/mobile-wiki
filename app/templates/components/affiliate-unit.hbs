@@ -1,6 +1,3 @@
-<div class="affiliate-unit-disclaimer">
-  {{i18n "affiliate-unit.disclaimer"}}
-</div>
 <div class="affiliate-unit__header wds-font-weight-medium wds-midlight-navy">
   <Icon @name="user" @size="small" class="affiliate-unit__header-icon" />
   {{heading}}
@@ -17,4 +14,9 @@
     <div class="affiliate-unit__subheading wds-font-weight-bold">{{unit.subheading}}</div>
   </div>
 </a>
+{{#if showAffiiateUnitDisclaimer}}
+  <div class="affiliate-unit__disclaimer">
+    {{i18n "affiliate-unit.disclaimer"}}
+  </div>
+{{/if}}
 <div class="affiliate-unit__slant"></div>
