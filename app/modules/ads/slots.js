@@ -258,7 +258,6 @@ export const slots = {
         disabled: true,
         disableManualInsert: true,
         defaultClasses: ['hide'],
-        forceSafeFrame: true,
         slotNameSuffix: '',
         group: 'PF',
         options: {},
