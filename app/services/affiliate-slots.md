@@ -11,6 +11,7 @@ This file defines all the available affiliate units.
   "campaign": "disneyplus",
   "category": "disney",
   "isBig": false,
+  "tagline": "Suggested For You",
   "image": "https://vignette.wikia.nocookie.net/central/images/b/bc/Wiki.png/revision/latest?cb=20180423162614",
   "heading": "Fandom",
   "subheading": "Check this out",
@@ -20,6 +21,7 @@ This file defines all the available affiliate units.
     "US",
     "NL"
   ],
+  "launchOn": "2018-01-01T00:00:00Z",
   "priority": 3,
   "disableOnSearch": false,
   "disableOnPage": false,
@@ -34,7 +36,9 @@ This file defines all the available affiliate units.
 * `campaign` - campaing name - this is being used in `affiliate-slots-targeting.json` file and in the taxonomy targeting
 * `category` - category name - this is being used in `affiliate-slots-targeting.json` file and in the taxonomy targeting
 * `isBig` - defaults to false. If set to true the unit will be tke over the post search results.
+* `tagline` - title heading above the unit
 * `isExternal` - defaults to false. If set to true the link is external and should be styled that way.
+* `launchOn` - a datetime of when the unit should be available
 * `priority` - a numerical priority. The higher the number, the more important unit is.
 * `disableOnSearch` - optional property. If set to true the unit is never going to be displayed on Search results.
 * `disableOnPage` - optional property. If set to true the unit is never going to be displayed on Pages results.

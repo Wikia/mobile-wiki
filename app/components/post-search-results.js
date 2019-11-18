@@ -31,6 +31,7 @@ export default Component.extend(
     logger: service(),
     wikiVariables: service(),
     affiliateSlots: service(),
+    i18n: service(),
 
     isLoading: true,
     isCrossWiki: false,
@@ -53,6 +54,13 @@ export default Component.extend(
 
     hasAffiliatePost: computed('posts', function () {
       return this.posts && this.posts.some(post => post.type === 'affiliate');
+    }),
+
+    heading: computed('unit', function () {
+      if (this.unit && this.unit.tagline) {
+        return this.unit.tagline;
+      }
+      return this.i18n.t('main.search-post-items-header');
     }),
 
     didInsertElement() {

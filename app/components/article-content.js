@@ -62,8 +62,7 @@ export default Component.extend(
         if (!isBlank(rawContent)) {
           this.hackIntoEmberRendering(rawContent);
 
-          this.handleBigAffiliateUnit();
-          this.handlePostSearchResults();
+          this.handleAffiliateUnits();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
           this.handleWatchShow();
@@ -605,92 +604,76 @@ export default Component.extend(
     },
 
     /**
-     * Injects an affiliate unit into the article content
+     * Injects an affiliate units into the article content
      */
-    handleBigAffiliateUnit() {
-      const indexForUnit = 1; // 2nd section
+    handleAffiliateUnits() {
+      const indexForBigUnit = 1; // 2nd section
+      const indexForSmallUnit = 3; // 4th section
 
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
 
       this.affiliateSlots
-        .fetchUnitForPage(this.id, true, this.debugAffiliateUnits)
-        .then((unit) => {
-          if (typeof unit === 'undefined') {
-            // There's no unit to display (not an error)
-            return;
+        .fetchUnitsForPage(this.id, this.debugAffiliateUnits)
+        .then((units) => {
+          const bigUnit = units.big;
+          const smallUnit = units.small;
+
+          // if there's a big unit
+          if (typeof bigUnit !== 'undefined') {
+            // keep here for tracking purposes.
+            // We want to know if we have targeting but no space for the unit
+            if (!h2Elements[indexForBigUnit]) {
+              trackAffiliateUnit(bigUnit, {
+                category: 'affiliate_incontent_recommend',
+                label: 'affiliate_not_shown',
+                action: 'no-impression',
+              });
+            } else {
+              const unitPlaceholder = document.createElement('div');
+              const unitWrapper = document.createElement('div');
+              unitWrapper.appendChild(unitPlaceholder);
+              h2Elements[indexForBigUnit].insertAdjacentElement('beforebegin', unitWrapper);
+
+              this.renderedComponents.push(this.renderComponent({
+                name: 'affiliate-unit',
+                attrs: {
+                  unit: bigUnit,
+                  isInContent: true,
+                },
+                element: unitPlaceholder,
+              }));
+            }
           }
 
-          // keep here for tracking purposes.
-          // We want to know if we have targeting but no space for the unit
-          if (!h2Elements[indexForUnit]) {
-            trackAffiliateUnit(unit, {
-              category: 'affiliate_incontent_recommend',
-              label: 'affiliate_not_shown',
-              action: 'no-impression',
-            });
-            return;
+          // if there's a small unit
+          if (typeof smallUnit !== 'undefined') {
+            // keep here for tracking purposes.
+            // We want to know if we have targeting but no space for the unit
+            if (!h2Elements[indexForSmallUnit]) {
+              trackAffiliateUnit(smallUnit, {
+                category: 'affiliate_incontent_posts',
+                label: 'affiliate_not_shown',
+                action: 'no-impression',
+              });
+            } else {
+              const unitPlaceholder = document.createElement('div');
+              const unitWrapper = document.createElement('div');
+              unitWrapper.appendChild(unitPlaceholder);
+              h2Elements[indexForSmallUnit].insertAdjacentElement('beforebegin', unitWrapper);
+
+              this.renderedComponents.push(this.renderComponent({
+                name: 'post-search-results',
+                attrs: {
+                  query: this.displayTitle,
+                  unit: smallUnit,
+                  isCrossWiki: true,
+                  isInContent: true,
+                },
+                element: unitPlaceholder,
+              }));
+            }
           }
-
-          const unitPlaceholder = document.createElement('div');
-          const unitWrapper = document.createElement('div');
-          unitWrapper.appendChild(unitPlaceholder);
-          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
-
-          this.renderedComponents.push(this.renderComponent({
-            name: 'affiliate-unit',
-            attrs: {
-              unit,
-              isInContent: true,
-            },
-            element: unitPlaceholder,
-          }));
-        });
-    },
-
-    /**
-     * Injects a post search results into the article content
-     */
-    handlePostSearchResults() {
-      const indexForUnit = 3; // 4th section
-
-      // search for second section
-      const h2Elements = this.element.querySelectorAll('h2[section]');
-
-      this.affiliateSlots
-        .fetchUnitForPage(this.id, false, this.debugAffiliateUnits)
-        .then((unit) => {
-          if (typeof unit === 'undefined') {
-            // There's no unit to display (not an error)
-            return;
-          }
-
-          // keep here for tracking purposes.
-          // We want to know if we have targeting but no space for the unit
-          if (!h2Elements[indexForUnit]) {
-            trackAffiliateUnit(unit, {
-              category: 'affiliate_incontent_posts',
-              label: 'affiliate_not_shown',
-              action: 'no-impression',
-            });
-            return;
-          }
-
-          const unitPlaceholder = document.createElement('div');
-          const unitWrapper = document.createElement('div');
-          unitWrapper.appendChild(unitPlaceholder);
-          h2Elements[indexForUnit].insertAdjacentElement('beforebegin', unitWrapper);
-
-          this.renderedComponents.push(this.renderComponent({
-            name: 'post-search-results',
-            attrs: {
-              query: this.displayTitle,
-              unit,
-              isCrossWiki: true,
-              isInContent: true,
-            },
-            element: unitPlaceholder,
-          }));
         });
     },
   },
