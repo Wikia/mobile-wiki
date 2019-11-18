@@ -21,7 +21,7 @@ export const defaultAdContext = {
         },
         mobile_in_content: {
           sizes: [
-            [300, 250]
+            [300, 250],
           ],
         },
         bottom_leaderboard: {
