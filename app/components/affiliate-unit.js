@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import InViewportMixin from 'ember-in-viewport';
 import { trackAffiliateUnit, trackActions } from '../utils/track';
 
