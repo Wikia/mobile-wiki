@@ -11,13 +11,17 @@ import extend from '../utils/extend';
 const DEFAULT_AFFILIATE_SLOT = 1;
 
 function getAffiliateSlot(smallAffiliateUnit, posts) {
+  let preferredIndex = DEFAULT_AFFILIATE_SLOT;
+
   if (!posts || posts.length === 0) {
     return 0;
   }
 
-  const preferredIndex = smallAffiliateUnit.preferredIndex || DEFAULT_AFFILIATE_SLOT;
+  if (smallAffiliateUnit.preferredIndex !== undefined) {
+    preferredIndex = smallAffiliateUnit.preferredIndex;
+  }
 
-  if (preferredIndex < posts.length) {
+  if (preferredIndex > posts.length) {
     return posts.length - 1;
   }
 
