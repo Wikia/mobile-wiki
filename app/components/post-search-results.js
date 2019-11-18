@@ -8,7 +8,7 @@ import { getQueryString } from '@wikia/ember-fandom/utils/url';
 import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 import extend from '../utils/extend';
 
-const DEFAULT_AFFILIATE_SLOT = 1;
+const DEFAULT_AFFILIATE_SLOT = 0;
 
 function getAffiliateSlot(smallAffiliateUnit, posts) {
   let preferredIndex = DEFAULT_AFFILIATE_SLOT;
