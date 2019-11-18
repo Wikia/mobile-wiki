@@ -55,7 +55,7 @@ node('docker-daemon') {
     withDockerContainer(deployenv) {
         stage('Create k8s descriptor') {
             sh """#!/bin/sh
-            ./tasks/k8s-descriptor-new.sh ${params.environment} ${serviceVersion} ${imageName} ${params.datacenter}"""
+            ./tasks/k8s-descriptor.sh ${params.environment} ${serviceVersion} ${imageName} ${params.datacenter}"""
         }
     }
 
