@@ -1,5 +1,26 @@
 [
   {
+    "campaign": "test",
+    "category": "testing",
+    "tagline": "Test 3-item Affiliate",
+    "image": "https://static.wikia.nocookie.net/a136ba04-c922-40f2-89a6-f455b5ce895a",
+    "heading": "This is a test affiliate unit",
+    "subheading": "Click this link",
+    "link": "https://www.fandom.com",
+    "country": ["US", "CA", "NL"]
+  },
+  {
+    "campaign": "test",
+    "category": "testing",
+    "tagline": "Test 1-item Affiliate",
+    "image": "https://static.wikia.nocookie.net/a136ba04-c922-40f2-89a6-f455b5ce895a",
+    "heading": "This is a test affiliate unit",
+    "subheading": "Click this link",
+    "link": "https://www.fandom.com",
+    "country": ["US", "CA", "NL"],
+    "isBig": true
+  },
+  {
     "campaign": "disneyplus",
     "category": "disney",
     "tagline": "Related Posts",
