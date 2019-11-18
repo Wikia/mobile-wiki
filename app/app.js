@@ -27,6 +27,8 @@ App.initializer({
   },
 });
 
+console.log('Green deployment');
+
 loadInitializers(App, config.modulePrefix);
 
 export default App;
