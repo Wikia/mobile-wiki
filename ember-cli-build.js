@@ -48,7 +48,7 @@ module.exports = function (defaults) {
       plugins: [require.resolve('ember-auto-import/babel-plugin')],
     },
     autoImport: {
-      publicAssetURL: '/mobile-wiki-assets/assets',
+      publicAssetURL: '/mobile-wiki/assets',
       webpack: {
         module: {
           rules: [
