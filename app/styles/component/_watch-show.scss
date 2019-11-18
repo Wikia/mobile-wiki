@@ -48,10 +48,10 @@
     color: $wds-fandom-color-dark-gray;
     font-size: $wds-font-size-xxs;
     font-style: italic;
-    letter-spacing: .03px;
+    letter-spacing: .25px;
     line-height: 1.4;
     margin: 18px 0 40px;
-    padding: 0 20px;
+    padding: 0 30px;
     position: relative;
     text-align: center;
   }
@@ -61,6 +61,6 @@
     content: "";
     display: block;
     margin: 12px auto;
-    width: 148px;
+    width: 50%;
   }
 }
