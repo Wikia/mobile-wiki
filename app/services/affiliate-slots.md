@@ -35,7 +35,7 @@ This file defines all the available affiliate units.
 
 * `campaign` - campaing name - this is being used in `affiliate-slots-targeting.json` file and in the taxonomy targeting
 * `category` - category name - this is being used in `affiliate-slots-targeting.json` file and in the taxonomy targeting
-* `isBig` - defaults to false. If set to true the unit will be tke over the post search results.
+* `isBig` - defaults to false. If set to true the unit will take over the post search results.
 * `tagline` - title heading above the unit
 * `isExternal` - defaults to false. If set to true the link is external and should be styled that way.
 * `launchOn` - a datetime of when the unit should be available
