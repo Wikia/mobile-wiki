@@ -32,7 +32,7 @@ export const defaultAdContext = {
     },
     prebid: {
       enabled: false,
-      libraryUrl: '/mobile-wiki-assets/assets/wikia-ae3/prebid.min.js',
+      libraryUrl: '/mobile-wiki/assets/wikia-ae3/prebid.min.js',
       lazyLoadingEnabled: false,
       bidsRefreshing: {
         enabled: false,
@@ -350,6 +350,20 @@ export const defaultAdContext = {
             ],
             siteId: '23565',
             zoneId: '1422262',
+          },
+        },
+      },
+      teads: {
+        enabled: false,
+        debugPageId: 109648,
+        debugPlacementId: 119236,
+        slots: {
+          incontent_player: {
+            pageId: '109466',
+            placementId: '119044',
+            sizes: [
+              [1, 1],
+            ],
           },
         },
       },

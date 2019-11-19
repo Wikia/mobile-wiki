@@ -8,16 +8,20 @@ import { getQueryString } from '@wikia/ember-fandom/utils/url';
 import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 import extend from '../utils/extend';
 
-const DEFAULT_AFFILIATE_SLOT = 1;
+const DEFAULT_AFFILIATE_SLOT = 0;
 
 function getAffiliateSlot(smallAffiliateUnit, posts) {
+  let preferredIndex = DEFAULT_AFFILIATE_SLOT;
+
   if (!posts || posts.length === 0) {
     return 0;
   }
 
-  const preferredIndex = smallAffiliateUnit.preferredIndex || DEFAULT_AFFILIATE_SLOT;
+  if (smallAffiliateUnit.preferredIndex !== undefined) {
+    preferredIndex = smallAffiliateUnit.preferredIndex;
+  }
 
-  if (preferredIndex < posts.length) {
+  if (preferredIndex > posts.length) {
     return posts.length - 1;
   }
 
@@ -31,6 +35,7 @@ export default Component.extend(
     logger: service(),
     wikiVariables: service(),
     affiliateSlots: service(),
+    i18n: service(),
 
     isLoading: true,
     isCrossWiki: false,
@@ -51,8 +56,22 @@ export default Component.extend(
       return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
     }),
 
+    showPostSearchResultsDisclaimer: computed('posts', function () {
+      const isWSDisclaimer = !!document.querySelector('.watch-show__disclaimer');
+      const isAffiliateDisclaimer = !!document.querySelector('.affiliate-unit__disclaimer');
+
+      return this.hasAffiliatePost && !isWSDisclaimer && !isAffiliateDisclaimer;
+    }),
+
     hasAffiliatePost: computed('posts', function () {
       return this.posts && this.posts.some(post => post.type === 'affiliate');
+    }),
+
+    heading: computed('unit', function () {
+      if (this.unit && this.unit.tagline) {
+        return this.unit.tagline;
+      }
+      return this.i18n.t('main.search-post-items-header');
     }),
 
     didInsertElement() {

@@ -129,11 +129,14 @@ export const slotsLoader = {
   },
 
   loadFirstSlot() {
+    const { context } = window.Wikia.adEngine;
     const firstSlotName = `${this.baseSlotName}_1`;
+    const isDisabledOnScroll = context.get(`slots.${firstSlotName}.repeat.disablePushOnScroll`);
 
     this.handleBidsRefreshPromise(
       this.injectSlot,
       firstSlotName,
+      isDisabledOnScroll,
     );
   },
 

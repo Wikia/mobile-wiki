@@ -53,6 +53,12 @@
   {{! gumgum}}
   <link rel="preconnect" href="//g2.gumgum.com">
   <link rel="dns-prefetch" href="//g2.gumgum.com">
+  {{! teads}}
+  <link rel="preconnect" href="//a.teads.tv">
+  <link rel="dns-prefetch" href="//a.teads.tv">
+  {{! triplelift}}
+  <link rel="preconnect" href="//tlx.3lift.com">
+  <link rel="dns-prefetch" href="//tlx.3lift.com">
   {{! moat}}
   <link rel="preconnect" href="//mb.moatads.com" crossorigin>
   <link rel="dns-prefetch" href="//mb.moatads.com">
@@ -165,10 +171,10 @@
 
 {{#if model.lazyCss}}
   {{!- These styles will be added to head on front-end to lazy load them-}}
-  <link rel="stylesheet" href="/mobile-wiki-assets/assets/lazy.css">
+  <link rel="stylesheet" href="/mobile-wiki/assets/lazy.css">
 {{/if}}
 
 {{#if model.shouldLoadDarkCss}}
   {{!- Styles for dark theme added only in the mobile app view-}}
-  <link rel="stylesheet" href="/mobile-wiki-assets/assets/dark.css">
+  <link rel="stylesheet" href="/mobile-wiki/assets/dark.css">
 {{/if}}
