@@ -37,7 +37,6 @@ export default class VideoLoader {
         width: this.data.width,
       },
       noAds: this.data.noAds,
-      isDedicatedForArticle: this.data.isDedicatedForArticle,
     });
 
     this.player = VideoLoader.createPlayer(PlayerClass, provider, params);
