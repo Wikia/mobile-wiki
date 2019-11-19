@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # wrapped with double quote (") to prevent issues with special characters in version name
+  name: "mobile-wiki-${env}-${version}"
+  namespace: prod
+  labels:
+    app: mobile-wiki
+    env: ${env}
+    # wrapped with double quote (") to prevent issues with special characters in version name
+    version: "${version}"
+    status: active
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mobile-wiki
+      env: ${env}
+      # wrapped with double quote (") to prevent issues with special characters in version name
+      version: "${version}"
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mobile-wiki
+        env: ${env}
+        # wrapped with double quote (") to prevent issues with special characters in version name
+        version: "${version}"
+        stage: mobile-wiki-sandbox
+    spec:
+      serviceAccountName: k8s-pod
+      initContainers:
+        - args:
+            - secret/chef/google/analytics
+          env:
+            - name: VAULT_ADDR # This isn't required in prod but must be set for dev
+              value: active.vault.service.${dc}.consul:8200
+          name: secrets
+          image: artifactory.wikia-inc.com/ops/init-vault:0.0.27
+          imagePullPolicy: Always
+          volumeMounts: # vault auth cert is read from here
+            - name: secrets-dir # secrets are stored here
+              mountPath: /var/lib/secrets
+      containers:
+        - name: mobile-wiki-${env}
+          image: ${image}
+          livenessProbe:
+            httpGet:
+              path: /heartbeat
+              port: 8001
+            initialDelaySeconds: 20
+            timeoutSeconds: 1
+            periodSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /heartbeat
+              port: 8001
+            periodSeconds: 5
+          env:
+            - name: WIKIA_ENVIRONMENT
+              value: prod
+            - name: WIKIA_DATACENTER
+              value: ${dc}
+            - name: INTERNAL_CACHE_HOST
+              value: mediawiki-${env}
+          resources:
+            requests:
+              cpu: 0.4
+              memory: 2Gi
+            limits:
+              memory: 3Gi
+          ports:
+            - containerPort: 8007
+            - containerPort: 8001
+          command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]
+          volumeMounts:
+            - name: secrets-dir
+              readOnly: true
+              mountPath: /var/lib/secrets
+      volumes:
+        - name: secrets-dir # secrets will be stored here
+          emptyDir:
+            medium: Memory
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: mobile-wiki-${env}
+  namespace: prod
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+    - host: mobile-wiki-${env}.prod.${dc}.k8s.wikia.net
+      http:
+        paths:
+          - backend:
+              serviceName: mobile-wiki-${env}
+              servicePort: main
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mobile-wiki-${env}
+  labels:
+    app: mobile-wiki
+    env: ${env}
+  namespace: prod
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: mobile-wiki
+      env: ${env}
+  namespaceSelector:
+    matchNames:
+      - prod
+  endpoints:
+    - port: admin
+      path: /metrics
+      interval: 10s

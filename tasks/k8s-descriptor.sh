@@ -5,16 +5,27 @@
 # - dc: sjc | res
 
 ENV=$1
-IMAGE=$2
-DC=${3:-sjc}
-TEMPLATE_NAME="k8s-descriptor-template-${ENV}.yaml"
+VERSION=$2
+IMAGE=$3
+DC=${4:-sjc}
+DEPLOYMENT_TEMPLATE_NAME="k8s-deployment-descriptor-template.yaml"
+SERVICE_TEMPLATE_NAME="k8s-service-descriptor-template.yaml"
 
-if expr "${ENV}" : "^sandbox-" 1>/dev/null; then
-    TEMPLATE_NAME="k8s-descriptor-template-sandbox.yaml"
+if expr "${ENV}" : "prod" 1>/dev/null; then
+    DEPLOYMENT_TEMPLATE_NAME="k8s-deployment-descriptor-template-prod.yaml"
+    SERVICE_TEMPLATE_NAME="k8s-service-descriptor-template-prod.yaml"
 fi
 
 sed\
    -e "s~\${env}~$ENV~g"\
    -e "s~\${image}~$IMAGE~g"\
    -e "s~\${dc}~$DC~g"\
-   k8s/${TEMPLATE_NAME} > k8s/k8s-descriptor-${ENV}.yaml
+   -e "s~\${version}~$VERSION~g"\
+   k8s/${DEPLOYMENT_TEMPLATE_NAME} > k8s/k8s-deployment-descriptor-${ENV}.yaml
+
+sed\
+   -e "s~\${env}~$ENV~g"\
+   -e "s~\${image}~$IMAGE~g"\
+   -e "s~\${dc}~$DC~g"\
+   -e "s~\${version}~$VERSION~g"\
+   k8s/${SERVICE_TEMPLATE_NAME} > k8s/k8s-service-descriptor-${ENV}.yaml
