@@ -65,17 +65,18 @@ node('docker-daemon') {
             sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config apply -f k8s/k8s-deployment-descriptor-${env.environment}.yaml"
 						// wait for rolling out the deployment
 						sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config rollout status deploy mobile-wiki-${env.environment}-${serviceVersion} -w"
+
             // get service details to have current (old) deployment version
-            def serviceInfo = sh(script: "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config get service mobile-wiki-${env.environment} -o=json", returnStdout: true)
+            def serviceInfo = sh(script: "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config get service -l app=mobile-wiki,env=${env.environment} -o=json", returnStdout: true)
             // do not create a variable with json slurper instance, it may cause NotSerializableException
             // see: https://stackoverflow.com/a/53756295
             def service = new JsonSlurperClassic().parseText(serviceInfo)
-            def previousVersion = service.spec.selector.version
+            def previousVersion = service.items.size() == 1 ? service.items[0].spec.selector.version : null;
             // switch service to direct to new deployment
             sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config apply -f k8s/k8s-service-descriptor-${env.environment}.yaml"
 
             // to prevent deleting deployments when redeploying the same version
-            if (previousVersion != serviceVersion) {
+            if (previousVersion && previousVersion != serviceVersion) {
               // delete all inactive deployments
               sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config delete deployments -l app=mobile-wiki,env=${env.environment},status=inactive"
               // label old deployment with status=inactive to be able to remove it during next deployment
