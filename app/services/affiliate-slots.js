@@ -119,6 +119,18 @@ const flattenKnowledgeGraphTargeting = (response) => {
   return targeting;
 };
 
+const getUserIdValue = (possibleUserId) => {
+  if (!possibleUserId) {
+    return 'null';
+  }
+
+  if (parseInt(possibleUserId, 10) <= 0) {
+    return 'null';
+  }
+
+  return possibleUserId;
+};
+
 export default Service.extend({
   fetch: service(),
   logger: service(),
@@ -138,7 +150,7 @@ export default Service.extend({
 
     const beaconId = Cookies.get('wikia_beacon_id');
     const session = Cookies.get('wikia_session_id');
-    const userId = this.currentUserId ? this.currentUserId : 'null'; // make sure we actually send null
+    const userId = getUserIdValue(this.currentUserId); // make sure we actually send null
     const wikiId = this.currentWikiId;
 
     // fandom_slot_id will be added later
