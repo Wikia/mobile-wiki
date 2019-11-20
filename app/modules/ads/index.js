@@ -323,6 +323,7 @@ class Ads {
   triggerBeforePageChangeServices() {
     const { SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
+    const { taxonomyService } = window.Wikia.adServices;
     const cacheStorage = InstantConfigCacheStorage.make();
     const sessionCookie = SessionCookie.make();
 
@@ -332,6 +333,7 @@ class Ads {
     fanTakeoverResolver.reset();
     cheshireCat.reset();
     slotsLoader.reset();
+    taxonomyService.reset();
     this.afterPageRenderExecuted = false;
   }
 
@@ -370,8 +372,6 @@ class Ads {
    */
   startAdEngine() {
     const { AdEngine } = window.Wikia.adEngine;
-    const { taxonomyService } = window.Wikia.adServices;
-    taxonomyService.configureComicsTargeting();
 
     if (!this.engine) {
       this.engine = new AdEngine();
@@ -389,7 +389,9 @@ class Ads {
    */
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
-    const { krux, moatYi, nielsen } = window.Wikia.adServices;
+    const {
+      krux, moatYi, nielsen, taxonomyService,
+    } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
     krux.call().then(this.trackKruxSegments);
@@ -399,6 +401,7 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
+    taxonomyService.configureComicsTargeting();
   }
 
   /**
