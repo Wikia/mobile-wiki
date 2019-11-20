@@ -73,6 +73,10 @@ export default Mixin.create({
       headData.hreflangLinks = model.hreflangLinks;
     }
 
+    if (model.featuredVideo && model.featuredVideo.isDedicatedForArticle) {
+      headData.isDedicatedForArticle = true;
+    }
+
     headData.twitterTitle = truncate(headData.htmlTitle, 70);
     headData.twitterDescription = truncate(data.description || headData.htmlTitle, 200);
 

@@ -167,6 +167,9 @@
 {{#if model.twitterDescription}}
   <meta name="twitter:description" content={{model.twitterDescription}}>
 {{/if}}
+{{#if model.isDedicatedForArticle}}
+  <meta name="featured-video" content={{model.isDedicatedForArticle}}>
+{{/if}}
 {{! Twitter end }}
 
 {{#if model.lazyCss}}
