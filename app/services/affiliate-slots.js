@@ -131,6 +131,22 @@ export default Service.extend({
   currentCountry: readOnly('geo.country'),
   currentUserId: readOnly('currentUser.userId'),
 
+  _updateUnitLink(unit, pageId = 'search') {
+    if (!unit || unit.campaign !== 'ddb') {
+      return unit;
+    }
+
+    const beaconId = Cookies.get('wikia_beacon_id');
+    const session = Cookies.get('wikia_session_id');
+    const userId = this.currentUserId ? this.currentUserId : 'null'; // make sure we actually send null
+    const wikiId = this.currentWikiId;
+
+    // fandom_slot_id will be added later
+    const questionMarkOrAmpersan = (unit.link.indexOf('?') > -1) ? '&' : '?';
+    unit.link = `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}fandom_page_id=${pageId}&fandom_beacon_id=${beaconId}`;
+    return unit;
+  },
+
   _createDDBLink(unit, pageId = 'search') {
     // const beaconId = Cookies.get('wikia_beacon_id');
     const session = Cookies.get('wikia_session_id');
@@ -178,13 +194,10 @@ export default Service.extend({
       // we're checking all units
       availableUnits.forEach((unit) => {
         if (unit.campaign === target.campaign && unit.category === target.category) {
-          // this code will never run until we add some ddb campaigns
-          if (unit.campaign === 'ddb') {
-            unit.link = this._createDDBLink(unit, pageId);
-          }
+          const updatedUnit = this._updateUnitLink(unit, pageId);
 
           // let's add that unit to the list along with its' targeting `tracking` prop
-          unitsWithTargeting.push(extend({}, unit, {
+          unitsWithTargeting.push(extend({}, updatedUnit, {
             tracking: target.tracking || {},
           }));
         }
@@ -223,9 +236,10 @@ export default Service.extend({
       return undefined;
     }
 
-    return units.find(
+    const matchedUnit = units.find(
       unit => unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig,
     );
+    return this._updateUnitLink(matchedUnit);
   },
 
   /**
