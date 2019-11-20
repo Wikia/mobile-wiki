@@ -77,6 +77,8 @@ export default class JWPlayer extends BasePlayer {
       });
     }
 
+    M.tracker.UniversalAnalytics.setDimension(30, this.params.isDedicatedForArticle ? 'article' : 'wiki');
+
     window.wikiaJWPlayer(
       containerId,
       {

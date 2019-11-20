@@ -175,6 +175,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       noAds: this.get('ads.noAds'),
       onCreate: this.onCreate.bind(this),
       lang: this.get('wikiVariables.language.content'),
+      isDedicatedForArticle: this.get('model.isDedicatedForArticle'),
     };
     const data = extend({}, model, {
       jsParams,
