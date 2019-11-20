@@ -1,5 +1,6 @@
 import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
+import Cookies from 'js-cookie';
 
 import { system } from '../utils/browser';
 import { AffiliatesFetchError } from '../utils/errors';
@@ -123,10 +124,23 @@ export default Service.extend({
   logger: service(),
   geo: service(),
   wikiVariables: service(),
+  currentUser: service(),
 
   currentWikiId: readOnly('wikiVariables.id'),
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
+  currentUserId: readOnly('currentUser.userId'),
+
+  _createDDBLink(unit, pageId = 'search') {
+    // const beaconId = Cookies.get('wikia_beacon_id');
+    const session = Cookies.get('wikia_session_id');
+    const userId = this.currentUserId ? this.currentUserId : 'null'; // make sure we actually send null
+    const wikiId = this.currentWikiId;
+
+    // fandom_slot_id will be added later
+    const questionMarkOrAmpersan = (unit.link.indexOf('?') > -1) ? '&' : '?';
+    return `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}fandom_page_id=${pageId}`;
+  },
 
   /**
    * @returns {AffiliateUnit}
@@ -148,7 +162,7 @@ export default Service.extend({
    * @param {Targeting[]} targeting
    * @returns {AffiliateUnit}
    */
-  _getUnitsWithTargeting(targeting) {
+  _getUnitsWithTargeting(targeting, pageId = 'search') {
     const availableUnits = this._getAvailableUnits();
     const unitsWithTargeting = [];
 
@@ -164,6 +178,11 @@ export default Service.extend({
       // we're checking all units
       availableUnits.forEach((unit) => {
         if (unit.campaign === target.campaign && unit.category === target.category) {
+          // this code will never run until we add some ddb campaigns
+          if (unit.campaign === 'ddb') {
+            unit.link = this._createDDBLink(unit, pageId);
+          }
+
           // let's add that unit to the list along with its' targeting `tracking` prop
           unitsWithTargeting.push(extend({}, unit, {
             tracking: target.tracking || {},
@@ -298,7 +317,7 @@ export default Service.extend({
           const targeting = flattenKnowledgeGraphTargeting(response);
 
           // get the units that fulfill the campaign and category
-          const availableUnits = this._getUnitsWithTargeting(targeting)
+          const availableUnits = this._getUnitsWithTargeting(targeting, pageId)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
