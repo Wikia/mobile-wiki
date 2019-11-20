@@ -147,17 +147,6 @@ export default Service.extend({
     return unit;
   },
 
-  _createDDBLink(unit, pageId = 'search') {
-    // const beaconId = Cookies.get('wikia_beacon_id');
-    const session = Cookies.get('wikia_session_id');
-    const userId = this.currentUserId ? this.currentUserId : 'null'; // make sure we actually send null
-    const wikiId = this.currentWikiId;
-
-    // fandom_slot_id will be added later
-    const questionMarkOrAmpersan = (unit.link.indexOf('?') > -1) ? '&' : '?';
-    return `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}fandom_page_id=${pageId}`;
-  },
-
   /**
    * @returns {AffiliateUnit}
    */
