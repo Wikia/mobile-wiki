@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 
 import { trackActions, trackAffiliateUnit } from '../utils/track';
 
@@ -6,6 +7,15 @@ export default Component.extend({
   isInContent: false,
 
   classNames: ['post-search-results-affiliate-item'],
+
+  getUnitLink: computed('unit', 'isInContent', function () {
+    if (this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.article) {
+      this.affiliateUnit.link = this.affiliateUnit.links.article;
+    } else if (!this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.search) {
+      this.affiliateUnit.link = this.affiliateUnit.links.search;
+    }
+    return this.affiliateUnit.link;
+  }),
 
   actions: {
     trackClick(number, unit) {
