@@ -23,15 +23,13 @@ export default Component.extend(
       return this.i18n.t('affiliate-unit.big-unit-heading');
     }),
 
-    getUnitLink: computed('link', function () {
-      let unitLink = this.unit.link;
-
-      if (this.isInContent && this.unit.links.page) {
-        unitLink = this.unit.links.page;
-      } else if (this.unit.links.search) {
-        unitLink = this.unit.links.search;
+    getUnitLink: computed('unit', 'isInContent', function () {
+      if (this.isInContent && this.unit.links && this.unit.links.article) {
+        this.unit.link = this.unit.links.article;
+      } else if (this.unit.links && this.unit.links.search) {
+        this.unit.link = this.unit.links.search;
       }
-      return unitLink;
+      return this.unit.link;
     }),
 
     actions: {

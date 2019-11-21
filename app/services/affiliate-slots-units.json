@@ -7,6 +7,10 @@
     "heading": "This is a test affiliate unit",
     "subheading": "Click this link",
     "link": "https://www.fandom.com",
+    "links": {
+      "article": "https://www.fandom.com/article-3",
+      "search": "https://www.fandom.com/search-3"
+    },
     "country": ["US", "CA", "NL"]
   },
   {
@@ -17,6 +21,10 @@
     "heading": "This is a test affiliate unit",
     "subheading": "Click this link",
     "link": "https://www.fandom.com",
+    "links": {
+      "article": "https://www.fandom.com/article-1",
+      "search": "https://www.fandom.com/search-1"
+    },
     "country": ["US", "CA", "NL"],
     "isBig": true
   },
@@ -29,7 +37,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/qq5qq",
+      "article": "https://disneyplus.bn5x.net/qq5qq",
       "search": "https://disneyplus.bn5x.net/NV1DP"
     },
     "country": ["US", "CA", "NL"]
@@ -43,7 +51,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/23b9G",
+      "article": "https://disneyplus.bn5x.net/23b9G",
       "search": "https://disneyplus.bn5x.net/vrG3W"
     },
     "country": ["US", "CA", "NL"],
@@ -58,7 +66,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/PZJZM",
+      "article": "https://disneyplus.bn5x.net/PZJZM",
       "search": "https://disneyplus.bn5x.net/xPV33"
     },
     "country": ["US", "CA", "NL"]
@@ -72,7 +80,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/dANAy",
+      "article": "https://disneyplus.bn5x.net/dANAy",
       "search": "https://disneyplus.bn5x.net/mB93y"
     },
     "country": ["US", "CA", "NL"],
@@ -87,7 +95,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/YxZKm",
     "links": {
-      "page": "https://disneyplus.bn5x.net/9343Y",
+      "article": "https://disneyplus.bn5x.net/9343Y",
       "search": "https://disneyplus.bn5x.net/qq53q"
     },
     "country": ["US", "CA", "NL"]
@@ -101,7 +109,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/YxZKm",
     "links": {
-      "page": "https://disneyplus.bn5x.net/vrGrN",
+      "article": "https://disneyplus.bn5x.net/vrGrN",
       "search": "https://disneyplus.bn5x.net/77RrV"
     },
     "country": ["US", "CA", "NL"],
@@ -116,7 +124,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/NVVXv",
     "links": {
-      "page": "https://disneyplus.bn5x.net/Dr9rG",
+      "article": "https://disneyplus.bn5x.net/Dr9rG",
       "search": "https://disneyplus.bn5x.net/LGAq3"
     },
     "country": ["US", "CA", "NL"]
@@ -130,7 +138,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/NVVXv",
     "links": {
-      "page": "https://disneyplus.bn5x.net/RXgXy",
+      "article": "https://disneyplus.bn5x.net/RXgXy",
       "search": "https://disneyplus.bn5x.net/KAaLv"
     },
     "country": ["US", "CA", "NL"],
@@ -145,7 +153,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/PZJZM",
+      "article": "https://disneyplus.bn5x.net/PZJZM",
       "search": "https://disneyplus.bn5x.net/xPV33"
     },
     "country": ["US", "CA", "NL"]
@@ -159,7 +167,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/dANAy",
+      "article": "https://disneyplus.bn5x.net/dANAy",
       "search": "https://disneyplus.bn5x.net/mB93y"
     },
     "country": ["US", "CA", "NL"],
@@ -174,7 +182,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/qq5qq",
+      "article": "https://disneyplus.bn5x.net/qq5qq",
       "search": "https://disneyplus.bn5x.net/NV1DP"
     },
     "country": ["US", "CA", "NL"]
@@ -188,7 +196,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/23b9G",
+      "article": "https://disneyplus.bn5x.net/23b9G",
       "search": "https://disneyplus.bn5x.net/vrG3W"
     },
     "country": ["US", "CA", "NL"],
@@ -203,7 +211,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/qq5qq",
+      "article": "https://disneyplus.bn5x.net/qq5qq",
       "search": "https://disneyplus.bn5x.net/NV1DP"
     },
     "country": [
@@ -221,7 +229,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/23b9G",
+      "article": "https://disneyplus.bn5x.net/23b9G",
       "search": "https://disneyplus.bn5x.net/vrG3W"
     },
     "country": [
@@ -240,7 +248,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/PZJZM",
+      "article": "https://disneyplus.bn5x.net/PZJZM",
       "search": "https://disneyplus.bn5x.net/xPV33"
     },
     "country": [
@@ -258,7 +266,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/dANAy",
+      "article": "https://disneyplus.bn5x.net/dANAy",
       "search": "https://disneyplus.bn5x.net/mB93y"
     },
     "country": [
@@ -277,7 +285,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/YxZKm",
     "links": {
-      "page": "https://disneyplus.bn5x.net/9343Y",
+      "article": "https://disneyplus.bn5x.net/9343Y",
       "search": "https://disneyplus.bn5x.net/qq53q"
     },
     "country": [
@@ -295,7 +303,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/YxZKm",
     "links": {
-      "page": "https://disneyplus.bn5x.net/vrGrN",
+      "article": "https://disneyplus.bn5x.net/vrGrN",
       "search": "https://disneyplus.bn5x.net/77RrV"
     },
     "country": [
@@ -314,7 +322,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/NVVXv",
     "links": {
-      "page": "https://disneyplus.bn5x.net/Dr9rG",
+      "article": "https://disneyplus.bn5x.net/Dr9rG",
       "search": "https://disneyplus.bn5x.net/LGAq3"
     },
     "country": [
@@ -332,7 +340,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/NVVXv",
     "links": {
-      "page": "https://disneyplus.bn5x.net/RXgXy",
+      "article": "https://disneyplus.bn5x.net/RXgXy",
       "search": "https://disneyplus.bn5x.net/KAaLv"
     },
     "country": [
@@ -351,7 +359,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/PZJZM",
+      "article": "https://disneyplus.bn5x.net/PZJZM",
       "search": "https://disneyplus.bn5x.net/xPV33"
     },
     "country": [
@@ -369,7 +377,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/333RX",
     "links": {
-      "page": "https://disneyplus.bn5x.net/dANAy",
+      "article": "https://disneyplus.bn5x.net/dANAy",
       "search": "https://disneyplus.bn5x.net/mB93y"
     },
     "country": [
@@ -388,7 +396,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/qq5qq",
+      "article": "https://disneyplus.bn5x.net/qq5qq",
       "search": "https://disneyplus.bn5x.net/NV1DP"
     },
     "country": [
@@ -406,7 +414,7 @@
     "subheading": "Watch Now On Disney+",
     "link": "https://disneyplus.bn5x.net/DrrRa",
     "links": {
-      "page": "https://disneyplus.bn5x.net/23b9G",
+      "article": "https://disneyplus.bn5x.net/23b9G",
       "search": "https://disneyplus.bn5x.net/vrG3W"
     },
     "country": [
