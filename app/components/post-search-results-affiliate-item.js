@@ -8,12 +8,18 @@ export default Component.extend({
 
   classNames: ['post-search-results-affiliate-item'],
 
-  getUnitLink: computed('unit', 'isInContent', function () {
+  getUnitLink: computed('affiliateUnit', 'isInContent', function () {
     if (this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.article) {
       this.affiliateUnit.link = this.affiliateUnit.links.article;
     } else if (!this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.search) {
       this.affiliateUnit.link = this.affiliateUnit.links.search;
     }
+
+    if (this.affiliateUnit.campaign === 'ddb') {
+      const slotName = this.isInContent ? 'incontent_posts' : 'search_posts';
+      return `${this.affiliateUnit.link}&fandom_slot_id=${slotName}`;
+    }
+
     return this.affiliateUnit.link;
   }),
 
