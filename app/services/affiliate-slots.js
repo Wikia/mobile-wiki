@@ -227,7 +227,7 @@ export default Service.extend({
    * @param {boolean} isBig
    * @returns {AffiliateUnit}
    */
-  _getDebugUnit(debugString, isBig) {
+  _getDebugUnit(debugString, isBig, pageId = 'search') {
     const debugArray = debugString.split(',');
     const campaign = debugArray[0];
     const category = debugArray[1];
@@ -240,7 +240,7 @@ export default Service.extend({
     const matchedUnit = units.find(
       unit => unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig,
     );
-    return this._updateUnitLink(matchedUnit);
+    return this._updateUnitLink(matchedUnit, pageId);
   },
 
   /**
@@ -315,8 +315,8 @@ export default Service.extend({
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
         return resolve({
-          big: this._getDebugUnit(debugAffiliateUnits, true),
-          small: this._getDebugUnit(debugAffiliateUnits, false),
+          big: this._getDebugUnit(debugAffiliateUnits, true, pageId),
+          small: this._getDebugUnit(debugAffiliateUnits, false, pageId),
         });
       }
 
