@@ -1,5 +1,15 @@
 [
   {
+    "campaign": "ddb",
+    "category": "ddb-test-unit-id",
+    "tagline": "Suggested For You",
+    "image": "https://static.wikia.nocookie.net/2d18111c-bc45-458f-9898-d2d4e3a50589",
+    "heading": "CLICK ME FOR DDB",
+    "subheading": "DDB subheading",
+    "link": "https://www.dndbeyond.com/",
+    "country": ["US", "CA", "NL"]
+  },
+  {
     "campaign": "test",
     "category": "testing",
     "tagline": "Test 3-item Affiliate",
