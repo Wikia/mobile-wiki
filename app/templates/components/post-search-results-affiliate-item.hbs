@@ -2,7 +2,7 @@
   <img class="post-search-results-affiliate-item__image" src={{affiliateUnit.image}} alt={{affiliateUnit.heading}}>
 {{/if}}
 <a
-  href={{{affiliateUnit.link}}}
+  href={{getUnitLink}}
   class="post-search-results-affiliate-item__title wds-leading-tight"
   rel="noopener sponsored"
   onclick={{action "trackClick" postIndex affiliateUnit}}

@@ -23,6 +23,17 @@ export default Component.extend(
       return this.i18n.t('affiliate-unit.big-unit-heading');
     }),
 
+    getUnitLink: computed('link', function () {
+      let unitLink = this.unit.link;
+
+      if (this.isInContent && this.unit.links.page) {
+        unitLink = this.unit.links.page;
+      } else if (this.unit.links.search) {
+        unitLink = this.unit.links.search;
+      }
+      return unitLink;
+    }),
+
     actions: {
       trackAffiliateClick() {
         trackAffiliateUnit(this.unit, {
