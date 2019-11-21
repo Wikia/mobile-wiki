@@ -8,15 +8,13 @@ export default Component.extend({
 
   classNames: ['post-search-results-affiliate-item'],
 
-  getUnitLink: computed('link', function () {
-    let unitLink = this.affiliateUnit.link;
-
-    if (this.isInContent && this.affiliateUnit.links.page) {
-      unitLink = this.affiliateUnit.links.page;
-    } else if (this.affiliateUnit.links.search) {
-      unitLink = this.affiliateUnit.links.search;
+  getUnitLink: computed('unit', 'isInContent', function () {
+    if (this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.article) {
+      this.affiliateUnit.link = this.affiliateUnit.links.article;
+    } else if (!this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.search) {
+      this.affiliateUnit.link = this.affiliateUnit.links.search;
     }
-    return unitLink;
+    return this.affiliateUnit.link;
   }),
 
   actions: {
