@@ -14,6 +14,12 @@ export default Component.extend({
     } else if (!this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.search) {
       this.affiliateUnit.link = this.affiliateUnit.links.search;
     }
+
+    if (this.unit.campaign === 'ddb') {
+      const slotName = this.isInContent ? 'incontent_posts' : 'search_posts';
+      return `${this.unit.link}&fandom_slot_id=${slotName}`;
+    }
+
     return this.affiliateUnit.link;
   }),
 

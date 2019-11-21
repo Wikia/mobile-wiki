@@ -29,6 +29,12 @@ export default Component.extend(
       } else if (!this.isInContent && this.unit.links && this.unit.links.search) {
         this.unit.link = this.unit.links.search;
       }
+
+      if (this.unit.campaign === 'ddb') {
+        const slotName = this.isInContent ? 'incontent_recommend' : 'search_recommend';
+        return `${this.unit.link}&fandom_slot_id=${slotName}`;
+      }
+
       return this.unit.link;
     }),
 
