@@ -9,7 +9,12 @@ import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import SearchModel from '../models/search';
 import closedWikiHandler from '../utils/closed-wiki-handler';
 import emptyDomainWithLanguageWikisHandler from '../utils/empty-domain-with-language-wikis-handler';
-import { track, trackActions, trackPageView } from '../utils/track';
+import {
+  track,
+  trackActions,
+  trackPageView,
+  setTrackContext,
+} from '../utils/track';
 import Ads from '../modules/ads';
 
 export default Route.extend(
@@ -85,6 +90,9 @@ export default Route.extend(
       didTransition() {
         scheduleOnce('afterRender', this, () => {
           const controller = this.controllerFor('search');
+
+          // Reset article id and namespace to null when navigating from article page
+          setTrackContext({ a: null, n: null });
 
           trackPageView(this.initialPageView.isInitialPageView());
 
