@@ -122,7 +122,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     this.player = player;
 
     this.player.on('autoplayToggle', ({ enabled }) => {
-      this.setCookie(this.autoplayCookieName, (enabled ? '1' : '0'),  this.runtimeConfig.cookieDomain);
+      this.setCookie(this.autoplayCookieName, (enabled ? '1' : '0'), this.runtimeConfig.cookieDomain);
     });
 
     this.player.on('captionsSelected', ({ selectedLang }) => {
@@ -153,7 +153,10 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       onScrollState = 'closed';
     }
     this.onScrollStateChange(onScrollState);
-    this.setVideoSeenInSession();
+
+    if (!this.get('model.isDedicatedForArticle')) {
+      this.setVideoSeenInSession();
+    }
 
     this.resizeVideo = this.resizeVideo.bind(this);
     this.onScrollVideoWrapper.addEventListener('transitionend', this.resizeVideo);
@@ -167,9 +170,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       document.body.classList.add('no-featured-video');
 
       return;
-    } else {
-      document.body.classList.remove('no-featured-video');
     }
+
+    document.body.classList.remove('no-featured-video');
 
     const model = this.get('model.embed');
     const jsParams = {

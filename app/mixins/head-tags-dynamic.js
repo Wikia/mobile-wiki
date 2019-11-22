@@ -46,6 +46,7 @@ export default Mixin.create({
    + `,${this.get('wikiVariables.dbName')}`,
       appleItunesApp: '',
       amphtml: data.amphtml,
+      isDedicatedForArticle: false,
     };
 
     if (config.environment === 'production') {
