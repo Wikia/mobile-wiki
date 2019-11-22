@@ -8,7 +8,7 @@ export const defaultAdContext = {
       amazonId: '3115',
       bidsRefreshing: {
         enabled: false,
-        slots: [],
+        slots: ['mobile_in_content'],
       },
       dealsEnabled: false,
       enabled: false,
@@ -19,10 +19,22 @@ export const defaultAdContext = {
             [320, 50],
           ],
         },
+        mobile_in_content: {
+          sizes: [
+            [300, 250],
+          ],
+        },
         bottom_leaderboard: {
           sizes: [
             [320, 50],
             [300, 250],
+          ],
+        },
+        floor_adhesion: {
+          sizes: [
+            [300, 50],
+            [320, 50],
+            [320, 100],
           ],
         },
         featured: {

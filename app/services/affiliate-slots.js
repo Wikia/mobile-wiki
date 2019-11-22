@@ -1,5 +1,6 @@
 import { readOnly } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
+import Cookies from 'js-cookie';
 
 import { system } from '../utils/browser';
 import { AffiliatesFetchError } from '../utils/errors';
@@ -118,15 +119,45 @@ const flattenKnowledgeGraphTargeting = (response) => {
   return targeting;
 };
 
+const getUserIdValue = (possibleUserId) => {
+  if (!possibleUserId) {
+    return 'null';
+  }
+
+  if (parseInt(possibleUserId, 10) <= 0) {
+    return 'null';
+  }
+
+  return possibleUserId;
+};
+
 export default Service.extend({
   fetch: service(),
   logger: service(),
   geo: service(),
   wikiVariables: service(),
+  currentUser: service(),
 
   currentWikiId: readOnly('wikiVariables.id'),
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
+  currentUserId: readOnly('currentUser.userId'),
+
+  _updateUnitLink(unit, pageId = 'search') {
+    if (!unit || unit.campaign !== 'ddb') {
+      return unit;
+    }
+
+    const beaconId = Cookies.get('wikia_beacon_id');
+    const session = Cookies.get('wikia_session_id');
+    const userId = getUserIdValue(this.currentUserId); // make sure we actually send null
+    const wikiId = this.currentWikiId;
+
+    // fandom_slot_id will be added later
+    const questionMarkOrAmpersan = (unit.link.indexOf('?') > -1) ? '&' : '?';
+    unit.link = `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}&fandom_page_id=${pageId}&fandom_beacon_id=${beaconId}`;
+    return unit;
+  },
 
   /**
    * @returns {AffiliateUnit}
@@ -148,7 +179,7 @@ export default Service.extend({
    * @param {Targeting[]} targeting
    * @returns {AffiliateUnit}
    */
-  _getUnitsWithTargeting(targeting) {
+  _getUnitsWithTargeting(targeting, pageId = 'search') {
     const availableUnits = this._getAvailableUnits();
     const unitsWithTargeting = [];
 
@@ -164,8 +195,10 @@ export default Service.extend({
       // we're checking all units
       availableUnits.forEach((unit) => {
         if (unit.campaign === target.campaign && unit.category === target.category) {
+          const updatedUnit = this._updateUnitLink(unit, pageId);
+
           // let's add that unit to the list along with its' targeting `tracking` prop
-          unitsWithTargeting.push(extend({}, unit, {
+          unitsWithTargeting.push(extend({}, updatedUnit, {
             tracking: target.tracking || {},
           }));
         }
@@ -194,7 +227,7 @@ export default Service.extend({
    * @param {boolean} isBig
    * @returns {AffiliateUnit}
    */
-  _getDebugUnit(debugString, isBig) {
+  _getDebugUnit(debugString, isBig, pageId = 'search') {
     const debugArray = debugString.split(',');
     const campaign = debugArray[0];
     const category = debugArray[1];
@@ -204,9 +237,10 @@ export default Service.extend({
       return undefined;
     }
 
-    return units.find(
+    const matchedUnit = units.find(
       unit => unit.campaign === campaign && unit.category === category && !!unit.isBig === isBig,
     );
+    return this._updateUnitLink(matchedUnit, pageId);
   },
 
   /**
@@ -281,8 +315,8 @@ export default Service.extend({
       // special use case for debugging
       if (typeof debugAffiliateUnits === 'string' && debugAffiliateUnits.indexOf(',') > -1) {
         return resolve({
-          big: this._getDebugUnit(debugAffiliateUnits, true),
-          small: this._getDebugUnit(debugAffiliateUnits, false),
+          big: this._getDebugUnit(debugAffiliateUnits, true, pageId),
+          small: this._getDebugUnit(debugAffiliateUnits, false, pageId),
         });
       }
 
@@ -298,7 +332,7 @@ export default Service.extend({
           const targeting = flattenKnowledgeGraphTargeting(response);
 
           // get the units that fulfill the campaign and category
-          const availableUnits = this._getUnitsWithTargeting(targeting)
+          const availableUnits = this._getUnitsWithTargeting(targeting, pageId)
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
