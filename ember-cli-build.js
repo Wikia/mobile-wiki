@@ -83,6 +83,7 @@ module.exports = function (defaults) {
       'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,
       lazysizes: `${inlineScriptsPath}lazysizes.js`,
       'rubik-font': `${inlineScriptsPath}rubik-font.js`,
+      'featured-video': `${inlineScriptsPath}featured-video.js`,
     },
     outputPaths: {
       app: {
