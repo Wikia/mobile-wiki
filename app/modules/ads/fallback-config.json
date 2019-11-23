@@ -17,8 +17,7 @@
     "icPrebidKargo": [
         {
             "apps": [
-                "mobile-wiki",
-                "oasis"
+                "mobile-wiki"
             ],
             "regions": [
                 "US"
