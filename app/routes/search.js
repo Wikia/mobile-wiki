@@ -92,7 +92,10 @@ export default Route.extend(
           const controller = this.controllerFor('search');
 
           // Reset article id and namespace to null when navigating from article page
-          setTrackContext({ a: null, n: null });
+          setTrackContext({
+            a: null,
+            n: null,
+          });
 
           trackPageView(this.initialPageView.isInitialPageView());
 
