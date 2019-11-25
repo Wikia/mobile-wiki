@@ -17,6 +17,8 @@ function resultsProcessor(param) {
   return 0;
 }
 
+let tbViewabilityCalled = false;
+
 export const tbViewability = {
   /**
    * @param {Object} config
@@ -29,7 +31,7 @@ export const tbViewability = {
     } = window.Wikia.adEngine;
     const viewabilityCounter = ViewabilityCounter.make();
 
-    if (!hasAvailableModels(config, 'tb_viewability')) {
+    if (!hasAvailableModels(config, 'tb_viewability') || tbViewabilityCalled) {
       return;
     }
 
@@ -53,6 +55,7 @@ export const tbViewability = {
     // It was changed because passing 'top_boxad' makes bill-the-lizard responses tracked to DW
     // a bit weird since there is another model already sending request for that slot (cheshire cat)
     billTheLizard.call(['tb_viewability'], 'top_page');
+    tbViewabilityCalled = true;
   },
 
   calculateScrollY() {
@@ -67,6 +70,14 @@ export const tbViewability = {
     const scrollSpeed = (scrollSpeedCalculator.getAverageSessionScrollSpeed()) / 1000;
 
     return resultsProcessor(scrollSpeed);
+  },
+
+  reset() {
+    const { billTheLizard, context } = window.Wikia.adEngine;
+
+    context.remove('services.billTheLizard.parameters');
+    tbViewabilityCalled = false;
+    billTheLizard.reset();
   },
 };
 

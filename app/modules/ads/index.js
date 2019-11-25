@@ -7,6 +7,7 @@ import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { cheshireCat } from './ml/cheshire-cat';
+import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { trackScrollY, trackXClick } from '../../utils/track';
@@ -331,6 +332,7 @@ class Ads {
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     cheshireCat.reset();
+    tbViewability.reset();
     slotsLoader.reset();
     this.afterPageRenderExecuted = false;
   }
@@ -346,7 +348,7 @@ class Ads {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { slotService } = window.Wikia.adEngine;
+    const { context, slotService } = window.Wikia.adEngine;
 
     biddersDelayer.resetPromise();
 
@@ -361,6 +363,8 @@ class Ads {
 
     this.callExternalTrackingServices();
     adblockDetector.run();
+
+    tbViewability.configure(context.get('options.billTheLizard.config') || {});
 
     this.afterPageRenderExecuted = true;
   }
