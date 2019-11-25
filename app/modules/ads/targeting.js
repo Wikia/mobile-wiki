@@ -265,6 +265,7 @@ export const targeting = {
         bidder_20: transformBidderPrice('33across'),
         bidder_21: transformBidderPrice('triplelift'),
         bidder_22: transformBidderPrice('teads'),
+        bidder_23: transformBidderPrice('oneVideo'),
       };
     });
   },
