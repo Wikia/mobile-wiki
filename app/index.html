@@ -9,9 +9,9 @@
 <!-- fallback to dns-prefetch for iOS where preconnect isn't supported yet -->
 <link rel="dns-prefetch" href="https://vignette.wikia.nocookie.net">
 
-<link rel="stylesheet" href="/mobile-wiki-assets/assets/app.css">
-<script src="/mobile-wiki-assets/assets/vendor.js" defer></script>
-<script src="/mobile-wiki-assets/assets/mobile-wiki.js" defer></script>
+<link rel="stylesheet" href="/mobile-wiki/assets/app.css">
+<script src="/mobile-wiki/assets/vendor.js" defer></script>
+<script src="/mobile-wiki/assets/mobile-wiki.js" defer></script>
 <script>
   window.M = {};
 </script>
@@ -20,6 +20,7 @@
 {{content-for 'head-footer'}}
 </head>
 <body class="mobile-wiki">
+{{content-for 'featured-video'}}
 <div id="rubik-font">
   <b><i></i></b>
   <b></b>
@@ -28,14 +29,14 @@
 {{content-for 'rubik-font'}}
 {{content-for 'svg-inline'}}
 {{content-for 'body'}}
-<script src="/mobile-wiki-assets/assets/wikia-opt-in.min.js"></script>
+<script src="/mobile-wiki/assets/wikia-opt-in.min.js"></script>
 {{content-for 'fastboot-inline-scripts'}}
 {{content-for 'fastboot-inline-scripts-tracking'}}
 {{content-for 'fastboot-inline-scripts-load-svg'}}
 
 <script>
   (function (M) {
-    M.loadDOMResource('/mobile-wiki-assets/assets/design-system.svg');
+    M.loadDOMResource('/mobile-wiki/assets/design-system.svg');
   })(window.M);
 </script>
 

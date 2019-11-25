@@ -8,16 +8,20 @@ import { getQueryString } from '@wikia/ember-fandom/utils/url';
 import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 import extend from '../utils/extend';
 
-const DEFAULT_AFFILIATE_SLOT = 1;
+const DEFAULT_AFFILIATE_SLOT = 0;
 
 function getAffiliateSlot(smallAffiliateUnit, posts) {
+  let preferredIndex = DEFAULT_AFFILIATE_SLOT;
+
   if (!posts || posts.length === 0) {
     return 0;
   }
 
-  const preferredIndex = smallAffiliateUnit.preferredIndex || DEFAULT_AFFILIATE_SLOT;
+  if (smallAffiliateUnit.preferredIndex !== undefined) {
+    preferredIndex = smallAffiliateUnit.preferredIndex;
+  }
 
-  if (preferredIndex < posts.length) {
+  if (preferredIndex > posts.length) {
     return posts.length - 1;
   }
 
@@ -50,6 +54,13 @@ export default Component.extend(
     isEnabled: computed('wikiVariables.enableDiscussions', 'isCrossWiki', function () {
     // enabled on cross wiki and if community has discussions enabled
       return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
+    }),
+
+    showPostSearchResultsDisclaimer: computed('posts', function () {
+      const isWSDisclaimer = !!document.querySelector('.watch-show__disclaimer');
+      const isAffiliateDisclaimer = !!document.querySelector('.affiliate-unit__disclaimer');
+
+      return this.hasAffiliatePost && !isWSDisclaimer && !isAffiliateDisclaimer;
     }),
 
     hasAffiliatePost: computed('posts', function () {

@@ -5,6 +5,10 @@
   margin-bottom: 1.125rem;
   position: relative;
 
+  .no-featured-video & {
+    display: none;
+  }
+
   &__player {
     height: $videoHeight;
   }

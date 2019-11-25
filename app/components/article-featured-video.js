@@ -122,11 +122,11 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     this.player = player;
 
     this.player.on('autoplayToggle', ({ enabled }) => {
-      this.setCookie(this.autoplayCookieName, (enabled ? '1' : '0'));
+      this.setCookie(this.autoplayCookieName, (enabled ? '1' : '0'), this.runtimeConfig.cookieDomain);
     });
 
     this.player.on('captionsSelected', ({ selectedLang }) => {
-      this.setCookie(this.captionsCookieName, selectedLang);
+      this.setCookie(this.captionsCookieName, selectedLang, this.runtimeConfig.cookieDomain);
     });
 
     this.player.on('relatedVideoPlay', ({ item }) => {
@@ -154,6 +154,10 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     }
     this.onScrollStateChange(onScrollState);
 
+    if (!this.get('model.isDedicatedForArticle')) {
+      this.setVideoSeenInSession();
+    }
+
     this.resizeVideo = this.resizeVideo.bind(this);
     this.onScrollVideoWrapper.addEventListener('transitionend', this.resizeVideo);
   },
@@ -162,6 +166,14 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
    * @returns {void}
    */
   initVideoPlayer() {
+    if (!window.canPlayVideo()) {
+      document.body.classList.add('no-featured-video');
+
+      return;
+    }
+
+    document.body.classList.remove('no-featured-video');
+
     const model = this.get('model.embed');
     const jsParams = {
       autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY')
@@ -175,6 +187,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       noAds: this.get('ads.noAds'),
       onCreate: this.onCreate.bind(this),
       lang: this.get('wikiVariables.language.content'),
+      isDedicatedForArticle: this.get('model.isDedicatedForArticle'),
     };
     const data = extend({}, model, {
       jsParams,
@@ -200,12 +213,26 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     }
   },
 
-  setCookie(cookieName, cookieValue) {
+  setCookie(cookieName, cookieValue, domain) {
     window.Cookies.set(cookieName, cookieValue, {
+      domain,
       expires: this.playerCookieExpireDays,
       path: '/',
-      domain: this.runtimeConfig.cookieDomain,
     });
+  },
+
+  setVideoSeenInSession() {
+    if (this.hasSeenTheVideoInCurrentSession()) {
+      return;
+    }
+
+    const currentSession = window.Cookies.get('wikia_session_id');
+
+    this.setCookie(this.videoSeenInSessionCookieName, currentSession);
+  },
+
+  hasSeenTheVideoInCurrentSession() {
+    return window.Cookies.get('wikia_session_id') === window.Cookies.get(this.videoSeenInSessionCookieName);
   },
 
   resizeVideo() {

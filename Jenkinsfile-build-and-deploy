@@ -1,12 +1,16 @@
+import groovy.json.JsonSlurperClassic
+
 def deployenv = 'artifactory.wikia-inc.com/platform/alpine:3.6-curl'
-def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.21'
+def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.22'
 
 node('docker-daemon') {
+    // serviceVersion is used in k8s deployment name - capital letters are forbidden there
+    def serviceVersion = params.version.toLowerCase()
     def namespace = params.namespace
     def cluster = params.cluster ?: "prod"
     def context = "kube-${params.datacenter}-${cluster}"
-    def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
     def imageVersion = params.version
+    def normalizedEnv = params.environment ==~ /sandbox-/ ? "sandbox" : params.environment
     def imageExists = false
     def imageName = ""
 
@@ -39,55 +43,45 @@ node('docker-daemon') {
 
     stage('Build and push image') {
        if ( !imageExists ) {
-            if ( normalizedEnv == "preview" || normalizedEnv == "verify" ) {
+            if (params.crowdin_branch != null) {
                 sh """#!/bin/sh
-                ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
-
-                def vault_secrets = [
-                    [$class: 'VaultSecret', path: 'secret/chef/s3/sjc/prod', secretValues: [
-                            [$class: 'VaultSecretValue', envVar: 'SJC_ACCESS_KEY', vaultKey: 'access_key'],
-                            [$class: 'VaultSecretValue', envVar: 'SJC_SECRET_KEY', vaultKey: 'secret_key']
-                        ]
-                    ],
-                    [$class: 'VaultSecret', path: 'secret/chef/s3/res/prod', secretValues: [
-                            [$class: 'VaultSecretValue', envVar: 'RES_ACCESS_KEY', vaultKey: 'access_key'],
-                            [$class: 'VaultSecretValue', envVar: 'RES_SECRET_KEY', vaultKey: 'secret_key']
-                        ]
-                    ]
-                ]
-                wrap([$class: 'VaultBuildWrapper', vaultSecrets: vault_secrets]) {
-                    sh """#!/bin/sh
-                        ./tasks/upload-assets.sh ${imageName} \$SJC_ACCESS_KEY \$SJC_SECRET_KEY \$RES_ACCESS_KEY \$RES_SECRET_KEY"""
-                }
-
-            } else {
-                if (params.crowdin_branch != null) {
-                    sh """#!/bin/sh
-                    ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
-                }
-
-                sh """#!/bin/sh
-                ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
+                ./tasks/download-translations.sh /etc/crowdin/crowdin.conf ${params.crowdin_branch}"""
             }
+            sh """#!/bin/sh
+                ./tasks/docker-build.sh ${imageName} ${imageVersion} ${env.GITHUB_TOKEN}"""
         }
     }
 
     withDockerContainer(deployenv) {
         stage('Create k8s descriptor') {
             sh """#!/bin/sh
-            ./tasks/k8s-descriptor.sh ${params.environment} ${imageName} ${params.datacenter}"""
+            ./tasks/k8s-descriptor.sh ${params.environment} ${serviceVersion} ${imageName} ${params.datacenter}"""
         }
     }
 
     withDockerContainer(kubectl) {
         stage('Apply k8s descriptor') {
-            println "Push to k8s"
+            // create new deployment
+            sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config apply -f k8s/k8s-deployment-descriptor-${env.environment}.yaml"
+						// wait for rolling out the deployment
+						sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config rollout status deploy mobile-wiki-${env.environment}-${serviceVersion} -w"
 
-            sh """#!/bin/sh
-            kubectl --namespace=${namespace} \
-                    --context=${context} \
-                     --kubeconfig=/config/.kube/config \
-                     apply -f k8s/k8s-descriptor-${normalizedEnv}.yaml"""
+            // get service details to have current (old) deployment version
+            def serviceInfo = sh(script: "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config get service -l app=mobile-wiki,env=${env.environment} -o=json", returnStdout: true)
+            // do not create a variable with json slurper instance, it may cause NotSerializableException
+            // see: https://stackoverflow.com/a/53756295
+            def service = new JsonSlurperClassic().parseText(serviceInfo)
+            def previousVersion = service.items.size() == 1 ? service.items[0].spec.selector.version : null;
+            // switch service to direct to new deployment
+            sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config apply -f k8s/k8s-service-descriptor-${env.environment}.yaml"
+
+            // to prevent deleting deployments when redeploying the same version
+            if (previousVersion && previousVersion != serviceVersion) {
+              // delete all inactive deployments
+              sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config delete deployments -l app=mobile-wiki,env=${env.environment},status=inactive"
+              // label old deployment with status=inactive to be able to remove it during next deployment
+              sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config label --overwrite deployment -l app=mobile-wiki,env=${env.environment},version=${previousVersion} status=inactive"
+            }
         }
     }
 }

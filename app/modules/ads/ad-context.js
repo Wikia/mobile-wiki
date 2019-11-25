@@ -8,7 +8,7 @@ export const defaultAdContext = {
       amazonId: '3115',
       bidsRefreshing: {
         enabled: false,
-        slots: [],
+        slots: ['mobile_in_content'],
       },
       dealsEnabled: false,
       enabled: false,
@@ -19,10 +19,22 @@ export const defaultAdContext = {
             [320, 50],
           ],
         },
+        mobile_in_content: {
+          sizes: [
+            [300, 250],
+          ],
+        },
         bottom_leaderboard: {
           sizes: [
             [320, 50],
             [300, 250],
+          ],
+        },
+        floor_adhesion: {
+          sizes: [
+            [300, 50],
+            [320, 50],
+            [320, 100],
           ],
         },
         featured: {
@@ -32,7 +44,7 @@ export const defaultAdContext = {
     },
     prebid: {
       enabled: false,
-      libraryUrl: '/mobile-wiki-assets/assets/wikia-ae3/prebid.min.js',
+      libraryUrl: '/mobile-wiki/assets/wikia-ae3/prebid.min.js',
       lazyLoadingEnabled: false,
       bidsRefreshing: {
         enabled: false,
@@ -350,6 +362,20 @@ export const defaultAdContext = {
             ],
             siteId: '23565',
             zoneId: '1422262',
+          },
+        },
+      },
+      teads: {
+        enabled: false,
+        debugPageId: 109648,
+        debugPlacementId: 119236,
+        slots: {
+          incontent_player: {
+            pageId: '109466',
+            placementId: '119044',
+            sizes: [
+              [1, 1],
+            ],
           },
         },
       },

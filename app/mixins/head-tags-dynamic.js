@@ -46,6 +46,7 @@ export default Mixin.create({
    + `,${this.get('wikiVariables.dbName')}`,
       appleItunesApp: '',
       amphtml: data.amphtml,
+      isDedicatedForArticle: false,
     };
 
     if (config.environment === 'production') {
@@ -71,6 +72,10 @@ export default Mixin.create({
 
     if (model.hreflangLinks) {
       headData.hreflangLinks = model.hreflangLinks;
+    }
+
+    if (model.featuredVideo && model.featuredVideo.isDedicatedForArticle) {
+      headData.isDedicatedForArticle = true;
     }
 
     headData.twitterTitle = truncate(headData.htmlTitle, 70);

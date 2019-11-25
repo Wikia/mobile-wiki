@@ -1,38 +1,30 @@
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: mobile-wiki-prod
-  name: mobile-wiki-prod
-  namespace: prod
-spec:
-  ports:
-  - protocol: TCP
-    name: main
-    port: 80
-    targetPort: 8001
-  - protocol: TCP
-    name: admin
-    port: 8003
-    targetPort: 8007
-  selector:
-    app: mobile-wiki-prod
-  type: ClusterIP
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mobile-wiki-prod
+  # wrapped with double quote (") to prevent issues with special characters in version name
+  name: "mobile-wiki-prod-${version}"
   namespace: prod
+  labels:
+    app: mobile-wiki
+    env: prod
+    # wrapped with double quote (") to prevent issues with special characters in version name
+    version: "${version}"
+    status: active
 spec:
   replicas: 8
   selector:
     matchLabels:
-      app: mobile-wiki-prod
+      app: mobile-wiki
+      env: prod
+      # wrapped with double quote (") to prevent issues with special characters in version name
+      version: "${version}"
   template:
     metadata:
       labels:
-        app: mobile-wiki-prod
+        app: mobile-wiki
+        env: prod
+        # wrapped with double quote (") to prevent issues with special characters in version name
+        version: "${version}"
         stage: mobile-wiki-prod
     spec:
       serviceAccountName: k8s-pod
@@ -111,13 +103,15 @@ kind: ServiceMonitor
 metadata:
   name: mobile-wiki-prod
   labels:
-    app: mobile-wiki-prod
+    app: mobile-wiki
+    env: prod
   namespace: prod
 spec:
   jobLabel: app
   selector:
     matchLabels:
-      app: mobile-wiki-prod
+      app: mobile-wiki
+      env: prod
   namespaceSelector:
     matchNames:
       - prod

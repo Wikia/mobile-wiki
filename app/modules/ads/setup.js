@@ -247,11 +247,6 @@ export const adsSetup = {
       context.set('slots.incontent_boxad_1.trackOverscrolled', true);
     }
 
-    context.set('bidders.a9.slots.mobile_in_content', {
-      sizes: [[300, 250]],
-    });
-    context.push('bidders.a9.bidsRefreshing.slots', 'mobile_in_content');
-
     context.set('templates.stickyTLB.enabled', !context.get('custom.hasFeaturedVideo'));
 
     setupBidders(context, instantConfig);

@@ -44,9 +44,7 @@ module.exports = {
     );
     app.use(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/, methodOverride(() => 'GET'));
 
-    // XF-242 remove /mobile-wiki path after full migration to serving assets from DFS
     app.use('/mobile-wiki', cors(), staticAssets);
-    app.use('/mobile-wiki-assets', cors(), staticAssets);
     app.use('/heartbeat', heartbeat);
   },
 
