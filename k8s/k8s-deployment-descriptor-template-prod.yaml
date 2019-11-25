@@ -11,7 +11,7 @@ metadata:
     version: "${version}"
     status: active
 spec:
-  replicas: 8
+  replicas: 16
   selector:
     matchLabels:
       app: mobile-wiki
