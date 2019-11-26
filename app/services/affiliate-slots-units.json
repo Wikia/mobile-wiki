@@ -211,5 +211,30 @@
     },
     "country": ["US", "CA", "NL", "AU", "NZ"],
     "isBig": true
+  },
+  {
+    "campaign": "ddb",
+    "category": "ddb",
+    "tagline": "Related Posts",
+    "image": "https://static.wikia.nocookie.net/0cebb500-f8c3-4f44-b4aa-f44e33fc2319",
+    "heading": "The Official Digital Toolset for Dungeons & Dragons",
+    "subheading": "Visit D&D Beyond",
+    "launchOn": "2019-12-12T00:00:00Z",
+    "link": "https://www.dndbeyond.com/intro",
+    "links": null,
+    "country": ["US", "CA", "NL", "AU", "NZ"]
+  },
+  {
+    "campaign": "ddb",
+    "category": "ddb",
+    "tagline": "Recommended for You",
+    "image": "https://static.wikia.nocookie.net/0cebb500-f8c3-4f44-b4aa-f44e33fc2319",
+    "heading": "The Official Digital Toolset for Dungeons & Dragons",
+    "subheading": "Visit D&D Beyond",
+    "launchOn": "2019-12-12T00:00:00Z",
+    "link": "https://www.dndbeyond.com/intro",
+    "links": null,
+    "country": ["US", "CA", "NL", "AU", "NZ"],
+    "isBig": true
   }
 ]
