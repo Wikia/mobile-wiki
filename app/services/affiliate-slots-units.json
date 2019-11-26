@@ -221,8 +221,7 @@
     "subheading": "Visit D&D Beyond",
     "launchOn": "2019-12-12T00:00:00Z",
     "link": "https://www.dndbeyond.com/intro",
-    "links": null,
-    "country": ["US", "CA", "NL", "AU", "NZ"]
+    "links": null
   },
   {
     "campaign": "ddb",
@@ -234,7 +233,6 @@
     "launchOn": "2019-12-12T00:00:00Z",
     "link": "https://www.dndbeyond.com/intro",
     "links": null,
-    "country": ["US", "CA", "NL", "AU", "NZ"],
     "isBig": true
   }
 ]
