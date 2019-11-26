@@ -89,6 +89,18 @@
             "value": true
         }
     ],
+    "icPrebidOneVideo": [
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "PL"
+            ],
+            "value": true
+        }
+    ],
     "icPrebidIndexExchange": [
         {
             "apps": [
@@ -310,9 +322,14 @@
                 "oasis"
             ],
             "regions": [
+                "AU",
                 "CA",
                 "DE",
-                "PL"
+                "GB",
+                "NZ",
+                "PL",
+                "UK",
+                "XX-EU"
             ],
             "value": true
         }
