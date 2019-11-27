@@ -6,7 +6,7 @@ export default {
     if (typeof FastBoot === 'undefined') {
       window._kiq = [];
       window.getInstantGlobal('wgMobileQualaroo', (wgMobileQualaroo) => {
-        if (wgMobileQualaroo) {
+        if (wgMobileQualaroo && !window.M.getFromHeadDataStore('wikiVariables.isTestWiki')) {
           M.trackingQueue.push((isOptedIn) => {
             if (isOptedIn) {
               const renderedNudges = {};
