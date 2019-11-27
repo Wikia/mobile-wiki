@@ -17,8 +17,6 @@ function resultsProcessor(param) {
   return 0;
 }
 
-let tbViewabilityCalled = false;
-
 export const tbViewability = {
   /**
    * @param {Object} config
@@ -27,35 +25,38 @@ export const tbViewability = {
     const {
       billTheLizard,
       context,
+      events,
+      eventService,
       ViewabilityCounter,
     } = window.Wikia.adEngine;
     const viewabilityCounter = ViewabilityCounter.make();
 
-    if (!hasAvailableModels(config, 'tb_viewability') || tbViewabilityCalled) {
+    if (!hasAvailableModels(config, 'tb_viewability')) {
       return;
     }
 
     billTheLizard.projectsHandler.enable('tb_viewability');
 
-    // viewabilityCounter already sets default to 0.5 and is between 0-1
-    context.set('services.billTheLizard.parameters', {
-      tb_viewability: {
-        session_viewability_all: viewabilityCounter.getViewability(),
-        session_viewability_icb: viewabilityCounter.getViewability('incontent_boxad'),
-        session_viewability_tb: viewabilityCounter.getViewability('top_boxad'),
-        ref: context.get('targeting.ref') || null,
-        scroll_y: this.calculateScrollY(),
-        session_scroll_speed: this.calculateSessionScrollSpeed() || 0,
-        s0v: context.get('targeting.s0v') || null,
-        s2: context.get('targeting.s2') || null,
-      },
-    });
+    eventService.on(events.PAGE_RENDER_EVENT, () => {
+      // viewabilityCounter already sets default to 0.5 and is between 0-1
+      context.set('services.billTheLizard.parameters', {
+        tb_viewability: {
+          session_viewability_all: viewabilityCounter.getViewability(),
+          session_viewability_icb: viewabilityCounter.getViewability('incontent_boxad'),
+          session_viewability_tb: viewabilityCounter.getViewability('top_boxad'),
+          ref: context.get('targeting.ref') || null,
+          scroll_y: this.calculateScrollY(),
+          session_scroll_speed: this.calculateSessionScrollSpeed() || 0,
+          s0v: context.get('targeting.s0v') || null,
+          s2: context.get('targeting.s2') || null,
+        },
+      });
 
-    // Even though the model is for top_boxad viewability we are passing 'top_page' param.
-    // It was changed because passing 'top_boxad' makes bill-the-lizard responses tracked to DW
-    // a bit weird since there is another model already sending request for that slot (cheshire cat)
-    billTheLizard.call(['tb_viewability'], 'top_page');
-    tbViewabilityCalled = true;
+      // Even though the model is for top_boxad viewability we are passing 'top_page' param.
+      // It was changed because passing 'top_boxad' makes bill-the-lizard responses tracked to DW
+      // a bit weird since there is another model already sending request for that slot (cheshire cat)
+      billTheLizard.call(['tb_viewability'], 'top_page');
+    });
   },
 
   calculateScrollY() {
@@ -76,7 +77,6 @@ export const tbViewability = {
     const { context } = window.Wikia.adEngine;
 
     context.remove('services.billTheLizard.parameters');
-    tbViewabilityCalled = false;
   },
 };
 

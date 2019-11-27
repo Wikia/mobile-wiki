@@ -349,7 +349,7 @@ class Ads {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { context, slotService } = window.Wikia.adEngine;
+    const { slotService } = window.Wikia.adEngine;
 
     biddersDelayer.resetPromise();
 
@@ -364,8 +364,6 @@ class Ads {
 
     this.callExternalTrackingServices();
     adblockDetector.run();
-
-    tbViewability.configure(context.get('options.billTheLizard.config') || {});
 
     this.afterPageRenderExecuted = true;
   }
