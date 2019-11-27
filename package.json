@@ -27,7 +27,7 @@
     "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests *.js",
     "test": "ember test",
     "test:watch": "ember t -s",
-    "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json"
+    "nuke": "npm cache clean --force && rm -rf node_modules && rm package-lock.json"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

@@ -29,6 +29,7 @@ RUN addgroup -S mobile-wiki && \
     # in order to execute all npm postinstall scripts properly
     npm set unsafe-perm=true && \
     npm set progress=false && \
+    npm run nuke && \
     npm run setup && \
 
 # cleanup
