@@ -73,11 +73,10 @@ export const tbViewability = {
   },
 
   reset() {
-    const { billTheLizard, context } = window.Wikia.adEngine;
+    const { context } = window.Wikia.adEngine;
 
     context.remove('services.billTheLizard.parameters');
     tbViewabilityCalled = false;
-    billTheLizard.reset();
   },
 };
 

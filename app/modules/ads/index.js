@@ -322,7 +322,7 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
+    const { billTheLizard, SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
     const cacheStorage = InstantConfigCacheStorage.make();
     const sessionCookie = SessionCookie.make();
@@ -333,6 +333,7 @@ class Ads {
     fanTakeoverResolver.reset();
     cheshireCat.reset();
     tbViewability.reset();
+    billTheLizard.reset();
     slotsLoader.reset();
     this.afterPageRenderExecuted = false;
   }

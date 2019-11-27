@@ -207,8 +207,6 @@ export const cheshireCat = {
   getBtlSlotStatus,
 
   reset() {
-    const { billTheLizard } = window.Wikia.adServices;
-
     cheshirecatCalled = false;
     incontentsCounter = 0;
     defaultStatus = NOT_USED_STATUS;
@@ -216,9 +214,6 @@ export const cheshireCat = {
 
     // Recheck available models for Labrador decisions
     hasAvailableModels(config, 'cheshirecat');
-
-    // Reset predictions from previous page views
-    billTheLizard.reset();
   },
 };
 
