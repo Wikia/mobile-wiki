@@ -220,8 +220,7 @@
     "heading": "The Official Digital Toolset for Dungeons & Dragons",
     "subheading": "Visit D&D Beyond",
     "launchOn": "2019-12-12T00:00:00Z",
-    "link": "https://www.dndbeyond.com/intro",
-    "links": null
+    "link": "https://www.dndbeyond.com/intro"
   },
   {
     "campaign": "ddb",
@@ -232,7 +231,6 @@
     "subheading": "Visit D&D Beyond",
     "launchOn": "2019-12-12T00:00:00Z",
     "link": "https://www.dndbeyond.com/intro",
-    "links": null,
     "isBig": true
   }
 ]
