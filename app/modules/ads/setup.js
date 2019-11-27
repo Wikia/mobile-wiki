@@ -108,7 +108,7 @@ export const adsSetup = {
 
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
-      configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+      configureBillTheLizard(context.get('options.billTheLizard.config') || {});
 
       // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
       slotsLoader.configureSlotsLoader();
@@ -150,6 +150,7 @@ export const adsSetup = {
     context.set('state.deviceType', utils.client.getDeviceType());
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
+    context.set('options.billTheLizard.config', instantConfig.get('wgAdDriverBillTheLizardConfig'));
     context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
