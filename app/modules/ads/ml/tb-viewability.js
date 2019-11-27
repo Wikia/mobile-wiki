@@ -54,7 +54,8 @@ export const tbViewability = {
 
       // Even though the model is for top_boxad viewability we are passing 'top_page' param.
       // It was changed because passing 'top_boxad' makes bill-the-lizard responses tracked to DW
-      // a bit weird since there is another model already sending request for that slot (cheshire cat)
+      // a bit weird since there is another model already sending request for that slot
+      // (cheshire cat)
       billTheLizard.call(['tb_viewability'], 'top_page');
     });
   },
