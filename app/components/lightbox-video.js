@@ -11,7 +11,7 @@ import VideoLoader from '../modules/video-loader';
 export default Component.extend(
   RespondsToResize,
   {
-    ads: service('ads/ads'),
+    // ads: service('ads/ads'),
 
     classNames: ['lightbox-video', 'lightbox-content-inner'],
     classNameBindings: ['provider'],
@@ -29,8 +29,8 @@ export default Component.extend(
     /**
       * @returns VideoLoader
     */
-    videoLoader: computed('model.embed', 'ads.noAds', function () {
-      return new VideoLoader(this.get('model.embed'), this.get('ads.noAds'));
+    videoLoader: computed('model.embed', function () {
+      return new VideoLoader(this.get('model.embed'), true);
     }),
 
     /**

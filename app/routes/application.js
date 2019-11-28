@@ -8,7 +8,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ApplicationModel from '../models/application';
-import Ads from '../modules/ads';
+// import Ads from '../modules/ads';
 import ErrorDescriptor from '../utils/error-descriptor';
 import {
   WikiIsClosedError,
@@ -23,7 +23,7 @@ export default Route.extend(
   Ember.TargetActionSupport,
   HeadTagsStaticMixin,
   {
-    ads: service('ads/ads'),
+    // ads: service('ads/ads'),
     currentUser: service(),
     fandomComMigration: service(),
     wikiaOrgMigration: service(),
@@ -114,18 +114,18 @@ export default Route.extend(
         !fastboot.get('isFastBoot')
         && !transition.queryParams.noexternals
       ) {
-        Ads.getLoadedInstance()
-          .then((ads) => {
-            ads.registerActions({
-              onHeadOffsetChange: (offset) => {
-                this.set('ads.siteHeadOffset', offset);
-              },
-              onSmartBannerChange: (visibility) => {
-                this.set('smartBanner.smartBannerVisible', visibility);
-              },
-            });
-          })
-          .catch(() => {}); // Ads not loaded
+        // Ads.getLoadedInstance()
+        //   .then((ads) => {
+        //     ads.registerActions({
+        //       onHeadOffsetChange: (offset) => {
+        //         this.set('ads.siteHeadOffset', offset);
+        //       },
+        //       onSmartBannerChange: (visibility) => {
+        //         this.set('smartBanner.smartBannerVisible', visibility);
+        //       },
+        //     });
+        //   })
+        //   .catch(() => {}); // Ads not loaded
 
         this.fastlyInsights.loadFastlyInsightsScript();
       }
@@ -191,7 +191,7 @@ export default Route.extend(
       },
 
       didTransition() {
-        this.get('ads.module').onTransition();
+        // this.get('ads.module').onTransition();
 
         // Clear notification alerts for the new route
         this.controller.clearNotifications();

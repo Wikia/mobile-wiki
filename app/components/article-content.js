@@ -5,7 +5,7 @@ import { on } from '@ember/object/evented';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { isBlank, isEmpty } from '@ember/utils';
-import Ads from '../modules/ads';
+// import Ads from '../modules/ads';
 import {
   getRenderComponentFor,
   queryPlaceholders,
@@ -22,8 +22,8 @@ import { track, trackActions, trackAffiliateUnit } from '../utils/track';
 
 export default Component.extend(
   {
-    adSlotBuilder: service('ads/ad-slot-builder'),
-    adsService: service('ads/ads'),
+    // adSlotBuilder: service('ads/ad-slot-builder'),
+    // adsService: service('ads/ads'),
     fastboot: service(),
     i18n: service(),
     logger: service(),
@@ -34,7 +34,7 @@ export default Component.extend(
     tagName: 'article',
     classNames: ['article-content', 'mw-content'],
     attributeBindings: ['lang', 'dir'],
-    adsContext: null,
+    // adsContext: null,
     content: null,
     displayEmptyArticleInfo: true,
     displayTitle: null,
@@ -81,18 +81,18 @@ export default Component.extend(
           this.hackIntoEmberRendering(`<p>${this.i18n.t('article.empty-label')}</p>`);
         }
 
-        if (!this.isPreview && this.adsContext) {
-          Ads.getLoadedInstance()
-            .then(() => {
-              this.adsService.setupAdsContext(this.adsContext);
-              if (!this.isDestroyed) {
-                // Uncollapse sections first so that we can insert ads in correct places
-                this.uncollapseSections();
-                this.adSlotBuilder.injectAds(this);
-              }
-            })
-            .catch(() => {}); // Ads not loaded.
-        }
+        // if (!this.isPreview && this.adsContext) {
+        //   Ads.getLoadedInstance()
+        //     .then(() => {
+        //       this.adsService.setupAdsContext(this.adsContext);
+        //       if (!this.isDestroyed) {
+        //         // Uncollapse sections first so that we can insert ads in correct places
+        //         this.uncollapseSections();
+        //         this.adSlotBuilder.injectAds(this);
+        //       }
+        //     })
+        //     .catch(() => {}); // Ads not loaded.
+        // }
 
         this.openLightboxIfNeeded();
       });

@@ -52,41 +52,41 @@ export default Component.extend(
      * @returns {void}
      */
     didEnterViewport() {
-      Ads.getLoadedInstance()
-        .then((ads) => {
-          if (this.insertOnViewportEnter) {
-            ads.pushSlotToQueue(this.name);
-          } else if (this.shouldWaitForUapResponse) {
-            ads.waitForUapResponse().then((isUapLoaded) => {
-              if (isUapLoaded) {
-                ads.pushSlotToQueue(this.name);
-              }
-            });
-          }
-        })
-        .catch(() => {}); // Ads not loaded.
+      // Ads.getLoadedInstance()
+      //   .then((ads) => {
+      //     if (this.insertOnViewportEnter) {
+      //       ads.pushSlotToQueue(this.name);
+      //     } else if (this.shouldWaitForUapResponse) {
+      //       ads.waitForUapResponse().then((isUapLoaded) => {
+      //         if (isUapLoaded) {
+      //           ads.pushSlotToQueue(this.name);
+      //         }
+      //       });
+      //     }
+      //   })
+      //   .catch(() => {}); // Ads not loaded.
     },
 
     /**
      * @private
      */
     pushSlotToQueue() {
-      if (this.insertOnViewportEnter) {
-        return;
-      }
-      Ads.getLoadedInstance()
-        .then((ads) => {
-          if (this.shouldWaitForUapResponse) {
-            ads.waitForUapResponse().then((isUapLoaded) => {
-              if (!isUapLoaded) {
-                ads.pushSlotToQueue(this.name);
-              }
-            });
-          } else {
-            ads.pushSlotToQueue(this.name);
-          }
-        })
-        .catch(() => {}); // Ads not loaded.
+      // if (this.insertOnViewportEnter) {
+      //   return;
+      // }
+      // Ads.getLoadedInstance()
+      //   .then((ads) => {
+      //     if (this.shouldWaitForUapResponse) {
+      //       ads.waitForUapResponse().then((isUapLoaded) => {
+      //         if (!isUapLoaded) {
+      //           ads.pushSlotToQueue(this.name);
+      //         }
+      //       });
+      //     } else {
+      //       ads.pushSlotToQueue(this.name);
+      //     }
+      //   })
+      //   .catch(() => {}); // Ads not loaded.
     },
   },
 );

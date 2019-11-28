@@ -15,14 +15,14 @@ import {
   trackPageView,
   setTrackContext,
 } from '../utils/track';
-import Ads from '../modules/ads';
+// import Ads from '../modules/ads';
 
 export default Route.extend(
   ApplicationWrapperClassNamesMixin,
   HeadTagsDynamicMixin,
   {
-    ads: service('ads/ads'),
-    adsContextService: service('ads/search-page-ads-context'),
+    // ads: service('ads/ads'),
+    // adsContextService: service('ads/search-page-ads-context'),
     i18n: service(),
     initialPageView: service(),
     fastboot: service(),
@@ -81,7 +81,7 @@ export default Route.extend(
        * @returns {void}
        */
       willTransition() {
-        this.ads.beforeTransition();
+        // this.ads.beforeTransition();
       },
 
       /**
@@ -109,20 +109,20 @@ export default Route.extend(
           controller.trackResultsImpression();
         });
 
-        this.adsContextService.getAdsContext()
-          .then((adsContext) => {
-            const ads = Ads.getInstance();
-
-            window.getInstantGlobals((instantGlobals) => {
-              if (ads.isInitializationStarted) {
-                Ads.getLoadedInstance().then(() => {
-                  ads.afterTransition(adsContext);
-                });
-              } else {
-                ads.init(instantGlobals, adsContext, this.transitionQueryParams);
-              }
-            });
-          });
+        // this.adsContextService.getAdsContext()
+        //   .then((adsContext) => {
+        //     const ads = Ads.getInstance();
+        //
+        //     window.getInstantGlobals((instantGlobals) => {
+        //       if (ads.isInitializationStarted) {
+        //         Ads.getLoadedInstance().then(() => {
+        //           ads.afterTransition(adsContext);
+        //         });
+        //       } else {
+        //         ads.init(instantGlobals, adsContext, this.transitionQueryParams);
+        //       }
+        //     });
+        //   });
 
         return true;
       },
