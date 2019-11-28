@@ -30,6 +30,7 @@ RUN addgroup -S mobile-wiki && \
     npm set progress=false && \
     npm config set @wikia:registry https://artifactory.wikia-inc.com/artifactory/api/npm/wikia-npm/ && \
     yarn cache clean && \
+    yarn nuke && \
     yarn setup && \
 
 # cleanup
