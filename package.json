@@ -30,7 +30,7 @@
     "nuke": "npm cache clean --force && rm -rf node_modules && rm package-lock.json"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": ">= 10.*"
   },
   "dependencies": {
     "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v49.14.1",
