@@ -16,18 +16,18 @@ COPY package.json .
 # create group and user
 RUN addgroup -S mobile-wiki && \
     adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
-    chmod 755 /app && \
+    chmod 755 /app && chown -R docker_user:mobile-wiki /app && \
 
 # install missing stuff
-    apk add --no-cache --virtual .gyp python make g++ git && \
+    apk add --no-cache --virtual .gyp python make g++ git
+
+USER docker_user
 
 # override github's auth type
-    git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
+RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
 # install all dependencies
-    # we are running npm install as root so we need to set unsafe-perm
     # in order to execute all npm postinstall scripts properly
-    npm set unsafe-perm=true && \
     npm set progress=false && \
     ls -al && \
     npm run setup && \
@@ -35,8 +35,6 @@ RUN addgroup -S mobile-wiki && \
 # cleanup
     apk del .gyp python make g++ git && \
     npm cache clean --force
-
-USER docker_user
 
 # copy app
 # Note:
