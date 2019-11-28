@@ -10,7 +10,7 @@ ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
 # move files to cache installing of dependencies
 COPY .npmrc .
-COPY package-lock.json .
+COPY yarn.lock .
 COPY package.json .
 
 # create group and user
