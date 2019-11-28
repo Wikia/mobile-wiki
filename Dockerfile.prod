@@ -42,10 +42,7 @@ RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh:
 COPY . .
 
 # build app
-RUN npm run linter && \
-# tests are broken for now
-# npm run tests && \
-    npm run build-prod
+RUN npm run build-prod
 
 # 8001 is for prod, 8007 is for metrics
 EXPOSE 8001 8007
