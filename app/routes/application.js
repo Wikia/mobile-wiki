@@ -163,9 +163,9 @@ export default Route.extend(
       this.wikiaOrgMigration.showNotification();
     },
 
-    redirect(model) {
-      applicationRedirect(model, this.fastboot);
-    },
+    // redirect(model) {
+    //   applicationRedirect(model, this.fastboot);
+    // },
 
     activate() {
       // Qualaroo custom parameters
