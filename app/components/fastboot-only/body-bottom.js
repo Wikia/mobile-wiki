@@ -37,6 +37,7 @@ export default Component.extend({
       'id',
       'language',
       'qualarooUrl',
+      'isTestWiki',
     );
 
     return JSON.stringify(Object.assign({
