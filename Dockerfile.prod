@@ -9,7 +9,6 @@ ENV IMAGE_VERSION ${IMAGE_VERSION}
 ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
 # move files to cache installing of dependencies
-COPY .npmrc .
 COPY yarn.lock .
 COPY package.json .
 
@@ -29,6 +28,8 @@ RUN addgroup -S mobile-wiki && \
     # in order to execute all npm postinstall scripts properly
     npm set unsafe-perm=true && \
     npm set progress=false && \
+    npm config set @wikia:registry https://artifactory.wikia-inc.com/artifactory/api/npm/wikia-npm/ && \
+    yarn cache clean && \
     yarn setup && \
 
 # cleanup
