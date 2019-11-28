@@ -27,14 +27,16 @@ USER docker_user
 RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
 
 # install all dependencies
-    # in order to execute all npm postinstall scripts properly
     npm set progress=false && \
     ls -al && \
-    npm run setup && \
+    npm run setup
 
 # cleanup
-    apk del .gyp python make g++ git && \
-    npm cache clean --force
+USER root
+RUN apk del .gyp python make g++ git
+
+USER docker_user
+RUN npm cache clean --force
 
 # copy app
 # Note:
