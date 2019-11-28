@@ -12,11 +12,11 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    // this.affiliateSlots.fetchUnitsForSearch(this.query, this.debugAffiliateUnits)
-    //   .then((units) => {
-    //     this.set('smallUnit', units.small);
-    //     this.set('bigUnit', units.big);
-    //     this.set('isEnabled', true);
-    //   });
+    this.affiliateSlots.fetchUnitsForSearch(this.query, this.debugAffiliateUnits)
+      .then((units) => {
+        this.set('smallUnit', units.small);
+        this.set('bigUnit', units.big);
+        this.set('isEnabled', true);
+      });
   },
 });

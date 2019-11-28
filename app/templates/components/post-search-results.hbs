@@ -30,11 +30,11 @@
       <div class="post-search-results__items">
         {{#each posts as |post index|}}
           {{#if (equal post.type "affiliate")}}
-              {{!--{{post-search-results-affiliate-item
+            {{post-search-results-affiliate-item
               affiliateUnit=unit
               postIndex=index
               isInContent=isInContent
-            }} --}}
+            }}
           {{else}}
             {{post-search-results-item post=post postIndex=index}}
           {{/if}}
