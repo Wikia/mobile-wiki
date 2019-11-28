@@ -103,13 +103,13 @@ class Ads {
         });
       }
 
-      // Ads.getLoadedInstance()
-      //   .then(() => {
-      //     pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
-      //   })
-      //   .catch(() => {
-      //     pageTracker.trackProp('adengine', 'off_failed_initialization', true);
-      //   });
+      Ads.getLoadedInstance()
+        .then(() => {
+          pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
+        })
+        .catch(() => {
+          pageTracker.trackProp('adengine', 'off_failed_initialization', true);
+        });
     }
   }
 

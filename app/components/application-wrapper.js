@@ -26,7 +26,7 @@ import { track } from '../utils/track';
 */
 
 export default Component.extend({
-  // ads: service('ads/ads'),
+  ads: service('ads/ads'),
   currentUser: service(),
   smartBanner: service(),
   lightbox: service(),
@@ -38,7 +38,7 @@ export default Component.extend({
     'smartBannerVisible',
     'isFandomAppSmartBannerVisible:with-smart-banner',
     'isCustomSmartBannerVisible:with-smart-banner',
-    // 'bfaaTemplate',
+    'bfaaTemplate',
     'fullPage:is-full-page',
     'isDarkTheme',
   ],
@@ -48,7 +48,7 @@ export default Component.extend({
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
   isCustomSmartBannerVisible: readOnly('smartBanner.isCustomSmartBannerVisible'),
 
-  // bfaaTemplate: bool('ads.siteHeadOffset'),
+  bfaaTemplate: bool('ads.siteHeadOffset'),
   contentLanguage: readOnly('wikiVariables.language.content'),
   isWikiaOrg: readOnly('globalFooter.is-wikia-org'),
 
