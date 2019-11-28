@@ -29,14 +29,9 @@ RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh:
 # install all dependencies
     npm set progress=false && \
     ls -al && \
-    npm run setup
-
-# cleanup
-USER root
-RUN apk del .gyp python make g++ git
-
-USER docker_user
-RUN npm cache clean --force
+    npm run setup && \
+    # cleanup
+    npm cache clean --force
 
 # copy app
 # Note:
