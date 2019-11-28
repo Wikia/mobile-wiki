@@ -29,14 +29,11 @@ RUN addgroup -S mobile-wiki && \
     # in order to execute all npm postinstall scripts properly
     npm set unsafe-perm=true && \
     npm set progress=false && \
-    ls -al && \
-    npm run nuke && \
-    npm run setup && \
-    ls -al node_modules/ && \
+    yarn setup && \
 
 # cleanup
     apk del .gyp python make g++ git && \
-    npm cache clean --force
+    yarn cache clean --force
 
 USER docker_user
 
@@ -49,10 +46,10 @@ USER docker_user
 COPY . .
 
 # build app
-RUN npm run linter && \
+RUN yarn linter && \
 # tests are broken for now
-# npm run tests && \
-    npm run build-prod
+# yarn tests && \
+    yarn build-prod
 
 # 8001 is for prod, 8007 is for metrics
 EXPOSE 8001 8007

@@ -21,13 +21,13 @@
     "fastboot-server-debug": "node --inspect --debug-brk fastboot-server/app/server.js",
     "linter": "eslint config fastboot-server lib ember-cli-build.js fastboot-server.js",
     "stylelint": "stylelint 'app/styles/**/*.scss'",
-    "setup": "npm install",
+    "setup": "yarn install",
     "svgo": "bash ./tasks/optimize-svg.sh",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests *.js",
     "test": "ember test",
     "test:watch": "ember t -s",
-    "nuke": "npm cache clean --force && rm -rf node_modules && rm package-lock.json"
+    "nuke": "yarn cache clean --force && rm -rf node_modules && rm package-lock.json"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

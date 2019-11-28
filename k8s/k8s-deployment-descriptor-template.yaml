@@ -75,7 +75,7 @@ spec:
           ports:
             - containerPort: 8007
             - containerPort: 8001
-          command: ["sh", "-c", "source /var/lib/secrets/export.env && exec npm run fastboot-server"]
+          command: ["sh", "-c", "source /var/lib/secrets/export.env && exec yarn fastboot-server"]
           volumeMounts:
             - name: secrets-dir
               readOnly: true

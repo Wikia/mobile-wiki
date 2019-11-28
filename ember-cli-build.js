@@ -5,8 +5,8 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const stew = require('broccoli-stew');
 const SVGStore = require('broccoli-svgstore');
-const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
 const nodeSass = require('node-sass');
+const lazyloadedSVGs = require('./config/svg').lazyloadedSVGs;
 
 
 /**
@@ -97,9 +97,7 @@ module.exports = function (defaults) {
       },
     },
     sassOptions: {
-      sassOptions: {
-        implementation: nodeSass,
-      },
+      implementation: nodeSass,
       includePaths: [
         'node_modules/design-system/dist/scss',
         'node_modules/@wikia/ad-engine/src/ad-products/styles',

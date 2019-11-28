@@ -8,7 +8,7 @@ import { disableCache } from '../utils/fastboot-caching';
 /**
   * Important: This route won't work when running `ember fastboot`,
   * for details see `fastboot-server.js`
-  * In order to enable this route you need to run `npm run build` and `npm run fastboot-server`
+  * In order to enable this route you need to run `yarn build` and `yarn fastboot-server`
   */
 export default Route.extend(
   ApplicationWrapperClassNamesMixin,

@@ -20,4 +20,4 @@ RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/test
 EXPOSE 7001
 
 ENTRYPOINT ["/app/wrapper.sh"]
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "dev"]

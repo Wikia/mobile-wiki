@@ -12,4 +12,4 @@ services:
       - WIKIA_DEV_DOMAIN=$WIKIA_DEV_DOMAIN
       - INTERNAL_CACHE_HOST=dev.icache.service.$WIKIA_DATACENTER.consul
       - LOCAL_USER_ID=$LOCAL_USER_ID
-    command: "npm run dev"
+    command: "yarn dev"

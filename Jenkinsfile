@@ -12,7 +12,7 @@ pipeline {
       steps {
       	nodejs('v12 LTS') {
 		  sh 'npm set progress=false'
-		  sh 'npm install'
+		  sh 'yarn install'
         }
       }
     }
@@ -24,7 +24,7 @@ pipeline {
           }
           steps {
 		    nodejs('v12 LTS') {
-			  sh 'npm run linter'
+			  sh 'yarn linter'
 			}
           }
         }
