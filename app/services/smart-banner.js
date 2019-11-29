@@ -12,6 +12,7 @@ import Ads from '../modules/ads';
 
 export default Service.extend({
   currentUser: service(),
+  fastboot: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
   geo: service(),
@@ -59,18 +60,20 @@ export default Service.extend({
 
     // Use noUap callback to allow SmartBanner to show up. This prevents SB from showing up too soon
     // and then being replaced by UAP
-    Ads.getLoadedInstance()
-      .then((ads) => {
-        ads.waitForUapResponse().then((isUapLoaded) => {
-          if (!isUapLoaded) {
-            this.set('willUapNotAppearForAnon', true);
-          }
+    if (!this.fastboot.get('isFastBoot')) {
+      Ads.getLoadedInstance()
+        .then((ads) => {
+          ads.waitForUapResponse().then((isUapLoaded) => {
+            if (!isUapLoaded) {
+              this.set('willUapNotAppearForAnon', true);
+            }
+          });
+        })
+        .catch(() => {
+          // Ads not loaded.
+          this.set('willUapNotAppearForAnon', true);
         });
-      })
-      .catch(() => {
-        // Ads not loaded.
-        this.set('willUapNotAppearForAnon', true);
-      });
+    }
   },
 
   isInCustomSmartBannerCountry: computed('smartBannerAdConfiguration.countries', function () {
