@@ -299,18 +299,6 @@
             "value": false
         }
     ],
-    "icNonLazyIncontents": [
-        {
-            "apps": [
-                "mobile-wiki"
-            ],
-            "regions": [
-                "US"
-            ],
-            "sampling": 1.0,
-            "value": true
-        }
-    ],
     "icIASVideoTracking": [
         {
             "apps": [
