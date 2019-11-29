@@ -15,7 +15,7 @@ import { transparentImageBase64 } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
-  // ads: service('ads/ads'),
+  ads: service('ads/ads'),
   logger: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
@@ -180,11 +180,11 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
        && window.Cookies.get(this.autoplayCookieName) !== '0',
       selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
       adTrackingParams: {
-        adProduct: 'featured-video-no-preroll',
+        adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
         slotName: 'FEATURED',
       },
       containerId: this.videoContainerId,
-      // noAds: this.get('ads.noAds'),
+      noAds: this.get('ads.noAds'),
       onCreate: this.onCreate.bind(this),
       lang: this.get('wikiVariables.language.content'),
       isDedicatedForArticle: this.get('model.isDedicatedForArticle'),

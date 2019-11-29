@@ -20,7 +20,7 @@ export default Component.extend(
   {
     i18n: service(),
     logger: service(),
-    // ads: service('ads/ads'),
+    ads: service('ads/ads'),
     router: service(),
     wikiVariables: service(),
     wikiUrls: service(),
@@ -78,7 +78,7 @@ export default Component.extend(
         listRendered: defer(),
       });
 
-      // this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
+      this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
 
       recirculationBlacklist.clear();
     },

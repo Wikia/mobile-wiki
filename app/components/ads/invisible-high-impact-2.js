@@ -13,22 +13,22 @@ export default Component.extend(RenderComponentMixin, {
   didInsertElement() {
     this._super(...arguments);
 
-    // Ads.getLoadedInstance()
-    //   .then((ads) => {
-    //     ads.waitForUapResponse()
-    //       .then((isUapLoaded) => {
-    //         if (this.disableManualInsert && this.numberOfViewportsFromTopToPush) {
-    //           const { scrollListener, utils } = window.Wikia.adEngine;
-    //           const distance = this.numberOfViewportsFromTopToPush * utils.getViewportHeight();
-    //           scrollListener.addSlot(
-    //             this.name,
-    //             { distanceFromTop: distance },
-    //           );
-    //         } else if (!isUapLoaded) {
-    //           ads.pushSlotToQueue(this.name);
-    //         }
-    //       });
-    //   })
-    //   .catch(() => {}); // Ads not loaded.
+    Ads.getLoadedInstance()
+      .then((ads) => {
+        ads.waitForUapResponse()
+          .then((isUapLoaded) => {
+            if (this.disableManualInsert && this.numberOfViewportsFromTopToPush) {
+              const { scrollListener, utils } = window.Wikia.adEngine;
+              const distance = this.numberOfViewportsFromTopToPush * utils.getViewportHeight();
+              scrollListener.addSlot(
+                this.name,
+                { distanceFromTop: distance },
+              );
+            } else if (!isUapLoaded) {
+              ads.pushSlotToQueue(this.name);
+            }
+          });
+      })
+      .catch(() => {}); // Ads not loaded.
   },
 });

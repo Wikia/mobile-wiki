@@ -46,15 +46,15 @@ export default class JWPlayer extends BasePlayer {
   * @returns {void}
   */
   createPlayer() {
-    // Ads.getLoadedInstance()
-    //   .then((ads) => {
-    //     ads.waitForVideoBidders()
-    //       .then(() => this.initializePlayer(ads));
-    //   })
-    //   .catch(() => {
-    //     // Ads not loaded
-    //     this.initializePlayer();
-    //   });
+    Ads.getLoadedInstance()
+      .then((ads) => {
+        ads.waitForVideoBidders()
+          .then(() => this.initializePlayer(ads));
+      })
+      .catch(() => {
+        // Ads not loaded
+        this.initializePlayer();
+      });
   }
 
   /**

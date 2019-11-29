@@ -1,9 +1,9 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-// import Ads from '../../modules/ads';
+import Ads from '../../modules/ads';
 
 export default Component.extend({
-  // adSlotBuilder: service('ads/ad-slot-builder'),
+  adSlotBuilder: service('ads/ad-slot-builder'),
 
   init() {
     this._super(...arguments);
@@ -12,11 +12,11 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    // Ads.getLoadedInstance()
-    //   .then(() => {
-    //     this.renderAds();
-    //   })
-    //   .catch(() => {}); // Ads not loaded
+    Ads.getLoadedInstance()
+      .then(() => {
+        this.renderAds();
+      })
+      .catch(() => {}); // Ads not loaded
   },
 
   willDestroyElement() {
@@ -27,6 +27,6 @@ export default Component.extend({
    * @private
    */
   renderAds() {
-    // this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
+    this.adSlotBuilder.injectSearchPageTopLeaderboard(this);
   },
 });

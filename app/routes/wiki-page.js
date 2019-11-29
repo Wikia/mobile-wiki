@@ -21,7 +21,7 @@ import {
   namespace as mediawikiNamespace,
   isContentNamespace,
 } from '../utils/mediawiki-namespace';
-// import Ads from '../modules/ads';
+import Ads from '../modules/ads';
 import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
 
@@ -30,7 +30,7 @@ export default Route.extend(
   RouteWithAdsMixin,
   WikiPageHandlerMixin,
   {
-    // ads: service('ads/ads'),
+    ads: service('ads/ads'),
     currentUser: service(),
     fastboot: service(),
     i18n: service(),
@@ -179,14 +179,14 @@ export default Route.extend(
             }
           });
 
-          // if (!fastboot.get('isFastBoot') && model.adsContext) {
-          //   model.adsContext.user = model.adsContext.user || {};
-          //   model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-          //
-          //   window.getInstantGlobals((instantGlobals) => {
-          //     Ads.getInstance().init(instantGlobals, model.adsContext, transition.queryParams);
-          //   });
-          // }
+          if (!fastboot.get('isFastBoot') && model.adsContext) {
+            model.adsContext.user = model.adsContext.user || {};
+            model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
+
+            window.getInstantGlobals((instantGlobals) => {
+              Ads.getInstance().init(instantGlobals, model.adsContext, transition.queryParams);
+            });
+          }
 
           this.set('wikiHandler', handler);
 
@@ -251,7 +251,7 @@ export default Route.extend(
         this.notifyPropertyChange('displayTitle');
 
         try {
-          // this.ads.beforeTransition();
+          this.ads.beforeTransition();
         } catch (e) {
           logError(this.runtimeConfig.servicesExternalHost, 'beforeTransition', e);
         }
@@ -371,10 +371,10 @@ export default Route.extend(
       const uaDimensions = {};
 
       // update UA dimensions
-      // if (model.adsContext) {
-      //   uaDimensions[3] = model.adsContext.targeting.wikiVertical;
-      //   uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
-      // }
+      if (model.adsContext) {
+        uaDimensions[3] = model.adsContext.targeting.wikiVertical;
+        uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
+      }
       if (articleType) {
         uaDimensions[19] = articleType;
       }
