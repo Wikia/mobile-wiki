@@ -115,7 +115,7 @@ export const adsSetup = {
     });
   },
 
-  setupAdContext(instantConfig, adsContext, isOptedIn = false) {
+  setupAdContext(instantConfig, adsContext, isOptedIn = false, geoRequiresConsent = true) {
     const {
       context,
       utils,
@@ -170,6 +170,7 @@ export const adsSetup = {
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
+    context.set('options.geoRequiresConsent', geoRequiresConsent);
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
