@@ -8,30 +8,6 @@ ARG GITHUB_TOKEN
 ENV IMAGE_VERSION ${IMAGE_VERSION}
 ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
-# move files to cache installing of dependencies
-COPY .npmrc .
-COPY package-lock.json .
-COPY package.json .
-
-# create group and user
-RUN addgroup -S mobile-wiki && \
-    adduser -h /app -s /sbin/nologin -D -G mobile-wiki -u 1337 docker_user && \
-    chmod 755 /app && chown -R docker_user:mobile-wiki /app && \
-
-# install missing stuff
-    apk add --no-cache --virtual .gyp python make g++ git
-
-USER docker_user
-
-# override github's auth type
-RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
-
-# install all dependencies
-    npm set progress=false && \
-    npm run setup && \
-    # cleanup
-    npm cache clean --force
-
 # copy app
 # Note:
 # - first argument is the path inside the context of build (folder where Dockerfile is placed)
@@ -40,8 +16,28 @@ RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh:
 # it's basically "copy everything from mobile-wiki project to WORKDIR in docker"
 COPY . .
 
-# build app
-RUN npm run build-prod
+# install missing stuff
+RUN apk add --no-cache --virtual .gyp python make g++ git && \
+
+    # override github's auth type
+    git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
+
+    # install all dependencies
+    npm set unsafe-perm=true && \
+    npm set progress=false && \
+    npm run setup && \
+
+    # cleanup
+    apk del .gyp python make g++ git && \
+    npm cache clean --force && \
+
+    # build app
+    npm run build-prod && \
+
+    # change permissions to necessary files
+    chown -R 65534:65534 /app
+
+USER 65534
 
 # 8001 is for prod, 8007 is for metrics
 EXPOSE 8001 8007
