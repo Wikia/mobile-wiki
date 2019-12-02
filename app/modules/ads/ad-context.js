@@ -241,10 +241,20 @@ export const defaultAdContext = {
         enabled: false,
         slots: {
           featured: {
-            pubId: '1192473',
+            site: {
+              id: 1192473,
+              page: 'https://www.amazonaws.com',
+              ref: 'https://www.amazonaws.com/10',
+            },
+            pubId: 'HBExchange',
           },
           incontent_player: {
-            pubId: '1192473',
+            site: {
+              id: 1192473,
+              page: 'https://www.amazonaws.com',
+              ref: 'https://www.amazonaws.com/10',
+            },
+            pubId: 'HBExchange',
           },
         },
       },
