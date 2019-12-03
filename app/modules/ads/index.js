@@ -7,6 +7,7 @@ import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
 import { biddersDelayer } from './bidders-delayer';
 import { cheshireCat } from './ml/cheshire-cat';
+import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { trackScrollY, trackXClick } from '../../utils/track';
@@ -321,8 +322,9 @@ class Ads {
    * This trigger is executed before ember start the transition
    */
   triggerBeforePageChangeServices() {
-    const { SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
+    const { billTheLizard, SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
+    const { taxonomyService } = window.Wikia.adServices;
     const cacheStorage = InstantConfigCacheStorage.make();
     const sessionCookie = SessionCookie.make();
 
@@ -331,7 +333,10 @@ class Ads {
     universalAdPackage.reset();
     fanTakeoverResolver.reset();
     cheshireCat.reset();
+    tbViewability.reset();
+    billTheLizard.reset();
     slotsLoader.reset();
+    taxonomyService.reset();
     this.afterPageRenderExecuted = false;
   }
 
@@ -387,7 +392,9 @@ class Ads {
    */
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
-    const { krux, moatYi, nielsen } = window.Wikia.adServices;
+    const {
+      krux, moatYi, nielsen, taxonomyService,
+    } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
     krux.call().then(this.trackKruxSegments);
@@ -397,6 +404,7 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
+    taxonomyService.configureComicsTargeting();
   }
 
   /**

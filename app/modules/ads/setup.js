@@ -108,14 +108,14 @@ export const adsSetup = {
 
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
-      configureBillTheLizard(instantConfig.get('wgAdDriverBillTheLizardConfig', {}));
+      configureBillTheLizard(context.get('options.billTheLizard.config') || {});
 
       // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
       slotsLoader.configureSlotsLoader();
     });
   },
 
-  setupAdContext(instantConfig, adsContext, isOptedIn = false) {
+  setupAdContext(instantConfig, adsContext, isOptedIn = false, geoRequiresConsent = true) {
     const {
       context,
       utils,
@@ -150,6 +150,7 @@ export const adsSetup = {
     context.set('state.deviceType', utils.client.getDeviceType());
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
+    context.set('options.billTheLizard.config', instantConfig.get('wgAdDriverBillTheLizardConfig'));
     context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
@@ -169,6 +170,7 @@ export const adsSetup = {
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.trackingOptIn', isOptedIn);
+    context.set('options.geoRequiresConsent', geoRequiresConsent);
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
@@ -178,6 +180,12 @@ export const adsSetup = {
     context.set('services.krux.trackedSegments', instantConfig.get('icKruxSegmentsTracking'));
     context.set('services.moatYi.enabled', instantConfig.isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
     context.set('services.nielsen.enabled', instantConfig.isGeoEnabled('wgAdDriverNielsenCountries'));
+
+    if (instantConfig.get('icTaxonomyComicsTag')) {
+      context.set('services.taxonomy.comics.enabled', true);
+      context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
+      context.set('services.taxonomy.pageArticleId', adsContext.targeting.pageArticleId);
+    }
 
     const isMoatTrackingEnabledForVideo = instantConfig.isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
         && utils.sampler.sample('moat_video_tracking', instantConfig.get('wgAdDriverMoatTrackingForFeaturedVideoAdSampling'));

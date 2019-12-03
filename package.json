@@ -27,13 +27,13 @@
     "lint:js": "eslint ./*.js app mirage fastboot-server config lib tests *.js",
     "test": "ember test",
     "test:watch": "ember t -s",
-    "nuke": "npm cache clean --force && rm -rf node_modules/ && rm package-lock.json"
+    "nuke": "npm cache clean --force && rm -rf node_modules && rm package-lock.json"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": ">= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#98375bea8db2ca09859a792fa80bfdbf9d6d0c74",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v49.16.1",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#e39faa8af7e280ca2bcf099c2adbe92d08e96fbc",
     "@wikia/search-tracking": "github:Wikia/search-tracking#2.0.0",
     "@wikia/tracking-opt-in": "2.0.6",
@@ -130,7 +130,7 @@
     "mercury-shared": "github:wikia/mercury-shared#21de5d1d71c9b53c9f5a5a9ca9d5e22c0afbeec0",
     "proxying-agent": "2.4.0",
     "qunit-dom": "0.8.0",
-    "sass": "1.22.9",
+    "node-sass": "4.13.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "18.3.0",
     "tslint": "5.18.0",
