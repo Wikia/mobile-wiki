@@ -322,14 +322,7 @@
                 "oasis"
             ],
             "regions": [
-                "AU",
-                "CA",
-                "DE",
-                "GB",
-                "NZ",
-                "PL",
-                "UK",
-                "XX-EU"
+                "XX"
             ],
             "value": true
         }
@@ -449,7 +442,7 @@
             "regions": [
                 "XX"
             ],
-            "value": 105000
+            "value": 30000
         }
     ],
     "icBabDetection": [
