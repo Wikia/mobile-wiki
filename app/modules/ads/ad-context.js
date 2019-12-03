@@ -172,20 +172,6 @@ export const defaultAdContext = {
             ],
             networkId: '3306',
           },
-          featured: {
-            networkId: '3306',
-            zoneId: '1470492',
-            sizes: [
-              [3, 3],
-            ],
-          },
-          incontent_player: {
-            networkId: '3306',
-            zoneId: '1470491',
-            sizes: [
-              [3, 3],
-            ],
-          },
         },
       },
       gumgum: {
