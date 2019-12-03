@@ -243,16 +243,16 @@ export const defaultAdContext = {
           featured: {
             site: {
               id: 1192473,
-              page: 'https://www.amazonaws.com',
-              ref: 'https://www.amazonaws.com/10',
+              page: 'www.fandom.com',
+              ref: 'www.fandom.com',
             },
             pubId: 'HBExchange',
           },
           incontent_player: {
             site: {
               id: 1192473,
-              page: 'https://www.amazonaws.com',
-              ref: 'https://www.amazonaws.com/10',
+              page: 'www.fandom.com',
+              ref: 'www.fandom.com',
             },
             pubId: 'HBExchange',
           },
