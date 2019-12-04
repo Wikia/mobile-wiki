@@ -275,6 +275,25 @@ export const defaultAdContext = {
           },
         },
       },
+      oneVideo: {
+        enabled: false,
+        slots: {
+          featured: {
+            site: {
+              page: 'https://www.amazonaws.com',
+              ref: 'https://www.amazonaws.com/10',
+            },
+            pubId: 'HBExchange',
+          },
+          incontent_player: {
+            site: {
+              page: 'https://www.amazonaws.com',
+              ref: 'https://www.amazonaws.com/10',
+            },
+            pubId: 'HBExchange',
+          },
+        },
+      },
       openx: {
         enabled: false,
         delDomain: 'wikia-d.openx.net',
