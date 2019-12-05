@@ -155,7 +155,9 @@ export default Service.extend({
 
     // fandom_slot_id will be added later
     const questionMarkOrAmpersan = (unit.link.indexOf('?') > -1) ? '&' : '?';
-    unit.link = `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}&fandom_page_id=${pageId}&fandom_beacon_id=${beaconId}`;
+    const utmParams = `utm_medium=affiliate_link&utm_source=fandom&utm_campaign=${unit.category}&utm_term=${session}_${userId}`;
+    unit.link = `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}&fandom_page_id=${pageId}&fandom_beacon_id=${beaconId}&${utmParams}`;
+    unit.utmContent = `utm_content=${wikiId}_${pageId}_${userId}`;
     return unit;
   },
 
