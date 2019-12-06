@@ -32,7 +32,14 @@ export default Component.extend(
 
       if (this.unit.campaign === 'ddb') {
         const slotName = this.isInContent ? 'incontent_recommend' : 'search_recommend';
-        return `${this.unit.link}&fandom_slot_id=${slotName}`;
+
+        let utmContent = '';
+
+        if (this.unit.utmContent) {
+          utmContent = `${this.unit.utmContent}_${slotName}`;
+        }
+
+        return `${this.unit.link}&fandom_slot_id=${slotName}&${utmContent}`;
       }
 
       return this.unit.link;
