@@ -95,8 +95,7 @@ const sortPageLevelFirst = (a, b) => {
     return 0;
   }
 
-  // reverse alphabeitcal sort on community vs page
-  return b.recommendationLevel.localeCompare(a.recommendationLevel);
+  return a.recommendationLevel === 'page' ? -1 : 1;
 };
 
 /**
@@ -298,6 +297,7 @@ export default Service.extend({
       this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError, true)
         .then((response) => {
           const targeting = flattenKnowledgeGraphTargeting(response);
+          debugger
 
           // get the units that fulfill the campaign and category
           const availableSmallUnits = this._getUnitsWithTargeting(targeting)
