@@ -1,12 +1,10 @@
 FROM node:12.13.1-alpine as depsInstaller
 
-RUN apk add --no-cache --virtual .gyp python make g++ git
+RUN apk add --no-cache --virtual .gyp make g++ git
 
 WORKDIR /app
 
-ARG IMAGE_VERSION
 ARG GITHUB_TOKEN
-ENV IMAGE_VERSION ${IMAGE_VERSION}
 ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
 COPY package.json .
@@ -21,6 +19,9 @@ RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh:
 
     # cleanup
     npm cache clean --force
+
+ARG IMAGE_VERSION
+ENV IMAGE_VERSION ${IMAGE_VERSION}
 
 COPY . .
 RUN npm run build-prod && \
