@@ -31,6 +31,13 @@ RUN npm run build-prod && \
     rm -rf node_modules/broccoli* && \
     rm -rf node_modules/terser && \
     rm -rf node_modules/caniuse* && \
+    rm -rf node_modules/rollup* && \
+    rm -rf node_modules/stylelint* && \
+    rm -rf node_modules/eslint* && \
+    rm -rf node_modules/sinon && \
+    rm -rf node_modules/@sinonjs && \
+    rm -rf node_modules/ember-sinon && \
+    rm -rf node_modules/prettier && \
     rm -rf node_modules/ember-cli*
 
 
