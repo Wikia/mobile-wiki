@@ -63,6 +63,7 @@ export default class JWPlayer extends BasePlayer {
   initializePlayer(ads) {
     const containerId = this.params.containerId;
     const initialPath = window.location.pathname;
+    const videoDedicatedFor = this.params.isDedicatedForArticle ? 'article' : 'wiki';
 
     if (!document.getElementById(containerId)) {
       return;
@@ -77,7 +78,7 @@ export default class JWPlayer extends BasePlayer {
       });
     }
 
-    M.tracker.UniversalAnalytics.setDimension(30, this.params.isDedicatedForArticle ? 'article' : 'wiki');
+    M.tracker.UniversalAnalytics.setDimension(30, videoDedicatedFor);
 
     window.wikiaJWPlayer(
       containerId,
@@ -94,7 +95,7 @@ export default class JWPlayer extends BasePlayer {
              do not call tracking function in such case
             */
             if (document.getElementById(containerId) && path === initialPath) {
-              track(data);
+              track(Object.assign(data, { videoDedicatedFor }));
             }
           },
           setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
