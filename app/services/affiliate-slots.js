@@ -297,7 +297,6 @@ export default Service.extend({
       this.fetch.fetchAndParseResponse(url, {}, AffiliatesFetchError, true)
         .then((response) => {
           const targeting = flattenKnowledgeGraphTargeting(response);
-          debugger
 
           // get the units that fulfill the campaign and category
           const availableSmallUnits = this._getUnitsWithTargeting(targeting)
