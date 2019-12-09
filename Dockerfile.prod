@@ -11,12 +11,10 @@ COPY package.json .
 COPY package-lock.json .
 
 RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
-
     # install all dependencies
     npm set unsafe-perm=true && \
     npm set progress=false && \
     npm run setup && \
-
     # cleanup
     npm cache clean --force
 
@@ -32,7 +30,8 @@ RUN npm run build-prod && \
     rm -rf node_modules/@babel && \
     rm -rf node_modules/broccoli* && \
     rm -rf node_modules/terser && \
-    rm -rf node_modules/caniuse*
+    rm -rf node_modules/caniuse* && \
+    rm -rf node_modules/ember-cli*
 
 
 FROM node:12.13.1-alpine
