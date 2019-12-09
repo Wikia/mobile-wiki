@@ -90,6 +90,13 @@ const checkMobileSystem = (unit) => {
   return true;
 };
 
+const sortPageLevelFirst = (a, b) => {
+  if (!a.recommendationLevel || !b.recommendationLevel) {
+    return 0;
+  }
+
+  return a.recommendationLevel === 'page' ? -1 : 1;
+};
 
 /**
  * Convert service response to flat structure
@@ -109,6 +116,7 @@ const flattenKnowledgeGraphTargeting = (response) => {
         category: category.name,
         score: category.score,
         tracking: category.tracking,
+        recommendationLevel: category.recommendationLevel,
       });
     });
   });
@@ -183,6 +191,8 @@ export default Service.extend({
     const availableUnits = this._getAvailableUnits();
     const unitsWithTargeting = [];
 
+    const sortedTargeting = targeting.sort(sortPageLevelFirst);
+
     /**
      * At this point we should have a prioritized list of units and prioritized
      * list of targeting params; we're going to iterate for each targeting
@@ -191,7 +201,7 @@ export default Service.extend({
      * NOTE: here we have a nested loop - this is O(n^2), but since
      * both have small values we should be good
      */
-    targeting.forEach((target) => {
+    sortedTargeting.forEach((target) => {
       // we're checking all units
       availableUnits.forEach((unit) => {
         if (unit.campaign === target.campaign && unit.category === target.category) {
