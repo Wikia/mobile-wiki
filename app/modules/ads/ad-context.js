@@ -150,6 +150,30 @@ export const defaultAdContext = {
           },
         },
       },
+      criteo: {
+        enabled: false,
+        slots: {
+          mobile_top_leaderboard: {
+            sizes: [
+              [320, 50],
+            ],
+            networkId: '3306',
+          },
+          mobile_in_content: {
+            sizes: [
+              [300, 250],
+            ],
+            networkId: '3306',
+          },
+          bottom_leaderboard: {
+            sizes: [
+              [300, 250],
+              [320, 50],
+            ],
+            networkId: '3306',
+          },
+        },
+      },
       gumgum: {
         enabled: false,
         slots: {
