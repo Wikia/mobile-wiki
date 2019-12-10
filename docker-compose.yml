@@ -10,6 +10,6 @@ services:
       - WIKIA_DATACENTER=$WIKIA_DATACENTER
       - WIKIA_ENVIRONMENT=$WIKIA_ENVIRONMENT
       - WIKIA_DEV_DOMAIN=$WIKIA_DEV_DOMAIN
-      - INTERNAL_CACHE_HOST=dev.icache.service.$WIKIA_DATACENTER.consul
+      - INTERNAL_CACHE_HOST=border.service.$WIKIA_DATACENTER.consul
       - LOCAL_USER_ID=$LOCAL_USER_ID
     command: "npm run dev"

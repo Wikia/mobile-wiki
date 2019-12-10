@@ -219,9 +219,10 @@
                 "oasis"
             ],
             "regions": [
-                "PL"
+                "PL",
+                "US"
             ],
-            "value": true
+            "value": false
         }
     ],
     "icFloorAdhesionViewportsToStart": [
@@ -295,7 +296,9 @@
                 "mobile-wiki",
                 "oasis"
             ],
-            "sampling": 100.0,
+            "regions": [
+                "XX"
+            ],
             "value": false
         }
     ],
@@ -560,18 +563,6 @@
                 "XX"
             ],
             "value": 1000
-        }
-    ],
-    "icPrebidTeads": [
-        {
-            "apps": [
-                "mobile-wiki",
-                "oasis"
-            ],
-            "regions": [
-                "IN"
-            ],
-            "value": true
         }
     ],
     "icPrebidBeachfront": [
