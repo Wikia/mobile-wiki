@@ -11,6 +11,8 @@ export default class JWPlayer extends BasePlayer {
 
     super(provider, params);
     this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
+    this.videoDedicatedFor = params.isDedicatedForArticle ? 'article' : 'wiki';
+
     this.videoTags = params.videoTags || '';
     this.videoAds = null;
 
@@ -31,6 +33,7 @@ export default class JWPlayer extends BasePlayer {
     return {
       plist: this.recommendedVideoPlaylist,
       vtags: this.videoTags,
+      videoDedicatedFor: this.videoDedicatedFor
     };
   }
 
