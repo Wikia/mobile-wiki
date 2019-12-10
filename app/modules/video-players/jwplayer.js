@@ -11,7 +11,7 @@ export default class JWPlayer extends BasePlayer {
 
     super(provider, params);
     this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
-    this.videoDedicatedFor = params.isDedicatedForArticle ? 'article' : 'wiki';
+    this.videoScope = params.isDedicatedForArticle ? 'article' : 'wiki';
 
     this.videoTags = params.videoTags || '';
     this.videoAds = null;
@@ -33,7 +33,7 @@ export default class JWPlayer extends BasePlayer {
     return {
       plist: this.recommendedVideoPlaylist,
       vtags: this.videoTags,
-      videoDedicatedFor: this.videoDedicatedFor
+      videoScope: this.videoScope
     };
   }
 
@@ -66,7 +66,6 @@ export default class JWPlayer extends BasePlayer {
   initializePlayer(ads) {
     const containerId = this.params.containerId;
     const initialPath = window.location.pathname;
-    const videoDedicatedFor = this.params.isDedicatedForArticle ? 'article' : 'wiki';
 
     if (!document.getElementById(containerId)) {
       return;
@@ -81,7 +80,7 @@ export default class JWPlayer extends BasePlayer {
       });
     }
 
-    M.tracker.UniversalAnalytics.setDimension(30, videoDedicatedFor);
+    M.tracker.UniversalAnalytics.setDimension(30, this.videoScope);
 
     window.wikiaJWPlayer(
       containerId,
@@ -98,7 +97,7 @@ export default class JWPlayer extends BasePlayer {
              do not call tracking function in such case
             */
             if (document.getElementById(containerId) && path === initialPath) {
-              track(Object.assign(data, { videoDedicatedFor }));
+              track(Object.assign(data, { videoScope: this.videoScope }));
             }
           },
           setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
