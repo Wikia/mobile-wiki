@@ -33,7 +33,7 @@ export default class JWPlayer extends BasePlayer {
     return {
       plist: this.recommendedVideoPlaylist,
       vtags: this.videoTags,
-      videoScope: this.videoScope
+      videoScope: this.videoScope,
     };
   }
 
@@ -66,6 +66,7 @@ export default class JWPlayer extends BasePlayer {
   initializePlayer(ads) {
     const containerId = this.params.containerId;
     const initialPath = window.location.pathname;
+    const videoScope = this.params.isDedicatedForArticle ? 'article' : 'wiki';
 
     if (!document.getElementById(containerId)) {
       return;
@@ -80,7 +81,7 @@ export default class JWPlayer extends BasePlayer {
       });
     }
 
-    M.tracker.UniversalAnalytics.setDimension(30, this.videoScope);
+    M.tracker.UniversalAnalytics.setDimension(30, videoScope);
 
     window.wikiaJWPlayer(
       containerId,
@@ -97,7 +98,7 @@ export default class JWPlayer extends BasePlayer {
              do not call tracking function in such case
             */
             if (document.getElementById(containerId) && path === initialPath) {
-              track(Object.assign(data, { videoScope: this.videoScope }));
+              track(Object.assign(data, { videoScope }));
             }
           },
           setCustomDimension: M.tracker.UniversalAnalytics.setDimension,
