@@ -132,9 +132,7 @@
     "qunit-dom": "0.8.0",
     "node-sass": "4.13.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
-    "stylelint-config-standard": "18.3.0",
-    "tslint": "5.18.0",
-    "typescript": "3.5.3"
+    "stylelint-config-standard": "18.3.0"
   },
   "ember-addon": {
     "paths": [

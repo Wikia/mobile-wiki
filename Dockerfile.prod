@@ -1,46 +1,57 @@
-FROM node:12.13.1-alpine
+FROM node:12.13.1-alpine as depsInstaller
+
+RUN apk add --no-cache --virtual .gyp make g++ git
 
 WORKDIR /app
 
-# passes IMAGE_VERSION build-arg to environment variable to use it in application
-ARG IMAGE_VERSION
 ARG GITHUB_TOKEN
-ENV IMAGE_VERSION ${IMAGE_VERSION}
 ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
-# copy app
-# Note:
-# - first argument is the path inside the context of build (folder where Dockerfile is placed)
-# - second argument is the docker daemon (newly created container)
-# - "." means "current working directory", and since we're not selecting any specific files
-# it's basically "copy everything from mobile-wiki project to WORKDIR in docker"
-COPY . .
+COPY package.json .
+COPY package-lock.json .
 
-# install missing stuff
-RUN apk add --no-cache --virtual .gyp python make g++ git && \
-
-    # override github's auth type
-    git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
-
+RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
     # install all dependencies
     npm set unsafe-perm=true && \
     npm set progress=false && \
     npm run setup && \
-
     # cleanup
-    apk del .gyp python make g++ git && \
-    npm cache clean --force && \
+    npm cache clean --force
 
-    # build app
-    npm run build-prod && \
+ARG IMAGE_VERSION
+ENV IMAGE_VERSION ${IMAGE_VERSION}
 
-    # change permissions to necessary files
-    chown -R 65534:65534 /app
+COPY . .
+RUN npm run build-prod && \
+    rm -rf node_modules/.cache && \
+    rm -rf node_modules/webpack* && \
+    rm -rf node_modules/*webpack* && \
+    rm -rf node_modules/babel* && \
+    rm -rf node_modules/@babel && \
+    rm -rf node_modules/broccoli* && \
+    rm -rf node_modules/terser && \
+    rm -rf node_modules/caniuse* && \
+    rm -rf node_modules/rollup* && \
+    rm -rf node_modules/stylelint* && \
+    rm -rf node_modules/eslint* && \
+    rm -rf node_modules/sinon && \
+    rm -rf node_modules/@sinonjs && \
+    rm -rf node_modules/ember-sinon && \
+    rm -rf node_modules/prettier && \
+    rm -rf node_modules/ember-cli*
+
+
+FROM node:12.13.1-alpine
+
+ARG IMAGE_VERSION
+ENV IMAGE_VERSION ${IMAGE_VERSION}
 
 USER 65534
+
+COPY --from=depsInstaller /app /app
+WORKDIR /app
 
 # 8001 is for prod, 8007 is for metrics
 EXPOSE 8001 8007
 
-# run fastboot-server when 'docker run' will be called
-ENTRYPOINT ["npm", "run", "fastboot-server"]
+CMD ["npm", "run", "fastboot-server"]
