@@ -55,7 +55,7 @@
     "hammerjs": "2.0.8",
     "js-cookie": "2.2.1",
     "jwplayer-fandom": "github:wikia/jwplayer-fandom#1.7.0",
-    "lazysizes": "5.1.1",
+    "lazysizes": "5.1.2",
     "method-override": "3.0.0",
     "on-headers": "1.0.2",
     "prom-client": "11.5.3",
