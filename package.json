@@ -117,7 +117,7 @@
     "ember-router-scroll": "1.1.0",
     "ember-sinon": "4.1.1",
     "ember-source": "3.4.1",
-    "ember-test-selectors": "2.1.0",
+    "ember-test-selectors": "3.0.0",
     "ember-window-mock": "0.5.4",
     "eslint": "6.7.2",
     "eslint-config-airbnb-base": "13.2.0",
