@@ -47,6 +47,7 @@ export const adsSetup = {
     } = window.Wikia.adEngine;
     const {
       setupNpaContext,
+      setupRdpContext,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -69,6 +70,7 @@ export const adsSetup = {
     return InstantConfigService.init(instantGlobals).then((instantConfig) => {
       this.setupAdContext(instantConfig, adsContext, isOptedIn);
       setupNpaContext();
+      setupRdpContext();
 
       const { fillerService, PorvataFiller } = window.Wikia.adEngine;
 
