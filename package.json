@@ -75,7 +75,7 @@
     "babel-loader": "8.0.6",
     "babel-plugin-lodash": "3.3.4",
     "broccoli-asset-rev": "3.0.0",
-    "broccoli-funnel": "2.0.2",
+    "broccoli-funnel": "3.0.1",
     "broccoli-stew": "3.0.0",
     "ember-auto-import": "1.4.1",
     "ember-cli": "3.4.3",
