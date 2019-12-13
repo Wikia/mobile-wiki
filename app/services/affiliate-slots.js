@@ -139,6 +139,17 @@ const getUserIdValue = (possibleUserId) => {
   return possibleUserId;
 };
 
+const HULU_COMMUNITIES = [
+  321995, // american horror story
+  1644254, // brokyln 99
+  881799, // rick and morty
+  200383, // bobs burgers
+  951918, // the handmaids tale
+  8395, // runaways
+  1637241, // futureman
+  147, // TODO REMOVE ONLY FOR TESTING
+];
+
 export default Service.extend({
   fetch: service(),
   logger: service(),
@@ -150,6 +161,14 @@ export default Service.extend({
   currentVertical: readOnly('wikiVariables.vertical'),
   currentCountry: readOnly('geo.country'),
   currentUserId: readOnly('currentUser.userId'),
+
+  _getHuluUnit() {
+    return this._getAvailableUnits().find(u => u.category === 'hulu');
+  },
+
+  _isHuluOverrideCommunity() {
+    return HULU_COMMUNITIES.indexOf(this.currentWikiId) !== -1;
+  },
 
   _updateUnitLink(unit, pageId = 'search') {
     if (!unit || unit.campaign !== 'ddb') {
@@ -269,6 +288,10 @@ export default Service.extend({
       // filter units disabled on search page
       .filter(u => !u.disableOnSearch);
 
+    if (this._isHuluOverrideCommunity()) {
+      return [this._getHuluUnit()]
+    }
+
     return availableUnits;
   },
 
@@ -349,10 +372,18 @@ export default Service.extend({
             // filter units disabled on article page
             .filter(u => !u.disableOnPage);
 
+          let selectedBigUnit = availableUnits.filter(u => !!u.isBig === true)[0];
+          let selectedSmallUnit = availableUnits.filter(u => !!u.isBig === false)[0];
+
+          if (this._isHuluOverrideCommunity()) {
+            selectedBigUnit = this._getHuluUnit();
+            selectedSmallUnit = this._getHuluUnit();
+          }
+
           // fetch only the first unit if available
           return resolve({
-            big: availableUnits.filter(u => !!u.isBig === true)[0],
-            small: availableUnits.filter(u => !!u.isBig === false)[0],
+            big: selectedBigUnit,
+            small: selectedSmallUnit,
           });
         })
         // not raise anything
