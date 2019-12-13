@@ -34,7 +34,7 @@ export const adsSetup = {
   /**
    * Configures all ads services
    */
-  configure(adsContext, instantGlobals, isOptedIn) {
+  configure(adsContext, instantGlobals, isOptedIn, isSaleOptOut) {
     const { bidders } = window.Wikia.adBidders;
     const {
       AdSlot,
@@ -68,7 +68,7 @@ export const adsSetup = {
     }
 
     return InstantConfigService.init(instantGlobals).then((instantConfig) => {
-      this.setupAdContext(instantConfig, adsContext, isOptedIn);
+      this.setupAdContext(instantConfig, adsContext, isOptedIn, isSaleOptOut);
       setupNpaContext();
       setupRdpContext();
 
@@ -90,7 +90,7 @@ export const adsSetup = {
       });
 
       eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
-        this.setupAdContext(instantConfig, adContext, isOptedIn);
+        this.setupAdContext(instantConfig, adContext, isOptedIn, isSaleOptOut);
       });
       eventService.on(events.AD_SLOT_CREATED, (slot) => {
         console.info(`Created ad slot ${slot.getSlotName()}`);
@@ -110,7 +110,7 @@ export const adsSetup = {
     });
   },
 
-  setupAdContext(instantConfig, adsContext, isOptedIn = false, geoRequiresConsent = true) {
+  setupAdContext(instantConfig, adsContext, isOptedIn = false, isSaleOptOut = false) {
     const {
       context,
       fillerService,
@@ -166,9 +166,12 @@ export const adsSetup = {
     context.set('options.tracking.postmessage', true);
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
-    context.set('options.trackingOptIn', isOptedIn);
-    context.set('options.geoRequiresConsent', geoRequiresConsent);
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
+
+    context.set('options.trackingOptIn', isOptedIn);
+    context.set('options.geoRequiresConsent', !!M.geoRequiresConsent);
+    context.set('options.optOutSale', isSaleOptOut);
+    context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
     if (instantConfig.get('icPorvataDirect')) {
       context.set('slots.incontent_player.customFiller', 'porvata');
