@@ -98,8 +98,12 @@ class Ads {
 
         this.loadAdEngine().then(() => {
           M.trackingQueue.push(
-            (isOptedIn, isSaleOptOut) =>
-              this.setupAdEngine(adsContext, instantGlobals, isOptedIn, isSaleOptOut),
+            (isOptedIn, isSaleOptOut) => this.setupAdEngine(
+              adsContext,
+              instantGlobals,
+              isOptedIn,
+              isSaleOptOut,
+            ),
           );
         });
       }
