@@ -44,7 +44,6 @@ export const defaultAdContext = {
     },
     prebid: {
       enabled: false,
-      libraryUrl: '/mobile-wiki/assets/wikia-ae3/prebid.min.js',
       lazyLoadingEnabled: false,
       bidsRefreshing: {
         enabled: false,

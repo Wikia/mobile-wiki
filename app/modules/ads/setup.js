@@ -265,7 +265,6 @@ export const adsSetup = {
         s2: [context.get('targeting.s2') || ''],
         lang: [context.get('targeting.wikiLanguage') || 'en'],
       });
-      context.set('custom.isCMPEnabled', true);
 
       if (!instantConfig.get('icPrebidLkqdOutstream')) {
         context.remove('bidders.prebid.lkqd.slots.incontent_player');
