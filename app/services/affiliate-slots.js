@@ -289,7 +289,7 @@ export default Service.extend({
       .filter(u => !u.disableOnSearch);
 
     if (this._isHuluOverrideCommunity()) {
-      return [this._getHuluUnit()]
+      return [this._getHuluUnit()];
     }
 
     return availableUnits;

@@ -114,7 +114,7 @@
     "campaign": "disneyplus",
     "category": "marvel",
     "tagline": "Suggested For You",
-    "image": "https://static.wikia.nocookie.net/615f43b2-b141-4cbd-91c3-23bd4d31a3f6",
+    "image": "https://static.wikia.nocookie.net/e9744d88-2e2d-4581-a1cd-c80bfbfb0e50",
     "heading": "How to stream your favorites and more on Disney+",
     "subheading": "Get Started",
     "link": "https://www.fandom.com/articles/how-to-sign-up-disney-plus",
@@ -139,7 +139,7 @@
     "campaign": "disneyplus",
     "category": "pixar",
     "tagline": "Suggested For You",
-    "image": "https://static.wikia.nocookie.net/615f43b2-b141-4cbd-91c3-23bd4d31a3f6",
+    "image": "https://static.wikia.nocookie.net/e9744d88-2e2d-4581-a1cd-c80bfbfb0e50",
     "heading": "How to stream your favorites and more on Disney+",
     "subheading": "Get Started",
     "link": "https://www.fandom.com/articles/how-to-sign-up-disney-plus",
@@ -229,11 +229,23 @@
     "campaign": "disneyplus",
     "category": "hulu",
     "tagline": "Recommended for You",
-    "image": "https://static.wikia.nocookie.net/0cebb500-f8c3-4f44-b4aa-f44e33fc2319",
+    "image": "https://static.wikia.nocookie.net/e9744d88-2e2d-4581-a1cd-c80bfbfb0e50",
     "heading": "Upgrade Your Hulu Bundle with Disney+",
     "subheading": "Upgrade Now",
     "link": "https://fandom.com/articles/disney-plus-bundle-how-to",
     "isBig": true,
+    "isHulu": true,
+    "country": ["US", "CA", "NL", "AU", "NZ"]
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "hulu",
+    "tagline": "Recommended for You",
+    "image": "https://static.wikia.nocookie.net/e9744d88-2e2d-4581-a1cd-c80bfbfb0e50",
+    "heading": "Upgrade Your Hulu Bundle with Disney+",
+    "subheading": "Upgrade Now",
+    "isHulu": true,
+    "link": "https://fandom.com/articles/disney-plus-bundle-how-to",
     "country": ["US", "CA", "NL", "AU", "NZ"]
   }
 ]
