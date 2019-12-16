@@ -288,6 +288,7 @@ export default Service.extend({
       // filter units disabled on search page
       .filter(u => !u.disableOnSearch);
 
+    console.log('isHulu::', this._isHuluOverrideCommunity());
     if (this._isHuluOverrideCommunity()) {
       return [this._getHuluUnit()];
     }

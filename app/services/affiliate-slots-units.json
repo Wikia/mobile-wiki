@@ -244,6 +244,7 @@
     "image": "https://static.wikia.nocookie.net/615f43b2-b141-4cbd-91c3-23bd4d31a3f6",
     "heading": "Upgrade Your Hulu Bundle with Disney+",
     "subheading": "Upgrade Now",
+    "isHulu": true,
     "link": "https://fandom.com/articles/disney-plus-bundle-how-to",
     "country": ["US", "CA", "NL", "AU", "NZ"]
   }
