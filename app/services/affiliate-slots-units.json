@@ -234,6 +234,7 @@
     "subheading": "Upgrade Now",
     "link": "https://fandom.com/articles/disney-plus-bundle-how-to",
     "isBig": true,
+    "isHulu": true,
     "country": ["US", "CA", "NL", "AU", "NZ"]
   },
   {
