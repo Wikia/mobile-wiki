@@ -152,8 +152,9 @@ class Ads {
    * @param mediaWikiAdsContext
    * @param instantGlobals
    * @param isOptedIn
+   * @param isSaleOptOut
    */
-  setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn, isSaleOptOut) {
+  setupAdEngine(mediaWikiAdsContext, instantGlobals, isOptedIn = false, isSaleOptOut = false) {
     if (this.initialization.isLoaded) {
       return;
     }
@@ -162,7 +163,7 @@ class Ads {
 
     this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
-    this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn, isSaleOptOut)
+    this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, { isOptedIn, isSaleOptOut })
       .then(() => {
         this.triggerAfterPageRenderServices();
 
@@ -307,11 +308,11 @@ class Ads {
    * @private
    * This trigger is executed once, at the very beginning
    */
-  triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, isOptedIn, isSaleOptOut) {
+  triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, consents) {
     const { eventService } = window.Wikia.adEngine;
     const { confiant, durationMedia, moatYiEvents } = window.Wikia.adServices;
 
-    return adsSetup.configure(mediaWikiAdsContext, instantGlobals, isOptedIn, isSaleOptOut)
+    return adsSetup.configure(mediaWikiAdsContext, instantGlobals, consents)
       .then(() => {
         confiant.call();
         durationMedia.call();

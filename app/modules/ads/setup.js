@@ -34,7 +34,7 @@ export const adsSetup = {
   /**
    * Configures all ads services
    */
-  configure(adsContext, instantGlobals, isOptedIn, isSaleOptOut) {
+  configure(adsContext, instantGlobals, consents) {
     const { bidders } = window.Wikia.adBidders;
     const {
       AdSlot,
@@ -68,7 +68,7 @@ export const adsSetup = {
     }
 
     return InstantConfigService.init(instantGlobals).then((instantConfig) => {
-      this.setupAdContext(instantConfig, adsContext, isOptedIn, isSaleOptOut);
+      this.setupAdContext(instantConfig, adsContext, consents);
       setupNpaContext();
       setupRdpContext();
 
@@ -90,7 +90,7 @@ export const adsSetup = {
       });
 
       eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
-        this.setupAdContext(instantConfig, adContext, isOptedIn, isSaleOptOut);
+        this.setupAdContext(instantConfig, adContext, consents);
       });
       eventService.on(events.AD_SLOT_CREATED, (slot) => {
         console.info(`Created ad slot ${slot.getSlotName()}`);
@@ -110,7 +110,7 @@ export const adsSetup = {
     });
   },
 
-  setupAdContext(instantConfig, adsContext, isOptedIn = false, isSaleOptOut = false) {
+  setupAdContext(instantConfig, adsContext, consents) {
     const {
       context,
       fillerService,
@@ -168,9 +168,10 @@ export const adsSetup = {
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
-    context.set('options.trackingOptIn', isOptedIn);
+    context.set('bidders.prebid.libraryUrl', instantConfig.get('icPrebidVersion'));
+    context.set('options.trackingOptIn', consents.isOptedIn);
     context.set('options.geoRequiresConsent', !!M.geoRequiresConsent);
-    context.set('options.optOutSale', isSaleOptOut);
+    context.set('options.optOutSale', consents.isSaleOptOut);
     context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
     if (instantConfig.get('icPorvataDirect')) {
