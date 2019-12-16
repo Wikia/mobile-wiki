@@ -163,12 +163,15 @@ class Ads {
 
     this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
-    this.triggerInitialLoadServices(mediaWikiAdsContext, instantGlobals, { isOptedIn, isSaleOptOut })
-      .then(() => {
-        this.triggerAfterPageRenderServices();
+    this.triggerInitialLoadServices(
+      mediaWikiAdsContext,
+      instantGlobals,
+      { isOptedIn, isSaleOptOut },
+    ).then(() => {
+      this.triggerAfterPageRenderServices();
 
-        this.initialization.resolve(this);
-      });
+      this.initialization.resolve(this);
+    });
   }
 
   /**
