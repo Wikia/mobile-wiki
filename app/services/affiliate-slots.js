@@ -161,8 +161,12 @@ export default Service.extend({
   currentCountry: readOnly('geo.country'),
   currentUserId: readOnly('currentUser.userId'),
 
-  _getHuluUnit() {
-    return this._getAvailableUnits().find(u => u.category === 'hulu');
+  _getBigHuluUnit() {
+    return this._getAvailableUnits().filter(u => u.isBig && u.category === 'hulu');
+  },
+
+  _getPostSearchHuluUnit() {
+    return this._getAvailableUnits().filter(u => !u.isBig && u.category === 'hulu');
   },
 
   _isHuluOverrideCommunity() {
@@ -288,7 +292,7 @@ export default Service.extend({
       .filter(u => !u.disableOnSearch);
 
     if (this._isHuluOverrideCommunity()) {
-      return [this._getHuluUnit()];
+      return [this._getBigHuluUnit()];
     }
 
     return availableUnits;
@@ -375,8 +379,8 @@ export default Service.extend({
           let selectedSmallUnit = availableUnits.filter(u => !!u.isBig === false)[0];
 
           if (this._isHuluOverrideCommunity()) {
-            selectedBigUnit = this._getHuluUnit();
-            selectedSmallUnit = this._getHuluUnit();
+            selectedBigUnit = this._getBigHuluUnit();
+            selectedSmallUnit = this._getPostSearchHuluUnit();
           }
 
           // fetch only the first unit if available
