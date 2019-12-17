@@ -90,14 +90,6 @@ const checkMobileSystem = (unit) => {
   return true;
 };
 
-const sortPageLevelFirst = (a, b) => {
-  if (!a.recommendationLevel || !b.recommendationLevel) {
-    return 0;
-  }
-
-  return a.recommendationLevel === 'page' ? -1 : 1;
-};
-
 /**
  * Convert service response to flat structure
  *
@@ -194,7 +186,12 @@ export default Service.extend({
     const availableUnits = this._getAvailableUnits();
     const unitsWithTargeting = [];
 
-    const sortedTargeting = targeting.sort(sortPageLevelFirst);
+    // create page level and community level recommendations
+    // NOTE items without `recommendationLevel` belong to both arrays
+    const communityTargeting = targeting.filter(t => !t.recommendationLevel || t.recommendationLevel === 'community');
+    const pageTargeting = targeting.filter(t => !t.recommendationLevel || t.recommendationLevel === 'page');
+
+    const currentTargeting = pageTargeting.length > 0 ? pageTargeting : communityTargeting;
 
     /**
      * At this point we should have a prioritized list of units and prioritized
@@ -204,7 +201,7 @@ export default Service.extend({
      * NOTE: here we have a nested loop - this is O(n^2), but since
      * both have small values we should be good
      */
-    sortedTargeting.forEach((target) => {
+    currentTargeting.forEach((target) => {
       // we're checking all units
       availableUnits.forEach((unit) => {
         if (unit.campaign === target.campaign && unit.category === target.category) {

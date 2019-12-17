@@ -34,7 +34,7 @@ export const adsSetup = {
   /**
    * Configures all ads services
    */
-  configure(adsContext, instantGlobals, isOptedIn) {
+  configure(adsContext, instantGlobals, consents) {
     const { bidders } = window.Wikia.adBidders;
     const {
       AdSlot,
@@ -47,6 +47,7 @@ export const adsSetup = {
     } = window.Wikia.adEngine;
     const {
       setupNpaContext,
+      setupRdpContext,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -67,8 +68,9 @@ export const adsSetup = {
     }
 
     return InstantConfigService.init(instantGlobals).then((instantConfig) => {
-      this.setupAdContext(instantConfig, adsContext, isOptedIn);
+      this.setupAdContext(instantConfig, adsContext, consents);
       setupNpaContext();
+      setupRdpContext();
 
       templateService.register(BigFancyAdAbove, getBfaaConfig());
       templateService.register(BigFancyAdBelow, getBfabConfig());
@@ -88,7 +90,7 @@ export const adsSetup = {
       });
 
       eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
-        this.setupAdContext(instantConfig, adContext, isOptedIn);
+        this.setupAdContext(instantConfig, adContext, consents);
       });
       eventService.on(events.AD_SLOT_CREATED, (slot) => {
         console.info(`Created ad slot ${slot.getSlotName()}`);
@@ -108,7 +110,7 @@ export const adsSetup = {
     });
   },
 
-  setupAdContext(instantConfig, adsContext, isOptedIn = false, geoRequiresConsent = true) {
+  setupAdContext(instantConfig, adsContext, consents) {
     const {
       context,
       fillerService,
@@ -164,9 +166,13 @@ export const adsSetup = {
     context.set('options.tracking.postmessage', true);
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
-    context.set('options.trackingOptIn', isOptedIn);
-    context.set('options.geoRequiresConsent', geoRequiresConsent);
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
+
+    context.set('bidders.prebid.libraryUrl', instantConfig.get('icPrebidVersion'));
+    context.set('options.trackingOptIn', consents.isOptedIn);
+    context.set('options.geoRequiresConsent', !!M.geoRequiresConsent);
+    context.set('options.optOutSale', consents.isSaleOptOut);
+    context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
     if (instantConfig.get('icPorvataDirect')) {
       context.set('slots.incontent_player.customFiller', 'porvata');
@@ -263,7 +269,6 @@ export const adsSetup = {
         s2: [context.get('targeting.s2') || ''],
         lang: [context.get('targeting.wikiLanguage') || 'en'],
       });
-      context.set('custom.isCMPEnabled', true);
 
       if (!instantConfig.get('icPrebidLkqdOutstream')) {
         context.remove('bidders.prebid.lkqd.slots.incontent_player');
