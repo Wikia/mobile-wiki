@@ -154,11 +154,11 @@ export default Service.extend({
   currentUserId: readOnly('currentUser.userId'),
 
   _getBigHuluUnit() {
-    return this._getAvailableUnits().filter(u => u.isBig && u.category === 'hulu');
+    return this._getAvailableUnits().find(u => u.isBig && u.category === 'hulu');
   },
 
   _getPostSearchHuluUnit() {
-    return this._getAvailableUnits().filter(u => !u.isBig && u.category === 'hulu');
+    return this._getAvailableUnits().find(u => !u.isBig && u.category === 'hulu');
   },
 
   _isHuluOverrideCommunity() {
