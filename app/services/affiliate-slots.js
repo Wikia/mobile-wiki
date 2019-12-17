@@ -166,7 +166,7 @@ export default Service.extend({
   },
 
   _getPostSearchHuluUnit() {
-    return this._getAvailableUnits().find(u => u.category === 'hulu');
+    return this._getAvailableUnits().filter(u => !u.isBig && u.category === 'hulu');
   },
 
   _isHuluOverrideCommunity() {
