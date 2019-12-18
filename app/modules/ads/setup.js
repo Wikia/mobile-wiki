@@ -70,8 +70,6 @@ export const adsSetup = {
       this.setupAdContext(instantConfig, adsContext, isOptedIn);
       setupNpaContext();
 
-      const { fillerService, PorvataFiller } = window.Wikia.adEngine;
-
       templateService.register(BigFancyAdAbove, getBfaaConfig());
       templateService.register(BigFancyAdBelow, getBfabConfig());
       templateService.register(FloorAdhesion);
@@ -88,11 +86,6 @@ export const adsSetup = {
       eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
         fanTakeoverResolver.resolve();
       });
-
-      if (instantConfig.get('icPorvataDirect')) {
-        context.set('slots.incontent_player.customFiller', 'porvata');
-        fillerService.register(new PorvataFiller());
-      }
 
       eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
         this.setupAdContext(instantConfig, adContext, isOptedIn);
@@ -118,9 +111,11 @@ export const adsSetup = {
   setupAdContext(instantConfig, adsContext, isOptedIn = false, geoRequiresConsent = true) {
     const {
       context,
-      utils,
+      fillerService,
       InstantConfigCacheStorage,
+      PorvataFiller,
       setupBidders,
+      utils,
     } = window.Wikia.adEngine;
     const cacheStorage = InstantConfigCacheStorage.make();
 
@@ -172,6 +167,11 @@ export const adsSetup = {
     context.set('options.trackingOptIn', isOptedIn);
     context.set('options.geoRequiresConsent', geoRequiresConsent);
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
+
+    if (instantConfig.get('icPorvataDirect')) {
+      context.set('slots.incontent_player.customFiller', 'porvata');
+      fillerService.register(new PorvataFiller());
+    }
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
