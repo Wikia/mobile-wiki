@@ -26,7 +26,8 @@ function getAdLayout(adsContext) {
     // Comparing with false in order to make sure that API already responds
     // with "isDedicatedForArticle" flag
     if (
-      adsContext.targeting.featuredVideo
+      adsContext.targeting.hasFeaturedVideo
+      && adsContext.targeting.featuredVideo
       && adsContext.targeting.featuredVideo.isDedicatedForArticle === false
     ) {
       layout = `wv-${layout}`;
