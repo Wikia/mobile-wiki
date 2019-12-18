@@ -18,6 +18,7 @@
   &__link {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
   }
 
   &__image {
@@ -45,6 +46,26 @@
     color: $wds-fandom-color-dark-gray;
     font-weight: $wds-fandom-font-weight-regular;
     line-height: normal;
+  }
+
+  &__svg-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+    width: 100%;
+  }
+
+  &__hr {
+    border: solid 1px $wds-fandom-color-mid-light-gray;
+    flex: 1;
+    position: relative;
+    top: 10px;
+    width: 100%;
+  }
+
+  &__svg {
+    margin: 0 10px;
   }
 
   &__disclaimer {

@@ -166,7 +166,8 @@
                 {
                     "name": "tb_viewability",
                     "countries": [
-                        "CZ/100"
+                        "CZ/100",
+                        "DK/100"
                     ],
                     "dfp_targeting": true
                 }
@@ -273,9 +274,27 @@
                 "oasis"
             ],
             "regions": [
-                "PL"
+                "XX-AS",
+                "XX-EU",
+                "XX-SA"
             ],
             "value": true
+        }
+    ],
+    "icPrebidVersion": [
+        {
+            "apps": [
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "regions": [
+                "XX",
+                "non-PL"
+            ],
+            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v2.4.0/20191216.min.js"
         }
     ],
     "icA9Bidder": [
