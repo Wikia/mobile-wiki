@@ -90,7 +90,6 @@ const checkMobileSystem = (unit) => {
   return true;
 };
 
-
 /**
  * Convert service response to flat structure
  *
@@ -109,6 +108,7 @@ const flattenKnowledgeGraphTargeting = (response) => {
         category: category.name,
         score: category.score,
         tracking: category.tracking,
+        recommendationLevel: category.recommendationLevel,
       });
     });
   });
@@ -155,7 +155,10 @@ export default Service.extend({
 
     // fandom_slot_id will be added later
     const questionMarkOrAmpersan = (unit.link.indexOf('?') > -1) ? '&' : '?';
-    unit.link = `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}&fandom_page_id=${pageId}&fandom_beacon_id=${beaconId}`;
+    const utmTerm = userId ? `${session}_${userId}` : `${session}`;
+    const utmParams = `utm_medium=affiliate_link&utm_source=fandom&utm_campaign=${unit.category}&utm_term=${utmTerm}`;
+    unit.link = `${unit.link}${questionMarkOrAmpersan}fandom_session_id=${session}&fandom_user_id=${userId}&fandom_campaign_id=${unit.category}&fandom_community_id=${wikiId}&fandom_page_id=${pageId}&fandom_beacon_id=${beaconId}&${utmParams}`;
+    unit.utmContent = `utm_content=${wikiId}_${pageId}_${userId}`;
     return unit;
   },
 
@@ -183,6 +186,13 @@ export default Service.extend({
     const availableUnits = this._getAvailableUnits();
     const unitsWithTargeting = [];
 
+    // create page level and community level recommendations
+    // NOTE items without `recommendationLevel` belong to both arrays
+    const communityTargeting = targeting.filter(t => !t.recommendationLevel || t.recommendationLevel === 'community');
+    const pageTargeting = targeting.filter(t => !t.recommendationLevel || t.recommendationLevel === 'page');
+
+    const currentTargeting = pageTargeting.length > 0 ? pageTargeting : communityTargeting;
+
     /**
      * At this point we should have a prioritized list of units and prioritized
      * list of targeting params; we're going to iterate for each targeting
@@ -191,7 +201,7 @@ export default Service.extend({
      * NOTE: here we have a nested loop - this is O(n^2), but since
      * both have small values we should be good
      */
-    targeting.forEach((target) => {
+    currentTargeting.forEach((target) => {
       // we're checking all units
       availableUnits.forEach((unit) => {
         if (unit.campaign === target.campaign && unit.category === target.category) {
