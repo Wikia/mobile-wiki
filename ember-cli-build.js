@@ -136,11 +136,6 @@ module.exports = function (defaults) {
     destDir: 'assets/jwplayer',
   });
 
-  const prebidAssets = new Funnel('node_modules/@wikia/ad-engine/lib', {
-    include: ['prebid.min.js'],
-    destDir: 'assets/wikia-ae3',
-  });
-
   const trackingOptIn = new Funnel('node_modules/@wikia/tracking-opt-in/dist/tracking-opt-in.min.js', {
     // String `/assets/tracking-` is blocked by EasyPrivacy list
     destDir: 'assets/wikia-opt-in.min.js',
@@ -177,7 +172,6 @@ module.exports = function (defaults) {
     designSystemI18n,
     svgStore,
     jwPlayerAssets,
-    prebidAssets,
     trackingOptIn,
   ]);
 };
