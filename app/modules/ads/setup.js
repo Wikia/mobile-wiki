@@ -19,7 +19,6 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
-import { slotsLoader } from './slots-loader';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -104,9 +103,6 @@ export const adsSetup = {
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
       configureBillTheLizard(context.get('options.billTheLizard.config') || {});
-
-      // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
-      slotsLoader.configureSlotsLoader();
     });
   },
 
@@ -148,7 +144,6 @@ export const adsSetup = {
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
     context.set('options.billTheLizard.config', instantConfig.get('wgAdDriverBillTheLizardConfig'));
-    context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
@@ -298,13 +293,6 @@ export const adsSetup = {
           ].join(','),
         );
       });
-    }
-
-    if (context.get('options.nonLazyLoading.enabled')) {
-      context.set('events.pushAfterCreated.top_boxad', []);
-      context.set('events.pushAfterRendered.top_boxad', []);
-      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
-      context.set('slots.incontent_player.disablePushOnScroll', true);
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {
