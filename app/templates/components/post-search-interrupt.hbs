@@ -1,14 +1,7 @@
 {{#if isEnabled}}
   {{#if bigUnit}}
-    {{affiliate-unit
-      unit=bigUnit
-    }}
+    <AffiliateUnit @unit={{bigUnit}} />
   {{else}}
-    {{post-search-results
-      query=query
-      unit=smallUnit
-      isCrossWiki=isCrossWiki
-      debugAffiliateUnits=debugAffiliateUnits
-    }}
+    <PostSearchResults @query={{query}} @unit={{smallUnit}} @isCrossWiki={{isCrossWiki}} @debugAffiliateUnits={{debugAffiliateUnits}} />
   {{/if}}
 {{/if}}

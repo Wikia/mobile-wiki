@@ -1,12 +1,7 @@
 <div class="trending trending-articles mw-content">
   <h2 class="wds-font-size-l wds-text-transform-uppercase wds-leading-tight">{{@header}}</h2>
   {{#each @model as |article index|}}
-    {{trending-articles-item
-      title=article.title
-      index=index
-      url=article.url
-      imageUrl=article.thumbnail
-    }}
+    <TrendingArticlesItem @title={{article.title}} @index={{index}} @url={{article.url}} @imageUrl={{article.thumbnail}} />
   {{/each}}
 </div>
 

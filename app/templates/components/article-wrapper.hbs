@@ -1,41 +1,17 @@
-{{wikia-ui-components/wiki-page-header
-  title=model.displayTitle
-  subtitle=wikiPageHeaderSubtitle
-  heroImage=heroImageInHeader
-}}
+<WikiaUiComponents::WikiPageHeader @title={{model.displayTitle}} @subtitle={{wikiPageHeaderSubtitle}} @heroImage={{heroImageInHeader}} />
 
 {{#if hasFeaturedVideo}}
-  {{article-featured-video
-    model=model.featuredVideo
-    hasPortableInfobox=model.hasPortableInfobox
-  }}
+  <ArticleFeaturedVideo @model={{model.featuredVideo}} @hasPortableInfobox={{model.hasPortableInfobox}} />
 {{/if}}
 
 <section class="article-body">
   {{#if model.fileThumbnail}}
-    {{article-media-thumbnail
-      model=model.fileThumbnail
-      shouldBeLoaded=true
-    }}
+    <ArticleMediaThumbnail @model={{model.fileThumbnail}} @shouldBeLoaded={{true}} />
   {{/if}}
   {{#if smallHeroImage}}
-    {{portable-infobox-hero-image-small
-      heroImage=smallHeroImage
-    }}
+    <PortableInfoboxHeroImageSmall @heroImage={{smallHeroImage}} />
   {{/if}}
-  {{article-content
-    adsContext=model.adsContext
-    content=model.content
-    displayEmptyArticleInfo=displayEmptyArticleInfo
-    displayTitle=model.displayTitle
-    featuredVideo=model.featuredVideo
-    forceFeaturedVideoVisibility=(action "forceFeaturedVideoVisibility")
-    heroImage=heroImage
-    id=model.id
-    media=model.media
-    data-test-article-content=true
-    debugAffiliateUnits=model.debugAffiliateUnits
-  }}
+  <ArticleContent @adsContext={{model.adsContext}} @content={{model.content}} @displayEmptyArticleInfo={{displayEmptyArticleInfo}} @displayTitle={{model.displayTitle}} @featuredVideo={{model.featuredVideo}} @forceFeaturedVideoVisibility={{action "forceFeaturedVideoVisibility"}} @heroImage={{heroImage}} @id={{model.id}} @media={{model.media}} @data-test-article-content={{true}} @debugAffiliateUnits={{model.debugAffiliateUnits}} />
 </section>
 {{yield}}
 {{#if displayArticleWrapper}}
@@ -47,27 +23,12 @@
         {{i18n "article.article-information"}}
       </h2>
     </div>
-    {{wikia-users
-      users=model.topContributors
-      class="article-footer-item"
-    }}
+    <WikiaUsers @users={{model.topContributors}} @class="article-footer-item" />
     {{#if showComments}}
-      {{article-comments
-        articleId=model.id
-        commentsCount=model.comments
-        page=commentsPage
-        class="article-footer-item"
-      }}
+      <ArticleComments @articleId={{model.id}} @commentsCount={{model.comments}} @page={{commentsPage}} @class="article-footer-item" />
     {{/if}}
     {{#if model.categories}}
-      {{#collapsible-menu
-        observe=model.displayTitle
-        ordered=false
-        tLabel="article.categories-list-label"
-        trackingEvent="category-menu"
-        click=(action "trackClick" "category-menu" "open-category")
-        class="article-categories-list article-footer-item mw-content"
-      }}
+      <CollapsibleMenu @observe={{model.displayTitle}} @ordered={{false}} @tLabel="article.categories-list-label" @trackingEvent="category-menu" @click={{action "trackClick" "category-menu" "open-category"}} @class="article-categories-list article-footer-item mw-content">
         {{#each model.categories as |category|}}
           <li>
             <a
@@ -79,16 +40,10 @@
             </a>
           </li>
         {{/each}}
-      {{/collapsible-menu}}
+      </CollapsibleMenu>
     {{/if}}
     {{#if model.languageLinks}}
-      {{#collapsible-menu
-        observe=model.displayTitle
-        ordered=false
-        tLabel="article.language-links-label"
-        trackingEvent="language-links"
-        class="article-language-links-list article-footer-item"
-      }}
+      <CollapsibleMenu @observe={{model.displayTitle}} @ordered={{false}} @tLabel="article.language-links-label" @trackingEvent="language-links" @class="article-language-links-list article-footer-item">
         {{#each model.languageLinks as |lang|}}
           <li>
             <a
@@ -100,7 +55,7 @@
             </a>
           </li>
         {{/each}}
-      {{/collapsible-menu}}
+      </CollapsibleMenu>
     {{/if}}
     <div class="license-description wds-font-size-s wds-leading-tight">
       {{{i18n "license-description" ns="design-system" license=(wrap-me wikiVariables.licenseText tagName="a" href=wikiVariables.licenseUrl className="wds-font-weight-medium")}}}

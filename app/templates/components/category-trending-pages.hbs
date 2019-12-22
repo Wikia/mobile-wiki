@@ -3,8 +3,6 @@
 </h2>
 <div class="category-trending-pages__list mw-content">
   {{#each @model as |page|}}
-    {{category-trending-pages-item
-      model=page
-    }}
+    <CategoryTrendingPagesItem @model={{page}} />
   {{/each}}
 </div>

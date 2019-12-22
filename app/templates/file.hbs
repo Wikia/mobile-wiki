@@ -1,21 +1,11 @@
 <div id="wikiContainer" class="wiki-container">
   {{!TODO handle video player XW-2605}}
   {{!TODO files without thumbnails}}
-  {{#article-wrapper
-    displayEmptyArticleInfo=false
-    model=model
-    showComments=false
-    siteName=siteName
-    wikiPageHeaderSubtitle=(i18n "file-page.subtitle")
-  }}
+  <ArticleWrapper @displayEmptyArticleInfo={{false}} @model={{model}} @showComments={{false}} @siteName={{siteName}} @wikiPageHeaderSubtitle={{i18n "file-page.subtitle"}}>
     {{#if model.fileUsageList}}
       <nav class="file-usage">
         <div class="file-usage__header wds-font-size-l wds-font-weight-bold">{{i18n "file-page.usages-header"}}</div>
-        {{wikia-ui-components/wikia-card-list
-          items=model.fileUsageList
-          trackingCategory="file-page"
-          trackingLabel="file-usage-article"
-        }}
+        <WikiaUiComponents::WikiaCardList @items={{model.fileUsageList}} @trackingCategory="file-page" @trackingLabel="file-usage-article" />
         {{#if model.fileUsageListSeeMoreUrl}}
           <div class="file-usage__more">
             <a class="wds-button wds-is-text" href={{model.fileUsageListSeeMoreUrl}}>{{i18n "file-page.usages-see-more-link-label"}}</a>
@@ -23,5 +13,5 @@
         {{/if}}
       </nav>
     {{/if}}
-  {{/article-wrapper}}
+  </ArticleWrapper>
 </div>

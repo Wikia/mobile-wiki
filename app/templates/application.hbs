@@ -1,20 +1,4 @@
-{{head-layout}}
-{{#application-wrapper
-  alertNotifications=alertNotifications
-  class=applicationWrapperClassNames
-  fullPage=fullPage
-  globalNavigation=model.navigation.globalNavigation
-  globalFooter=model.navigation.globalFooter
-  communityHeader=model.navigation.communityHeader
-  handleLink=(action "handleLink")
-  isLoading=isLoading
-  isSearchPage=isSearchPage
-  language=language
-  siteHeadNoShadow=siteHeadNoShadow
-  isDarkTheme=isDarkTheme
-  themeBar=themeBar
-  toggleSiteHeadShadow=(action "toggleSiteHeadShadow")
-  userMenuVisible=userMenuVisible
-}}
+<HeadLayout />
+<ApplicationWrapper @alertNotifications={{alertNotifications}} @class={{applicationWrapperClassNames}} @fullPage={{fullPage}} @globalNavigation={{model.navigation.globalNavigation}} @globalFooter={{model.navigation.globalFooter}} @communityHeader={{model.navigation.communityHeader}} @handleLink={{action "handleLink"}} @isLoading={{isLoading}} @isSearchPage={{isSearchPage}} @language={{language}} @siteHeadNoShadow={{siteHeadNoShadow}} @isDarkTheme={{isDarkTheme}} @themeBar={{themeBar}} @toggleSiteHeadShadow={{action "toggleSiteHeadShadow"}} @userMenuVisible={{userMenuVisible}}>
   {{outlet}}
-{{/application-wrapper}}
+</ApplicationWrapper>

@@ -1,30 +1,24 @@
 <div id="wikiContainer" class="wiki-container">
-  {{wikia-ui-components/wiki-page-header-curated-main-page
-    showButtons=curatedContentToolButtonVisible
-    title=title
-  }}
+  <WikiaUiComponents::WikiPageHeaderCuratedMainPage @showButtons={{curatedContentToolButtonVisible}} @title={{title}} />
   {{#if wikiaStats}}
-    {{wikia-stats model=wikiaStats}}
+    <WikiaStats @model={{wikiaStats}} />
   {{/if}}
   {{#if featuredContent}}
-    {{featured-content model=featuredContent}}
+    <FeaturedContent @model={{featuredContent}} />
   {{/if}}
   {{#if wikiDescription}}
     <div class="wiki-description">{{wikiDescription}}</div>
   {{/if}}
   {{#if curatedContent}}
-    {{curated-content model=curatedContent}}
+    <CuratedContent @model={{curatedContent}} />
   {{/if}}
   {{#if fullMainPageContent}}
-    {{full-main-page-content content=fullMainPageContent}}
+    <FullMainPageContent @content={{fullMainPageContent}} />
   {{/if}}
   {{#if trendingArticles}}
-    {{trending-articles
-      header=(i18n "app.trending-articles-label")
-      model=trendingArticles
-    }}
+    <TrendingArticles @header={{i18n "app.trending-articles-label"}} @model={{trendingArticles}} />
   {{/if}}
   {{#if trendingVideos}}
-    {{trending-videos model=trendingVideos}}
+    <TrendingVideos @model={{trendingVideos}} />
   {{/if}}
 </div>

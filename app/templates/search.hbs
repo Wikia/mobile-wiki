@@ -1,4 +1,4 @@
-{{ads/search-top-leaderboard}}
+<Ads::SearchTopLeaderboard />
 <Spinner
   @active={{this.model.loading}}
   @radius={{38}}
@@ -24,38 +24,22 @@
 
       <dropdown.content @scrollable={{false}}>
         <List @linked={{true}}>
-          <li>{{#link-to "search" (query-params query=model.query scope="internal")}}{{{i18n "main.search-scope-internal" ns="search" }}}{{/link-to}}</li>
-          <li>{{#link-to "search" (query-params query=model.query scope="crosswiki")}}{{{i18n "main.search-scope-crosswiki" ns="search" }}}{{/link-to}}</li>
+          <li><LinkTo @route="search" @query={{hash query=model.query scope="internal"}}>{{{i18n "main.search-scope-internal" ns="search" }}}</LinkTo></li>
+          <li><LinkTo @route="search" @query={{hash query=model.query scope="crosswiki"}}>{{{i18n "main.search-scope-crosswiki" ns="search" }}}</LinkTo></li>
         </List>
       </dropdown.content>
     </Dropdown>
   </div>
   {{#if model.totalItems}}
     {{#if model.isInteralScope }}
-      {{wikia-ui-components/wikia-card-list
-        items=model.items
-        includePostsForQuery=model.query
-        trackingCategory="search-page"
-        trackingLabel="search-result"
-        itemClick=(action "onResultClick")
-        debugAffiliateUnits=model.debugAffiliateUnits
-      }}
+      <WikiaUiComponents::WikiaCardList @items={{model.items}} @includePostsForQuery={{model.query}} @trackingCategory="search-page" @trackingLabel="search-result" @itemClick={{action "onResultClick"}} @debugAffiliateUnits={{model.debugAffiliateUnits}} />
     {{else}}
-      {{wikia-ui-components/wikia-card-crosswiki-list
-        items=model.items
-        includePostsForQuery=model.query
-        trackingCategory="search-page"
-        trackingLabel="search-result"
-        itemClick=(action "onResultClick")
-        debugAffiliateUnits=model.debugAffiliateUnits
-      }}
+      <WikiaUiComponents::WikiaCardCrosswikiList @items={{model.items}} @includePostsForQuery={{model.query}} @trackingCategory="search-page" @trackingLabel="search-result" @itemClick={{action "onResultClick"}} @debugAffiliateUnits={{model.debugAffiliateUnits}} />
     {{/if}}
   {{else if notFoundError}}
-    {{#wikia-ui-components/error-info}}
-      {{wikia-search-error-not-found
-        erroneousQuery=model.erroneousQuery
-      }}
-    {{/wikia-ui-components/error-info}}
+    <WikiaUiComponents::ErrorInfo>
+      <WikiaSearchErrorNotFound @erroneousQuery={{model.erroneousQuery}} />
+    </WikiaUiComponents::ErrorInfo>
   {{/if}}
 </div>
 {{#if model.canLoadMore}}

@@ -2,7 +2,7 @@
   <Icon @name="menu-control" class="left" />
   <Icon @name="menu-control" class="right" />
 {{/if}}
-{{featured-content-item model=currentItem}}
+<FeaturedContentItem @model={{currentItem}} />
 {{#if hasMultipleItems}}
   <ul class="featured-content-pagination">
     {{#each model as |item index|}}

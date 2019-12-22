@@ -16,11 +16,7 @@
     {{/if}}
     <div class="curated-content-items">
       {{#each @model.items as |item index|}}
-        {{curated-content-item
-          index=index
-          model=item
-          openSection=@openSection
-        }}
+        <CuratedContentItem @index={{index}} @model={{item}} @openSection={{@openSection}} />
       {{/each}}
     </div>
   {{/if}}

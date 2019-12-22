@@ -1,15 +1,6 @@
-{{curated-content-section
-  model=model
-  shouldBeVisible=(equal activeLabel null)
-  openSection=(action "openSection")
-}}
+<CuratedContentSection @model={{model}} @shouldBeVisible={{equal activeLabel null}} @openSection={{action "openSection"}} />
 {{#each model.items as |item|}}
   {{#if (equal item.type "section")}}
-    {{curated-content-section
-      shouldBeVisible=(equal activeLabel item.label)
-      model=item
-      openSection=(action "openSection")
-      closeSection=(action "closeSection")
-    }}
+    <CuratedContentSection @shouldBeVisible={{equal activeLabel item.label}} @model={{item}} @openSection={{action "openSection"}} @closeSection={{action "closeSection"}} />
   {{/if}}
 {{/each}}

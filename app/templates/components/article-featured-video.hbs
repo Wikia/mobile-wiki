@@ -17,9 +17,7 @@
       id={{videoContainerId}}
     >
     </div>
-    {{article-featured-video-close
-      onTap=(action "dismissPlayer")
-    }}
+    <ArticleFeaturedVideoClose @onTap={{action "dismissPlayer"}} />
     <div class="article-featured-video__details-wrapper">
       <div class="article-featured-video__details">
         <h2 class="article-featured-video__title wds-font-size-s wds-font-weight-bold">{{currentVideoDetails.title}}</h2>

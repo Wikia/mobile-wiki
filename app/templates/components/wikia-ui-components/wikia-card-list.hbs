@@ -1,25 +1,16 @@
 <ul class="wikia-card-list">
   {{#each @items as |item key|}}
     <li class="wikia-card" {{action "onItemClick" item}}>
-      {{#link-to
-        "wiki-page"
-        item.prefixedTitle
-        trackingCategory=@trackingCategory
-        trackingLabel=@trackingLabel
-        classNames="wikia-card__item wds-font-size-s wds-leading-tight"
-      }}
+      <LinkTo @route="wiki-page" @model={{item.prefixedTitle}} @trackingCategory={{@trackingCategory}} @trackingLabel={{@trackingLabel}} @classNames="wikia-card__item wds-font-size-s wds-leading-tight">
         <div class="wikia-card__title wds-font-weight-medium">
           {{item.title}}
         </div>
         <div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
-      {{/link-to}}
+      </LinkTo>
     </li>
     {{#if includePostsForQuery}}
       {{#if (equal key 1)}}
-        {{post-search-interrupt
-          query=includePostsForQuery
-          debugAffiliateUnits=debugAffiliateUnits
-        }}
+        <PostSearchInterrupt @query={{includePostsForQuery}} @debugAffiliateUnits={{debugAffiliateUnits}} />
       {{/if}}
     {{/if}}
   {{/each}}

@@ -1,12 +1,8 @@
 {{#if isFandomAppSmartBannerVisible}}
-  {{fandom-app-smart-banner
-    isVisible=smartBannerVisible
-  }}
+  <FandomAppSmartBanner @isVisible={{smartBannerVisible}} />
 {{/if}}
 {{#if isCustomSmartBannerVisible}}
-  {{custom-smart-banner
-    isVisible=smartBannerVisible
-  }}
+  <CustomSmartBanner @isVisible={{smartBannerVisible}} />
 {{/if}}
 <div class="site-head-wrapper">
   <GlobalNavigation

@@ -1,8 +1,5 @@
 <div class="wiki-container">
-  {{wikia-ui-components/wiki-page-header
-    title="Error"
-    subtitle=(i18n "app.wiki-page-error")
-  }}
+  <WikiaUiComponents::WikiPageHeader @title="Error" @subtitle={{i18n "app.wiki-page-error"}} />
   <section class="wiki-page-error">
     <button class="wds-button" {{action "reloadPage"}}>{{i18n "app.wiki-page-error-reload-button"}}</button>
   </section>

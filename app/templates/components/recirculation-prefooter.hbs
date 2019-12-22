@@ -45,10 +45,7 @@
     </li>
   </ul>
   {{#if item.pixelContent}}
-    {{tracking-pixel
-      pixelContent=item.pixelContent
-      pixelType=item.pixelType
-    }}
+    <TrackingPixel @pixelContent={{item.pixelContent}} @pixelType={{item.pixelType}} />
   {{/if}}
 {{/if}}
 

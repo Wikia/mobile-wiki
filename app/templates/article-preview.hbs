@@ -1,13 +1,6 @@
 <div class="page-wrapper">
-  {{wikia-ui-components/wiki-page-header
-    title=model.displayTitle
-    heroImage=heroImage
-  }}
+  <WikiaUiComponents::WikiPageHeader @title={{model.displayTitle}} @heroImage={{heroImage}} />
   <section class="article-body">
-    {{article-content
-      content=model.content
-      isPreview=true
-      media=model.media
-    }}
+    <ArticleContent @content={{model.content}} @isPreview={{true}} @media={{model.media}} />
   </section>
 </div>

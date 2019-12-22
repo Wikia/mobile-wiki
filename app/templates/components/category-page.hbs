@@ -4,10 +4,7 @@
     totalNumberOfItems=@model.totalNumberOfMembers
   }}
 </h2>
-{{category-alphabet-shortcuts
-  from=@from
-  loadFrom=(action "loadFrom")
-}}
+<CategoryAlphabetShortcuts @from={{@from}} @loadFrom={{action "loadFrom"}} />
 {{#if isLoading}}
   <Spinner
     @active={{this.isLoading}}
@@ -15,14 +12,9 @@
     @overlay={{false}}
   />
 {{else}}
-  {{category-members-grouped
-    model=@model.members
-  }}
+  <CategoryMembersGrouped @model={{@model.members}} />
   {{#if model.hasPagination}}
-    {{category-pagination
-      loadFrom=(action "loadFrom")
-      model=@model.pagination
-    }}
+    <CategoryPagination @loadFrom={{action "loadFrom"}} @model={{@model.pagination}} />
   {{/if}}
 {{/if}}
-{{alert-notifications alerts=alertNotifications}}
+<AlertNotifications @alerts={{alertNotifications}} />

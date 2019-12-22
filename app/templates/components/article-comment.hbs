@@ -30,7 +30,7 @@
 
     <ul class={{if isExpanded "expanded"}}>
       {{#each comment.comments as |comment|}}
-        {{article-comment comment=comment users=users}}
+        <ArticleComment @comment={{comment}} @users={{users}} />
       {{/each}}
     </ul>
   {{/if}}
