@@ -1,29 +1,29 @@
 <div class="smart-banner__close" role="button" {{action "close"}}>
   <Icon @name="close" @size="small" />
 </div>
-<a href={{linkUrl}} class="smart-banner__link">
+<a href={{this.linkUrl}} class="smart-banner__link">
   <div class="smart-banner__info">
     <img
       alt="fandom app icon"
       class="smart-banner__icon"
-      src={{imageUrl}}
+      src={{this.imageUrl}}
     >
     <div class="smart-banner__meta">
       <div
         class="smart-banner__title wds-font-size-base wds-font-weight-bold"
       >
-        {{title}}
+        {{this.title}}
       </div>
       <span
         class="smart-banner__description wds-font-size-s wds-leading-none"
       >
-        {{text}}
+        {{this.text}}
       </span>
     </div>
   </div>
   <div
     class="smart-banner__install wds-font-size-base wds-font-weight-medium"
   >
-    {{linkText}}
+    {{this.linkText}}
   </div>
 </a>

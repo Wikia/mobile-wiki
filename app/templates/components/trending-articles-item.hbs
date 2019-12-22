@@ -1,15 +1,15 @@
 <figure>
   <div class="item-image">
     <Icon @name="image" role="img" />
-    {{#if currentlyRenderedImageUrl}}
-      <img src={{currentlyRenderedImageUrl}} alt={{title}}>
+    {{#if this.currentlyRenderedImageUrl}}
+      <img src={{this.currentlyRenderedImageUrl}} alt={{@title}}>
     {{else}}
-      <img src={{emptyGif}} alt={{title}} style="width: 56.25%">
+      <img src={{this.emptyGif}} alt={{@title}} style="width: 56.25%">
     {{/if}}
   </div>
   <figcaption
     class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight"
   >
-    {{title}}
+    {{@title}}
   </figcaption>
 </figure>

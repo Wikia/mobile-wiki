@@ -1,24 +1,24 @@
 <div id="wikiContainer" class="wiki-container">
-  <WikiaUiComponents::WikiPageHeaderCuratedMainPage @showButtons={{curatedContentToolButtonVisible}} @title={{title}} />
-  {{#if wikiaStats}}
-    <WikiaStats @model={{wikiaStats}} />
+  <WikiaUiComponents::WikiPageHeaderCuratedMainPage @showButtons={{this.curatedContentToolButtonVisible}} @title={{this.title}} />
+  {{#if @wikiaStats}}
+    <WikiaStats @model={{@wikiaStats}} />
   {{/if}}
-  {{#if featuredContent}}
-    <FeaturedContent @model={{featuredContent}} />
+  {{#if @featuredContent}}
+    <FeaturedContent @model={{@featuredContent}} />
   {{/if}}
-  {{#if wikiDescription}}
-    <div class="wiki-description">{{wikiDescription}}</div>
+  {{#if @wikiDescription}}
+    <div class="wiki-description">{{@wikiDescription}}</div>
   {{/if}}
-  {{#if curatedContent}}
-    <CuratedContent @model={{curatedContent}} />
+  {{#if @curatedContent}}
+    <CuratedContent @model={{@curatedContent}} />
   {{/if}}
-  {{#if fullMainPageContent}}
-    <FullMainPageContent @content={{fullMainPageContent}} />
+  {{#if @fullMainPageContent}}
+    <FullMainPageContent @content={{@fullMainPageContent}} />
   {{/if}}
-  {{#if trendingArticles}}
-    <TrendingArticles @header={{i18n "app.trending-articles-label"}} @model={{trendingArticles}} />
+  {{#if @trendingArticles}}
+    <TrendingArticles @header={{i18n "app.trending-articles-label"}} @model={{@trendingArticles}} />
   {{/if}}
-  {{#if trendingVideos}}
-    <TrendingVideos @model={{trendingVideos}} />
+  {{#if @trendingVideos}}
+    <TrendingVideos @model={{@trendingVideos}} />
   {{/if}}
 </div>

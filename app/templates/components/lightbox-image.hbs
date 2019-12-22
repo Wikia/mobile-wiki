@@ -1,10 +1,10 @@
-{{#if loadingError}}
+{{#if this.loadingError}}
   {{i18n "app.media-lightbox-error"}}
 {{else}}
   <img
-    alt={{model.title}}
-    class="current {{if isLoading "loading"}}"
-    src={{imageSrc}}
-    style={{style}}
+    alt={{@model.title}}
+    class="current {{if this.isLoading "loading"}}"
+    src={{this.imageSrc}}
+    style={{this.style}}
   >
 {{/if}}

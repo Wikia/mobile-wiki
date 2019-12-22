@@ -1,4 +1,20 @@
 <HeadLayout />
-<ApplicationWrapper @alertNotifications={{alertNotifications}} @class={{applicationWrapperClassNames}} @fullPage={{fullPage}} @globalNavigation={{model.navigation.globalNavigation}} @globalFooter={{model.navigation.globalFooter}} @communityHeader={{model.navigation.communityHeader}} @handleLink={{action "handleLink"}} @isLoading={{isLoading}} @isSearchPage={{isSearchPage}} @language={{language}} @siteHeadNoShadow={{siteHeadNoShadow}} @isDarkTheme={{isDarkTheme}} @themeBar={{themeBar}} @toggleSiteHeadShadow={{action "toggleSiteHeadShadow"}} @userMenuVisible={{userMenuVisible}}>
+<ApplicationWrapper
+		@alertNotifications={{this.alertNotifications}}
+		@class={{this.applicationWrapperClassNames}}
+		@fullPage={{this.fullPage}}
+		@globalNavigation={{@model.navigation.globalNavigation}}
+		@globalFooter={{@model.navigation.globalFooter}}
+		@communityHeader={{@model.navigation.communityHeader}}
+		@handleLink={{action "handleLink"}}
+		@isLoading={{this.isLoading}}
+		@isSearchPage={{this.isSearchPage}}
+		@language={{this.language}}
+		@siteHeadNoShadow={{this.siteHeadNoShadow}}
+		@isDarkTheme={{this.isDarkTheme}}
+		@themeBar={{this.themeBar}}
+		@toggleSiteHeadShadow={{action "toggleSiteHeadShadow"}}
+		@userMenuVisible={{this.userMenuVisible}}
+>
   {{outlet}}
 </ApplicationWrapper>

@@ -16,5 +16,8 @@ module.exports = {
     // need styles there and there
     'no-inline-styles': false,
     'no-outlet-outside-routes': false,
-    }
+    'no-curly-component-invocation': {
+      allow: ['svg', 'i18n', 'shorten-large-number', 'time-ago']
+    },
+  }
 };

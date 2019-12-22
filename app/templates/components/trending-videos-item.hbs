@@ -1,9 +1,9 @@
-<a href={{href}}>
+<a href={{this.href}}>
   <div class="item-image">
-    {{#if thumbUrl}}
-      <img src={{thumbUrl}} alt={{video.title}} width="600" height="338">
+    {{#if this.thumbUrl}}
+      <img src={{this.thumbUrl}} alt={{@video.title}} width="600" height="338">
     {{else}}
-      <img src={{emptyGif}} alt={{video.title}}>
+      <img src={{this.emptyGif}} alt={{@video.title}}>
     {{/if}}
   </div>
   <div class="video-icon-container">
@@ -13,6 +13,6 @@
 <figcaption
   class="item-figcaption wds-font-size-s wds-font-weight-bold wds-leading-tight"
 >
-  {{video.title}}
+  {{@video.title}}
 </figcaption>
 

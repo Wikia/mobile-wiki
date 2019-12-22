@@ -1,39 +1,39 @@
 <div class="wiki-page-header__title-wrapper">
-  {{#if isMainPage}}
-    <h1 class="wiki-page-header__title wds-midlight-aqua">{{siteName}}</h1>
+  {{#if this.isMainPage}}
+    <h1 class="wiki-page-header__title wds-midlight-aqua">{{this.siteName}}</h1>
   {{else}}
-    <h1 class="wiki-page-header__title wds-midlight-aqua">{{title}}</h1>
-    {{#if subtitle}}
-      <div class="wiki-page-header__subtitle wds-font-size-s wds-font-weight-normal">{{subtitle}}</div>
+    <h1 class="wiki-page-header__title wds-midlight-aqua">{{@title}}</h1>
+    {{#if @subtitle}}
+      <div class="wiki-page-header__subtitle wds-font-size-s wds-font-weight-normal">{{@subtitle}}</div>
     {{/if}}
   {{/if}}
 </div>
 
-{{#if heroImage}}
+{{#if @heroImage}}
   <figure
-    data-file={{heroImage.fileName}}
+    data-file={{@heroImage.fileName}}
     class="wiki-page-header__hero-image"
   >
     <a {{action "heroImageClick"}}
-      href={{heroImage.url}}
+      href={{@heroImage.url}}
     >
       <img
         class="article-media-placeholder"
-        src={{heroImage.thumbnail4by5}}
-        srcset="{{heroImage.thumbnail4by5}}, {{heroImage.thumbnail4by5x2}} 2x"
-        width={{heroImage.thumbnail4by5Width}}
-        height={{heroImage.thumbnail4by5Height}}
-        alt={{heroImage.title}}
+        src={{@heroImage.thumbnail4by5}}
+        srcset="{{@heroImage.thumbnail4by5}}, {{@heroImage.thumbnail4by5x2}} 2x"
+        width={{@heroImage.thumbnail4by5Width}}
+        height={{@heroImage.thumbnail4by5Height}}
+        alt={{@heroImage.title}}
       >
       <noscript>
         <img
-          src={{heroImage.url}}
-          alt={{heroImage.title}}
-          width={{heroImage.thumbnail4by5Width}}
-          height={{heroImage.thumbnail4by5Height}}
+          src={{@heroImage.url}}
+          alt={{@heroImage.title}}
+          width={{@heroImage.thumbnail4by5Width}}
+          height={{@heroImage.thumbnail4by5Height}}
         >
       </noscript>
-      {{#if heroImage.isVideo}}
+      {{#if @heroImage.isVideo}}
         <div class="video-icon-container">
           {{svg "wds-player-icon-play" class="wds-player-icon-play-large"}}
         </div>

@@ -25,7 +25,7 @@
             >
             {{!-- Chrome downloads all images on load instead of lazily if we render noscript with JS --}}
             {{!-- Probably somehow related to the lazysizes lib that we use --}}
-            {{#if fastboot.isFastBoot}}
+            {{#if this.fastboot.isFastBoot}}
               <noscript>
                 <img
                   class="category-members-grouped__member-thumbnail"

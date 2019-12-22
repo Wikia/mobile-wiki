@@ -1,10 +1,10 @@
-{{#if lightboxComponent}}
+{{#if this.lightboxComponent}}
   {{component
-    lightboxComponent
-    model=currentMedia
-    isGallery=isGallery
-    header=header
-    footer=footer
+    this.lightboxComponent
+    model=this.currentMedia
+    isGallery=this.isGallery
+    header=this.header
+    footer=this.footer
   }}
 {{else}}
   {{i18n "app.media-lightbox-error"}}

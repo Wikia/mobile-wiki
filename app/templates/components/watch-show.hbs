@@ -1,21 +1,21 @@
-{{#if isVisible}}
+{{#if this.isVisible}}
   <div class="watch-show__disclaimer">
     {{i18n "affiliate-unit.disclaimer"}}
   </div>
   <div class="watch-show">
-    <h2>{{cta}}</h2>
+    <h2>{{this.cta}}</h2>
     <a
       class="wds-button"
       onClick={{action "trackClick"}}
-      href={{url}}
+      href={{this.url}}
       target="_blank"
       rel="noopener sponsored"
     >
-      {{buttonLabel}}
+      {{this.buttonLabel}}
     </a>
     <div class="watch-show__image-wrapper">
       <hr class="watch-show__hr">
-      <img src={{imageUrl}} alt={{cta}} class="watch-show__image">
+      <img src={{this.imageUrl}} alt={{this.cta}} class="watch-show__image">
       <hr class="watch-show__hr">
     </div>
   </div>

@@ -1,21 +1,21 @@
 <figure class="pi-hero-small">
-  <a href={{heroImage.url}}>
+  <a href={{@heroImage.url}}>
     <img
       class="article-media-placeholder"
-      src={{heroImage.thumbnail1by1}}
-      height={{heroImage.thumbnail1by1Size}}
-      width={{heroImage.thumbnail1by1Size}}
-      alt={{heroImage.title}}
+      src={{@heroImage.thumbnail1by1}}
+      height={{@heroImage.thumbnail1by1Size}}
+      width={{@heroImage.thumbnail1by1Size}}
+      alt={{@heroImage.title}}
     >
     <noscript>
       <img
-        src={{heroImage.url}}
-        alt={{heroImage.title}}
-        width={{heroImage.thumbnail1by1Size}}
-        height={{heroImage.thumbnail1by1Size}}
+        src={{@heroImage.url}}
+        alt={{@heroImage.title}}
+        width={{@heroImage.thumbnail1by1Size}}
+        height={{@heroImage.thumbnail1by1Size}}
       >
     </noscript>
-    {{#if heroImage.isVideo}}
+    {{#if @heroImage.isVideo}}
       <div class="video-icon-container">
         {{svg "wds-player-icon-play" class="wds-player-icon-play-small"}}
       </div>

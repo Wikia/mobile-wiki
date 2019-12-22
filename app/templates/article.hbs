@@ -1,8 +1,14 @@
 <div id="wikiContainer" class="wiki-container">
-  <ArticleWrapper @displayArticleWrapper={{applicationWrapperVisible}} @commentsPage={{commentsPage}} @model={{model}} @siteName={{siteName}} @toggleSiteHeadShadow={{action "toggleSiteHeadShadow" target=application}} />
+  <ArticleWrapper
+		  @displayArticleWrapper={{this.applicationWrapperVisible}}
+		  @commentsPage={{this.commentsPage}}
+		  @model={{@model}}
+		  @siteName={{this.siteName}}
+		  @toggleSiteHeadShadow={{action "toggleSiteHeadShadow" target=this.application}}
+  />
 </div>
-<RecirculationPrefooter @applicationWrapperVisible={{applicationWrapperVisible}} @articleId={{model.details.id}} />
+<RecirculationPrefooter @applicationWrapperVisible={{this.applicationWrapperVisible}} @articleId={{@model.details.id}} />
 
-{{#if wikiVariables.recommendedVideoPlaylist}}
-  <RecommendedVideo @playlistId={{wikiVariables.recommendedVideoPlaylist}} @relatedMediaId={{wikiVariables.recommendedVideoRelatedMediaId}} />
+{{#if this.wikiVariables.recommendedVideoPlaylist}}
+  <RecommendedVideo @playlistId={{this.wikiVariables.recommendedVideoPlaylist}} @relatedMediaId={{this.wikiVariables.recommendedVideoRelatedMediaId}} />
 {{/if}}

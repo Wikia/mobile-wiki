@@ -1,36 +1,36 @@
 <div class="metadata">
   <Avatar @src={{this.user.avatar}} @alt={{this.userName}} />
   <span class="username wds-font-size-xs wds-font-weight-medium">
-    {{#if user.url}}
-      <a href={{user.url}}>{{userName}}</a>
+    {{#if this.user.url}}
+      <a href={{this.user.url}}>{{this.userName}}</a>
     {{else}}
-      {{userName}}
+      {{this.userName}}
     {{/if}}
   </span>
   <span class="separator wds-font-size-xs wds-font-weight-light">•</span>
   <span
     class="timestamp wds-font-size-xs wds-font-weight-light"
-    title={{timestamp-to-date comment.created}}
+    title={{timestamp-to-date @comment.created}}
   >
-    {{time-ago comment.created}}
+    {{time-ago @comment.created}}
   </span>
 </div>
 <div class="content wds-font-size-base wds-leading-loose wds-font-weight-light">
-  {{{comment.text}}}
-  {{#if comment.comments}}
-    {{#unless isExpanded}}
+  {{{@comment.text}}}
+  {{#if @comment.comments}}
+    {{#unless this.isExpanded}}
       <Button
         @text={{true}}
         @onClick={{action "toggleExpand"}}
         class="show-reply-btn"
       >
-        {{i18n "article.replies-label" count=comment.comments.length}}
+        {{i18n "article.replies-label" count=@comment.comments.length}}
       </Button>>
     {{/unless}}
 
-    <ul class={{if isExpanded "expanded"}}>
-      {{#each comment.comments as |comment|}}
-        <ArticleComment @comment={{comment}} @users={{users}} />
+    <ul class={{if this.isExpanded "expanded"}}>
+      {{#each @comment.comments as |comment|}}
+        <ArticleComment @comment={{comment}} @users={{@users}} />
       {{/each}}
     </ul>
   {{/if}}

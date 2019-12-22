@@ -1,23 +1,23 @@
-{{#if post.image}}
-  <img class="post-search-results-item__image" src={{imageThumbnail}} alt={{post.title}}>
+{{#if @post.image}}
+  <img class="post-search-results-item__image" src={{this.imageThumbnail}} alt={{@post.title}}>
 {{/if}}
 <a
-  href={{{post.url}}}
+  href={{{@post.url}}}
   class="post-search-results-item__title wds-leading-tight"
-  onclick={{action "trackClick" postIndex}}
+  onclick={{action "trackClick" @postIndex}}
 >
-  {{{getTitle}}}
+  {{{this.getTitle}}}
 </a>
 <div class="post-search-results-item__details">
-  {{#if isQuizWithTakes}}
+  {{#if this.isQuizWithTakes}}
     <Icon @name="quiz" @size="tiny" />
-    {{{i18n "main.search-post-item-quiz-takes" count=post.quizTakes ns="search"}}}
+    {{{i18n "main.search-post-item-quiz-takes" count=@post.quizTakes ns="search"}}}
   {{/if}}
-  {{#if isPollWithVotes}}
+  {{#if this.isPollWithVotes}}
     <Icon @name="poll" @size="tiny" />
-    {{{i18n "main.search-post-item-poll-votes" count=post.pollVotes ns="search"}}}
+    {{{i18n "main.search-post-item-poll-votes" count=@post.pollVotes ns="search"}}}
   {{/if}}
-  {{#if isPost}}
-    {{{i18n "main.search-post-item-post-posted" time=(time-ago post.createdAt) ns="search"}}}
+  {{#if this.isPost}}
+    {{{i18n "main.search-post-item-post-posted" time=(time-ago @post.createdAt) ns="search"}}}
   {{/if}}
 </div>

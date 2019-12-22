@@ -2,7 +2,7 @@
   <p
     class="language-wikis-index__intro wds-font-size-l wds-font-weight-bold wds-leading-tight"
   >
-    {{#if wikiVariables.isClosed}}
+    {{#if this.wikiVariables.isClosed}}
       The English wiki at this URL has been closed, but here are related wikis in other languages
     {{else}}
       We couldn't find an English wiki at this URL, but here are related wikis in other languages
@@ -12,7 +12,7 @@
     <span class="wds-midlight-aqua">This is the list of communities under this domain</span>
   </div>
   <div class="language-wikis-index__list">
-    {{#each wikiVariables.languageWikis.wikis as |wiki|}}
+    {{#each this.wikiVariables.languageWikis.wikis as |wiki|}}
       <div class="language-wikis-index__list-language">
         <a href={{wiki.url}}>
           {{wiki.languageName}} &middot; {{wiki.title}}
@@ -21,7 +21,7 @@
     {{/each}}
   </div>
   <div class="language-wikis-index__links">
-    {{#each wikiVariables.languageWikis.additionalLinks as |link|}}
+    {{#each this.wikiVariables.languageWikis.additionalLinks as |link|}}
       <a
         href={{link.url}}
         class="language-wikis-index__links-item"

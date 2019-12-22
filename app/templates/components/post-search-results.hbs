@@ -1,13 +1,13 @@
-{{#if isEnabled}}
+{{#if this.isEnabled}}
   <aside class="post-search-results">
     <header class="post-search-results__header">
       <div class="post-search-results__header-text wds-midlight-navy">
         <Icon @name="comment" @size="small" />
-        {{heading}}
+        {{this.heading}}
       </div>
-      {{#if seeMoreButtonEnabled}}
+      {{#if this.seeMoreButtonEnabled}}
         <Button
-          @href={{seeMoreUrl}}
+          @href={{this.seeMoreUrl}}
           @text={{true}}
           class="post-search-results__see-more"
           onclick={{action "trackMoreClick"}}
@@ -17,7 +17,7 @@
         </Button>
       {{/if}}
     </header>
-    {{#if isLoading}}
+    {{#if this.isLoading}}
       <Spinner
         @active={{true}}
         @block={{true}}
@@ -28,9 +28,9 @@
       />
     {{else}}
       <div class="post-search-results__items">
-        {{#each posts as |post index|}}
+        {{#each this.posts as |post index|}}
           {{#if (equal post.type "affiliate")}}
-            <PostSearchResultsAffiliateItem @affiliateUnit={{unit}} @postIndex={{index}} @isInContent={{isInContent}} />
+            <PostSearchResultsAffiliateItem @affiliateUnit={{@unit}} @postIndex={{index}} @isInContent={{this.isInContent}} />
           {{else}}
             <PostSearchResultsItem @post={{post}} @postIndex={{index}} />
           {{/if}}
@@ -41,7 +41,7 @@
         {{/each}}
       </div>
     {{/if}}
-    {{#if showPostSearchResultsDisclaimer}}
+    {{#if this.showPostSearchResultsDisclaimer}}
       <div class="post-search-results__disclaimer">
         {{i18n "affiliate-unit.disclaimer"}}
       </div>

@@ -1,11 +1,11 @@
-{{#if showChevrons}}
+{{#if this.showChevrons}}
   <Icon @name="menu-control" class="left" />
   <Icon @name="menu-control" class="right" />
 {{/if}}
-<FeaturedContentItem @model={{currentItem}} />
-{{#if hasMultipleItems}}
+<FeaturedContentItem @model={{this.currentItem}} />
+{{#if this.hasMultipleItems}}
   <ul class="featured-content-pagination">
-    {{#each model as |item index|}}
+    {{#each @model as |item index|}}
       <li data-index={{index}}><span></span></li>
     {{/each}}
   </ul>

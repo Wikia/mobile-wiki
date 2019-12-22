@@ -1,12 +1,12 @@
-<aside class="portable-infobox pi{{if collapsed " collapsed"}}">
-  {{{infoboxHTML}}}
+<aside class="portable-infobox pi{{if this.collapsed " collapsed"}}">
+  {{{@infoboxHTML}}}
 </aside>
-{{#if isLongInfobox}}
-  <div role="button" class={{expandButtonClass}} {{action "toogleInfobox"}}>
+{{#if this.isLongInfobox}}
+  <div role="button" class={{this.expandButtonClass}} {{action "toogleInfobox"}}>
     <span
       class="wds-text-transform-uppercase wds-font-weight-bold wds-font-size-s wds-leading-none"
     >
-      {{buttonLabel}}
+      {{this.buttonLabel}}
     </span>
     <Icon @name="menu-control" @size="tiny" class="chevron" />
   </div>

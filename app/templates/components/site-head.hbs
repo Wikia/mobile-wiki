@@ -1,8 +1,8 @@
-{{#if isFandomAppSmartBannerVisible}}
-  <FandomAppSmartBanner @isVisible={{smartBannerVisible}} />
+{{#if this.isFandomAppSmartBannerVisible}}
+  <FandomAppSmartBanner @isVisible={{this.smartBannerVisible}} />
 {{/if}}
-{{#if isCustomSmartBannerVisible}}
-  <CustomSmartBanner @isVisible={{smartBannerVisible}} />
+{{#if this.isCustomSmartBannerVisible}}
+  <CustomSmartBanner @isVisible={{this.smartBannerVisible}} />
 {{/if}}
 <div class="site-head-wrapper">
   <GlobalNavigation
@@ -18,9 +18,9 @@
 </div>
 <BannerNotifications />
 {{! It's not available on language wikis index }}
-{{#if communityHeader}}
+{{#if @communityHeader}}
   <CommunityBar
-    @model={{this.communityHeader}}
+    @model={{@communityHeader}}
     @track={{action this.track}}
     @onLinkClicked={{action this.onLinkClicked}}
   />

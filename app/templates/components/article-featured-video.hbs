@@ -4,46 +4,46 @@
   itemscope
   itemtype="http://schema.org/VideoObject"
 >
-  <meta itemprop="name" content={{metadata.name}}>
-  <meta itemprop="duration" content={{metadata.duration}}>
-  <meta itemprop="description" content={{metadata.description}}>
-  <meta itemprop="thumbnailUrl" content={{metadata.thumbnailUrl}}>
-  <meta itemprop="contentURL" content={{metadata.contentUrl}}>
-  <meta itemprop="uploadDate" content={{metadata.uploadDate}}>
+  <meta itemprop="name" content={{this.metadata.name}}>
+  <meta itemprop="duration" content={{this.metadata.duration}}>
+  <meta itemprop="description" content={{this.metadata.description}}>
+  <meta itemprop="thumbnailUrl" content={{this.metadata.thumbnailUrl}}>
+  <meta itemprop="contentURL" content={{this.metadata.contentUrl}}>
+  <meta itemprop="uploadDate" content={{this.metadata.uploadDate}}>
   <div class="article-featured-video__on-scroll-video-wrapper">
     <div
       class="article-featured-video__video-content"
-      style={{placeholderStyle}}
-      id={{videoContainerId}}
+      style={{this.placeholderStyle}}
+      id={{this.videoContainerId}}
     >
     </div>
     <ArticleFeaturedVideoClose @onTap={{action "dismissPlayer"}} />
     <div class="article-featured-video__details-wrapper">
       <div class="article-featured-video__details">
-        <h2 class="article-featured-video__title wds-font-size-s wds-font-weight-bold">{{currentVideoDetails.title}}</h2>
-        <span class="article-featured-video__time">{{videoDuration}}</span>
+        <h2 class="article-featured-video__title wds-font-size-s wds-font-weight-bold">{{this.currentVideoDetails.title}}</h2>
+        <span class="article-featured-video__time">{{this.videoDuration}}</span>
       </div>
     </div>
   </div>
   <div class="article-featured-video__on-scroll-placeholder"></div>
 </div>
-{{#if hasAttribution}}
+{{#if this.hasAttribution}}
   <div
-    class="article-featured-video__attribution-container wds-font-size-xs wds-font-weight-bold {{if hasPortableInfobox "has-portable-infobox"}}"
+    class="article-featured-video__attribution-container wds-font-size-xs wds-font-weight-bold {{if @hasPortableInfobox "has-portable-infobox"}}"
   >
     <div class="article-featured-video__attribution-inner-container">
       <a {{action "clickAttribution" preventDefault=false}}
         target="_blank"
         rel="noopener"
         class="article-featured-video__attribution-link"
-        href={{currentVideoDetails.userUrl}}
+        href={{this.currentVideoDetails.userUrl}}
       >
         <img
           class="article-featured-video__attribution-avatar"
-          src={{attributionAvatarUrl}}
-          alt={{currentVideoDetails.username}}
+          src={{this.attributionAvatarUrl}}
+          alt={{this.currentVideoDetails.username}}
         >
-        {{i18n "featured-video.from"}}&nbsp;{{currentVideoDetails.username}}
+        {{i18n "featured-video.from"}}&nbsp;{{this.currentVideoDetails.username}}
         <Icon @name="arrow" @size="tiny" class="article-featured-video__attribution-icon" />
       </a>
     </div>

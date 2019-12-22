@@ -1,11 +1,11 @@
 {{! Tags set once (static head tags) }}
-{{#unless model.noExternals}}
+{{#unless @model.noExternals}}
   <link rel="dns-prefetch" href="http://edge.quantserve.com">
   <link rel="dns-prefetch" href="http://secure-dcr.imrworldwide.com/">
   <link rel="dns-prefetch" href="http://b.scorecardresearch.com">
   <link rel="dns-prefetch" href="https://script.ioam.de/iam.js">
-  <link rel="preconnect" href={{model.cdnRootUrl}}>
-  <link rel="dns-prefetch" href={{model.cdnRootUrl}}>
+  <link rel="preconnect" href={{@model.cdnRootUrl}}>
+  <link rel="dns-prefetch" href={{@model.cdnRootUrl}}>
   <link rel="preconnect" href="https://beacon.wikia-services.com">
   <link rel="dns-prefetch" href="https://beacon.wikia-services.com">
 
@@ -66,61 +66,61 @@
   <link rel="preconnect" href="//mb.moatads.com" crossorigin>
   <link rel="dns-prefetch" href="//mb.moatads.com">
 
-  {{#if model.gaUrl}}
-    <link rel="dns-prefetch" href={{model.gaUrl}}>
+  {{#if @model.gaUrl}}
+    <link rel="dns-prefetch" href={{@model.gaUrl}}>
   {{/if}}
 {{/unless}}
 
-{{#if model.favicon}}
-  <link rel="shortcut icon" href={{model.favicon}}>
+{{#if @model.favicon}}
+  <link rel="shortcut icon" href={{@model.favicon}}>
 {{/if}}
 
-{{#if model.appleTouchIcon}}
+{{#if @model.appleTouchIcon}}
   <link
     rel="apple-touch-icon"
-    href={{model.appleTouchIcon.url}}
-    sizes={{model.appleTouchIcon.size}}
+    href={{@model.appleTouchIcon.url}}
+    sizes={{@model.appleTouchIcon.size}}
   >
 {{/if}}
 
-{{#if model.amphtml}}
-  <link rel="amphtml" href={{model.amphtml}}>
+{{#if @model.amphtml}}
+  <link rel="amphtml" href={{@model.amphtml}}>
 {{/if}}
 
 {{! Tags updated on each transition (dynamic head tags) }}
-{{#if model.htmlTitle}}
-  <title>{{model.htmlTitle}}</title>
+{{#if @model.htmlTitle}}
+  <title>{{@model.htmlTitle}}</title>
 {{/if}}
 
-{{#if model.description}}
-  <meta name="description" content={{model.description}}>
+{{#if @model.description}}
+  <meta name="description" content={{@model.description}}>
 {{/if}}
 
-{{#if model.keywords}}
-  <meta name="keywords" content={{model.keywords}}>
+{{#if @model.keywords}}
+  <meta name="keywords" content={{@model.keywords}}>
 {{/if}}
 
-{{#if model.robots}}
-  <meta name="robots" content={{model.robots}}>
+{{#if @model.robots}}
+  <meta name="robots" content={{@model.robots}}>
 {{/if}}
 
-{{#if model.appleItunesApp}}
-  <meta name="apple-itunes-app" content={{model.appleItunesApp}}>
+{{#if @model.appleItunesApp}}
+  <meta name="apple-itunes-app" content={{@model.appleItunesApp}}>
 {{/if}}
 
-{{#if model.canonical}}
-  <link rel="canonical" href={{model.canonical}}>
+{{#if @model.canonical}}
+  <link rel="canonical" href={{@model.canonical}}>
 {{/if}}
 
-{{#if model.next}}
-  <link rel="next" href={{model.next}}>
+{{#if @model.next}}
+  <link rel="next" href={{@model.next}}>
 {{/if}}
 
-{{#if model.prev}}
-  <link rel="prev" href={{model.prev}}>
+{{#if @model.prev}}
+  <link rel="prev" href={{@model.prev}}>
 {{/if}}
 
-{{#each-in model.hreflangLinks as |language url|}}
+{{#each-in @model.hreflangLinks as |language url|}}
   <link
     rel="alternate"
     hreflang={{language}}
@@ -129,58 +129,58 @@
 {{/each-in}}
 
 {{! Open Graph start }}
-{{#if model.type}}
-  <meta property="og:type" content={{model.type}}>
+{{#if @model.type}}
+  <meta property="og:type" content={{@model.type}}>
 {{/if}}
-{{#unless model.isMainPage}}
-  <meta property="og:site_name" content={{model.siteName}}>
+{{#unless @model.isMainPage}}
+  <meta property="og:site_name" content={{@model.siteName}}>
 {{/unless}}
-{{#if model.title}}
-  <meta property="og:title" content={{model.title}}>
+{{#if @model.title}}
+  <meta property="og:title" content={{@model.title}}>
 {{/if}}
-{{#if model.description}}
-  <meta property="og:description" content={{model.description}}>
+{{#if @model.description}}
+  <meta property="og:description" content={{@model.description}}>
 {{/if}}
-{{#if model.canonical}}
-  <meta property="og:url" content={{model.canonical}}>
+{{#if @model.canonical}}
+  <meta property="og:url" content={{@model.canonical}}>
 {{/if}}
-{{#if model.pageImage}}
-  <meta property="og:image" content={{model.pageImage}}>
+{{#if @model.pageImage}}
+  <meta property="og:image" content={{@model.pageImage}}>
 {{/if}}
 {{! Open Graph end }}
 
 {{! Facebook }}
-{{#if model.facebookAppId}}
+{{#if @model.facebookAppId}}
   <meta
     property="fb:app_id"
-    content={{model.facebookAppId}}
+    content={{@model.facebookAppId}}
     prefix="fb: http://www.facebook.com/2008/fbml"
   >
 {{/if}}
 
 {{! Twitter start }}
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content={{model.twitterSite}}>
-{{#if model.canonical}}
-  <meta name="twitter:url" content={{model.canonical}}>
+<meta name="twitter:site" content={{@model.twitterSite}}>
+{{#if @model.canonical}}
+  <meta name="twitter:url" content={{@model.canonical}}>
 {{/if}}
-{{#if model.twitterTitle}}
-  <meta name="twitter:title" content={{model.twitterTitle}}>
+{{#if @model.twitterTitle}}
+  <meta name="twitter:title" content={{@model.twitterTitle}}>
 {{/if}}
-{{#if model.twitterDescription}}
-  <meta name="twitter:description" content={{model.twitterDescription}}>
+{{#if @model.twitterDescription}}
+  <meta name="twitter:description" content={{@model.twitterDescription}}>
 {{/if}}
-{{#if model.isDedicatedForArticle}}
-  <meta name="featured-video" content={{model.isDedicatedForArticle}}>
+{{#if @model.isDedicatedForArticle}}
+  <meta name="featured-video" content={{@model.isDedicatedForArticle}}>
 {{/if}}
 {{! Twitter end }}
 
-{{#if model.lazyCss}}
+{{#if @model.lazyCss}}
   {{!- These styles will be added to head on front-end to lazy load them-}}
   <link rel="stylesheet" href="/mobile-wiki/assets/lazy.css">
 {{/if}}
 
-{{#if model.shouldLoadDarkCss}}
+{{#if @model.shouldLoadDarkCss}}
   {{!- Styles for dark theme added only in the mobile app view-}}
   <link rel="stylesheet" href="/mobile-wiki/assets/dark.css">
 {{/if}}

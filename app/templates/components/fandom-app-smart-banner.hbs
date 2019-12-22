@@ -1,7 +1,7 @@
 <div class="smart-banner__close" role="button" {{action "close"}}>
   <Icon @name="close" @size="small" />
 </div>
-<a href={{link}} class="smart-banner__link">
+<a href={{this.link}} class="smart-banner__link">
   <div class="smart-banner__info">
     <img
       alt="fandom app icon"
@@ -14,11 +14,11 @@
       >
         FANDOM
       </div>
-      {{#if customText}}
+      {{#if this.customText}}
         <span
           class="smart-banner__description wds-font-size-s wds-leading-none"
         >
-          {{customText}}
+          {{this.customText}}
         </span>
       {{else}}
         <span
@@ -26,7 +26,7 @@
         >
           Get it free at the
         </span>
-        <span class="smart-banner__store wds-font-size-s wds-leading-none">{{storeName}}</span>
+        <span class="smart-banner__store wds-font-size-s wds-leading-none">{{this.storeName}}</span>
       {{/if}}
     </div>
   </div>

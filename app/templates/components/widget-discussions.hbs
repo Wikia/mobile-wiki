@@ -1,4 +1,4 @@
-{{#if posts}}
+{{#if this.posts}}
   <div class="heading-wrapper">
     <h2 class="heading wds-font-size-xxl">
       {{i18n "widget-discussions.header-title"}}
@@ -9,10 +9,10 @@
     </a>
   </div>
 {{/if}}
-{{#each posts as |post|}}
+{{#each this.posts as |post|}}
   <WidgetDiscussionsPost @post={{post}} @upvote={{action "upvote"}} />
 {{else}}
-  {{#if isLoading}}
+  {{#if this.isLoading}}
     <Spinner
       @active={{true}}
       @radius={{32}}

@@ -1,6 +1,6 @@
 <h2 {{action "openSection"}}
   section="1"
-  class={{if openSection "open-section"}}
+  class={{if this.openSection "open-section"}}
 >
   <div class="section-header-label">
     {{i18n "app.view-more"}}
@@ -8,5 +8,5 @@
   <Icon @name="menu-control" @size="small" class="chevron" />
 </h2>
 <section class="article-content mobile-hidden">
-  <ArticleContent @content={{content}} />
+  <ArticleContent @content={{@content}} />
 </section>

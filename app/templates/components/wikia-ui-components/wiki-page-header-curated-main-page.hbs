@@ -1,9 +1,9 @@
 <h1 class="wiki-page-title wds-text-transform-uppercase wds-leading-none">
-  {{title}}
-  {{#if showButtons}}
+  {{@title}}
+  {{#if @showButtons}}
     <div>
       <a {{action "trackClick" "open-editor" preventDefault=false}}
-        href={{mainPageEditorUrl}}
+        href={{this.mainPageEditorUrl}}
         class="main-page-edit wds-font-size-s wds-font-weight-normal wds-text-transform-none"
       >
         <Icon @name="pencil" @size="small" role="img" />

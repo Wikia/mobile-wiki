@@ -1,10 +1,10 @@
 <div class="show-error-container is-dev">
-  <h1>{{model.normalizedMessage}}</h1>
+  <h1>{{@model.normalizedMessage}}</h1>
   <button class="wds-button" onclick="window.location.reload()">Refresh</button>
   <h2>Stack trace</h2>
-  <pre>{{{stackTrace}}}</pre>
-  {{#if additionalData}}
+  <pre>{{{this.stackTrace}}}</pre>
+  {{#if this.additionalData}}
     <h2>Additional data</h2>
-    <pre>{{additionalData}}</pre>
+    <pre>{{this.additionalData}}</pre>
   {{/if}}
 </div>

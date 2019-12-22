@@ -1,4 +1,4 @@
-{{#each shortcuts as |shortcut|}}
+{{#each this.shortcuts as |shortcut|}}
   <li
     class="category-alphabet-shortcuts__item{{if shortcut.isActive " is-active"}}"
     onclick={{action @loadFrom shortcut.from}}

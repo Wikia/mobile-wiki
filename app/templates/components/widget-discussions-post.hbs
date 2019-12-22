@@ -1,87 +1,87 @@
 <div class="post-header">
   <div class="user-avatar">
     <Avatar
-      @src={{this.post.createdBy.avatarUrl}}
-      @alt={{this.post.createdBy.name}}
+      @src={{@post.createdBy.avatarUrl}}
+      @alt={{@post.createdBy.name}}
     />
     <a
       class="avatar-username wds-font-size-s"
-      href={{post.createdBy.profileUrl}}
+      href={{@post.createdBy.profileUrl}}
     >
-      {{post.createdBy.name}}
+      {{@post.createdBy.name}}
     </a>
   </div>
   <span
     class="timestamp wds-font-size-xs wds-font-weight-bold"
-    title={{timestamp-to-date post.creationTimestamp}}
+    title={{timestamp-to-date @post.creationTimestamp}}
   >
-    &bull; {{time-ago post.creationTimestamp}}
+    &bull; {{time-ago @post.creationTimestamp}}
   </span>
 </div>
 <div class="discussion-content wds-font-size-s">
-  {{#if post.title}}
+  {{#if @post.title}}
     <h2 class="post-title wds-font-size-l wds-font-weight-medium wds-leading-tight">
-      <a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
+      <a class="post-details-link" href="/d/p/{{@post.threadId}}">{{@post.title}}</a>
     </h2>
   {{/if}}
   <a
     class="post-details-link"
-    href="/d/p/{{post.threadId}}"
+    href="/d/p/{{@post.threadId}}"
   >
-    {{parsedContent}}
+    {{this.parsedContent}}
   </a>
 </div>
-{{#if post.openGraph}}
+{{#if @post.openGraph}}
   <a
-    href={{post.openGraph.uri}}
-    title={{post.openGraph.title}}
+    href={{@post.openGraph.uri}}
+    title={{@post.openGraph.title}}
     target="_blank"
-    rel="noopener"
+    rel="noopener noreferrer"
     class="og-container"
   >
-    {{#if openGraphImageUrl}}
+    {{#if this.openGraphImageUrl}}
       <img
         class="og-image"
-        src={{openGraphImageUrl}}
-        alt={{post.openGraph.title}}
+        src={{this.openGraphImageUrl}}
+        alt={{@post.openGraph.title}}
       >
     {{/if}}
 
     <div class="og-texts">
       <span class="og-title wds-font-size-s">
-        {{post.openGraph.title}}
+        {{@post.openGraph.title}}
       </span>
       <span class="og-site-name wds-font-size-xs wds-leading-tight">
-        {{openGraphSiteName}}
+        {{this.openGraphSiteName}}
       </span>
     </div>
   </a>
 {{/if}}
 <div class="post-bottom-row wds-font-size-xs">
   <span class="post-category-name">
-    {{i18n "widget-discussions.in-category-label" categoryName=post.categoryName}}
+    {{i18n "widget-discussions.in-category-label" categoryName=@post.categoryName}}
   </span>
   <span class="post-counters">
     <span class="upvote-count">
       <Icon @name="heart" @size="tiny" class="upvote" />
-      {{post.upvoteCount}}
+      {{@post.upvoteCount}}
     </span>
     <span class="reply-count">
       <Icon @name="comment" @size="tiny" class="replies" />
-      {{post.repliesCount}}
+      {{@post.repliesCount}}
     </span>
   </span>
 </div>
 <ul class="post-actions">
   <li
-    class="upvote-area upvote wds-font-size-xs {{if post.userData.hasUpvoted "has-upvoted"}}"
-    role="button" {{action upvote post}}
+    class="upvote-area upvote wds-font-size-xs {{if @post.userData.hasUpvoted "has-upvoted"}}"
+    role="button" {{action @upvote @post}}
   >
     <Icon @name="heart" @size="small" class="upvote" />
     {{i18n "widget-discussions.post-actions-upvote-label"}}
   </li>
   <li class="replies replies-area wds-font-size-xs wds-font-weight-medium">
-    <a href="/d/p/{{post.threadId}}">
+    <a href="/d/p/{{@post.threadId}}">
       <Icon @name="comment" @size="small" class="replies" />
       {{i18n "widget-discussions.post-actions-reply-label"}}
     </a>

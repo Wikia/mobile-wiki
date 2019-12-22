@@ -1,12 +1,12 @@
-{{#if displayTopArticles}}
+{{#if this.displayTopArticles}}
   <div class="recirculation-prefooter__wiki-articles">
     <header
       class="recirculation-prefooter__wiki-articles-header wds-leading-normal wds-font-size-base wds-font-weight-bold wds-text-transform-uppercase"
     >
-      {{i18n "recirculation.popular-wiki-articles-header" wikiName=wikiName}}
+      {{i18n "recirculation.popular-wiki-articles-header" wikiName=this.wikiName}}
     </header>
     <ul class="recirculation-prefooter__wiki-articles-list">
-      {{#each topArticles as |article index|}}
+      {{#each this.topArticles as |article index|}}
         <li {{action "articleClick" article.title (sum index 1)}}
           class="recirculation-prefooter__wiki-article"
         >
@@ -26,31 +26,31 @@
   </div>
 {{/if}}
 
-{{#if displaySponsoredContent}}
+{{#if this.displaySponsoredContent}}
   <ul class="recirculation-prefooter__list">
     <li
       class="recirculation-prefooter__item is-sponsored"
-      style={{concat-background sponsoredItemThumbnail}}
+      style={{concat-background this.sponsoredItemThumbnail}}
     >
-      <a href={{sponsoredItem.url}} class="recirculation-prefooter__item-anchor" {{action "sponsoredContentClick" sponsoredItem preventDefault=false}}>
+      <a href={{this.sponsoredItem.url}} class="recirculation-prefooter__item-anchor" {{action "sponsoredContentClick" this.sponsoredItem preventDefault=false}}>
         <p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">
-          {{sponsoredItem.title}}
+          {{this.sponsoredItem.title}}
         </p>
-        {{#if sponsoredItem.attribution}}
+        {{#if this.sponsoredItem.attribution}}
           <p class="recirculation-prefooter__subtitle wds-font-size-s wds-font-weight-medium wds-leading-tight">
-            {{sponsoredItem.attributionLabel}} {{sponsoredItem.attribution}}
+            {{this.sponsoredItem.attributionLabel}} {{this.sponsoredItem.attribution}}
           </p>
         {{/if}}
       </a>
     </li>
   </ul>
-  {{#if item.pixelContent}}
-    <TrackingPixel @pixelContent={{item.pixelContent}} @pixelType={{item.pixelType}} />
+  {{#if this.sponsoredItem.pixelContent}}
+    <TrackingPixel @pixelContent={{this.sponsoredItem.pixelContent}} @pixelType={{this.sponsoredItem.pixelType}} />
   {{/if}}
 {{/if}}
 
 <ul class="recirculation-prefooter__list">
-  {{#each items as |post index|}}
+  {{#each this.items as |post index|}}
     <li
       class="recirculation-prefooter__item"
       style={{concat-background post.thumbnail}}

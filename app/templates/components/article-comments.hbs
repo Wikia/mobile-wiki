@@ -1,15 +1,15 @@
 <div {{action "toggleComments"}}
   role="button"
-  class="show-comments-btn wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize {{if isCollapsed "collapsed"}}"
+  class="show-comments-btn wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize {{if this.isCollapsed "collapsed"}}"
 >
-  <span>{{i18n "article.comments-label" count=commentsCount}}</span>
+  <span>{{i18n "article.comments-label" count=@commentsCount}}</span>
   <Icon @name="menu-control" @size="tiny" class="chevron" />
 </div>
-{{#if showComments}}
-  {{#if commentsCount}}
-    <ul class="comments wds-font-size-xs {{if commentsHidden "wds-is-hidden"}}">
-      {{#each comments as |comment|}}
-        <ArticleComment @comment={{comment}} @users={{users}} />
+{{#if this.showComments}}
+  {{#if @commentsCount}}
+    <ul class="comments wds-font-size-xs {{if this.commentsHidden "wds-is-hidden"}}">
+      {{#each this.comments as |comment|}}
+        <ArticleComment @comment={{comment}} @users={{this.users}} />
       {{/each}}
     </ul>
     <div class="comments__navigation">

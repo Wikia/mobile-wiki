@@ -1,11 +1,11 @@
 <div {{action "toggleMenu"}}
   role="button"
-  class="{{if isCollapsed "collapsed"}} title wds-font-size-s wds-font-weight-medium"
+  class="{{if this.isCollapsed "collapsed"}} title wds-font-size-s wds-font-weight-medium"
 >
-  <span>{{i18n tLabel count=tCount}}</span>
+  <span>{{i18n @tLabel count=this.tCount}}</span>
   <Icon @name="menu-control" @size="tiny" class="chevron" />
 </div>
-{{#if ordered}}
+{{#if @ordered}}
   <ol>
     {{yield}}
   </ol>

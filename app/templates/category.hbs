@@ -1,9 +1,16 @@
 <div id="wikiContainer" class="wiki-container">
-  <ArticleWrapper @displayEmptyArticleInfo={{false}} @mainPageTitle={{mainPageTitle}} @model={{model}} @showComments={{false}} @siteName={{siteName}} @wikiPageHeaderSubtitle={{i18n "category-page.subtitle"}}>
+  <ArticleWrapper
+		  @displayEmptyArticleInfo={{false}}
+		  @mainPageTitle={{this.mainPageTitle}}
+		  @model={{@model}}
+		  @showComments={{false}}
+		  @siteName={{this.siteName}}
+		  @wikiPageHeaderSubtitle={{i18n "category-page.subtitle"}}
+  >
     {{!-- Keep it outside of category-page to make scrolling to top easier --}}
-    {{#if model.trendingPages}}
-      <CategoryTrendingPages @model={{model.trendingPages}} />
+    {{#if @model.trendingPages}}
+      <CategoryTrendingPages @model={{@model.trendingPages}} />
     {{/if}}
-    <CategoryPage @from={{from}} @loadFrom={{action "loadFrom"}} @model={{model}} />
+    <CategoryPage @from={{this.from}} @loadFrom={{action "loadFrom"}} @model={{@model}} />
   </ArticleWrapper>
 </div>

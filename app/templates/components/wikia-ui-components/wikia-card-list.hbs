@@ -8,9 +8,9 @@
         <div class="wikia-card__snippet wds-font-size-xs">{{item.snippet}}</div>
       </LinkTo>
     </li>
-    {{#if includePostsForQuery}}
+    {{#if @includePostsForQuery}}
       {{#if (equal key 1)}}
-        <PostSearchInterrupt @query={{includePostsForQuery}} @debugAffiliateUnits={{debugAffiliateUnits}} />
+        <PostSearchInterrupt @query={{@includePostsForQuery}} @debugAffiliateUnits={{@debugAffiliateUnits}} />
       {{/if}}
     {{/if}}
   {{/each}}

@@ -7,8 +7,8 @@
 </div>
 <div class="show-error-container">
   <h1>Error</h1>
-  <div>{{productionErrorContext.message}}</div>
-  {{#if productionErrorContext.canAttemptRefresh}}
+  <div>{{this.productionErrorContext.message}}</div>
+  {{#if this.productionErrorContext.canAttemptRefresh}}
     <button class="wds-button" onclick="window.location.reload()">Refresh</button>
   {{/if}}
 </div>

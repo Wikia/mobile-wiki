@@ -1,19 +1,19 @@
-{{#if type}}
-  <div class="lightbox-header {{if uiHidden "wds-is-hidden"}}">
+{{#if this.type}}
+  <div class="lightbox-header {{if this.uiHidden "wds-is-hidden"}}">
     <div class="lightbox-close-wrapper">
-      {{#if closeButtonHidden}}
-        {{lightboxCloseButtonDelay}}
+      {{#if this.closeButtonHidden}}
+        {{this.lightboxCloseButtonDelay}}
       {{else}}
         <Icon @name="close" @size="small" role="img" class="lightbox-close-button" />
       {{/if}}
     </div>
-    <div class="lightbox-header-title">{{header}}</div>
+    <div class="lightbox-header-title">{{this.header}}</div>
   </div>
   <div class="lightbox-content">
     {{component
-      lightboxComponent
-      model=model
-      lightboxCloseButtonDelay=lightboxCloseButtonDelay
+      this.lightboxComponent
+      model=this.model
+      lightboxCloseButtonDelay=this.lightboxCloseButtonDelay
       setFooter=(action "setFooter")
       setHeader=(action "setHeader")
       setCloseButtonHidden=(action "setCloseButtonHidden")
@@ -22,26 +22,26 @@
     }}
   </div>
 
-  <div class="lightbox-footer wds-font-size-s {{if uiHidden "wds-is-hidden"}}">
-    {{#if footerHead}}
-      <div class="lightbox-footer-head wds-font-weight-bold wds-leading-normal">{{footerHead}}</div>
+  <div class="lightbox-footer wds-font-size-s {{if this.uiHidden "wds-is-hidden"}}">
+    {{#if this.footerHead}}
+      <div class="lightbox-footer-head wds-font-weight-bold wds-leading-normal">{{this.footerHead}}</div>
     {{/if}}
     <div class="lightbox-footer-content-wrapper">
       <div
-        class="lightbox-footer-content mw-content wds-font-weight-normal wds-leading-tight {{if footerExpanded "expanded"}}"
+        class="lightbox-footer-content mw-content wds-font-weight-normal wds-leading-tight {{if this.footerExpanded "expanded"}}"
       >
-        {{footer}}
+        {{this.footer}}
       </div>
-      {{#if footerLink}}
+      {{#if this.footerLink}}
         <div class="lightbox-footer-link">
-          <a href={{footerLink}}>
+          <a href={{this.footerLink}}>
             <Icon @name="link" @size="small" />
           </a>
         </div>
       {{/if}}
     </div>
-    {{#if displayFilmstrip}}
-      <LightboxFilmstrip @thumbnails={{thumbnails}} @activeThumbnailRef={{model.galleryRef}} @class={{if uiHidden "lightbox-filmstrip-hidden" ""}} />
+    {{#if this.displayFilmstrip}}
+      <LightboxFilmstrip @thumbnails={{this.thumbnails}} @activeThumbnailRef={{this.model.galleryRef}} @class={{if this.uiHidden "lightbox-filmstrip-hidden" ""}} />
     {{/if}}
   </div>
 {{/if}}

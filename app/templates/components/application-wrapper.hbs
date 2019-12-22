@@ -1,19 +1,27 @@
-{{#if fullPage}}
+{{#if @fullPage}}
   {{outlet}}
 {{else}}
-  <SiteHead @globalNavigation={{globalNavigation}} @communityHeader={{communityHeader}} @contentLanguage={{contentLanguage}} @isSearchPage={{isSearchPage}} @shadow={{siteHeadShadow}} @themeBar={{themeBar}} @offset={{ads.siteHeadOffset}} />
+  <SiteHead
+		  @globalNavigation={{@globalNavigation}}
+		  @communityHeader={{@communityHeader}}
+		  @contentLanguage={{this.contentLanguage}}
+		  @isSearchPage={{@isSearchPage}}
+		  @shadow={{@siteHeadShadow}}
+		  @themeBar={{@themeBar}}
+		  @offset={{this.ads.siteHeadOffset}}
+  />
   <div class="page-wrapper">
     {{outlet}}
   </div>
   <WikiaInYourLang />
-  {{#if globalFooter}}
+  {{#if @globalFooter}}
     <GlobalFooter
-      @model={{this.globalFooter}}
+      @model={{@globalFooter}}
       @track={{action this.track}}
     />
-    <GlobalFooterBottom @isWikiaOrg={{isWikiaOrg}} />
+    <GlobalFooterBottom @isWikiaOrg={{this.isWikiaOrg}} />
   {{/if}}
 {{/if}}
 <LightboxWrapper />
-<AlertNotifications @alerts={{alertNotifications}} />
-<Spinner @active={{this.isLoading}} />
+<AlertNotifications @alerts={{@alertNotifications}} />
+<Spinner @active={{@isLoading}} />

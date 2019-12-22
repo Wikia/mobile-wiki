@@ -1,20 +1,20 @@
-<WikiaUiComponents::WikiPageHeader @title={{model.displayTitle}} @subtitle={{wikiPageHeaderSubtitle}} @heroImage={{heroImageInHeader}} />
+<WikiaUiComponents::WikiPageHeader @title={{@model.displayTitle}} @subtitle={{@wikiPageHeaderSubtitle}} @heroImage={{this.heroImageInHeader}} />
 
-{{#if hasFeaturedVideo}}
-  <ArticleFeaturedVideo @model={{model.featuredVideo}} @hasPortableInfobox={{model.hasPortableInfobox}} />
+{{#if this.hasFeaturedVideo}}
+  <ArticleFeaturedVideo @model={{@model.featuredVideo}} @hasPortableInfobox={{@model.hasPortableInfobox}} />
 {{/if}}
 
 <section class="article-body">
-  {{#if model.fileThumbnail}}
-    <ArticleMediaThumbnail @model={{model.fileThumbnail}} @shouldBeLoaded={{true}} />
+  {{#if @model.fileThumbnail}}
+    <ArticleMediaThumbnail @model={{@model.fileThumbnail}} @shouldBeLoaded={{true}} />
   {{/if}}
-  {{#if smallHeroImage}}
-    <PortableInfoboxHeroImageSmall @heroImage={{smallHeroImage}} />
+  {{#if this.smallHeroImage}}
+    <PortableInfoboxHeroImageSmall @heroImage={{this.smallHeroImage}} />
   {{/if}}
-  <ArticleContent @adsContext={{model.adsContext}} @content={{model.content}} @displayEmptyArticleInfo={{displayEmptyArticleInfo}} @displayTitle={{model.displayTitle}} @featuredVideo={{model.featuredVideo}} @forceFeaturedVideoVisibility={{action "forceFeaturedVideoVisibility"}} @heroImage={{heroImage}} @id={{model.id}} @media={{model.media}} @data-test-article-content={{true}} @debugAffiliateUnits={{model.debugAffiliateUnits}} />
+  <ArticleContent @adsContext={{@model.adsContext}} @content={{@model.content}} @displayEmptyArticleInfo={{this.displayEmptyArticleInfo}} @displayTitle={{@model.displayTitle}} @featuredVideo={{@model.featuredVideo}} @forceFeaturedVideoVisibility={{action "forceFeaturedVideoVisibility"}} @heroImage={{this.heroImage}} @id={{@model.id}} @media={{@model.media}} @data-test-article-content={{true}} @debugAffiliateUnits={{@model.debugAffiliateUnits}} />
 </section>
 {{yield}}
-{{#if displayArticleWrapper}}
+{{#if this.displayArticleWrapper}}
   <section class="article-footer">
     <div class="article-information-header">
       <h2
@@ -23,13 +23,13 @@
         {{i18n "article.article-information"}}
       </h2>
     </div>
-    <WikiaUsers @users={{model.topContributors}} @class="article-footer-item" />
-    {{#if showComments}}
-      <ArticleComments @articleId={{model.id}} @commentsCount={{model.comments}} @page={{commentsPage}} @class="article-footer-item" />
+    <WikiaUsers @users={{@model.topContributors}} @class="article-footer-item" />
+    {{#if this.showComments}}
+      <ArticleComments @articleId={{@model.id}} @commentsCount={{@model.comments}} @page={{this.commentsPage}} @class="article-footer-item" />
     {{/if}}
-    {{#if model.categories}}
-      <CollapsibleMenu @observe={{model.displayTitle}} @ordered={{false}} @tLabel="article.categories-list-label" @trackingEvent="category-menu" @click={{action "trackClick" "category-menu" "open-category"}} @class="article-categories-list article-footer-item mw-content">
-        {{#each model.categories as |category|}}
+    {{#if @model.categories}}
+      <CollapsibleMenu @observe={{@model.displayTitle}} @ordered={{false}} @tLabel="article.categories-list-label" @trackingEvent="category-menu" @click={{action "trackClick" "category-menu" "open-category"}} @class="article-categories-list article-footer-item mw-content">
+        {{#each @model.categories as |category|}}
           <li>
             <a
               href={{category.url}}
@@ -42,9 +42,9 @@
         {{/each}}
       </CollapsibleMenu>
     {{/if}}
-    {{#if model.languageLinks}}
-      <CollapsibleMenu @observe={{model.displayTitle}} @ordered={{false}} @tLabel="article.language-links-label" @trackingEvent="language-links" @class="article-language-links-list article-footer-item">
-        {{#each model.languageLinks as |lang|}}
+    {{#if @model.languageLinks}}
+      <CollapsibleMenu @observe={{@model.displayTitle}} @ordered={{false}} @tLabel="article.language-links-label" @trackingEvent="language-links" @class="article-language-links-list article-footer-item">
+        {{#each @model.languageLinks as |lang|}}
           <li>
             <a
               href={{lang.href}}
@@ -58,7 +58,7 @@
       </CollapsibleMenu>
     {{/if}}
     <div class="license-description wds-font-size-s wds-leading-tight">
-      {{{i18n "license-description" ns="design-system" license=(wrap-me wikiVariables.licenseText tagName="a" href=wikiVariables.licenseUrl className="wds-font-weight-medium")}}}
+      {{{i18n "license-description" ns="design-system" license=(wrap-me this.wikiVariables.licenseText tagName="a" href=this.wikiVariables.licenseUrl className="wds-font-weight-medium")}}}
     </div>
   </section>
 {{/if}}

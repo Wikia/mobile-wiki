@@ -15,7 +15,7 @@
   </a>
 {{/if}}
 {{#if @model.nextPageUrl}}
-  <a {{action @loadFrom model.nextPageKey "next"}}
+  <a {{action @loadFrom @model.nextPageKey "next"}}
     href={{@model.nextPageUrl}}
     class="category-pagination__next wds-button wds-is-secondary"
   >

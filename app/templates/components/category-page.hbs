@@ -5,7 +5,7 @@
   }}
 </h2>
 <CategoryAlphabetShortcuts @from={{@from}} @loadFrom={{action "loadFrom"}} />
-{{#if isLoading}}
+{{#if this.isLoading}}
   <Spinner
     @active={{this.isLoading}}
     @block={{true}}
@@ -13,8 +13,8 @@
   />
 {{else}}
   <CategoryMembersGrouped @model={{@model.members}} />
-  {{#if model.hasPagination}}
+  {{#if @model.hasPagination}}
     <CategoryPagination @loadFrom={{action "loadFrom"}} @model={{@model.pagination}} />
   {{/if}}
 {{/if}}
-<AlertNotifications @alerts={{alertNotifications}} />
+<AlertNotifications @alerts={{this.alertNotifications}} />
