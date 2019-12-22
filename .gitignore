@@ -13,6 +13,8 @@
 .node-gyp/
 
 # misc
+/.env*
+/.pnp*
 /.sass-cache
 /connect.lock
 /coverage/
