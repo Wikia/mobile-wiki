@@ -136,9 +136,10 @@ module.exports = function (defaults) {
     destDir: 'assets/jwplayer',
   });
 
-  const trackingOptIn = new Funnel('node_modules/@wikia/tracking-opt-in/dist/tracking-opt-in.min.js', {
+  const trackingOptIn = new Funnel('node_modules/@wikia/tracking-opt-in/dist', {
     // String `/assets/tracking-` is blocked by EasyPrivacy list
     destDir: 'assets/wikia-opt-in.min.js',
+    include: ['tracking-opt-in.min.js'],
   });
 
   // Import files from node_modules, they will run both in FastBoot and browser
