@@ -78,7 +78,7 @@ export default Component.extend(
       this._super(...arguments);
 
       if (this.isEnabled) {
-        this.fetchResults(this.get('query'));
+        this.fetchResults(this.query);
       }
     },
 

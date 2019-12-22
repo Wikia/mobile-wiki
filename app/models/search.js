@@ -83,7 +83,7 @@ export default EmberObject.extend({
       limit: 25,
     };
 
-    if (this.get('scope') === 'internal') {
+    if (this.scope === 'internal') {
       queryParams.wikiId = this.wikiVariables.id;
     }
 
@@ -135,9 +135,9 @@ export default EmberObject.extend({
   },
 
   getScope() {
-    return this.get('scope');
+    return this.scope;
   },
   getQuery() {
-    return this.get('query');
+    return this.query;
   },
 });

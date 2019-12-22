@@ -60,6 +60,6 @@ export default Service.extend({
       isAuthenticated: this.currentUser.isAuthenticated,
     };
 
-    this.get('module').afterTransition(adsContext);
+    this.module.afterTransition(adsContext);
   },
 });
