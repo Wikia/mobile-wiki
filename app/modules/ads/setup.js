@@ -163,7 +163,6 @@ export const adsSetup = {
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
 
-    context.set('bidders.prebid.libraryUrl', instantConfig.get('icPrebidVersion'));
     context.set('options.trackingOptIn', consents.isOptedIn);
     context.set('options.geoRequiresConsent', !!M.geoRequiresConsent);
     context.set('options.optOutSale', consents.isSaleOptOut);
