@@ -613,12 +613,6 @@ export default Component.extend(
               },
               element: unitPlaceholder,
             }));
-
-            trackAffiliateUnit(bigUnit, {
-              category: 'affiliate_incontent_recommend',
-              label: 'affiliate_not_shown',
-              action: 'no-impression',
-            });
           }
 
           // if there's a small unit
