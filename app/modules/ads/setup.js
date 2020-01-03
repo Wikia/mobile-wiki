@@ -118,9 +118,7 @@ export const adsSetup = {
     const cacheStorage = InstantConfigCacheStorage.make();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
-      // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
-      const originalSrc = context.get('src');
-      context.set('src', [originalSrc, adsContext.targeting.testSrc]);
+      context.set('src', adsContext.targeting.testSrc);
     } else if (adsContext.opts.isAdTestWiki) {
       context.set('src', 'test');
     }
