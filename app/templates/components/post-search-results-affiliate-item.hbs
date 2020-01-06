@@ -5,7 +5,7 @@
   href={{this.getUnitLink}}
   class="post-search-results-affiliate-item__title wds-leading-tight"
   rel="noopener sponsored"
-  onclick={{action "trackClick" @postIndex @affiliateUnit}}
+  {{on "click" (fn this.trackClick @postIndex @affiliateUnit)}}
 >
   {{@affiliateUnit.heading}}
 </a>

@@ -1,11 +1,12 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
 export default Component.extend({
   classNames: ['full-main-page-content'],
   openSection: false,
-  actions: {
-    openSection() {
-      this.toggleProperty('openSection');
-    },
+
+  @action
+  toggleOpenSection() {
+    this.toggleProperty('openSection');
   },
 });

@@ -1,3 +1,4 @@
+import { action } from '@ember/object';
 import { addObserver, removeObserver } from '@ember/object/observers';
 import Component from '@ember/component';
 import { track, trackActions } from '../utils/track';
@@ -27,21 +28,20 @@ export default Component.extend(
       removeObserver(this, 'observe', this, this.titleDidChange);
     },
 
-    actions: {
-      /**
-    * @returns {void}
-    */
-      toggleMenu() {
-        this.toggleProperty('isCollapsed');
+    /**
+     * @returns {void}
+     */
+    @action
+    toggleMenu() {
+      this.toggleProperty('isCollapsed');
 
-        if (this.trackingEvent !== null) {
-          track({
-            action: trackActions.click,
-            category: this.trackingEvent,
-            label: this.isCollapsed ? 'collapsed' : 'expanded',
-          });
-        }
-      },
+      if (this.trackingEvent !== null) {
+        track({
+          action: trackActions.click,
+          category: this.trackingEvent,
+          label: this.isCollapsed ? 'collapsed' : 'expanded',
+        });
+      }
     },
 
     /**

@@ -21,7 +21,7 @@
     {{#unless this.isExpanded}}
       <Button
         @text={{true}}
-        @onClick={{action "toggleExpand"}}
+        @onClick={{this.toggleExpand}}
         class="show-reply-btn"
       >
         {{i18n "article.replies-label" count=@comment.comments.length}}

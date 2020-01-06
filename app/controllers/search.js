@@ -1,5 +1,6 @@
 import { inject as service } from '@ember/service';
 import { equal, alias } from '@ember/object/computed';
+import { action } from '@ember/object';
 import Controller, { inject as controller } from '@ember/controller';
 import { track, trackActions } from '../utils/track';
 
@@ -16,20 +17,20 @@ export default Controller.extend({
   notFoundError: equal('model.error', 'search-error-not-found'),
   inputPhrase: alias('query'),
 
-  actions: {
-    onLoadMore(trackLabel) {
-      track({
-        action: trackActions.click,
-        category: 'wikia-button',
-        label: trackLabel,
-      });
+  @action
+  onLoadMore(trackLabel) {
+    track({
+      action: trackActions.click,
+      category: 'wikia-button',
+      label: trackLabel,
+    });
 
-      this.model.loadMore().then(() => this.trackResultsImpression());
-    },
+    this.model.loadMore().then(() => this.trackResultsImpression());
+  },
 
-    onResultClick(result) {
-      this.trackItemClick(result);
-    },
+  @action
+  onResultClick(result) {
+    this.trackItemClick(result);
   },
 
   trackItemClick(result) {

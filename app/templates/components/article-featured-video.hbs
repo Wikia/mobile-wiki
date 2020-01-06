@@ -17,7 +17,7 @@
       id={{this.videoContainerId}}
     >
     </div>
-    <ArticleFeaturedVideoClose @onTap={{action "dismissPlayer"}} />
+    <ArticleFeaturedVideoClose @onTap={{this.dismissPlayer}} />
     <div class="article-featured-video__details-wrapper">
       <div class="article-featured-video__details">
         <h2 class="article-featured-video__title wds-font-size-s wds-font-weight-bold">{{this.currentVideoDetails.title}}</h2>
@@ -32,7 +32,7 @@
     class="article-featured-video__attribution-container wds-font-size-xs wds-font-weight-bold {{if @hasPortableInfobox "has-portable-infobox"}}"
   >
     <div class="article-featured-video__attribution-inner-container">
-      <a {{action "clickAttribution" preventDefault=false}}
+      <a {{on "click" this.clickAttribution}}
         target="_blank"
         rel="noopener"
         class="article-featured-video__attribution-link"

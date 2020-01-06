@@ -1,22 +1,20 @@
 import Route from '@ember/routing/route';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(
-  {
-    runtimeConfig: service(),
+export default class ApplicationErrorRouter extends Route {
+  @service runtimeConfig;
 
-    renderTemplate() {
-      if (this.runtimeConfig.wikiaEnv === 'dev') {
-        this.render('errors/application-dev');
-      } else {
-        this.render('errors/application');
-      }
-    },
+  renderTemplate() {
+    if (this.runtimeConfig.wikiaEnv === 'dev') {
+      this.render('errors/application-dev');
+    } else {
+      this.render('errors/application');
+    }
+  }
 
-    actions: {
-      reloadPage() {
-        window.location.reload();
-      },
-    },
-  },
-);
+  @action
+  reloadPage() {
+    window.location.reload();
+  }
+}

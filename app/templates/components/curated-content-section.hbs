@@ -4,7 +4,7 @@
   {{#if @model.items}}
     {{#if @model.label}}
       <div class="curated-content-section__header">
-        <a {{action @closeSection}}
+        <a {{on "click" @closeSection}}
           href="#"
           class="curated-content-section__back wds-font-style-italic"
         >

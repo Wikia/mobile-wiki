@@ -1,5 +1,5 @@
 import { alias, not, or } from '@ember/object/computed';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 
@@ -36,83 +36,89 @@ export default Component.extend({
     return type ? `lightbox-${type}` : null;
   }),
 
-  actions: {
-    /**
+  /**
    * @returns {void}
    */
-    close() {
-      if (!this.closeAllowed) {
-        return;
-      }
+  @action
+  close() {
+    if (!this.closeAllowed) {
+      return;
+    }
 
-      this.setProperties({
-        footer: null,
-        footerHead: '',
-        footerLink: null,
-        header: null,
-        footerExpanded: false,
-        uiHidden: false,
-        thumbnails: null,
-        closeButtonHidden: false,
-        displayFilmstrip: false,
-      });
+    this.setProperties({
+      footer: null,
+      footerHead: '',
+      footerLink: null,
+      header: null,
+      footerExpanded: false,
+      uiHidden: false,
+      thumbnails: null,
+      closeButtonHidden: false,
+      displayFilmstrip: false,
+    });
 
-      this.lightbox.close();
-    },
+    this.lightbox.close();
+  },
 
-    /**
+  /**
    * @param {string} footer
    * @param {string} footerHead
    * @param {string} footerLink
    * @returns {void}
    */
-    setFooter(footer, footerHead, footerLink) {
-      this.set('footer', footer);
-      this.set('footerHead', footerHead);
-      this.set('footerLink', footerLink);
-    },
+  @action
+  setFooter(footer, footerHead, footerLink) {
+    this.set('footer', footer);
+    this.set('footerHead', footerHead);
+    this.set('footerLink', footerLink);
+  },
 
-    /**
+  /**
    * @param {string} header
    * @returns {void}
    */
-    setHeader(header) {
-      this.set('header', header);
-    },
+  @action
+  setHeader(header) {
+    this.set('header', header);
+  },
 
-    /**
+  /**
    * @param {boolean} hidden
    * @returns {void}
    */
-    setCloseButtonHidden(hidden) {
-      this.set('closeButtonHidden', hidden);
-    },
+  @action
+  setCloseButtonHidden(hidden) {
+    this.set('closeButtonHidden', hidden);
+  },
 
-    /**
+  /**
    * @param {array} thumbnails: array of thumb urls
    */
-    setThumbnails(thumbnails) {
-      this.set('thumbnails', thumbnails);
-      this.set('displayFilmstrip', !!thumbnails);
-    },
+  @action
+  setThumbnails(thumbnails) {
+    this.set('thumbnails', thumbnails);
+    this.set('displayFilmstrip', !!thumbnails);
+  },
 
-    /**
+  /**
    * @returns {void}
    */
-    toggleFooter() {
-      this.toggleProperty('footerExpanded');
-    },
+  @action
+  toggleFooter() {
+    this.toggleProperty('footerExpanded');
+  },
 
-    /**
+  /**
    * @returns {void}
    */
-    toggleUI() {
-      this.toggleProperty('uiHidden');
-    },
+  @action
+  toggleUI() {
+    this.toggleProperty('uiHidden');
+  },
 
-    updateGalleryRef(value) {
-      this.set('model.galleryRef', value);
-    },
+  @action
+  updateGalleryRef(value) {
+    this.set('model.galleryRef', value);
   },
 
   /**

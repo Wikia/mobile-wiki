@@ -1,4 +1,4 @@
-<div {{action "toggleComments"}}
+<div {{on "click" this.toggleComments}}
   role="button"
   class="show-comments-btn wds-font-size-s wds-font-weight-medium wds-text-transform-capitalize {{if this.isCollapsed "collapsed"}}"
 >
@@ -15,7 +15,7 @@
     <div class="comments__navigation">
       <Button
         class="page-button prev-page-button"
-        @onClick={{action "prevPage"}}
+        @onClick={{this.prevPage}}
         @disabled={{this.prevButtonDisabled}}
         @secondary={{true}}
         @square={{true}}
@@ -25,7 +25,7 @@
 
       <Button
         class="page-button next-page-button"
-        @onClick={{action "nextPage"}}
+        @onClick={{this.nextPage}}
         @disabled={{this.nextButtonDisabled}}
         @secondary={{true}}
         @square={{true}}

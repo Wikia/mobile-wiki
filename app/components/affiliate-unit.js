@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import InViewportMixin from 'ember-in-viewport';
 import { trackAffiliateUnit, trackActions } from '../utils/track';
@@ -45,14 +45,13 @@ export default Component.extend(
       return this.unit.link;
     }),
 
-    actions: {
-      trackAffiliateClick() {
-        trackAffiliateUnit(this.unit, {
-          action: trackActions.click,
-          category: this.isInContent ? 'affiliate_incontent_recommend' : 'affiliate_search_recommend',
-          label: 'only-item',
-        });
-      },
+    @action
+    trackAffiliateClick() {
+      trackAffiliateUnit(this.unit, {
+        action: trackActions.click,
+        category: this.isInContent ? 'affiliate_incontent_recommend' : 'affiliate_search_recommend',
+        label: 'only-item',
+      });
     },
 
     didEnterViewport() {

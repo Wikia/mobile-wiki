@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import toArray from '../utils/toArray';
 import { isIpAddress } from '../utils/string';
 
@@ -14,7 +14,6 @@ import { isIpAddress } from '../utils/string';
 
 export default Component.extend({
   i18n: service(),
-  wikiVariables: service(),
   tagName: 'li',
   classNames: ['article-comment'],
 
@@ -48,9 +47,8 @@ export default Component.extend({
     });
   },
 
-  actions: {
-    toggleExpand() {
-      this.toggleProperty('isExpanded');
-    },
+  @action
+  toggleExpand() {
+    this.toggleProperty('isExpanded');
   },
 });

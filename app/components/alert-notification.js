@@ -1,5 +1,6 @@
 import { later, cancel } from '@ember/runloop';
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
 export default Component.extend({
   classNames: ['alert-notification', 'alert-box', 'wds-font-size-xs', 'wds-font-weight-normal'],
@@ -33,20 +34,16 @@ export default Component.extend({
     cancel(this.timeout);
   },
 
-  actions: {
-    /**
-   * @returns {void}
-   */
-    close() {
-      const onCloseAlert = this.get('alert.callbacks.onCloseAlert');
+  close: action(function (event) {
+    event.preventDefault();
+    const onCloseAlert = this.get('alert.callbacks.onCloseAlert');
 
-      this.dismissNotification();
+    this.dismissNotification();
 
-      if (typeof onCloseAlert === 'function') {
-        onCloseAlert();
-      }
-    },
-  },
+    if (typeof onCloseAlert === 'function') {
+      onCloseAlert();
+    }
+  }),
 
   /**
   * @returns {void}

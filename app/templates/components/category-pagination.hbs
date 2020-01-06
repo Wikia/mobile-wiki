@@ -1,5 +1,5 @@
 {{#if @model.firstPageUrl}}
-  <a {{action @loadFrom null "first"}}
+  <a {{on "click" (fn @loadFrom null "first")}}
     href={{@model.firstPageUrl}}
     class="wds-button wds-is-text"
   >
@@ -7,7 +7,7 @@
   </a>
 {{/if}}
 {{#if @model.prevPageUrl}}
-  <a {{action @loadFrom (if @model.isPrevPageTheFirstPage null @model.prevPageKey) "prev"}}
+  <a {{on "click" (fn @loadFrom (if @model.isPrevPageTheFirstPage null @model.prevPageKey) "prev")}}
     href={{@model.prevPageUrl}}
     class="category-pagination__prev wds-button wds-is-secondary"
   >
@@ -15,7 +15,7 @@
   </a>
 {{/if}}
 {{#if @model.nextPageUrl}}
-  <a {{action @loadFrom @model.nextPageKey "next"}}
+  <a {{on "click" (fn @loadFrom @model.nextPageKey "next")}}
     href={{@model.nextPageUrl}}
     class="category-pagination__next wds-button wds-is-secondary"
   >
@@ -23,7 +23,7 @@
   </a>
 {{/if}}
 {{#if @model.lastPageUrl}}
-  <a {{action @loadFrom @model.lastPageKey "last"}}
+  <a {{on "click" (fn @loadFrom @model.lastPageKey "last")}}
     href={{@model.lastPageUrl}}
     class="wds-button wds-is-text"
   >

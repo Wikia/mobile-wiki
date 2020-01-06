@@ -2,7 +2,7 @@ import { defer } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { reads, and } from '@ember/object/computed';
-import { computed, observer } from '@ember/object';
+import { action, computed, observer } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
 import { inGroup } from '../modules/abtest';
@@ -83,65 +83,68 @@ export default Component.extend(
       recirculationBlacklist.clear();
     },
 
-    actions: {
-      postClick(post, index) {
-        const labels = ['footer', `footer-slot-${index + 1}`];
-        let additionalRecommendationData;
+    @action
+    postClick(post, index, event) {
+      event.preventDefault();
 
-        if (this.shouldUseExperimentalRecommendationService) {
-          additionalRecommendationData = {
-            recommendation_request_id: this.requestId,
-            item_id: post.id,
-            item_type: 'wiki_article',
-          };
-        }
+      const labels = ['footer', `footer-slot-${index + 1}`];
+      let additionalRecommendationData;
 
-        labels.forEach(label => track(Object.assign({
-          action: trackActions.click,
-          category: trackingCategory,
-          label,
-        }, additionalRecommendationData)));
+      if (this.shouldUseExperimentalRecommendationService) {
+        additionalRecommendationData = {
+          recommendation_request_id: this.requestId,
+          item_id: post.id,
+          item_type: 'wiki_article',
+        };
+      }
 
-        track(Object.assign({
-          action: trackActions.select,
-          category: trackingCategory,
-          label: post.url,
-        }, additionalRecommendationData));
+      labels.forEach(label => track(Object.assign({
+        action: trackActions.click,
+        category: trackingCategory,
+        label,
+      }, additionalRecommendationData)));
 
-        run.later(() => {
-          window.location.assign(post.url);
-        }, 200);
-      },
+      track(Object.assign({
+        action: trackActions.select,
+        category: trackingCategory,
+        label: post.url,
+      }, additionalRecommendationData));
 
-      articleClick(title, index) {
-        track({
-          action: trackActions.click,
-          category: trackingCategory,
-          label: `more-wiki-${index}`,
-        });
+      run.later(() => {
+        window.location.assign(post.url);
+      }, 200);
+    },
 
-        this.router.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
-      },
+    @action
+    articleClick(title, index) {
+      track({
+        action: trackActions.click,
+        category: trackingCategory,
+        label: `more-wiki-${index}`,
+      });
 
-      sponsoredContentClick(sponsoredItem) {
-        track({
-          action: trackActions.click,
-          category: trackingCategory,
-          label: 'footer',
-        });
+      this.router.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(title)));
+    },
 
-        track({
-          action: trackActions.click,
-          category: trackingCategory,
-          label: 'sponsored-item',
-        });
+    @action
+    sponsoredContentClick(sponsoredItem) {
+      track({
+        action: trackActions.click,
+        category: trackingCategory,
+        label: 'footer',
+      });
 
-        track({
-          action: trackActions.select,
-          category: trackingCategory,
-          label: `footer::${sponsoredItem.url}`,
-        });
-      },
+      track({
+        action: trackActions.click,
+        category: trackingCategory,
+        label: 'sponsored-item',
+      });
+
+      track({
+        action: trackActions.select,
+        category: trackingCategory,
+        label: `footer::${sponsoredItem.url}`,
+      });
     },
 
     fetchTopArticles() {

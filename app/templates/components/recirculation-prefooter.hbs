@@ -7,7 +7,7 @@
     </header>
     <ul class="recirculation-prefooter__wiki-articles-list">
       {{#each this.topArticles as |article index|}}
-        <li {{action "articleClick" article.title (sum index 1)}}
+        <li {{on "click" (fn this.articleClick article.title (sum index 1))}}
           class="recirculation-prefooter__wiki-article"
         >
           <span
@@ -32,7 +32,7 @@
       class="recirculation-prefooter__item is-sponsored"
       style={{concat-background this.sponsoredItemThumbnail}}
     >
-      <a href={{this.sponsoredItem.url}} class="recirculation-prefooter__item-anchor" {{action "sponsoredContentClick" this.sponsoredItem preventDefault=false}}>
+      <a href={{this.sponsoredItem.url}} class="recirculation-prefooter__item-anchor" {{on "click" (fn this.sponsoredContentClick this.sponsoredItem)}}>
         <p class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight">
           {{this.sponsoredItem.title}}
         </p>
@@ -60,7 +60,7 @@
           {{svg "wds-company-logo-fandom-heart"}}
         </div>
       {{/unless}}
-      <a {{action "postClick" post index preventDefault=true}}
+      <a {{on "click" (fn this.postClick post index)}}
         href={{post.url}}
         class="recirculation-prefooter__item-anchor"
       >

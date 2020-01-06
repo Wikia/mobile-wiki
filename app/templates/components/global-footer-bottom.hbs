@@ -1,6 +1,6 @@
 <div class="global-footer-bottom__wrapper {{if @isWikiaOrg "global-footer-bottom__wrapper--wikia-org"}}">
   <div class="global-footer-bottom__bar">
-    <div {{action "fullSiteClicked"}}
+    <div {{on "click" this.fullSiteClicked}}
       role="button"
       class="global-footer-bottom__link wds-font-size-xs wds-font-weight-bold wds-leading-tight wds-text-transform-uppercase"
     >

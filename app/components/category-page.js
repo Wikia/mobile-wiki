@@ -1,4 +1,5 @@
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import { track, trackActions } from '../utils/track';
@@ -17,34 +18,36 @@ export default Component.extend(
       window.lazySizes.init();
     },
 
-    actions: {
-      /**
-       * @param {number} from
-       * @param {string} label
-       */
-      loadFrom(from, label) {
-        scrollToTop(this.element, 'instant');
-        this.set('isLoading', true);
+    /**
+     * @param {number} from
+     * @param {string} label
+     * @param {Event} event
+     */
+    @action
+    doLoadFrom(from, label, event) {
+      event.preventDefault();
 
-        track({
-          action: trackActions.click,
-          category: 'category-page',
-          label: `load-${label}`,
-        });
+      scrollToTop(this.element, 'instant');
+      this.set('isLoading', true);
 
-        this.loadFrom(from)
-          .catch((error) => {
-            this.addAlert({
-              message: this.i18n.t('category-page.load-error'),
-              type: 'alert',
-            });
+      track({
+        action: trackActions.click,
+        category: 'category-page',
+        label: `load-${label}`,
+      });
 
-            this.logger.error(error);
-          })
-          .finally(() => {
-            this.set('isLoading', false);
+      this.loadFrom(from)
+        .catch((error) => {
+          this.addAlert({
+            message: this.i18n.t('category-page.load-error'),
+            type: 'alert',
           });
-      },
+
+          this.logger.error(error);
+        })
+        .finally(() => {
+          this.set('isLoading', false);
+        });
     },
   },
 );

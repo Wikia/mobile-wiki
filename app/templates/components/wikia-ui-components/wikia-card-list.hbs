@@ -1,6 +1,6 @@
 <ul class="wikia-card-list">
   {{#each @items as |item key|}}
-    <li class="wikia-card" {{action "onItemClick" item}}>
+    <li class="wikia-card" {{on "click" (fn this.onItemClick item)}}>
       <LinkTo @route="wiki-page" @model={{item.prefixedTitle}} @trackingCategory={{@trackingCategory}} @trackingLabel={{@trackingLabel}} @classNames="wikia-card__item wds-font-size-s wds-leading-tight">
         <div class="wikia-card__title wds-font-weight-medium">
           {{item.title}}

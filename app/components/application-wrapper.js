@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { bool, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isHashLink } from '../utils/url';
@@ -52,6 +53,7 @@ export default Component.extend({
   contentLanguage: readOnly('wikiVariables.language.content'),
   isWikiaOrg: readOnly('globalFooter.is-wikia-org'),
 
+  @action
   track(data) {
     track(data);
   },

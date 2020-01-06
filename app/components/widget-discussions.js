@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { getOwner } from '@ember/application';
 import InViewportMixin from 'ember-in-viewport';
 import WidgetDiscussionsModel from '../models/widget-discussions';
@@ -16,10 +17,9 @@ export default Component.extend(InViewportMixin, RenderComponentMixin, {
     this.set('model', WidgetDiscussionsModel.create(getOwner(this).ownerInjection()));
   },
 
-  actions: {
-    upvote(post) {
-      this.model.upvote(post);
-    },
+  @action
+  upvote(post) {
+    this.model.upvote(post);
   },
 
   /**

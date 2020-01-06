@@ -3,4 +3,4 @@
 {{else}}
   {{@alert.message}}
 {{/if}}
-<a href="#" class="close wds-font-size-xl" {{action "close"}}>&times;</a>
+<a href="#" class="close wds-font-size-xl" {{on "click" this.close}}>&times;</a>

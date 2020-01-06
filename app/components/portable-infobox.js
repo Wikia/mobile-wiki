@@ -1,4 +1,4 @@
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { equal } from '@ember/object/computed';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
@@ -61,28 +61,27 @@ export default Component.extend(
       this._super(...arguments);
     },
 
-    actions: {
-      toogleInfobox() {
-        if (!this.collapsed) {
-          const body = window.document.body;
-          const scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+    @action
+    toggleInfobox() {
+      if (!this.collapsed) {
+        const body = window.document.body;
+        const scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
-          this.collapse();
-          track({
-            action: trackActions.click,
-            category: 'portable-infobox',
-            label: 'collapsed-by-button',
-          });
-          scrollTo.apply(this.button);
-        } else {
-          this.expand();
-          track({
-            action: trackActions.click,
-            category: 'portable-infobox',
-            label: 'expanded-by-button',
-          });
-        }
-      },
+        this.collapse();
+        track({
+          action: trackActions.click,
+          category: 'portable-infobox',
+          label: 'collapsed-by-button',
+        });
+        scrollTo.apply(this.button);
+      } else {
+        this.expand();
+        track({
+          action: trackActions.click,
+          category: 'portable-infobox',
+          label: 'expanded-by-button',
+        });
+      }
     },
 
     click(event) {

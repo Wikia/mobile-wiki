@@ -2,12 +2,12 @@
   <h2 class="wds-font-size-xs">
     <span>FANDOM</span><span class="wds-font-weight-light">VIDEO</span>
   </h2>
-  <div class="recommended-video__close" {{action "close"}}>
+  <div class="recommended-video__close" {{on "click" this.close}}>
     <Icon @name="close" @size="tiny" />
   </div>
 </header>
 {{#if this.isClickToPlay}}
-  <div class="recommended-video__playlist-thumbnail" {{action "play"}}>
+  <div class="recommended-video__playlist-thumbnail" {{on "click" this.play}}>
     <img src={{this.playlistItems.0.image}} alt={{this.playlistItems.0.title}}>
     {{svg "wds-player-icon-play" class="wds-player-icon-play-tiny"}}
   </div>
@@ -17,7 +17,7 @@
 </div>
 <div class="recommended-video__container">
   <div
-    class="recommended-video__title wds-font-size-s wds-font-weight-bold" {{action "play"}}
+    class="recommended-video__title wds-font-size-s wds-font-weight-bold" {{on "click" this.play}}
   >
     {{this.playlistItem.title}}
   </div>
@@ -26,7 +26,7 @@
   </h3>
   <ul class="recommended-video__playlist">
     {{#each this.playlistItems as |item index|}}
-      <li {{action "play" index}}
+      <li {{on "click" (fn this.play index)}}
         class={{if (equal this.playlistItem.mediaid item.mediaid) "current"}}
       >
         <div class="recommended-video__playlist-thumbnail">

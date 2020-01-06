@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
 /**
   * AlertNotification
@@ -16,13 +17,11 @@ export default Component.extend({
 
   alerts: null,
 
-  actions: {
-    /**
-      * @param {AlertNotification} alert
-      * @returns {void}
-    */
-    dismissAlert(alert) {
-      this.alerts.removeObject(alert);
-    },
-  },
+  /**
+   * @param {AlertNotification} alert
+   * @returns {void}
+   */
+  dismissAlert: action(function (alert) {
+    this.alerts.removeObject(alert);
+  }),
 });

@@ -10,7 +10,7 @@
           @href={{this.seeMoreUrl}}
           @text={{true}}
           class="post-search-results__see-more"
-          onclick={{action "trackMoreClick"}}
+          onclick={{this.trackMoreClick}}
         >
           <span>{{{i18n "main.search-post-items-see-more" ns="search"}}}</span>
           <Icon @name="arrow" @size="tiny" />

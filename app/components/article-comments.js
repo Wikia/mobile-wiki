@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, get, observer } from '@ember/object';
+import { action, computed, get, observer } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
@@ -73,50 +73,51 @@ export default Component.extend({
     }
   },
 
-  actions: {
-    /**
-      * @returns {void}
-    */
-    nextPage() {
-      const page = parseInt(this.page, 10);
+  /**
+   * @returns {void}
+   */
+  @action
+  nextPage() {
+    const page = parseInt(this.page, 10);
 
-      this.set('preserveScroll.preserveScrollPosition', true);
-      this.fetchComments(page + 1);
-      this.scrollTop();
-    },
+    this.set('preserveScroll.preserveScrollPosition', true);
+    this.fetchComments(page + 1);
+    this.scrollTop();
+  },
 
-    /**
-      * @returns {void}
-    */
-    prevPage() {
-      const page = parseInt(this.page, 10);
+  /**
+   * @returns {void}
+   */
+  @action
+  prevPage() {
+    const page = parseInt(this.page, 10);
 
-      this.set('preserveScroll.preserveScrollPosition', true);
-      this.fetchComments(page - 1);
-      this.scrollTop();
-    },
+    this.set('preserveScroll.preserveScrollPosition', true);
+    this.fetchComments(page - 1);
+    this.scrollTop();
+  },
 
-    /**
-      * @returns {void}
-    */
-    toggleComments() {
-      const page = this.page;
+  /**
+   * @returns {void}
+   */
+  @action
+  toggleComments() {
+    const page = this.page;
 
-      this.set('preserveScroll.preserveScrollPosition', true);
-      this.toggleProperty('isCollapsed');
+    this.set('preserveScroll.preserveScrollPosition', true);
+    this.toggleProperty('isCollapsed');
 
-      if (page !== null) {
-        this.set('page', null);
-      } else {
-        this.fetchComments(1);
-      }
+    if (page !== null) {
+      this.set('page', null);
+    } else {
+      this.fetchComments(1);
+    }
 
-      track({
-        action: trackActions.click,
-        category: 'comments',
-        label: this.page ? 'expanded' : 'collapsed',
-      });
-    },
+    track({
+      action: trackActions.click,
+      category: 'comments',
+      label: this.page ? 'expanded' : 'collapsed',
+    });
   },
 
   scrollTop() {

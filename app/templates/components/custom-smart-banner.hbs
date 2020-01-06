@@ -1,4 +1,4 @@
-<div class="smart-banner__close" role="button" {{action "close"}}>
+<div class="smart-banner__close" role="button" {{on "click" this.close}}>
   <Icon @name="close" @size="small" />
 </div>
 <a href={{this.linkUrl}} class="smart-banner__link">

@@ -6,7 +6,7 @@
     <img
       src={{this.thumbUrl}}
       alt={{@model.label}}
-      onload={{action (mut this.imageLoaded) true}}
+      onload={{fn (mut this.imageLoaded) true}}
     >
   </div>
   <figcaption class="item-figcaption">

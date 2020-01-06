@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
@@ -33,15 +34,14 @@ export default Component.extend(RespondsToScroll, {
     };
   },
 
-  actions: {
-    /**
+  /**
    * @returns {void}
    */
-    close() {
-      this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterClose'));
-      this.smartBanner.setVisibility(false);
-      this.smartBanner.track(trackActions.close, this.trackCategory);
-    },
+  @action
+  close() {
+    this.smartBanner.setCookie(this.get('smartBanner.customCookieName'), this.get('options.daysHiddenAfterClose'));
+    this.smartBanner.setVisibility(false);
+    this.smartBanner.track(trackActions.close, this.trackCategory);
   },
 
   click(event) {

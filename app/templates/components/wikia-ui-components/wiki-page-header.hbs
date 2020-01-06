@@ -14,13 +14,13 @@
     data-file={{@heroImage.fileName}}
     class="wiki-page-header__hero-image"
   >
-    <a {{action "heroImageClick"}}
+    <a {{on "click" this.heroImageClick}}
       href={{@heroImage.url}}
     >
       <img
         class="article-media-placeholder"
         src={{@heroImage.thumbnail4by5}}
-        srcset="{{@heroImage.thumbnail4by5}}, {{@heroImage.thumbnail4by5x2}} 2x"
+        srcset="{{@heroImage.thumbnail4by5}}, {{@heroImage.thumbnail4by52x}} 2x"
         width={{@heroImage.thumbnail4by5Width}}
         height={{@heroImage.thumbnail4by5Height}}
         alt={{@heroImage.title}}

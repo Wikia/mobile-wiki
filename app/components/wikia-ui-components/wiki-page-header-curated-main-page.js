@@ -1,5 +1,5 @@
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import Component from '@ember/component';
 import { track, trackActions } from '../../utils/track';
@@ -21,14 +21,13 @@ export default Component.extend(
       });
     }),
 
-    actions: {
-      trackClick(trackingLabel) {
-        track({
-          action: trackActions.click,
-          category: 'main-page',
-          label: trackingLabel,
-        });
-      },
+    @action
+    trackClick(trackingLabel) {
+      track({
+        action: trackActions.click,
+        category: 'main-page',
+        label: trackingLabel,
+      });
     },
   },
 );

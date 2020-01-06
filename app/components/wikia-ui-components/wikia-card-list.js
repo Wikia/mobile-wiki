@@ -1,15 +1,15 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
 export default Component.extend(
   {
     includePostsForQuery: false,
 
-    actions: {
-      onItemClick(item) {
-        if (this.itemClick) {
-          this.itemClick(item);
-        }
-      },
+    @action
+    onItemClick(item) {
+      if (this.itemClick) {
+        this.itemClick(item);
+      }
     },
   },
 );

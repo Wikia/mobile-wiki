@@ -9,11 +9,11 @@
     @model={{this.globalNavigation}}
     @sitename={{this.communityHeader.sitename}}
     @canShowContentRecommendations={{this.canShowContentRecommendations}}
-    @track={{action this.track}}
-    @onModalOpen={{action this.onModalOpen}}
-    @onSearchSuggestionChosen={{action this.onSearchSuggestionChosen}}
-    @onSearchSuggestionsImpression={{action this.onSearchSuggestionsImpression}}
-    @goToSearchResults={{action this.goToSearchResults}}
+    @track={{this.track}}
+    @onModalOpen={{this.onModalOpen}}
+    @onSearchSuggestionChosen={{this.onSearchSuggestionChosen}}
+    @onSearchSuggestionsImpression={{this.onSearchSuggestionsImpression}}
+    @goToSearchResults={{this.goToSearchResults}}
   />
 </div>
 <BannerNotifications />
@@ -21,7 +21,7 @@
 {{#if @communityHeader}}
   <CommunityBar
     @model={{@communityHeader}}
-    @track={{action this.track}}
-    @onLinkClicked={{action this.onLinkClicked}}
+    @track={{this.track}}
+    @onLinkClicked={{this.onLinkClicked}}
   />
 {{/if}}

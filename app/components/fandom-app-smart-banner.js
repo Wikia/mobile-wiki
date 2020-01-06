@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import { inGroup } from '../modules/abtest';
@@ -47,15 +47,14 @@ export default Component.extend(RespondsToScroll, {
     };
   },
 
-  actions: {
-    /**
+  /**
    * @returns {void}
    */
-    close() {
-      this.smartBanner.setCookie(this.get('smartBanner.fandomAppCookieName'), this.get('options.daysHiddenAfterClose'));
-      this.smartBanner.setVisibility(false);
-      this.smartBanner.track(trackActions.close, this.trackCategory);
-    },
+  @action
+  close() {
+    this.smartBanner.setCookie(this.get('smartBanner.fandomAppCookieName'), this.get('options.daysHiddenAfterClose'));
+    this.smartBanner.setVisibility(false);
+    this.smartBanner.track(trackActions.close, this.trackCategory);
   },
 
   click(event) {

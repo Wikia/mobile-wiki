@@ -2,7 +2,7 @@
   {{{@infoboxHTML}}}
 </aside>
 {{#if this.isLongInfobox}}
-  <div role="button" class={{this.expandButtonClass}} {{action "toogleInfobox"}}>
+  <div role="button" class={{this.expandButtonClass}} {{on "click" this.toggleInfobox}}>
     <span
       class="wds-text-transform-uppercase wds-font-weight-bold wds-font-size-s wds-leading-none"
     >

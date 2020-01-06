@@ -2,13 +2,13 @@
   <h3
     class="category-members-grouped__first-char{{if group.isCollapsed " is-collapsed"}}"
     role="button"
-    onclick={{action "toggleGroup" group}}
+    {{on "click" (fn this.toggleGroup group)}}
   >
     {{group.firstChar}}
     <Icon @name="menu-control" @size="tiny" class="chevron" />
   </h3>
   <ul
-    onclick={{action "trackClick" "category-page" "open-link"}}
+    {{on "click" (fn this.trackClick "category-page" "open-link")}}
     class="category-members-grouped__members-for-char wds-has-big-items wds-list mw-content"
   >
     {{#each group.members as |member|}}

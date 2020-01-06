@@ -6,7 +6,7 @@
     <h2>{{this.cta}}</h2>
     <a
       class="wds-button"
-      onClick={{action "trackClick"}}
+      {{on "click" this.trackClick}}
       href={{this.url}}
       target="_blank"
       rel="noopener sponsored"

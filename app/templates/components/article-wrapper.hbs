@@ -11,7 +11,7 @@
   {{#if this.smallHeroImage}}
     <PortableInfoboxHeroImageSmall @heroImage={{this.smallHeroImage}} />
   {{/if}}
-  <ArticleContent @adsContext={{@model.adsContext}} @content={{@model.content}} @displayEmptyArticleInfo={{this.displayEmptyArticleInfo}} @displayTitle={{@model.displayTitle}} @featuredVideo={{@model.featuredVideo}} @forceFeaturedVideoVisibility={{action "forceFeaturedVideoVisibility"}} @heroImage={{this.heroImage}} @id={{@model.id}} @media={{@model.media}} @data-test-article-content={{true}} @debugAffiliateUnits={{@model.debugAffiliateUnits}} />
+  <ArticleContent @adsContext={{@model.adsContext}} @content={{@model.content}} @displayEmptyArticleInfo={{this.displayEmptyArticleInfo}} @displayTitle={{@model.displayTitle}} @featuredVideo={{@model.featuredVideo}} @forceFeaturedVideoVisibility={{this.forceFeaturedVideoVisibility}} @heroImage={{this.heroImage}} @id={{@model.id}} @media={{@model.media}} @data-test-article-content={{true}} @debugAffiliateUnits={{@model.debugAffiliateUnits}} />
 </section>
 {{yield}}
 {{#if this.displayArticleWrapper}}
@@ -28,7 +28,7 @@
       <ArticleComments @articleId={{@model.id}} @commentsCount={{@model.comments}} @page={{this.commentsPage}} @class="article-footer-item" />
     {{/if}}
     {{#if @model.categories}}
-      <CollapsibleMenu @observe={{@model.displayTitle}} @ordered={{false}} @tLabel="article.categories-list-label" @trackingEvent="category-menu" @click={{action "trackClick" "category-menu" "open-category"}} @class="article-categories-list article-footer-item mw-content">
+      <CollapsibleMenu @observe={{@model.displayTitle}} @ordered={{false}} @tLabel="article.categories-list-label" @trackingEvent="category-menu" @click={{fn this.trackClick "category-menu" "open-category"}} @class="article-categories-list article-footer-item mw-content">
         {{#each @model.categories as |category|}}
           <li>
             <a

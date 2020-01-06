@@ -6,7 +6,7 @@
   href={{this.getUnitLink}}
   class="affiliate-unit__link"
   rel="noopener sponsored"
-  onClick={{action "trackAffiliateClick"}}
+  {{on "click" this.trackAffiliateClick}}
 >
   <img class="affiliate-unit__image" src={{@unit.image}} alt="">
   <div class="affiliate-unit__content">

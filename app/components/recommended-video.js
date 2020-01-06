@@ -1,5 +1,6 @@
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { run } from '@ember/runloop';
 import NoScrollMixin from '../mixins/no-scroll';
 import jwPlayerAssets from '../modules/jwplayer-assets';
@@ -38,30 +39,30 @@ export default Component.extend(NoScrollMixin, {
     }
   },
 
-  actions: {
-    play(index = 0) {
-      this.playerInstance.playlistItem(index);
+  @action
+  play(index = 0) {
+    this.playerInstance.playlistItem(index);
 
-      track({
-        category: 'related-video-module',
-        label: 'playlist-item',
-        action: trackActions.click,
-      });
-    },
+    track({
+      category: 'related-video-module',
+      label: 'playlist-item',
+      action: trackActions.click,
+    });
+  },
 
-    close() {
-      this.setProperties({
-        isClosed: true,
-        noScroll: false,
-      });
-      this.playerInstance.remove();
+  @action
+  close() {
+    this.setProperties({
+      isClosed: true,
+      noScroll: false,
+    });
+    this.playerInstance.remove();
 
-      track({
-        category: 'related-video-module',
-        label: 'close',
-        action: trackActions.click,
-      });
-    },
+    track({
+      category: 'related-video-module',
+      label: 'close',
+      action: trackActions.click,
+    });
   },
 
   setup() {

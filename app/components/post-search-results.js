@@ -1,6 +1,6 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { not } from '@ember/object/computed';
+import { action, computed } from '@ember/object';
+import { not, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import InViewportMixin from 'ember-in-viewport';
 import { getQueryString } from '@wikia/ember-fandom/utils/url';
@@ -46,14 +46,12 @@ export default Component.extend(
 
     seeMoreButtonEnabled: not('isCrossWiki'),
 
+    // enabled on cross wiki or if community has discussions enabled
+    isEnabled: or('wikiVariables.enableDiscussions', 'isCrossWiki'),
+
     // fortunately we can compute the feeds path from articlePath (it has lang part)
     seeMoreUrl: computed('wikiVariables.articlePath', function () {
       return this.wikiVariables.articlePath.replace('/wiki/', '/f/');
-    }),
-
-    isEnabled: computed('wikiVariables.enableDiscussions', 'isCrossWiki', function () {
-    // enabled on cross wiki and if community has discussions enabled
-      return this.isCrossWiki || this.get('wikiVariables.enableDiscussions');
     }),
 
     showPostSearchResultsDisclaimer: computed('posts', function () {
@@ -82,14 +80,13 @@ export default Component.extend(
       }
     },
 
-    actions: {
-      trackMoreClick() {
-        track({
-          action: trackActions.click,
-          category: this.isInContent ? 'incontent_posts' : 'search_posts',
-          label: 'see-more',
-        });
-      },
+    @action
+    trackMoreClick() {
+      track({
+        action: trackActions.click,
+        category: this.isInContent ? 'incontent_posts' : 'search_posts',
+        label: 'see-more',
+      });
     },
 
     fetchResults(query) {

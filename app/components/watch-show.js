@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { oneWay } from '@ember/object/computed';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { track, trackActions } from '../utils/track';
 import { system } from '../utils/browser';
 import { isDarkTheme } from '../utils/mobile-app';
@@ -82,13 +82,12 @@ export default Component.extend({
     }
   },
 
-  actions: {
-    trackClick() {
-      track({
-        action: trackActions.click,
-        category: 'article',
-        label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
-      });
-    },
+  @action
+  trackClick() {
+    track({
+      action: trackActions.click,
+      category: 'article',
+      label: `watch-${this.wikiVariables.watchShowTrackingLabel || ''}`,
+    });
   },
 });

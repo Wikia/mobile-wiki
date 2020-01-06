@@ -15,9 +15,9 @@
 */
 
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { track, trackActions } from '../../utils/track';
 
 export default Component.extend(
   {
@@ -27,22 +27,11 @@ export default Component.extend(
     classNameBindings: ['heroImage:has-hero-image'],
     isMainPage: false,
     siteName: reads('wikiVariables.siteName'),
-    mainPageTitle: reads('wikiVariables.mainPageTitle'),
 
-    actions: {
-      trackClick() {
-        track({
-          action: trackActions.click,
-          category: 'wikiname',
-          label: '',
-        });
-      },
-
-      heroImageClick() {
-        this.lightbox.open('media', this.heroImage);
-
-        return false;
-      },
+    @action
+    heroImageClick(event) {
+      event.preventDefault();
+      this.lightbox.open('media', this.heroImage);
     },
   },
 );

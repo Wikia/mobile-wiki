@@ -6,14 +6,14 @@
 		@globalNavigation={{@model.navigation.globalNavigation}}
 		@globalFooter={{@model.navigation.globalFooter}}
 		@communityHeader={{@model.navigation.communityHeader}}
-		@handleLink={{action "handleLink"}}
+		@handleLink={{this.handleLink}}
 		@isLoading={{this.isLoading}}
 		@isSearchPage={{this.isSearchPage}}
 		@language={{this.language}}
 		@siteHeadNoShadow={{this.siteHeadNoShadow}}
 		@isDarkTheme={{this.isDarkTheme}}
 		@themeBar={{this.themeBar}}
-		@toggleSiteHeadShadow={{action "toggleSiteHeadShadow"}}
+		@toggleSiteHeadShadow={{this.toggleSiteHeadShadow}}
 		@userMenuVisible={{this.userMenuVisible}}
 >
   {{outlet}}

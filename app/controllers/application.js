@@ -1,4 +1,5 @@
 import Controller, { inject as controller } from '@ember/controller';
+import { action } from '@ember/object';
 import { alias, equal, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
@@ -44,20 +45,20 @@ export default Controller.extend(
     fullPage: oneWay('mobileApp'),
     isSearchPage: equal('currentRouteName', 'search'),
 
-    actions: {
-      /**
-    * Bubbles up to ApplicationRoute
-    *
-    * @param {HTMLAnchorElement} target
-    * @returns {void}
-    */
-      handleLink(target) {
-        this.target.send('handleLink', target);
-      },
+    /**
+     * Bubbles up to ApplicationRoute
+     *
+     * @param {HTMLAnchorElement} target
+     * @returns {void}
+     */
+    @action
+    handleLink(target) {
+      this.target.send('handleLink', target);
+    },
 
-      toggleSiteHeadShadow(visible) {
-        this.set('siteHeadShadow', visible);
-      },
+    @action
+    toggleSiteHeadShadow(visible) {
+      this.set('siteHeadShadow', visible);
     },
   },
 );

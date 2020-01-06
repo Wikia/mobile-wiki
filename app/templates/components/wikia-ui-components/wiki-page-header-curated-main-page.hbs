@@ -2,7 +2,7 @@
   {{@title}}
   {{#if @showButtons}}
     <div>
-      <a {{action "trackClick" "open-editor" preventDefault=false}}
+      <a {{on "click" (fn this.trackClick "open-editor")}}
         href={{this.mainPageEditorUrl}}
         class="main-page-edit wds-font-size-s wds-font-weight-normal wds-text-transform-none"
       >

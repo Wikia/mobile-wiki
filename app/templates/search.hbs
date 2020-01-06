@@ -32,9 +32,9 @@
   </div>
   {{#if @model.totalItems}}
     {{#if @model.isInteralScope }}
-      <WikiaUiComponents::WikiaCardList @items={{@model.items}} @includePostsForQuery={{@model.query}} @trackingCategory="search-page" @trackingLabel="search-result" @itemClick={{action "onResultClick"}} @debugAffiliateUnits={{@model.debugAffiliateUnits}} />
+      <WikiaUiComponents::WikiaCardList @items={{@model.items}} @includePostsForQuery={{@model.query}} @trackingCategory="search-page" @trackingLabel="search-result" @itemClick={{this.onResultClick}} @debugAffiliateUnits={{@model.debugAffiliateUnits}} />
     {{else}}
-      <WikiaUiComponents::WikiaCardCrosswikiList @items={{@model.items}} @includePostsForQuery={{@model.query}} @trackingCategory="search-page" @trackingLabel="search-result" @itemClick={{action "onResultClick"}} @debugAffiliateUnits={{@model.debugAffiliateUnits}} />
+      <WikiaUiComponents::WikiaCardCrosswikiList @items={{@model.items}} @includePostsForQuery={{@model.query}} @trackingCategory="search-page" @trackingLabel="search-result" @itemClick={{this.onResultClick}} @debugAffiliateUnits={{@model.debugAffiliateUnits}} />
     {{/if}}
   {{else if this.notFoundError}}
     <WikiaUiComponents::ErrorInfo>
@@ -45,7 +45,7 @@
 {{#if @model.canLoadMore}}
   <div class="search-results__load-more-wrapper">
     <Button
-      @onClick={{action "onLoadMore" "search-load-more"}}
+      @onClick={{fn this.onLoadMore "search-load-more"}}
       @secondary={{true}}
       data-tracking-label="search-load-more"
     >

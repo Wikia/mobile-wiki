@@ -3,7 +3,7 @@
     {{#if item.value}}
       <div class="wikia-stats-item">
         {{#if item.url}}
-          <a {{action "trackClick" item.trackingLabel preventDefault=false}}
+          <a {{on "click" (fn this.trackClick item.trackingLabel)}}
             href={{item.url}}
             class="wikia-stats-link"
           >

@@ -33,7 +33,7 @@
 </div>
 {{#if @post.openGraph}}
   <a
-    href={{@post.openGraph.uri}}
+    href={{@post.openGraph.url}}
     title={{@post.openGraph.title}}
     target="_blank"
     rel="noopener noreferrer"
@@ -75,7 +75,7 @@
 <ul class="post-actions">
   <li
     class="upvote-area upvote wds-font-size-xs {{if @post.userData.hasUpvoted "has-upvoted"}}"
-    role="button" {{action @upvote @post}}
+    role="button" {{on "click" (fn @upvote @post)}}
   >
     <Icon @name="heart" @size="small" class="upvote" />
     {{i18n "widget-discussions.post-actions-upvote-label"}}

@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { and, bool, gte } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import LanguagesMixin from '../mixins/languages';
@@ -47,18 +48,18 @@ export default Component.extend(
       };
     },
 
-    actions: {
-      trackClick(category, label) {
-        track({
-          action: trackActions.click,
-          category,
-          label,
-        });
-      },
+    @action
+    trackClick(category, label) {
+      track({
+        action: trackActions.click,
+        category,
+        label,
+      });
+    },
 
-      forceFeaturedVideoVisibility() {
-        this.set('hasFeaturedVideo', true);
-      },
+    @action
+    forceFeaturedVideoVisibility() {
+      this.set('hasFeaturedVideo', true);
     },
   },
 );

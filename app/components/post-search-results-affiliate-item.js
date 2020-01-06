@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 
 import { trackActions, trackAffiliateUnit } from '../utils/track';
 
@@ -23,21 +23,20 @@ export default Component.extend({
     return this.affiliateUnit.link;
   }),
 
-  actions: {
-    trackClick(number, unit) {
-      if (this.isInContent) {
-        trackAffiliateUnit(unit, {
-          action: trackActions.click,
-          category: 'affiliate_incontent_posts',
-          label: `item-${parseInt(number, 10)}`,
-        });
-      } else {
-        trackAffiliateUnit(unit, {
-          action: trackActions.click,
-          category: 'affiliate_search_posts',
-          label: `item-${parseInt(number, 10)}`,
-        });
-      }
-    },
+  @action
+  trackClick(number, unit) {
+    if (this.isInContent) {
+      trackAffiliateUnit(unit, {
+        action: trackActions.click,
+        category: 'affiliate_incontent_posts',
+        label: `item-${parseInt(number, 10)}`,
+      });
+    } else {
+      trackAffiliateUnit(unit, {
+        action: trackActions.click,
+        category: 'affiliate_search_posts',
+        label: `item-${parseInt(number, 10)}`,
+      });
+    }
   },
 });

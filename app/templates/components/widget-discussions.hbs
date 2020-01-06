@@ -10,7 +10,7 @@
   </div>
 {{/if}}
 {{#each this.posts as |post|}}
-  <WidgetDiscussionsPost @post={{post}} @upvote={{action "upvote"}} />
+  <WidgetDiscussionsPost @post={{post}} @upvote={{this.upvote}} />
 {{else}}
   {{#if this.isLoading}}
     <Spinner

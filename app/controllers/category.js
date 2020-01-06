@@ -1,4 +1,5 @@
 import Controller, { inject as controller } from '@ember/controller';
+import { action } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import WikiPageControllerMixin from '../mixins/wiki-page-controller';
@@ -13,19 +14,18 @@ export default Controller.extend(
 
     from: readOnly('wikiPage.from'),
 
-    actions: {
-      /**
-       * @param {number} from
-       * @returns {Promise}
-       */
-      loadFrom(from) {
-        return this.model.loadFrom(from)
-          .then(() => {
-            this.set('preserveScroll.preserveScrollPosition', true);
-            this.wikiPage.set('from', from);
-            this.target.send('updateDynamicHeadTags');
-          });
-      },
+    /**
+     * @param {number} from
+     * @returns {Promise}
+     */
+    @action
+    loadFrom(from) {
+      return this.model.loadFrom(from)
+        .then(() => {
+          this.set('preserveScroll.preserveScrollPosition', true);
+          this.wikiPage.set('from', from);
+          this.target.send('updateDynamicHeadTags');
+        });
     },
   },
 );

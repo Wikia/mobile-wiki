@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import {
   and, oneWay, readOnly, reads,
 } from '@ember/object/computed';
@@ -89,29 +89,29 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     this.destroyVideoPlayer();
   },
 
-  actions: {
-    dismissPlayer() {
-      this.set('isOnScrollClosed', true);
-      this.onScrollStateChange('closed');
+  @action
+  dismissPlayer() {
+    this.set('isOnScrollClosed', true);
+    this.onScrollStateChange('closed');
 
-      if (this.player) {
-        this.player.setMute(true);
-        this.player.pause();
-      }
-      document.body.classList.remove(this.bodyOnScrollActiveClass);
+    if (this.player) {
+      this.player.setMute(true);
+      this.player.pause();
+    }
+    document.body.classList.remove(this.bodyOnScrollActiveClass);
 
-      // this.scrollHandler is from ember-responds-to - there is no public API to
-      // remove a scroll handler now
-      window.removeEventListener('scroll', this.scrollHandler);
-    },
+    // this.scrollHandler is from ember-responds-to - there is no public API to
+    // remove a scroll handler now
+    window.removeEventListener('scroll', this.scrollHandler);
+  },
 
-    clickAttribution() {
-      track({
-        action: trackActions.click,
-        category: 'featured-video',
-        label: this.get('currentVideoDetails.username'),
-      });
-    },
+  @action
+  clickAttribution() {
+    track({
+      action: trackActions.click,
+      category: 'featured-video',
+      label: this.get('currentVideoDetails.username'),
+    });
   },
 
   /**

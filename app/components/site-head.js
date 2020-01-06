@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { equal, readOnly } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
@@ -71,10 +72,12 @@ export default Component.extend(
       }
     },
 
+    @action
     track(data) {
       track(data);
     },
 
+    @action
     onModalOpen() {
       Ads.getLoadedInstance()
         .then(ads => ads.onMenuOpen())
@@ -111,6 +114,7 @@ export default Component.extend(
       M.trackingQueue.push(() => window.searchTracking.trackSuggestImpression(payload));
     },
 
+    @action
     onSearchSuggestionChosen(clickedSuggestion, displayedSuggestions, suggestionsSearchId) {
       const { uri } = clickedSuggestion;
 
@@ -118,17 +122,19 @@ export default Component.extend(
       this.router.transitionTo('wiki-page', uri);
     },
 
+    @action
     onSearchSuggestionsImpression(suggestions, suggestionsSearchId) {
       this.trackSearchSuggestionsImpression(suggestions, suggestionsSearchId);
     },
 
-
+    @action
     goToSearchResults(value) {
       this.router.transitionTo('search', {
         queryParams: { query: value },
       });
     },
 
+    @action
     onLinkClicked(href, event) {
       event.preventDefault();
 

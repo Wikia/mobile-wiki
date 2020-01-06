@@ -11,6 +11,6 @@
     {{#if @model.trendingPages}}
       <CategoryTrendingPages @model={{@model.trendingPages}} />
     {{/if}}
-    <CategoryPage @from={{this.from}} @loadFrom={{action "loadFrom"}} @model={{@model}} />
+    <CategoryPage @from={{this.from}} @loadFrom={{this.loadFrom}} @model={{@model}} />
   </ArticleWrapper>
 </div>
