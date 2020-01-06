@@ -34,6 +34,7 @@
     <div class="article-featured-video__attribution-inner-container">
       <a {{on "click" this.clickAttribution}}
         target="_blank"
+        {{! template-lint-disable link-rel-noopener }}
         rel="noopener"
         class="article-featured-video__attribution-link"
         href={{this.currentVideoDetails.userUrl}}

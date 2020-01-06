@@ -14,6 +14,7 @@ export default class ApplicationErrorRouter extends Route {
   }
 
   @action
+  // eslint-disable-next-line class-methods-use-this
   reloadPage() {
     window.location.reload();
   }

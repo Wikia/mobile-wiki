@@ -1,6 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import Headroom from 'headroom';
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   headroom: null,
   headroomEnabled: true,

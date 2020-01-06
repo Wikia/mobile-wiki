@@ -28,6 +28,7 @@ export default Component.extend(
     classNames: ['widget-vk'],
     data: null,
 
+    // eslint-disable-next-line ember/no-observers
     scriptLoadedObserver: observer('scriptLoaded.vk', function () {
       this.createWidget();
     }),

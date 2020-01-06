@@ -28,6 +28,7 @@ export default Component.extend(
     classNames: ['widget-twitter'],
     data: null,
 
+    // eslint-disable-next-line ember/no-observers
     scriptLoadedObserver: observer('scriptLoaded.twitter', function () {
       this.createTimeline();
     }),

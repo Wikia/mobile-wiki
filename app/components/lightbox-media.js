@@ -91,6 +91,7 @@ export default Component.extend({
     return currentMedia && currentMedia.url && currentMedia.type ? `lightbox-${currentMedia.type}` : null;
   }),
 
+  // eslint-disable-next-line ember/no-observers
   currentMediaObserver: observer('currentMedia', function () {
     this.updateState();
   }),

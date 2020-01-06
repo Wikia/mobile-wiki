@@ -42,7 +42,9 @@ export default Component.extend(
     sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
 
-    shouldUseExperimentalRecommendationService: computed(() => inGroup('RECOMMENDATION_SERVICE', 'EXPERIMENTAL')),
+    shouldUseExperimentalRecommendationService: computed(function () {
+      return inGroup('RECOMMENDATION_SERVICE', 'EXPERIMENTAL');
+    }),
     sponsoredItemThumbnail: computed('sponsoredItem.thumbnailUrl', function () {
       return window.Vignette ? window.Vignette.getThumbURL(this.sponsoredItem.thumbnailUrl, {
         mode: window.Vignette.mode.zoomCrop,
@@ -51,6 +53,7 @@ export default Component.extend(
       }) : this.sponsoredItem.thumbnail;
     }),
 
+    // eslint-disable-next-line ember/no-observers
     sponsoredItemObserver: observer('sponsoredItem', 'sponsoredItemDisplayed', function () {
       if (this.sponsoredItem && this.sponsoredItemDisplayed) {
         // this tracking needs to be done in observer since the sponsored item is fetched async

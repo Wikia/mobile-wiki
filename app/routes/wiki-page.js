@@ -145,6 +145,7 @@ export default Route.extend(
           }
         }
         if (handler) {
+          // eslint-disable-next-line ember/no-incorrect-calls-with-inline-anonymous-functions
           scheduleOnce('afterRender', () => {
             // Tracking has to happen after transition is done.
             // Otherwise we track to fast and url isn't

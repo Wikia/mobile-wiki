@@ -3,16 +3,17 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import Service from '@ember/service';
+import sinon from 'sinon';
 import { trackActions } from 'mobile-wiki/utils/track';
 
-module('Integration | Component | fandom-app-smart-banner', function(hooks) {
+module('Integration | Component | fandom-app-smart-banner', (hooks) => {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
     this.owner.register('service:i18n', Service.extend({ t: key => key }));
   });
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(1);
 
     this.owner.register('service:smartBanner', Service.extend({
@@ -24,7 +25,7 @@ module('Integration | Component | fandom-app-smart-banner', function(hooks) {
     assert.dom('.smart-banner__store').hasText('fandom-app-banner.google-play');
   });
 
-  test('hides banner, sets cookie for shorter period and calls tracker when close icon is clicked', async function(assert) {
+  test('hides banner, sets cookie for shorter period and calls tracker when close icon is clicked', async function (assert) {
     assert.expect(3);
 
     const fandomAppCookieName = 'fandom-sb-closed';
@@ -49,7 +50,7 @@ module('Integration | Component | fandom-app-smart-banner', function(hooks) {
     assert.ok(track.calledOnceWith(trackActions.close, 'smart-banner'));
   });
 
-  test('hides banner, sets cookie for longer period and calls tracker when store link is clicked', async function(assert) {
+  test('hides banner, sets cookie for longer period and calls tracker when store link is clicked', async function (assert) {
     assert.expect(3);
 
     const fandomAppCookieName = 'fandom-sb-closed';

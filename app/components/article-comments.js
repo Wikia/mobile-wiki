@@ -41,6 +41,7 @@ export default Component.extend({
   /**
     * if articleId changes, resets component state
   */
+  // eslint-disable-next-line ember/no-observers
   articleIdObserver: observer('articleId', function () {
     this.setProperties({
       page: null,
@@ -69,10 +70,12 @@ export default Component.extend({
       this.set('isCollapsed', false);
       this.fetchComments(parseInt(page, 10));
 
-      scheduleOnce('afterRender', this, () => {
-        this.scrollTop();
-      });
+      scheduleOnce('afterRender', this, this.scrollTop);
     }
+  },
+
+  onAfterRender() {
+    this.scrollTop();
   },
 
   /**

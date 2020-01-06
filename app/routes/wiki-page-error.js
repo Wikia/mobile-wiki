@@ -14,7 +14,6 @@ export default Route.extend(
    * @returns {void}
    */
     renderTemplate(controller, error) {
-      console.log(error);
       switch (error.code) {
         case 404:
           this.render('errors/not-found');

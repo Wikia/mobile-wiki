@@ -1,11 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import {click, render} from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import Service from '@ember/service';
+import sinon from 'sinon';
 import { trackActions } from 'mobile-wiki/utils/track';
 
-module('Integration | Component | custom-smart-banner', function(hooks) {
+module('Integration | Component | custom-smart-banner', (hooks) => {
   setupRenderingTest(hooks);
 
   const smartBannerAdConfiguration = {
@@ -13,7 +14,7 @@ module('Integration | Component | custom-smart-banner', function(hooks) {
     linkUrl: 'https://www.example.com',
     linkText: 'Click me',
     imageUrl: 'https://www.example.com/test.jpg',
-    title: 'This is the title'
+    title: 'This is the title',
   };
 
   hooks.beforeEach(function () {
@@ -21,7 +22,7 @@ module('Integration | Component | custom-smart-banner', function(hooks) {
     this.owner.register('service:wikiVariables', Service.extend({ smartBannerAdConfiguration }));
   });
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(5);
 
     await render(hbs`<CustomSmartBanner />`);
@@ -34,7 +35,7 @@ module('Integration | Component | custom-smart-banner', function(hooks) {
     assert.dom('.smart-banner__install', this.element).hasText(smartBannerAdConfiguration.linkText);
   });
 
-  test('hides banner, sets cookie for shorter period and calls tracker when close icon is clicked', async function(assert) {
+  test('hides banner, sets cookie for shorter period and calls tracker when close icon is clicked', async function (assert) {
     assert.expect(3);
 
     const customCookieName = 'custom-sb-closed';
@@ -59,7 +60,7 @@ module('Integration | Component | custom-smart-banner', function(hooks) {
     assert.ok(track.calledOnceWith(trackActions.close, 'custom-smart-banner'));
   });
 
-  test('hides banner, sets cookie for longer period and calls tracker when store link is clicked', async function(assert) {
+  test('hides banner, sets cookie for longer period and calls tracker when store link is clicked', async function (assert) {
     assert.expect(3);
 
     const customCookieName = 'custom-sb-closed';

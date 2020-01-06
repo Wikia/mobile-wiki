@@ -51,6 +51,7 @@ function getURL(wikiUrls, params) {
   });
 }
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   fastboot: service(),
   wikiVariables: service(),

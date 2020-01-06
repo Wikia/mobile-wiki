@@ -6,57 +6,57 @@ import Service from '@ember/service';
 import sinon from 'sinon';
 import trackModule from 'mobile-wiki/utils/track';
 
-module('Integration | Component | curated-content', function(hooks) {
+module('Integration | Component | curated-content', (hooks) => {
   setupRenderingTest(hooks);
 
   const model = {
     type: 'section',
     items: [
       {
-        "label": "Season 1",
-        "imageUrl": null,
-        "type": "section",
-        "items": [
+        label: 'Season 1',
+        imageUrl: null,
+        type: 'section',
+        items: [
           {
-            "label": "Season 1",
-            "imageUrl": null,
-            "imageCrop": null,
-            "type": "category",
-            "url": "/wiki/Category:Season_1"
+            label: 'Season 1',
+            imageUrl: null,
+            imageCrop: null,
+            type: 'category',
+            url: '/wiki/Category:Season_1',
           },
           {
-            "label": "Episodes",
-            "imageUrl": null,
-            "imageCrop": null,
-            "type": "category",
-            "url": "/wiki/Category:Season_1_Episodes"
-          }
+            label: 'Episodes',
+            imageUrl: null,
+            imageCrop: null,
+            type: 'category',
+            url: '/wiki/Category:Season_1_Episodes',
+          },
         ],
-        "imageCrop": null
+        imageCrop: null,
       },
       {
-        "label": "Season 2",
-        "imageUrl": null,
-        "type": "section",
-        "items": [
+        label: 'Season 2',
+        imageUrl: null,
+        type: 'section',
+        items: [
           {
-            "label": "Season 2",
-            "imageUrl": null,
-            "imageCrop": null,
-            "type": "category",
-            "url": "/wiki/Category:Season_2"
+            label: 'Season 2',
+            imageUrl: null,
+            imageCrop: null,
+            type: 'category',
+            url: '/wiki/Category:Season_2',
           },
           {
-            "label": "Episodes",
-            "imageUrl": null,
-            "imageCrop": null,
-            "type": "category",
-            "url": "/wiki/Category:Season_2_Episodes"
-          }
+            label: 'Episodes',
+            imageUrl: null,
+            imageCrop: null,
+            type: 'category',
+            url: '/wiki/Category:Season_2_Episodes',
+          },
         ],
-        "imageCrop": null
+        imageCrop: null,
       },
-    ]
+    ],
   };
 
   let trackStub;
@@ -70,7 +70,7 @@ module('Integration | Component | curated-content', function(hooks) {
     trackStub.restore();
   });
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(4);
 
     this.set('model', model);
@@ -84,7 +84,7 @@ module('Integration | Component | curated-content', function(hooks) {
     assert.dom('.curated-content-section:nth-child(3)', this.element).hasClass('wds-is-hidden');
   });
 
-  test('toggles section on click', async function(assert) {
+  test('toggles section on click', async function (assert) {
     assert.expect(6);
 
     this.set('model', model);

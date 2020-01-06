@@ -4,18 +4,18 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { transparentImageBase64 } from 'mobile-wiki/utils/thumbnail';
 
-module('Integration | Component | curated-content-item', function(hooks) {
+module('Integration | Component | curated-content-item', (hooks) => {
   setupRenderingTest(hooks);
 
   const item = {
-    "label": "Season 1",
-    "imageUrl": null,
-    "imageCrop": null,
-    "type": "category",
-    "url": "/wiki/Category:Season_1"
+    label: 'Season 1',
+    imageUrl: null,
+    imageCrop: null,
+    type: 'category',
+    url: '/wiki/Category:Season_1',
   };
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(4);
 
     this.set('model', item);

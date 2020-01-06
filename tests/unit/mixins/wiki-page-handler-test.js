@@ -23,6 +23,7 @@ module('Unit | Mixins | Wiki Page Handler', (hooks) => {
 
   hooks.beforeEach(function () {
     this.subject = function () {
+      // eslint-disable-next-line ember/no-new-mixins
       const WikiPageHandlerObject = EmberObject.extend(WikiPageHandlerMixin);
 
       this.owner.register('test-container:wiki-page-handler-object', WikiPageHandlerObject);

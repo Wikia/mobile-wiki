@@ -83,7 +83,9 @@ export default Route.extend(
           this.wikiVariables.setProperties(applicationData.wikiVariables);
 
           if (fastboot.get('isFastBoot')) {
-            this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.to.queryParams);
+            this.injectScriptsFastbootOnly(
+              applicationData.wikiVariables, transition.to.queryParams,
+            );
           }
 
           return applicationData;
@@ -108,7 +110,9 @@ export default Route.extend(
 
       this._super(...arguments);
 
-      this.i18n.initialize(transition.to.queryParams.uselang || model.wikiVariables.language.content);
+      this.i18n.initialize(
+        transition.to.queryParams.uselang || model.wikiVariables.language.content,
+      );
 
       if (
         !fastboot.get('isFastBoot')

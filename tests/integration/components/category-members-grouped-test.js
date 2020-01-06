@@ -7,46 +7,46 @@ import Service from '@ember/service';
 import sinon from 'sinon';
 import trackModule, { trackActions } from 'mobile-wiki/utils/track';
 
-module('Integration | Component | category-members-grouped', function(hooks) {
+module('Integration | Component | category-members-grouped', (hooks) => {
   setupRenderingTest(hooks);
 
   const articleWithImageModel = EmberObject.create({
-    "firstChar": "P",
-    "members": [
+    firstChar: 'P',
+    members: [
       {
-        "image": "https://vignette.wikia.nocookie.net/gameofthrones/images/2/23/108_TPE.jpg/revision/latest/window-crop/width/40/x-offset/129/y-offset/0/window-width/769/window-height/576?cb=20170526150730",
-        "isCategory": false,
-        "title": "The Pointy End",
-        "url": "/wiki/The_Pointy_End"
-      }
+        image: 'https://vignette.wikia.nocookie.net/gameofthrones/images/2/23/108_TPE.jpg/revision/latest/window-crop/width/40/x-offset/129/y-offset/0/window-width/769/window-height/576?cb=20170526150730',
+        isCategory: false,
+        title: 'The Pointy End',
+        url: '/wiki/The_Pointy_End',
+      },
     ],
-    "isCollapsed": false
+    isCollapsed: false,
   });
 
   const articleWithNoImageModel = EmberObject.create({
-    "firstChar": "P",
-    "members": [
+    firstChar: 'P',
+    members: [
       {
-        "image": null,
-        "isCategory": false,
-        "title": "Season 1 cast",
-        "url": "/wiki/Season_1_cast"
+        image: null,
+        isCategory: false,
+        title: 'Season 1 cast',
+        url: '/wiki/Season_1_cast',
       },
     ],
-    "isCollapsed": false
+    isCollapsed: false,
   });
 
   const subCategoryModel = EmberObject.create({
-    "firstChar": "P",
-    "members": [
+    firstChar: 'P',
+    members: [
       {
-        "image": null,
-        "isCategory": true,
-        "title": "Season 1 Episodes",
-        "url": "/wiki/Category:Season_1_Episodes"
+        image: null,
+        isCategory: true,
+        title: 'Season 1 Episodes',
+        url: '/wiki/Category:Season_1_Episodes',
       },
     ],
-    "isCollapsed": false
+    isCollapsed: false,
   });
 
   let trackStub;
@@ -62,10 +62,10 @@ module('Integration | Component | category-members-grouped', function(hooks) {
     trackStub.restore();
   });
 
-  test('renders category member with image', async function(assert) {
+  test('renders category member with image', async function (assert) {
     assert.expect(5);
 
-    this.set('model',[articleWithImageModel]);
+    this.set('model', [articleWithImageModel]);
 
     await render(hbs`<CategoryMembersGrouped @model={{this.model}} />`);
 
@@ -78,10 +78,10 @@ module('Integration | Component | category-members-grouped', function(hooks) {
     assert.dom('.category-members-grouped__member-link', this.element).hasText(articleWithImageModel.members[0].title);
   });
 
-  test('renders category member with image on client side without noscript fallback', async function(assert) {
+  test('renders category member with image on client side without noscript fallback', async function (assert) {
     assert.expect(1);
 
-    this.set('model',[articleWithImageModel]);
+    this.set('model', [articleWithImageModel]);
 
     await render(hbs`<CategoryMembersGrouped @model={{this.model}} />`);
 
@@ -89,14 +89,14 @@ module('Integration | Component | category-members-grouped', function(hooks) {
     assert.dom('.category-members-grouped__member-left > noscript > .category-members-grouped__member-thumbnail', this.element).doesNotExist();
   });
 
-  test('renders category member with image in SSR with noscript fallback', async function(assert) {
+  test('renders category member with image in SSR with noscript fallback', async function (assert) {
     assert.expect(2);
 
     // XXX: clear any existing cached fastboot service instances
     this.owner.unregister('service:fastboot');
     this.owner.register('service:fastboot', Service.extend({ isFastBoot: true }));
 
-    this.set('model',[articleWithImageModel]);
+    this.set('model', [articleWithImageModel]);
 
     await render(hbs`<CategoryMembersGrouped @model={{this.model}} />`);
 
@@ -104,27 +104,27 @@ module('Integration | Component | category-members-grouped', function(hooks) {
     assert.dom('.category-members-grouped__member-left > noscript > .category-members-grouped__member-thumbnail', this.element).hasAttribute('alt', articleWithImageModel.members[0].title);
   });
 
-  test('renders category member with no image', async function(assert) {
+  test('renders category member with no image', async function (assert) {
     assert.expect(1);
 
-    this.set('model',[articleWithNoImageModel]);
+    this.set('model', [articleWithNoImageModel]);
 
     await render(hbs`<CategoryMembersGrouped @model={{this.model}} />`);
 
     assert.dom('.category-members-grouped__member-thumbnail', this.element).doesNotExist();
   });
 
-  test('renders subcategory', async function(assert) {
+  test('renders subcategory', async function (assert) {
     assert.expect(1);
 
-    this.set('model',[subCategoryModel]);
+    this.set('model', [subCategoryModel]);
 
     await render(hbs`<CategoryMembersGrouped @model={{this.model}} />`);
 
     assert.dom('svg', this.element).exists();
   });
 
-  test('renders with no members', async function(assert) {
+  test('renders with no members', async function (assert) {
     assert.expect(3);
 
     this.set('model', []);
@@ -137,10 +137,10 @@ module('Integration | Component | category-members-grouped', function(hooks) {
     assert.dom(this.element).hasText('main:category-page.no-members');
   });
 
-  test('toggles group visibility on group header click', async function(assert) {
+  test('toggles group visibility on group header click', async function (assert) {
     assert.expect(3);
 
-    this.set('model',[subCategoryModel]);
+    this.set('model', [subCategoryModel]);
 
     await render(hbs`<CategoryMembersGrouped @model={{this.model}} />`);
 
@@ -155,7 +155,7 @@ module('Integration | Component | category-members-grouped', function(hooks) {
     assert.dom('.category-members-grouped__first-char', this.element).hasNoClass('is-collapsed');
   });
 
-  test('calls trackClick when member link clicked', async function(assert) {
+  test('calls trackClick when member link clicked', async function (assert) {
     assert.expect(1);
 
     this.set('model', [articleWithImageModel]);

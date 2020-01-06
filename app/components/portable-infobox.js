@@ -45,7 +45,7 @@ export default Component.extend(
    * We want to always show the image AND some other infobox informations to
    * indicate that this is infobox, not only an ordinary image.
    */
-    collapsedHeight: computed(() => {
+    collapsedHeight: computed(function () {
       const deviceWidth = document.documentElement.clientWidth;
       const deviceHeight = document.documentElement.clientHeight;
       const isLandscape = deviceWidth > deviceHeight;

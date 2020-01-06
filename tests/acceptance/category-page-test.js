@@ -51,8 +51,8 @@ module('Acceptance | category page', (hooks) => {
     assert.dom('.category-members-grouped__members-for-char').exists({ count: 11 }, 'Category groups are visible');
     assert.dom('.category-members-grouped__member').exists({ count: 200 }, '200 members are visible');
 
-    await click('.category-members-grouped__first-char');
-    assert.dom('.category-members-grouped__members-for-char').isNotVisible('Group is collapsed on header click');
+    await click('.category-members-grouped__first-char:first-of-type');
+    assert.dom('.category-members-grouped__members-for-char:first-of-type').isNotVisible('Group is collapsed on header click');
 
     assert.dom('.category-pagination a').exists({ count: 2 }, '2 pagination links are visible');
 

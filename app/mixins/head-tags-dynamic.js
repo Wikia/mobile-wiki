@@ -3,6 +3,7 @@ import Mixin from '@ember/object/mixin';
 import truncate from '../utils/truncate';
 import config from '../config/environment';
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   headData: service(),
   wikiVariables: service(),

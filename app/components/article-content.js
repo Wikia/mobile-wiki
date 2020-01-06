@@ -48,6 +48,7 @@ export default Component.extend(
     isFastBoot: reads('fastboot.isFastBoot'),
 
     /* eslint ember/no-on-calls-in-components:0 */
+    // eslint-disable-next-line ember/no-observers
     articleContentObserver: on('didInsertElement', observer('content', function () {
       // Our hacks don't work in FastBoot, so we just inject raw HTML in the template
       if (this.isFastBoot) {
@@ -56,46 +57,7 @@ export default Component.extend(
 
       this.destroyChildComponents();
 
-      run.scheduleOnce('afterRender', this, () => {
-        const rawContent = this.content;
-
-        if (!isBlank(rawContent)) {
-          this.hackIntoEmberRendering(rawContent);
-
-          this.handleAffiliateUnits();
-          this.handleInfoboxes();
-          this.replaceInfoboxesWithInfoboxComponents();
-          this.handleWatchShow();
-          this.renderDataComponents(this.element);
-
-          this.loadIcons();
-          this.handleTables();
-          this.replaceWikiaWidgetsWithComponents();
-          this.handleWikiaWidgetWrappers();
-          this.handleJumpLink();
-          this.handleCollapsibleSections();
-          this.handleCategoryPaginationUrls();
-
-          window.lazySizes.init();
-        } else if (this.displayEmptyArticleInfo) {
-          this.hackIntoEmberRendering(`<p>${this.i18n.t('article.empty-label')}</p>`);
-        }
-
-        if (!this.isPreview && this.adsContext) {
-          Ads.getLoadedInstance()
-            .then(() => {
-              this.adsService.setupAdsContext(this.adsContext);
-              if (!this.isDestroyed) {
-                // Uncollapse sections first so that we can insert ads in correct places
-                this.uncollapseSections();
-                this.adSlotBuilder.injectAds(this);
-              }
-            })
-            .catch(() => {}); // Ads not loaded.
-        }
-
-        this.openLightboxIfNeeded();
-      });
+      run.scheduleOnce('afterRender', this, this.onAfterRender);
     })),
 
     init() {
@@ -109,6 +71,47 @@ export default Component.extend(
       this._super(...arguments);
 
       this.destroyChildComponents();
+    },
+
+    onAfterRender() {
+      const rawContent = this.content;
+
+      if (!isBlank(rawContent)) {
+        this.hackIntoEmberRendering(rawContent);
+
+        this.handleAffiliateUnits();
+        this.handleInfoboxes();
+        this.replaceInfoboxesWithInfoboxComponents();
+        this.handleWatchShow();
+        this.renderDataComponents(this.element);
+
+        this.loadIcons();
+        this.handleTables();
+        this.replaceWikiaWidgetsWithComponents();
+        this.handleWikiaWidgetWrappers();
+        this.handleJumpLink();
+        this.handleCollapsibleSections();
+        this.handleCategoryPaginationUrls();
+
+        window.lazySizes.init();
+      } else if (this.displayEmptyArticleInfo) {
+        this.hackIntoEmberRendering(`<p>${this.i18n.t('article.empty-label')}</p>`);
+      }
+
+      if (!this.isPreview && this.adsContext) {
+        Ads.getLoadedInstance()
+          .then(() => {
+            this.adsService.setupAdsContext(this.adsContext);
+            if (!this.isDestroyed) {
+              // Uncollapse sections first so that we can insert ads in correct places
+              this.uncollapseSections();
+              this.adSlotBuilder.injectAds(this);
+            }
+          })
+          .catch(() => {}); // Ads not loaded.
+      }
+
+      this.openLightboxIfNeeded();
     },
 
     openLightboxIfNeeded() {

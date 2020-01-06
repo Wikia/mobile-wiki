@@ -5,6 +5,7 @@ import sinon from 'sinon';
 
 module('Unit | Mixin | thirds click', () => {
   test('calls proper handlers on click', (assert) => {
+    // eslint-disable-next-line ember/no-new-mixins
     const mixin = EmberObject.extend(ThirdsClicksMixin).create();
     const clickEventLeft = {
       clientX: 80,

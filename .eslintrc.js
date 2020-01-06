@@ -66,6 +66,9 @@ module.exports = {
     */
     "prefer-destructuring": 0,
 
+    // Avoid a conflict with Ember's no-arrow-function-computed-properties rule
+    "prefer-arrow-callback": 0,
+
     "ember/avoid-leaking-state-in-ember-objects": [2, [
       ...DEFAULT_IGNORED_PROPERTIES,
       'gestures',

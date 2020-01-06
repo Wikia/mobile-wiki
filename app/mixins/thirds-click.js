@@ -9,16 +9,18 @@ import Mixin from '@ember/object/mixin';
   * @property {Function} preventDefault
   * @property {Function} stopPropagation
   */
-
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   leftClickHandler() {},
   rightClickHandler() {},
   centerClickHandler() {},
 
-  viewportWidth: computed(() => Math.max(
-    document.documentElement.clientWidth,
-    window.innerWidth || 0,
-  )),
+  viewportWidth: computed(function () {
+    return Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0,
+    );
+  }),
 
   /**
   * This can be overriden to change how wide should be areas

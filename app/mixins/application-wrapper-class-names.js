@@ -1,6 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { on } from '@ember/object/evented';
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   addBodyClassOnActivate: on('activate', function () {
     const controller = this.controllerFor('application');

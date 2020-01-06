@@ -10,7 +10,7 @@ import { transparentImageBase64 } from '../utils/thumbnail';
   * @property {number} width
   * @property {number} height
   */
-
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   thumbnailer: Thumbnailer,
   cropMode: Thumbnailer.mode.topCrop,

@@ -88,26 +88,7 @@ export default Route.extend(
        * @returns {boolean}
        */
       didTransition() {
-        scheduleOnce('afterRender', this, () => {
-          const controller = this.controllerFor('search');
-
-          // Reset article id and namespace to null when navigating from article page
-          setTrackContext({
-            a: null,
-            n: null,
-          });
-
-          trackPageView(this.initialPageView.isInitialPageView());
-
-          track({
-            action: trackActions.impression,
-            category: 'app',
-            label: 'search',
-          });
-
-          controller.searchId = uuid();
-          controller.trackResultsImpression();
-        });
+        scheduleOnce('afterRender', this, this.onAfterRender);
 
         this.adsContextService.getAdsContext()
           .then((adsContext) => {
@@ -126,6 +107,27 @@ export default Route.extend(
 
         return true;
       },
+    },
+
+    onAfterRender() {
+      const controller = this.controllerFor('search');
+
+      // Reset article id and namespace to null when navigating from article page
+      setTrackContext({
+        a: null,
+        n: null,
+      });
+
+      trackPageView(this.initialPageView.isInitialPageView());
+
+      track({
+        action: trackActions.impression,
+        category: 'app',
+        label: 'search',
+      });
+
+      controller.searchId = uuid();
+      controller.trackResultsImpression();
     },
 
     setDynamicHeadTags(model) {

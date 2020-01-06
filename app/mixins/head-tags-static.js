@@ -3,6 +3,7 @@ import Mixin from '@ember/object/mixin';
 import config from '../config/environment';
 import { isDarkTheme, isMobileApp } from '../utils/mobile-app';
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   headData: service(),
   fastboot: service(),

@@ -2,6 +2,7 @@ import Mixin from '@ember/object/mixin';
 import { inject as service } from '@ember/service';
 import { dasherize } from '@ember/string';
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   wikiVariables: service(),
   defaultLanguage: 'en',

@@ -12,9 +12,7 @@ export default Component.extend({
    * what's under it -> e.g. search button in site head
    */
     tap() {
-      scheduleOnce('afterRender', () => {
-        this.onTap();
-      });
+      scheduleOnce('afterRender', this, this.onTap);
     },
   },
 });

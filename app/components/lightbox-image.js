@@ -124,12 +124,12 @@ export default Component.extend(
       return htmlSafe(`-webkit-${transform}${transform}`);
     }),
 
-    viewportSize: computed(() => (
-      {
+    viewportSize: computed(function () {
+      return {
         width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
         height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-      }
-    )),
+      };
+    }),
 
     /**
    * calculates current scale for zooming
@@ -147,6 +147,8 @@ export default Component.extend(
         }
 
         this.set('scale', scale);
+
+        return value;
       },
     }),
 
@@ -211,6 +213,8 @@ export default Component.extend(
         }
 
         this.set('newX', newX);
+
+        return value;
       },
     }),
 
@@ -230,9 +234,12 @@ export default Component.extend(
         }
 
         this.set('newY', newY);
+
+        return value;
       },
     }),
 
+    // eslint-disable-next-line ember/no-observers
     urlObserver: observer('model.url', function () {
       this.loadUrl();
     }),
@@ -264,9 +271,7 @@ export default Component.extend(
         direction: Hammer.DIRECTION_ALL,
       });
 
-      scheduleOnce('afterRender', this, () => {
-        this.loadUrl();
-      });
+      scheduleOnce('afterRender', this, this.loadUrl);
     },
 
     resize() {
@@ -282,10 +287,10 @@ export default Component.extend(
       const url = this.get('model.url');
 
       this.setProperties({
-        imageSrc: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' 
-       viewBox='-12 -12 48 48' fill='%23fff' width='${this.get('model.width')}' 
-       height='${this.get('model.height')}'%3e%3cg fill-rule='evenodd'%3e%3cpath 
-       d='M3 4h18v8.737l-3.83-3.191a.916.916 0 0 0-1.282.108l-4.924 5.744-3.891-3.114a.92.92 0 0 
+        imageSrc: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg'
+       viewBox='-12 -12 48 48' fill='%23fff' width='${this.get('model.width')}'
+       height='${this.get('model.height')}'%3e%3cg fill-rule='evenodd'%3e%3cpath
+       d='M3 4h18v8.737l-3.83-3.191a.916.916 0 0 0-1.282.108l-4.924 5.744-3.891-3.114a.92.92 0 0
        0-1.146 0L3 14.626V4zm19-2H2a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1V3a1 1 0 0 0-1-
        1z'/%3e%3cpath d='M9 10c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2'/%3e%3c/g%3e%3c/svg%3e`,
         isLoading: true,

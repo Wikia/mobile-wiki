@@ -26,17 +26,19 @@ export default Component.extend(
     didInsertElement() {
       this._super(...arguments);
 
-      run.scheduleOnce('afterRender', this, () => {
-        Ads.getLoadedInstance()
-          .then(() => {
-            this.ads.setupAdsContext(this.adsContext);
+      run.scheduleOnce('afterRender', this, this.onAfterRender);
+    },
 
-            if (!this.isDestroyed) {
-              this.adSlotBuilder.injectMainPageAds(this);
-            }
-          })
-          .catch(() => {}); // AdEngine not loaded.
-      });
+    onAfterRender() {
+      Ads.getLoadedInstance()
+        .then(() => {
+          this.ads.setupAdsContext(this.adsContext);
+
+          if (!this.isDestroyed) {
+            this.adSlotBuilder.injectMainPageAds(this);
+          }
+        })
+        .catch(() => {}); // AdEngine not loaded.
     },
   },
 );

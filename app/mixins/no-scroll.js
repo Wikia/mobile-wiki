@@ -2,14 +2,17 @@ import Mixin from '@ember/object/mixin';
 import EmberObject, { observer } from '@ember/object';
 
 // singleton for no scroll state shared across all mixin usages
+// eslint-disable-next-line ember/no-new-mixins
 const NoScrollState = EmberObject.extend().reopenClass({ state: false });
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   // global state
   noScrollState: NoScrollState,
   // current component state
   noScroll: false,
 
+  // eslint-disable-next-line ember/no-observers
   noScrollObserver: observer('noScroll', function () {
     this.setNoScroll(this.noScroll);
   }),

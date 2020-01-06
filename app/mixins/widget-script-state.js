@@ -1,5 +1,6 @@
 import Mixin from '@ember/object/mixin';
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   /**
   * This state is shared between objects that use the mixin.

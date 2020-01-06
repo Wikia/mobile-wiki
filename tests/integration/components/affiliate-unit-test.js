@@ -6,7 +6,7 @@ import Service from '@ember/service';
 import sinon from 'sinon';
 import * as tracker from 'mobile-wiki/utils/track';
 
-module('Integration | Component | affiliate-unit', function(hooks) {
+module('Integration | Component | affiliate-unit', (hooks) => {
   setupRenderingTest(hooks);
 
   const simpleUnit = {
@@ -48,16 +48,16 @@ module('Integration | Component | affiliate-unit', function(hooks) {
   };
 
   const huluUnit = {
-    "campaign": "disneyplus",
-    "category": "hulu",
-    "tagline": "Recommended for You",
-    "image": "https://static.wikia.nocookie.net/e9744d88-2e2d-4581-a1cd-c80bfbfb0e50",
-    "heading": "Upgrade Your Hulu Bundle with Disney+",
-    "subheading": "Upgrade Now",
-    "link": "https://fandom.com/articles/disney-plus-bundle-how-to",
-    "isBig": true,
-    "isHulu": true,
-    "country": ["US", "CA", "NL", "AU", "NZ"]
+    campaign: 'disneyplus',
+    category: 'hulu',
+    tagline: 'Recommended for You',
+    image: 'https://static.wikia.nocookie.net/e9744d88-2e2d-4581-a1cd-c80bfbfb0e50',
+    heading: 'Upgrade Your Hulu Bundle with Disney+',
+    subheading: 'Upgrade Now',
+    link: 'https://fandom.com/articles/disney-plus-bundle-how-to',
+    isBig: true,
+    isHulu: true,
+    country: ['US', 'CA', 'NL', 'AU', 'NZ'],
   };
 
   let trackAffiliateUnit;
@@ -71,7 +71,7 @@ module('Integration | Component | affiliate-unit', function(hooks) {
     trackAffiliateUnit.restore();
   });
 
-  test('renders with simple unit', async function(assert) {
+  test('renders with simple unit', async function (assert) {
     assert.expect(5);
 
     this.setProperties({
@@ -90,7 +90,7 @@ module('Integration | Component | affiliate-unit', function(hooks) {
     assert.dom('.affiliate-unit__svg-wrapper', this.element).doesNotExist();
   });
 
-  test('renders with multiple link unit', async function(assert) {
+  test('renders with multiple link unit', async function (assert) {
     assert.expect(1);
 
     this.setProperties({
@@ -103,7 +103,7 @@ module('Integration | Component | affiliate-unit', function(hooks) {
     assert.dom('.affiliate-unit__link', this.element).hasAttribute('href', multiLinkUnit.links.article);
   });
 
-  test('renders with Hulu unit', async function(assert) {
+  test('renders with Hulu unit', async function (assert) {
     assert.expect(1);
 
     this.setProperties({
@@ -116,7 +116,7 @@ module('Integration | Component | affiliate-unit', function(hooks) {
     assert.dom('.affiliate-unit__svg-wrapper', this.element).exists();
   });
 
-  test('renders with DDB unit', async function(assert) {
+  test('renders with DDB unit', async function (assert) {
     assert.expect(1);
 
     this.setProperties({
@@ -129,7 +129,7 @@ module('Integration | Component | affiliate-unit', function(hooks) {
     assert.dom('.affiliate-unit__link', this.element).hasAttribute('href', `${ddbUnit.link}&fandom_slot_id=incontent_recommend&`);
   });
 
-  test('calls trackAffiliateUnit when title is clicked', async function(assert) {
+  test('calls trackAffiliateUnit when title is clicked', async function (assert) {
     assert.expect(3);
 
     this.setProperties({

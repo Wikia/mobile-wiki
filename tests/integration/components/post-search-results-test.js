@@ -83,6 +83,7 @@ module('Integration | Component | post-search-results', (hooks) => {
     this.owner.register('service:wikiVariables', Service.extend({
       articlePath: '/de/wiki',
       enableDiscussions: true,
+      // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
       language: {
         content: 'en',
       },
@@ -175,6 +176,7 @@ module('Integration | Component | post-search-results', (hooks) => {
     this.owner.register('service:wikiVariables', Service.extend({
       articlePath: '/de/wiki',
       enableDiscussions: false,
+      // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
       language: {
         content: 'en',
       },
@@ -196,6 +198,7 @@ module('Integration | Component | post-search-results', (hooks) => {
     this.owner.register('service:wikiVariables', Service.extend({
       articlePath: '/de/wiki',
       enableDiscussions: false,
+      // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
       language: {
         content: 'en',
       },

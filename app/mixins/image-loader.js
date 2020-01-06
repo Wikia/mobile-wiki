@@ -1,6 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { Promise } from 'rsvp';
 
+// eslint-disable-next-line ember/no-new-mixins
 export default Mixin.create({
   /**
   * @param url string
