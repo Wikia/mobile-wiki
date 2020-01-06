@@ -64,8 +64,8 @@ export default Route.extend(
     beforeModel(transition) {
       this._super(transition);
 
-      if (transition.targetName === 'wiki-page') {
-        transition.data.title = decodeURIComponent(transition.params[transition.targetName].title);
+      if (transition.to.name === 'wiki-page') {
+        transition.data.title = decodeURIComponent(transition.to.params.title);
       }
 
       if (!this.fastboot.get('isFastBoot')) {
@@ -78,12 +78,12 @@ export default Route.extend(
       const wikiPageTitle = transition.data.title;
 
       return ApplicationModel.create(getOwner(this).ownerInjection())
-        .fetch(wikiPageTitle, transition.queryParams.uselang)
+        .fetch(wikiPageTitle, transition.to.queryParams.uselang)
         .then((applicationData) => {
           this.wikiVariables.setProperties(applicationData.wikiVariables);
 
           if (fastboot.get('isFastBoot')) {
-            this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.queryParams);
+            this.injectScriptsFastbootOnly(applicationData.wikiVariables, transition.to.queryParams);
           }
 
           return applicationData;
@@ -108,11 +108,11 @@ export default Route.extend(
 
       this._super(...arguments);
 
-      this.i18n.initialize(transition.queryParams.uselang || model.wikiVariables.language.content);
+      this.i18n.initialize(transition.to.queryParams.uselang || model.wikiVariables.language.content);
 
       if (
         !fastboot.get('isFastBoot')
-        && !transition.queryParams.noexternals
+        && !transition.to.queryParams.noexternals
       ) {
         Ads.getLoadedInstance()
           .then((ads) => {
@@ -146,7 +146,7 @@ export default Route.extend(
 
         // TODO remove `transition.queryParams.page`when icache supports surrogate keys
         // and we can purge the category pages
-        if (this.get('currentUser.isAuthenticated') || transition.queryParams.page) {
+        if (this.get('currentUser.isAuthenticated') || transition.to.queryParams.page) {
           disableCache(fastboot);
         } else {
           // TODO don't cache errors
@@ -225,7 +225,7 @@ export default Route.extend(
         if (fastboot.get('isFastBoot')) {
           fastboot.get('shoebox').put('serverError', true);
           fastboot.set('response.statusCode', getWithDefault(error, 'code', 503));
-          this.injectScriptsFastbootOnly(null, transition.queryParams);
+          this.injectScriptsFastbootOnly(null, transition.to.queryParams);
 
           // We can't use the built-in mechanism to render error substates.
           // When FastBoot sees that application route sends error, it dies.

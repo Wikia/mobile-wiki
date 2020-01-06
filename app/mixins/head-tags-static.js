@@ -13,7 +13,7 @@ export default Mixin.create({
   afterModel(resolvedModel, transition) {
     this._super(...arguments);
 
-    this.setStaticHeadTags(transition.queryParams.noexternals);
+    this.setStaticHeadTags(transition.to.queryParams.noexternals);
   },
 
   /**

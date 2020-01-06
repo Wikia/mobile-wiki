@@ -1,5 +1,7 @@
 import Component from '@ember/component';
-import { action, computed, get, observer } from '@ember/object';
+import {
+  action, computed, get, observer,
+} from '@ember/object';
 import { not } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';

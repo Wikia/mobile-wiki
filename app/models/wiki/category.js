@@ -72,8 +72,7 @@ export default BaseModel.extend({
 
     Object.keys(rawData.members)
       .forEach((firstChar) => {
-        const group = new EmberObject();
-        group.setProperties({
+        const group = EmberObject.create({
           firstChar,
           members: rawData.members[firstChar],
           isCollapsed: false,

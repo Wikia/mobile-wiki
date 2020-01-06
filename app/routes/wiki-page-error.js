@@ -1,4 +1,5 @@
 import Route from '@ember/routing/route';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { logError } from '../modules/event-logger';
 
@@ -13,6 +14,7 @@ export default Route.extend(
    * @returns {void}
    */
     renderTemplate(controller, error) {
+      console.log(error);
       switch (error.code) {
         case 404:
           this.render('errors/not-found');
@@ -27,13 +29,12 @@ export default Route.extend(
       }
     },
 
-    actions: {
-      /**
-    * @returns {void}
-    */
-      reloadPage() {
-        window.location.reload();
-      },
+    /**
+     * @returns {void}
+     */
+    @action
+    reloadPage() {
+      window.location.reload();
     },
   },
 );
