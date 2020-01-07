@@ -1,15 +1,15 @@
 {{#if affiliateUnit.image}}
-  <img class="post-search-results-affiliate-item__image" src={{affiliateUnit.image}} alt={{affiliateUnit.heading}}>
+  <img class="post-search-results-aff-item__image" src={{affiliateUnit.image}} alt={{affiliateUnit.heading}}>
 {{/if}}
 <a
   href={{getUnitLink}}
-  class="post-search-results-affiliate-item__title wds-leading-tight"
+  class="post-search-results-aff-item__title wds-leading-tight"
   rel="noopener sponsored"
   onclick={{action "trackClick" postIndex affiliateUnit}}
 >
   {{affiliateUnit.heading}}
 </a>
-<div class="post-search-results-affiliate-item__details">
+<div class="post-search-results-aff-item__details">
   {{affiliateUnit.subheading}}
-  <Icon class="post-search-results-affiliate-item__icon" @name="external" @size="tiny" />
+  <Icon class="post-search-results-aff-item__icon" @name="external" @size="tiny" />
 </div>
