@@ -1,4 +1,5 @@
 import { readOnly } from '@ember/object/computed';
+import { copy } from '@ember/object/internals';
 import Service, { inject as service } from '@ember/service';
 import Cookies from 'js-cookie';
 
@@ -189,7 +190,7 @@ export default Service.extend({
    */
   _getAvailableUnits() {
     // get all the units based on name and additional checks
-    return units
+    return copy(units, true)
       // check for mobile-system-specific units
       .filter(checkMobileSystem)
       // filter units by GEO cookie (country)
@@ -226,7 +227,7 @@ export default Service.extend({
     currentTargeting.forEach((target) => {
       // we're checking all units
       availableUnits.forEach((unit) => {
-        if (unit.campaign === target.campaign && unit.category === target.category) {
+        if (unit.campaign === 'ddb' && unit.category === 'ddb') {
           const updatedUnit = this._updateUnitLink(unit, pageId);
 
           // let's add that unit to the list along with its' targeting `tracking` prop
