@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import sinon from 'sinon';
-import * as tracker from 'mobile-wiki/utils/track';
+import trackModule, { trackActions } from 'mobile-wiki/utils/track';
 
 module('Integration | Component | post-search-results-affiliate-item', (hooks) => {
   setupRenderingTest(hooks);
@@ -127,7 +127,7 @@ module('Integration | Component | post-search-results-affiliate-item', (hooks) =
   test('calls trackAffiliateUnit when title is clicked', async function (assert) {
     assert.expect(1);
 
-    const trackAffiliateUnit = sinon.stub(tracker, 'trackAffiliateUnit');
+    const trackAffiliateUnit = sinon.stub(trackModule, 'trackAffiliateUnit');
 
     this.set('unit', simpleUnit);
     this.set('postIndex', postIndex);
@@ -141,7 +141,7 @@ module('Integration | Component | post-search-results-affiliate-item', (hooks) =
     await click('.post-search-results-affiliate-item__title');
 
     assert.ok(trackAffiliateUnit.calledOnceWith(simpleUnit, {
-      action: tracker.trackActions.click,
+      action: trackActions.click,
       category: 'affiliate_search_posts',
       label: `item-${postIndex}`,
     }));
@@ -152,7 +152,7 @@ module('Integration | Component | post-search-results-affiliate-item', (hooks) =
   test('calls trackAffiliateUnit in content when title is clicked', async function (assert) {
     assert.expect(1);
 
-    const trackAffiliateUnit = sinon.stub(tracker, 'trackAffiliateUnit');
+    const trackAffiliateUnit = sinon.stub(trackModule, 'trackAffiliateUnit');
 
     this.set('unit', simpleUnit);
     this.set('postIndex', postIndex);
@@ -167,7 +167,7 @@ module('Integration | Component | post-search-results-affiliate-item', (hooks) =
     await click('.post-search-results-affiliate-item__title');
 
     assert.ok(trackAffiliateUnit.calledOnceWith(simpleUnit, {
-      action: tracker.trackActions.click,
+      action: trackActions.click,
       category: 'affiliate_incontent_posts',
       label: `item-${postIndex}`,
     }));

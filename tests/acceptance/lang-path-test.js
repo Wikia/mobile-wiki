@@ -1,16 +1,16 @@
-import Service from '@ember/service';
 import { currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 import Ads from 'mobile-wiki/modules/ads';
+import wikiUrls from 'mobile-wiki/services/wiki-urls';
 import mockFastbootService from '../helpers/mock-fastboot-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 import mockSearchTracking from '../helpers/mock-search-tracking';
 import { mockAdsService, getAdsModuleMock, adEngineMock } from '../helpers/mock-ads-service';
 import mockSearchPageAdsContext from '../helpers/mock-search-page-ads-context';
 
-const wikiUrlsServiceStub = Service.extend({
+const wikiUrlsServiceStub = wikiUrls.extend({
   langPath: '/pl',
 });
 
@@ -41,15 +41,15 @@ module('Acceptance | lang path', (hooks) => {
   });
 
   test('visiting /pl/wiki/test', async (assert) => {
-    const result = await visit('/pl/wiki/test');
-    assert.ok(result);
+    await visit('/pl/wiki/test');
+
     // Lang path is set as router's rootURL and it should be stripped
     assert.equal(currentURL(), '/wiki/test');
   });
 
   test('visiting /pl/search', async (assert) => {
-    const result = await visit('/pl/search');
-    assert.ok(result);
+    await visit('/pl/search');
+
     assert.equal(currentURL(), '/search');
   });
 });

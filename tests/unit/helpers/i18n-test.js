@@ -7,7 +7,7 @@ module('Unit | helper | i18n', (hooks) => {
   let i18nHelper;
 
   hooks.beforeEach(() => {
-    i18nHelper = new I18nHelper();
+    i18nHelper = I18nHelper.create();
     i18nHelper.set('i18n', { t: tStub });
   });
 

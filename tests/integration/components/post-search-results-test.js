@@ -77,6 +77,7 @@ module('Integration | Component | post-search-results', (hooks) => {
   };
 
   let trackStub;
+  let trackAffiliateUnit;
 
   hooks.beforeEach(function () {
     this.owner.register('service:i18n', Service.extend({ t: key => key }));
@@ -90,10 +91,12 @@ module('Integration | Component | post-search-results', (hooks) => {
     }));
 
     trackStub = sinon.stub(trackModule, 'track');
+    trackAffiliateUnit = sinon.stub(trackModule, 'trackAffiliateUnit');
   });
 
   hooks.afterEach(() => {
     trackStub.restore();
+    trackAffiliateUnit.restore();
   });
 
   test('renders with post results and no affiliate unit', async function (assert) {

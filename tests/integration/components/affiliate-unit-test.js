@@ -1,10 +1,10 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, render, settled } from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import Service from '@ember/service';
 import sinon from 'sinon';
-import * as tracker from 'mobile-wiki/utils/track';
+import trackModule, { trackActions } from 'mobile-wiki/utils/track';
 
 module('Integration | Component | affiliate-unit', (hooks) => {
   setupRenderingTest(hooks);
@@ -64,7 +64,7 @@ module('Integration | Component | affiliate-unit', (hooks) => {
 
   hooks.beforeEach(function () {
     this.owner.register('service:i18n', Service.extend({ t: key => key }));
-    trackAffiliateUnit = sinon.stub(tracker, 'trackAffiliateUnit');
+    trackAffiliateUnit = sinon.stub(trackModule, 'trackAffiliateUnit');
   });
 
   hooks.afterEach(() => {
@@ -129,8 +129,8 @@ module('Integration | Component | affiliate-unit', (hooks) => {
     assert.dom('.affiliate-unit__link', this.element).hasAttribute('href', `${ddbUnit.link}&fandom_slot_id=incontent_recommend&`);
   });
 
-  test('calls trackAffiliateUnit when title is clicked', async function (assert) {
-    assert.expect(3);
+  test('calls trackAffiliateUnit when element is clicked', async function (assert) {
+    assert.expect(1);
 
     this.setProperties({
       unit: simpleUnit,
@@ -138,13 +138,6 @@ module('Integration | Component | affiliate-unit', (hooks) => {
     });
 
     await render(hbs`<AffiliateUnit @unit={{this.unit}} @isInContent={{this.isInContent}} />`);
-    await settled();
-
-    assert.ok(trackAffiliateUnit.calledOnceWith(simpleUnit, {
-      action: tracker.trackActions.impression,
-      category: 'affiliate_incontent_recommend',
-      label: 'affiliate_shown',
-    }));
 
     // Hack: prevent navigating away when link is clicked
     this.element.querySelector('.affiliate-unit__link')
@@ -152,9 +145,8 @@ module('Integration | Component | affiliate-unit', (hooks) => {
 
     await click('.affiliate-unit__link');
 
-    assert.ok(trackAffiliateUnit.calledTwice);
-    assert.ok(trackAffiliateUnit.lastCall.calledWith(simpleUnit, {
-      action: tracker.trackActions.click,
+    assert.ok(trackAffiliateUnit.calledOnceWith(simpleUnit, {
+      action: trackActions.click,
       category: 'affiliate_incontent_recommend',
       label: 'only-item',
     }));

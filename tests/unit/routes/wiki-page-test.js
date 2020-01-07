@@ -146,9 +146,11 @@ module('Unit | Route | wiki page', (hooks) => {
     );
 
     mock.beforeModel({
-      params: {
-        'wiki-page': {
-          title: 'foo',
+      to: {
+        params: {
+          'wiki-page': {
+            title: 'foo',
+          },
         },
       },
       data: {},
