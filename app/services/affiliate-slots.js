@@ -227,7 +227,7 @@ export default Service.extend({
     currentTargeting.forEach((target) => {
       // we're checking all units
       availableUnits.forEach((unit) => {
-        if (unit.campaign === 'ddb' && unit.category === 'ddb') {
+        if (unit.campaign === target.campaign && unit.category === target.category) {
           const updatedUnit = this._updateUnitLink(unit, pageId);
 
           // let's add that unit to the list along with its' targeting `tracking` prop
