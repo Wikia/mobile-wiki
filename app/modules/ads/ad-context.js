@@ -171,6 +171,20 @@ export const defaultAdContext = {
             ],
             networkId: '3306',
           },
+          featured: {
+            networkId: '3306',
+            zoneId: '1470492',
+            sizes: [
+              [3, 3],
+            ],
+          },
+          incontent_player: {
+            networkId: '3306',
+            zoneId: '1470491',
+            sizes: [
+              [3, 3],
+            ],
+          },
         },
       },
       gumgum: {
@@ -385,20 +399,6 @@ export const defaultAdContext = {
             ],
             siteId: '23565',
             zoneId: '1422262',
-          },
-        },
-      },
-      teads: {
-        enabled: false,
-        debugPageId: 109648,
-        debugPlacementId: 119236,
-        slots: {
-          incontent_player: {
-            pageId: '109466',
-            placementId: '119044',
-            sizes: [
-              [1, 1],
-            ],
           },
         },
       },
