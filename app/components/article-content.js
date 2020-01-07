@@ -65,7 +65,6 @@ export default Component.extend(
           this.handleAffiliateUnits();
           this.handleInfoboxes();
           this.replaceInfoboxesWithInfoboxComponents();
-          this.handleWatchShow();
           this.renderDataComponents(this.element);
 
           this.loadIcons();
@@ -585,30 +584,10 @@ export default Component.extend(
     },
 
     /**
-     * Injects watch show button (IW-1470) just after the first infobox
-     */
-    handleWatchShow() {
-      const infoboxWrapper = this.element.querySelector('.portable-infobox-wrapper');
-
-      if (infoboxWrapper) {
-        const placeholder = document.createElement('div');
-
-        infoboxWrapper.appendChild(placeholder);
-
-        this.renderedComponents.push(this.renderComponent({
-          name: 'watch-show',
-          attrs: {},
-          element: placeholder,
-        }));
-      }
-    },
-
-    /**
      * Injects an affiliate units into the article content
      */
     handleAffiliateUnits() {
-      const indexForBigUnit = 1; // 2nd section
-      const indexForSmallUnit = 3; // 4th section
+      const indexForSmallUnit = 1; // 2nd section
 
       // search for second section
       const h2Elements = this.element.querySelectorAll('h2[section]');
@@ -621,29 +600,19 @@ export default Component.extend(
 
           // if there's a big unit
           if (typeof bigUnit !== 'undefined') {
-            // keep here for tracking purposes.
-            // We want to know if we have targeting but no space for the unit
-            if (!h2Elements[indexForBigUnit]) {
-              trackAffiliateUnit(bigUnit, {
-                category: 'affiliate_incontent_recommend',
-                label: 'affiliate_not_shown',
-                action: 'no-impression',
-              });
-            } else {
-              const unitPlaceholder = document.createElement('div');
-              const unitWrapper = document.createElement('div');
-              unitWrapper.appendChild(unitPlaceholder);
-              h2Elements[indexForBigUnit].insertAdjacentElement('beforebegin', unitWrapper);
+            const infoboxWrapper = this.element.querySelector('.portable-infobox-wrapper');
+            const unitPlaceholder = document.createElement('div');
 
-              this.renderedComponents.push(this.renderComponent({
-                name: 'affiliate-unit',
-                attrs: {
-                  unit: bigUnit,
-                  isInContent: true,
-                },
-                element: unitPlaceholder,
-              }));
-            }
+            infoboxWrapper.appendChild(unitPlaceholder);
+
+            this.renderedComponents.push(this.renderComponent({
+              name: 'affiliate-unit',
+              attrs: {
+                unit: bigUnit,
+                isInContent: true,
+              },
+              element: unitPlaceholder,
+            }));
           }
 
           // if there's a small unit
