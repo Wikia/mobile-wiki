@@ -19,7 +19,6 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
-import { slotsLoader } from './slots-loader';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -34,7 +33,7 @@ export const adsSetup = {
   /**
    * Configures all ads services
    */
-  configure(adsContext, instantGlobals, isOptedIn) {
+  configure(adsContext, instantGlobals, consents) {
     const { bidders } = window.Wikia.adBidders;
     const {
       AdSlot,
@@ -47,6 +46,7 @@ export const adsSetup = {
     } = window.Wikia.adEngine;
     const {
       setupNpaContext,
+      setupRdpContext,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -67,10 +67,9 @@ export const adsSetup = {
     }
 
     return InstantConfigService.init(instantGlobals).then((instantConfig) => {
-      this.setupAdContext(instantConfig, adsContext, isOptedIn);
+      this.setupAdContext(instantConfig, adsContext, consents);
       setupNpaContext();
-
-      const { fillerService, PorvataFiller } = window.Wikia.adEngine;
+      setupRdpContext();
 
       templateService.register(BigFancyAdAbove, getBfaaConfig());
       templateService.register(BigFancyAdBelow, getBfabConfig());
@@ -89,13 +88,8 @@ export const adsSetup = {
         fanTakeoverResolver.resolve();
       });
 
-      if (instantConfig.get('icPorvataDirect')) {
-        context.set('slots.incontent_player.customFiller', 'porvata');
-        fillerService.register(new PorvataFiller());
-      }
-
       eventService.on(events.PAGE_RENDER_EVENT, ({ adContext }) => {
-        this.setupAdContext(instantConfig, adContext, isOptedIn);
+        this.setupAdContext(instantConfig, adContext, consents);
       });
       eventService.on(events.AD_SLOT_CREATED, (slot) => {
         console.info(`Created ad slot ${slot.getSlotName()}`);
@@ -109,25 +103,22 @@ export const adsSetup = {
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
       configureBillTheLizard(context.get('options.billTheLizard.config') || {});
-
-      // IMPORTANT! Has to be configured after BTL as it overrides bidsBackHandler
-      slotsLoader.configureSlotsLoader();
     });
   },
 
-  setupAdContext(instantConfig, adsContext, isOptedIn = false, geoRequiresConsent = true) {
+  setupAdContext(instantConfig, adsContext, consents) {
     const {
       context,
-      utils,
+      fillerService,
       InstantConfigCacheStorage,
+      PorvataFiller,
       setupBidders,
+      utils,
     } = window.Wikia.adEngine;
     const cacheStorage = InstantConfigCacheStorage.make();
 
     if (adsContext.opts.isAdTestWiki && adsContext.targeting.testSrc) {
-      // TODO: ADEN-8318 remove originalSrc and leave one value (testSrc)
-      const originalSrc = context.get('src');
-      context.set('src', [originalSrc, adsContext.targeting.testSrc]);
+      context.set('src', adsContext.targeting.testSrc);
     } else if (adsContext.opts.isAdTestWiki) {
       context.set('src', 'test');
     }
@@ -151,7 +142,6 @@ export const adsSetup = {
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
     context.set('options.billTheLizard.config', instantConfig.get('wgAdDriverBillTheLizardConfig'));
-    context.set('options.nonLazyLoading.enabled', instantConfig.get('icNonLazyIncontents'));
 
     context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
     context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
@@ -169,9 +159,17 @@ export const adsSetup = {
     context.set('options.tracking.postmessage', true);
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
-    context.set('options.trackingOptIn', isOptedIn);
-    context.set('options.geoRequiresConsent', geoRequiresConsent);
     context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
+
+    context.set('options.trackingOptIn', consents.isOptedIn);
+    context.set('options.geoRequiresConsent', !!M.geoRequiresConsent);
+    context.set('options.optOutSale', consents.isSaleOptOut);
+    context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
+
+    if (instantConfig.get('icPorvataDirect')) {
+      context.set('slots.incontent_player.customFiller', 'porvata');
+      fillerService.register(new PorvataFiller());
+    }
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
@@ -263,7 +261,6 @@ export const adsSetup = {
         s2: [context.get('targeting.s2') || ''],
         lang: [context.get('targeting.wikiLanguage') || 'en'],
       });
-      context.set('custom.isCMPEnabled', true);
 
       if (!instantConfig.get('icPrebidLkqdOutstream')) {
         context.remove('bidders.prebid.lkqd.slots.incontent_player');
@@ -293,13 +290,6 @@ export const adsSetup = {
           ].join(','),
         );
       });
-    }
-
-    if (context.get('options.nonLazyLoading.enabled')) {
-      context.set('events.pushAfterCreated.top_boxad', []);
-      context.set('events.pushAfterRendered.top_boxad', []);
-      context.set('slots.incontent_boxad_1.repeat.disablePushOnScroll', true);
-      context.set('slots.incontent_player.disablePushOnScroll', true);
     }
 
     if (instantConfig.get('icTopBoxadOutOfPage')) {
