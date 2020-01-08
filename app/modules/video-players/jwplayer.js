@@ -1,10 +1,10 @@
+import { Communicator } from '@wikia/post-quecast';
 import Ads from '../ads';
 import BasePlayer from './base';
 import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
 import { inGroup } from '../abtest';
-import { Communicator } from '@wikia/post-quecast';
 
 export default class JWPlayer extends BasePlayer {
   constructor(provider, params) {
@@ -36,7 +36,7 @@ export default class JWPlayer extends BasePlayer {
 
       this.communicator.dispatch({
         type: '[JWPlayer] Player Ready',
-        option: this.videoOptions,
+        options: this.videoOptions,
         targeting: this.getSlotTargeting(),
         playerKey,
       });
