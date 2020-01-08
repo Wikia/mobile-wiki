@@ -278,10 +278,10 @@ export const defaultAdContext = {
         enabled: false,
         slots: {
           featured: {
-            pubId: 'HBExchange',
+            pubId: 'FandomIS',
           },
           incontent_player: {
-            pubId: 'HBExchange',
+            pubId: 'FandomOS',
           },
         },
       },
