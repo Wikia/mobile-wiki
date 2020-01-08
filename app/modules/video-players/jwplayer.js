@@ -4,6 +4,7 @@ import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
 import { inGroup } from '../abtest';
+import { Communicator } from '@wikia/post-quecast';
 
 export default class JWPlayer extends BasePlayer {
   constructor(provider, params) {
@@ -12,21 +13,34 @@ export default class JWPlayer extends BasePlayer {
     super(provider, params);
     this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
     this.videoScope = params.isDedicatedForArticle ? 'article' : 'wiki';
+    this.communicator = new Communicator();
 
     this.videoTags = params.videoTags || '';
-    this.videoAds = null;
+    this.videoOptions = null;
 
     params.onCreate = (player) => {
       M.trackingQueue.push(() => {
         originalOnCreate(player);
-
-        if (this.videoAds) {
-          this.videoAds.register(player, this.getSlotTargeting());
-        }
+        this.dispatchPlayerReady(player);
       });
     };
 
     this.adTrackingParams = params.adTrackingParams || {};
+  }
+
+  dispatchPlayerReady(player) {
+    if (this.videoOptions) {
+      const playerKey = 'aeJWPlayerKey';
+
+      window[playerKey] = player;
+
+      this.communicator.dispatch({
+        type: '[JWPlayer] Player Ready',
+        option: this.videoOptions,
+        targeting: this.getSlotTargeting(),
+        playerKey,
+      });
+    }
   }
 
   getSlotTargeting() {
@@ -52,7 +66,7 @@ export default class JWPlayer extends BasePlayer {
     Ads.getLoadedInstance()
       .then((ads) => {
         ads.waitForVideoBidders()
-          .then(() => this.initializePlayer(ads));
+          .then(() => this.initializePlayer());
       })
       .catch(() => {
         // Ads not loaded
@@ -60,10 +74,7 @@ export default class JWPlayer extends BasePlayer {
       });
   }
 
-  /**
-   * @param {Ads} [ads] Ads module instance
-   */
-  initializePlayer(ads) {
+  initializePlayer() {
     const containerId = this.params.containerId;
     const initialPath = window.location.pathname;
     const videoScope = this.params.isDedicatedForArticle ? 'article' : 'wiki';
@@ -72,14 +83,12 @@ export default class JWPlayer extends BasePlayer {
       return;
     }
 
-    if (ads) {
-      this.videoAds = ads.createJWPlayerVideoAds({
-        audio: !this.params.autoplay,
-        autoplay: this.params.autoplay,
-        featured: true,
-        videoId: this.params.playlist[0].mediaid,
-      });
-    }
+    this.videoOptions = {
+      audio: !this.params.autoplay,
+      autoplay: this.params.autoplay,
+      featured: true,
+      videoId: this.params.playlist[0].mediaid,
+    };
 
     M.tracker.UniversalAnalytics.setDimension(30, videoScope);
 
@@ -130,10 +139,6 @@ export default class JWPlayer extends BasePlayer {
       },
       this.params.onCreate.bind(this),
     );
-
-    if (ads) {
-      ads.loadJwplayerMoatTracking();
-    }
   }
 
   /**

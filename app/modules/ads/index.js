@@ -11,7 +11,6 @@ import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { trackScrollY, trackXClick } from '../../utils/track';
-import { Communicator } from '@wikia/post-quecast';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -38,7 +37,6 @@ class Ads {
   constructor() {
     this.engine = null;
     this.spaInstanceId = null;
-    this.communicator = new Communicator();
 
     this.isInitializationStarted = false;
     this.initialization = new PromiseLock();
@@ -190,24 +188,6 @@ class Ads {
 
     btfBlockerService.finishFirstCall();
     fanTakeoverResolver.resolve();
-  }
-
-  /**
-   * @public
-   */
-  createJWPlayerVideoAds(options) {
-    const { jwplayerAdsFactory } = window.Wikia.adProducts;
-
-    return jwplayerAdsFactory.create(options);
-  }
-
-  /**
-   * @public
-   */
-  loadJwplayerMoatTracking() {
-    const { jwplayerAdsFactory } = window.Wikia.adProducts;
-
-    jwplayerAdsFactory.loadMoatPlugin();
   }
 
   /**
