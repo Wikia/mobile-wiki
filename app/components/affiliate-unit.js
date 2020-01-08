@@ -14,8 +14,6 @@ export default Component.extend(
 
     classNames: ['affiliate-unit'],
 
-    showAffiiateUnitDisclaimer: !document.querySelector('.watch-show__disclaimer'),
-
     heading: computed('unit', function () {
       if (this.unit && this.unit.tagline) {
         return this.unit.tagline;
