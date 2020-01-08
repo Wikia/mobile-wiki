@@ -57,7 +57,7 @@ export default Component.extend(
     }),
 
     showPostSearchResultsDisclaimer: computed('posts', function () {
-      const isAffiliateDisclaimer = !!document.querySelector('.affiliate-unit__disclaimer');
+      const isAffiliateDisclaimer = !!document.querySelector('.aff-big-unit__disclaimer');
 
       return this.hasAffiliatePost && !isAffiliateDisclaimer;
     }),
