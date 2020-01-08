@@ -150,6 +150,16 @@ export default Route.extend(
             // Otherwise we track to fast and url isn't
             // updated yet. `didTransition` hook is called too fast.
             this.trackPageView(model);
+
+            if (!fastboot.get('isFastBoot') && model.adsContext) {
+              model.adsContext.user = model.adsContext.user || {};
+              model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
+
+              window.getInstantGlobals((instantGlobals) => {
+                Ads.getInstance().init(instantGlobals, model.adsContext, transition.queryParams);
+              });
+            }
+
             // If it's an article page and the extension is enabled, load the Feeds & Posts module
             if (!fastboot.get('isFastBoot')
               && isContentNamespace(model.ns, this.get('wikiVariables.contentNamespaces'))
@@ -178,15 +188,6 @@ export default Route.extend(
               });
             }
           });
-
-          if (!fastboot.get('isFastBoot') && model.adsContext) {
-            model.adsContext.user = model.adsContext.user || {};
-            model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-
-            window.getInstantGlobals((instantGlobals) => {
-              Ads.getInstance().init(instantGlobals, model.adsContext, transition.queryParams);
-            });
-          }
 
           this.set('wikiHandler', handler);
 
