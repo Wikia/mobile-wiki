@@ -37,6 +37,20 @@ export const registerViewabilityTracker = () => {
     })));
 };
 
+export const registerBidderTracker = () => {
+  const {
+    bidderTracker,
+    bidderTrackingMiddleware,
+  } = window.Wikia.adEngine;
+
+  bidderTracker
+    .add(bidderTrackingMiddleware)
+    .register(({ data }) => track(Object.assign(data, {
+      eventName: 'adengbidders',
+      trackingMethod: 'internal',
+    })));
+};
+
 export const registerClickPositionTracker = () => {
   const { clickPositionTracker } = window.Wikia.adEngine;
 
