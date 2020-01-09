@@ -6,7 +6,7 @@ import { trackActions, trackAffiliateUnit } from '../utils/track';
 export default Component.extend({
   isInContent: false,
 
-  classNames: ['post-search-results-affiliate-item'],
+  classNames: ['post-search-results-aff-item'],
 
   getUnitLink: computed('affiliateUnit', 'isInContent', function () {
     if (this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.article) {

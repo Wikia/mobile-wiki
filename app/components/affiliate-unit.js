@@ -12,9 +12,7 @@ export default Component.extend(
     isInContent: false,
     unit: null,
 
-    classNames: ['affiliate-unit'],
-
-    showAffiiateUnitDisclaimer: !document.querySelector('.watch-show__disclaimer'),
+    classNames: ['aff-big-unit'],
 
     heading: computed('unit', function () {
       if (this.unit && this.unit.tagline) {

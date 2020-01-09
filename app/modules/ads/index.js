@@ -11,7 +11,6 @@ import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { trackScrollY, trackXClick } from '../../utils/track';
-import { slotsLoader } from './slots-loader';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -344,7 +343,6 @@ class Ads {
     cheshireCat.reset();
     tbViewability.reset();
     billTheLizard.reset();
-    slotsLoader.reset();
     taxonomyService.reset();
     this.afterPageRenderExecuted = false;
   }
