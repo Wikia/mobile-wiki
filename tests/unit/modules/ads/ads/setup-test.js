@@ -12,6 +12,9 @@ module('Unit | Module | ads | setup', (hooks) => {
     eventService = new EventService();
 
     window.Wikia.adEngine = {
+      JWPlayerManager() {
+        this.manage = () => {};
+      },
       AdEngine() {
         this.init = () => {};
       },
