@@ -222,7 +222,13 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   setVideoSeenInSession() {
-    if (this.hasSeenTheVideoInCurrentSession()) {
+    const playerImpressionsInSession = this.hasSeenTheVideoInCurrentSession() ?
+      Number(window.Cookies.get('playerImpressionsInSession')) + 1 :
+      1;
+
+    window.Cookies.set('playerImpressionsInSession', playerImpressionsInSession);
+
+    if (this.hasMaxedOutPlayerImpressionsInSession()) {
       return;
     }
 
@@ -231,8 +237,29 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     this.setCookie(this.videoSeenInSessionCookieName, currentSession);
   },
 
+  getModifiedPlaylist(playlist) {
+    const playerImpressionsInSession = Number(window.Cookies.get('playerImpressionsInSession'));
+    const newPlaylist = playlist.filter((item, index) => {
+      return index >= playerImpressionsInSession - 1;
+    });
+
+    return newPlaylist.length ? newPlaylist : playlist;
+  },
+
   hasSeenTheVideoInCurrentSession() {
     return window.Cookies.get('wikia_session_id') === window.Cookies.get(this.videoSeenInSessionCookieName);
+  },
+
+  getPlayerImpressionsInSession() {
+    if (!this.hasSeenTheVideoInCurrentSession()) {
+      return 0;
+    } else {
+      return Number(window.Cookies.get('playerImpressionsInSession'));
+    }
+  },
+
+  hasMaxedOutPlayerImpressionsInSession(allowedPlayerImpressions) {
+    return this.hasSeenTheVideoInCurrentSession() && this.getPlayerImpressionsInSession() >= allowedPlayerImpressions;
   },
 
   resizeVideo() {

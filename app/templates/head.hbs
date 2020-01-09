@@ -167,10 +167,15 @@
 {{#if model.twitterDescription}}
   <meta name="twitter:description" content={{model.twitterDescription}}>
 {{/if}}
+{{! Twitter end }}
+
 {{#if model.isDedicatedForArticle}}
   <meta name="featured-video" content={{model.isDedicatedForArticle}}>
 {{/if}}
-{{! Twitter end }}
+
+{{#if model.playerImpressionsPerSession}}
+  <meta name="player-impressions-per-session" content={{model.playerImpressionsPerSession}}>
+{{/if}}
 
 {{#if model.lazyCss}}
   {{!- These styles will be added to head on front-end to lazy load them-}}
