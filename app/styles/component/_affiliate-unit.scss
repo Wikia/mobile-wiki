@@ -8,7 +8,6 @@
   }
 
   &__header {
-    color: $wds-fandom-color-navy;
     display: inline-block;
     margin: 0 auto 20px;
     text-align: center;
@@ -36,7 +35,7 @@
   }
 
   &__heading {
-    color: $wds-fandom-color-navy;
+    color: $wds-color-dark-blue;
     font-weight: $wds-fandom-font-weight-medium;
     line-height: 1.29;
     margin-bottom: 6px;
