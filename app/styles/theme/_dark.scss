@@ -119,3 +119,28 @@ body {
 .watch-show h2 {
   color: $text-color;
 }
+
+.aff-big-unit {
+  &__header {
+    color: $section-header-color;
+    background-image: linear-gradient(to top, rgba(203, 219, 222, 0.2) 54%, #000000e0 54%, #ffe8e800 100%);
+  }
+
+  &__heading {
+    color: $section-header-color;
+  }
+
+  &__header-icon {
+    fill: #ffffff;
+  }
+
+  .wds-button.wds-is-secondary {
+    border-color: #00d6d6;
+    color: #00d6d6;
+
+    &:hover {
+      border-color: #00d6d6;
+      color: #00d6d6;
+    }
+  }
+}
