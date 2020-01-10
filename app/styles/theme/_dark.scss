@@ -106,6 +106,14 @@ body {
   h6[section] {
     color: $section-header-color;
   }
+
+  .aff-big-unit__slant {
+    background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $background-color 60%, rgba(255, 255, 255, 0) 60%);
+  }
+
+  .post-search-results__slant {
+    background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $background-color 60%, rgba(255, 255, 255, 0) 60%);
+  }
 }
 
 .recirculation-prefooter {
