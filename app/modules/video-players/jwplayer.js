@@ -1,4 +1,5 @@
 import { Communicator } from '@wikia/post-quecast';
+import { v4 as uuid } from 'ember-uuid';
 import Ads from '../ads';
 import BasePlayer from './base';
 import { track } from '../../utils/track';
@@ -30,7 +31,7 @@ export default class JWPlayer extends BasePlayer {
 
   dispatchPlayerReady(player) {
     if (this.videoOptions) {
-      const playerKey = 'aeJWPlayerKey';
+      const playerKey = uuid();
 
       window[playerKey] = player;
 
