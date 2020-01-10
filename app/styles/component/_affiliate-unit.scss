@@ -1,4 +1,4 @@
-.affiliate-unit {
+.aff-big-unit {
   font-size: $wds-font-size-s;
   margin: 0;
   text-align: center;
@@ -42,12 +42,6 @@
     margin-bottom: 6px;
   }
 
-  &__subheading {
-    color: $wds-fandom-color-dark-gray;
-    font-weight: $wds-fandom-font-weight-regular;
-    line-height: normal;
-  }
-
   &__svg-wrapper {
     align-items: center;
     display: flex;
@@ -87,13 +81,13 @@
   }
 }
 
-.search-results .affiliate-unit {
+.search-results .aff-big-unit {
   margin: 20px 0;
   padding: 0 12px;
 }
 
-.article-content .affiliate-unit {
-  margin: 0 -.75rem 48px;
+.article-content .aff-big-unit {
+  margin: 28px -.75rem 48px;
 
   &__slant {
     background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $wds-color-white 60%, rgba(255, 255, 255, 0) 60%);

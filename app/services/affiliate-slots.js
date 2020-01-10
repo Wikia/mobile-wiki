@@ -1,4 +1,5 @@
 import { readOnly } from '@ember/object/computed';
+import { copy } from '@ember/object/internals';
 import Service, { inject as service } from '@ember/service';
 import Cookies from 'js-cookie';
 
@@ -189,7 +190,7 @@ export default Service.extend({
    */
   _getAvailableUnits() {
     // get all the units based on name and additional checks
-    return units
+    return copy(units, true)
       // check for mobile-system-specific units
       .filter(checkMobileSystem)
       // filter units by GEO cookie (country)
