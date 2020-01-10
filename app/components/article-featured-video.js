@@ -222,19 +222,14 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   setVideoSeenInSession() {
-    const playerImpressionsInSession = this.hasSeenTheVideoInCurrentSession() ?
-      Number(window.Cookies.get('playerImpressionsInSession')) + 1 :
-      1;
+    if (!this.hasSeenTheVideoInCurrentSession()) {
+      const currentSession = window.Cookies.get('wikia_session_id');
 
-    window.Cookies.set('playerImpressionsInSession', playerImpressionsInSession);
-
-    if (this.hasMaxedOutPlayerImpressionsInSession()) {
-      return;
+      this.setCookie(this.videoSeenInSessionCookieName, currentSession);
+      this.setCookie('playerImpressionsInSession', 1);
+    } else {
+      this.setCookie('playerImpressionsInSession', Number(window.Cookies.get('playerImpressionsInSession')) + 1);
     }
-
-    const currentSession = window.Cookies.get('wikia_session_id');
-
-    this.setCookie(this.videoSeenInSessionCookieName, currentSession);
   },
 
   getModifiedPlaylist(playlist) {

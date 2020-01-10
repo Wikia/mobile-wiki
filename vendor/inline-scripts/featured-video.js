@@ -10,7 +10,15 @@
     var allowedImpressionsMetaTag = document.head.querySelector('[name="player-impressions-per-session"]');
     var allowedImpressions = allowedImpressionsMetaTag ? Number(allowedImpressionsMetaTag.getAttribute('content')) : 1;
 
-    return !hasSeenTheVideoInCurrentSession() || (allowedImpressions && impressionsSoFar < allowedImpressions);
+    if (!hasSeenTheVideoInCurrentSession()) {
+      return false;
+    }
+
+    if (allowedImpressions === 0) {
+      return true;
+    }
+
+    return impressionsSoFar >= allowedImpressions;
   }
 
   function hasSeenTheVideoInCurrentSession() {
@@ -24,7 +32,7 @@
     var isDedicatedForArticle = !!document.head.querySelector('[name="featured-video"]');
 
     if (!isDedicatedForArticle) {
-      return hasMaxedOutPlayerImpressionsPerSession();
+      return !hasMaxedOutPlayerImpressionsPerSession();
     }
 
     return true;
