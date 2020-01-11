@@ -130,7 +130,7 @@ body {
 
 .aff-big-unit {
   &__header {
-    background-image: linear-gradient(to top, rgba(203, 219, 222, .2) 54%, #000000e0 54%, #ffe8e800 100%);
+    background-image: linear-gradient(to top, rgba(203, 219, 222, .2) 54%, $background-color 54%, rgba(255, 255, 255, 0) 100%);
     color: $section-header-color;
   }
 
@@ -154,5 +154,5 @@ body {
 }
 
 .post-search-results__header-text {
-  background-image: linear-gradient(to top, rgba(203, 219, 222, .2) 54%, #000000e0 54%, #ffe8e800 100%);
+  background-image: linear-gradient(to top, rgba(203, 219, 222, .2) 54%, $background-color 54%, rgba(255, 255, 255, 0) 100%);
 }
