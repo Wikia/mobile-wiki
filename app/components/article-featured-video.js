@@ -234,9 +234,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
   getModifiedPlaylist(playlist) {
     const playerImpressionsInSession = Number(window.Cookies.get('playerImpressionsInSession'));
-    const newPlaylist = playlist.filter((item, index) => {
-      return index >= playerImpressionsInSession - 1;
-    });
+    const newPlaylist = playlist.filter((item, index) => index >= playerImpressionsInSession - 1);
 
     return newPlaylist.length ? newPlaylist : playlist;
   },
@@ -248,13 +246,14 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   getPlayerImpressionsInSession() {
     if (!this.hasSeenTheVideoInCurrentSession()) {
       return 0;
-    } else {
-      return Number(window.Cookies.get('playerImpressionsInSession'));
     }
+
+    return Number(window.Cookies.get('playerImpressionsInSession'));
   },
 
   hasMaxedOutPlayerImpressionsInSession(allowedPlayerImpressions) {
-    return this.hasSeenTheVideoInCurrentSession() && this.getPlayerImpressionsInSession() >= allowedPlayerImpressions;
+    return this.hasSeenTheVideoInCurrentSession()
+      && this.getPlayerImpressionsInSession() >= allowedPlayerImpressions;
   },
 
   resizeVideo() {
