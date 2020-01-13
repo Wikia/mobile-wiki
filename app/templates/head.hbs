@@ -175,6 +175,7 @@
 {{/if}}
 {{! Twitter end }}
 
+{{! We use both meta tags below instead of shoebox to have the video related data accessible ASAP (before ember boots)}}
 {{#if model.isDedicatedForArticle}}
   <meta name="featured-video" content={{model.isDedicatedForArticle}}>
 {{/if}}
