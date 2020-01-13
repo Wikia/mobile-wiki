@@ -256,6 +256,29 @@ export const defaultAdContext = {
           },
         },
       },
+      nobid: {
+        enabled: false,
+        slots: {
+          mobile_top_leaderboard: {
+            sizes: [
+              [320, 50],
+            ],
+            siteId: '21872987104',
+          },
+          mobile_in_content: {
+            sizes: [
+              [300, 250],
+            ],
+            siteId: '21872987104',
+          },
+          bottom_leaderboard: {
+            sizes: [
+              [320, 50],
+            ],
+            siteId: '21872987104',
+          },
+        },
+      },
       onemobile: {
         enabled: false,
         siteId: '2c9d2b50015e5e9a6540a64f3eac0266',
@@ -271,6 +294,17 @@ export const defaultAdContext = {
           bottom_leaderboard: {
             size: [300, 250],
             pos: 'wikia_mw_pre_footer_hb',
+          },
+        },
+      },
+      oneVideo: {
+        enabled: false,
+        slots: {
+          featured: {
+            pubId: 'FandomIS',
+          },
+          incontent_player: {
+            pubId: 'FandomOS',
           },
         },
       },
