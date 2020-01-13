@@ -61,7 +61,7 @@
     "on-headers": "1.0.2",
     "prom-client": "11.5.3",
     "scriptjs": "2.5.9",
-    "snyk": "1.192.2",
+    "snyk": "1.278.1",
     "vignette": "github:wikia/vignette-js#2.8.0",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
