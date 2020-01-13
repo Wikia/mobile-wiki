@@ -193,24 +193,6 @@ class Ads {
   /**
    * @public
    */
-  createJWPlayerVideoAds(options) {
-    const { jwplayerAdsFactory } = window.Wikia.adProducts;
-
-    return jwplayerAdsFactory.create(options);
-  }
-
-  /**
-   * @public
-   */
-  loadJwplayerMoatTracking() {
-    const { jwplayerAdsFactory } = window.Wikia.adProducts;
-
-    jwplayerAdsFactory.loadMoatPlugin();
-  }
-
-  /**
-   * @public
-   */
   getAdSlotComponentAttributes(slotName) {
     const { context } = window.Wikia.adEngine;
 
