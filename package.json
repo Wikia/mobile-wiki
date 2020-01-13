@@ -101,7 +101,7 @@
     "ember-cli-sri": "2.1.1",
     "ember-cli-stylelint": "3.0.2",
     "ember-cli-svgstore": "0.4.1",
-    "ember-cli-template-lint": "1.0.0-beta.3",
+    "ember-cli-template-lint": "1.0.0",
     "ember-cli-test-loader": "2.2.0",
     "ember-cli-uglify": "3.0.0",
     "ember-exex": "0.2.0",
