@@ -221,10 +221,9 @@
                 "oasis"
             ],
             "regions": [
-                "PL",
                 "US"
             ],
-            "value": false
+            "value": true
         }
     ],
     "icFloorAdhesionViewportsToStart": [
@@ -263,6 +262,18 @@
             "value": {
                 "300x600": 0.3
             }
+        }
+    ],
+    "icBidsTracking": [
+        {
+            "apps": [
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "value": false
         }
     ],
     "icPrebidCriteo": [

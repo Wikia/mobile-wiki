@@ -12,7 +12,7 @@ export default Component.extend(
     isInContent: false,
     unit: null,
 
-    classNames: ['affiliate-unit'],
+    classNames: ['aff-big-unit'],
 
     heading: computed('unit', function () {
       if (this.unit && this.unit.tagline) {

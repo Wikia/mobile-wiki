@@ -43,6 +43,7 @@ export const adsSetup = {
       templateService,
       InstantConfigService,
       utils,
+      JWPlayerManager,
     } = window.Wikia.adEngine;
     const {
       setupNpaContext,
@@ -102,6 +103,9 @@ export const adsSetup = {
 
       videoTracker.register();
       context.push('delayModules', biddersDelayer);
+
+      new JWPlayerManager().manage();
+
       configureBillTheLizard(context.get('options.billTheLizard.config') || {});
     });
   },
@@ -310,6 +314,8 @@ export const adsSetup = {
 
     context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
+
+
 };
 
 export default adsSetup;
