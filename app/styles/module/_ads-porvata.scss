@@ -29,6 +29,10 @@ $controls-z-index: 11;
       }
 
       &.vpaid-enabled {
+        .video-player > .porvata-switchable-icon {
+          pointer-events: auto;
+        }
+
         .video-player > div {
           pointer-events: none;
 
