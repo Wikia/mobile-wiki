@@ -29,6 +29,7 @@ export default Service.extend({
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.ads.slotNames;
     const globalFooter = document.querySelector('.wds-global-footer');
+    // TODO: replace with some flag from service.
     this.pageHasFeaturedVideo = !!component.featuredVideo;
 
     if (pi) {
