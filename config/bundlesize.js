@@ -5,11 +5,11 @@ const assetsFolder = 'mobile-wiki/assets';
 module.exports = {
   'mobile-wiki.js': {
     pattern: `${assetsFolder}/mobile-wiki-*.js`,
-    limit: '529KB',
+    limit: '523KB',
   },
   'vendor.js': {
     pattern: `${assetsFolder}/vendor-*.js`,
-    limit: '670KB',
+    limit: '705KB',
   },
   'app.css': {
     pattern: `${assetsFolder}/app.css`,

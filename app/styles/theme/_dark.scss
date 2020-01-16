@@ -106,6 +106,14 @@ body {
   h6[section] {
     color: $section-header-color;
   }
+
+  .aff-big-unit__slant {
+    background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $background-color 60%, rgba(255, 255, 255, 0) 60%);
+  }
+
+  .post-search-results__slant {
+    background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $background-color 60%, rgba(255, 255, 255, 0) 60%);
+  }
 }
 
 .recirculation-prefooter {
@@ -118,4 +126,33 @@ body {
 
 .watch-show h2 {
   color: $text-color;
+}
+
+.aff-big-unit {
+  &__header {
+    background-image: linear-gradient(to top, rgba(203, 219, 222, .2) 54%, $background-color 54%, rgba(255, 255, 255, 0) 100%);
+    color: $section-header-color;
+  }
+
+  &__heading {
+    color: $section-header-color;
+  }
+
+  &__header-icon {
+    fill: #fff;
+  }
+
+  .wds-button.wds-is-secondary {
+    border-color: #00d6d6;
+    color: #00d6d6;
+
+    &:hover {
+      border-color: #00d6d6;
+      color: #00d6d6;
+    }
+  }
+}
+
+.post-search-results__header-text {
+  background-image: linear-gradient(to top, rgba(203, 219, 222, .2) 54%, $background-color 54%, rgba(255, 255, 255, 0) 100%);
 }

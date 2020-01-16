@@ -96,9 +96,11 @@
                 "oasis"
             ],
             "regions": [
+                "AU",
+                "CA",
                 "PL"
             ],
-            "value": false
+            "value": true
         }
     ],
     "icPrebidIndexExchange": [
@@ -221,10 +223,9 @@
                 "oasis"
             ],
             "regions": [
-                "PL",
                 "US"
             ],
-            "value": false
+            "value": true
         }
     ],
     "icFloorAdhesionViewportsToStart": [
@@ -265,6 +266,18 @@
             }
         }
     ],
+    "icBidsTracking": [
+        {
+            "apps": [
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "value": false
+        }
+    ],
     "icPrebidCriteo": [
         {
             "apps": [
@@ -290,25 +303,9 @@
                 "oasis"
             ],
             "regions": [
-                "PL",
-                "US-CA",
-                "US-NY"
-            ],
-            "sampling": 100.0,
-            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v2.44.1/20200103.min.js"
-        },
-        {
-            "apps": [
-                "futhead",
-                "gamepedia",
-                "mobile-wiki",
-                "muthead",
-                "oasis"
-            ],
-            "regions": [
                 "XX"
             ],
-            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v2.4.0/20191216.min.js"
+            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v2.44.2/20200110.min.js"
         }
     ],
     "icA9Bidder": [
@@ -333,9 +330,10 @@
                 "oasis"
             ],
             "regions": [
-                "XX"
+                "XX-SA"
             ],
-            "value": false
+            "sampling": 100.0,
+            "value": true
         }
     ],
     "icIASVideoTracking": [
@@ -459,6 +457,18 @@
                 "XX"
             ],
             "value": true
+        }
+    ],
+    "icPrebidNobid": [
+        {
+            "apps": [
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "value": false
         }
     ],
     "icPrebidOneMobile": [

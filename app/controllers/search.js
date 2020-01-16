@@ -78,7 +78,7 @@ export default Controller.extend({
         position: index + 1, // +1 since we need to start with 1 instead of 0
         thumbnail: false, // we do not show thumbnails on SRP right now
       })),
-      page: this.model.batch,
+      page: this.model.batch + 1,
       limit: batchSize,
       sortOrder: 'default',
       app: 'mw-mobile',
