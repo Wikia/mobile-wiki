@@ -7,7 +7,6 @@ import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import JWPlayerMixin from '../mixins/jwplayer';
-import { inGroup } from '../modules/abtest';
 import VideoLoader from '../modules/video-loader';
 import duration from '../utils/duration';
 import extend from '../utils/extend';
@@ -176,8 +175,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
     const model = this.get('model.embed');
     const jsParams = {
-      autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY')
-       && window.Cookies.get(this.autoplayCookieName) !== '0',
+      autoplay: window.Cookies.get(this.autoplayCookieName) !== '0',
       selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
       adTrackingParams: {
         adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
