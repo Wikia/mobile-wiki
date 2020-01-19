@@ -17,6 +17,7 @@ import { track, trackActions } from '../utils/track';
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   ads: service('ads/ads'),
   logger: service(),
+  video: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
 
@@ -168,11 +169,13 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   initVideoPlayer() {
     if (!window.canPlayVideo()) {
       document.body.classList.add('no-featured-video');
+      this.video.set('hasFeaturedVideo', false);
 
       return;
     }
 
     document.body.classList.remove('no-featured-video');
+    this.video.set('hasFeaturedVideo', true);
 
     const model = this.get('model.embed');
     const jsParams = {
@@ -188,6 +191,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       onCreate: this.onCreate.bind(this),
       lang: this.get('wikiVariables.language.content'),
       isDedicatedForArticle: this.get('model.isDedicatedForArticle'),
+      playlist: this.getModifiedPlaylist(model.jsParams.playlist),
     };
     const data = extend({}, model, {
       jsParams,
@@ -228,15 +232,21 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       this.setCookie(this.videoSeenInSessionCookieName, currentSession);
       this.setCookie('playerImpressionsInSession', 1);
     } else {
-      this.setCookie('playerImpressionsInSession', Number(window.Cookies.get('playerImpressionsInSession')) + 1);
+      this.setCookie('playerImpressionsInSession', this.getPlayerImpressionsInSession() + 1);
     }
   },
 
   getModifiedPlaylist(playlist) {
-    const playerImpressionsInSession = Number(window.Cookies.get('playerImpressionsInSession'));
-    const newPlaylist = playlist.filter((item, index) => index >= playerImpressionsInSession - 1);
+    const normalizedPlaylistIndex = this.getNormalizedPlaylistIndex(playlist);
+    const newPlaylist = playlist.slice(normalizedPlaylistIndex);
 
     return newPlaylist.length ? newPlaylist : playlist;
+  },
+
+  getNormalizedPlaylistIndex(playlist) {
+    const playerImpressions = this.getPlayerImpressionsInSession();
+
+    return playerImpressions > playlist.length ? playerImpressions % playlist.length : playerImpressions;
   },
 
   hasSeenTheVideoInCurrentSession() {
@@ -249,11 +259,6 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     }
 
     return Number(window.Cookies.get('playerImpressionsInSession'));
-  },
-
-  hasMaxedOutPlayerImpressionsInSession(allowedPlayerImpressions) {
-    return this.hasSeenTheVideoInCurrentSession()
-      && this.getPlayerImpressionsInSession() >= allowedPlayerImpressions;
   },
 
   resizeVideo() {
