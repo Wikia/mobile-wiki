@@ -21,9 +21,7 @@ export default Component.extend(
       * @returns string
     */
     provider: computed('videoLoader', function () {
-      const videoLoader = this.videoLoader;
-
-      return `video-provider-${videoLoader.getProviderName()}`;
+      return `video-provider-${this.videoLoader.getProviderName()}`;
     }),
 
     /**
@@ -58,12 +56,7 @@ export default Component.extend(
      * @returns {void}
     */
     initVideoPlayer() {
-      const videoLoader = this.videoLoader;
-
-      /**
-        * This loads and creates a player
-      */
-      videoLoader.loadPlayerClass();
+      this.videoLoader.loadPlayerClass();
 
       // Stop bubbling it up to the lightbox
       this.element.querySelector(this.wrapperClass).addEventListener('click', this.preventDefault);
