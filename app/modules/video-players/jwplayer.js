@@ -5,7 +5,6 @@ import BasePlayer from './base';
 import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
-import { inGroup } from '../abtest';
 
 export default class JWPlayer extends BasePlayer {
   constructor(provider, params) {
@@ -115,7 +114,7 @@ export default class JWPlayer extends BasePlayer {
           comscore: config.environment === 'production',
         },
         settings: {
-          showAutoplayToggle: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY'),
+          showAutoplayToggle: true,
           showCaptions: true,
         },
         sharing: true,

@@ -96,9 +96,11 @@
                 "oasis"
             ],
             "regions": [
+                "AU",
+                "CA",
                 "PL"
             ],
-            "value": false
+            "value": true
         }
     ],
     "icPrebidIndexExchange": [
@@ -223,7 +225,7 @@
             "regions": [
                 "US"
             ],
-            "value": true
+            "value": false
         }
     ],
     "icFloorAdhesionViewportsToStart": [
@@ -301,25 +303,9 @@
                 "oasis"
             ],
             "regions": [
-                "PL",
-                "US-CA",
-                "US-NY"
-            ],
-            "sampling": 100.0,
-            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v2.44.1/20200103.min.js"
-        },
-        {
-            "apps": [
-                "futhead",
-                "gamepedia",
-                "mobile-wiki",
-                "muthead",
-                "oasis"
-            ],
-            "regions": [
                 "XX"
             ],
-            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v2.4.0/20191216.min.js"
+            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v2.44.2/20200110.min.js"
         }
     ],
     "icA9Bidder": [
@@ -344,9 +330,10 @@
                 "oasis"
             ],
             "regions": [
-                "XX"
+                "XX-SA"
             ],
-            "value": false
+            "sampling": 100.0,
+            "value": true
         }
     ],
     "icIASVideoTracking": [
@@ -472,6 +459,18 @@
             "value": true
         }
     ],
+    "icPrebidNobid": [
+        {
+            "apps": [
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "value": false
+        }
+    ],
     "icPrebidOneMobile": [
         {
             "apps": [
@@ -503,7 +502,7 @@
             "regions": [
                 "XX"
             ],
-            "value": 26000
+            "value": 30000
         }
     ],
     "icBabDetection": [

@@ -382,10 +382,11 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      krux, moatYi, nielsen, taxonomyService,
+      krux, moatYi, nielsen, permutive, taxonomyService,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
+    permutive.call();
     krux.call().then(this.trackKruxSegments);
     moatYi.call();
     nielsen.call({
