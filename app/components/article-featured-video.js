@@ -191,7 +191,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       onCreate: this.onCreate.bind(this),
       lang: this.get('wikiVariables.language.content'),
       isDedicatedForArticle: this.get('model.isDedicatedForArticle'),
-      playlist: this.getModifiedPlaylist(model.jsParams.playlist),
+      playlist: this.getModifiedPlaylist(model.jsParams.playlist, this.get('model.isDedicatedForArticle')),
     };
     const data = extend({}, model, {
       jsParams,
@@ -236,11 +236,11 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     }
   },
 
-  getModifiedPlaylist(playlist) {
+  getModifiedPlaylist(playlist, isDedicatedForArticle) {
     const normalizedPlaylistIndex = this.getNormalizedPlaylistIndex(playlist);
     const newPlaylist = playlist.slice(normalizedPlaylistIndex);
 
-    return newPlaylist.length ? newPlaylist : playlist;
+    return (!isDedicatedForArticle && newPlaylist.length) ? newPlaylist : playlist;
   },
 
   getNormalizedPlaylistIndex(playlist) {
