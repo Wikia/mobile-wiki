@@ -225,7 +225,7 @@
             "regions": [
                 "US"
             ],
-            "value": true
+            "value": false
         }
     ],
     "icFloorAdhesionViewportsToStart": [
@@ -502,7 +502,7 @@
             "regions": [
                 "XX"
             ],
-            "value": 105000
+            "value": 30000
         }
     ],
     "icBabDetection": [
