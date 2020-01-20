@@ -244,9 +244,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   getNormalizedPlaylistIndex(playlist) {
-    const playerImpressions = this.getPlayerImpressionsInSession();
+    const impressions = this.getPlayerImpressionsInSession();
 
-    return playerImpressions > playlist.length ? playerImpressions % playlist.length : playerImpressions;
+    return impressions > playlist.length ? impressions % playlist.length : impressions;
   },
 
   hasSeenTheVideoInCurrentSession() {
