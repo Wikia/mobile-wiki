@@ -7,7 +7,6 @@ import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
 import JWPlayerMixin from '../mixins/jwplayer';
-import { inGroup } from '../modules/abtest';
 import VideoLoader from '../modules/video-loader';
 import duration from '../utils/duration';
 import extend from '../utils/extend';
@@ -17,6 +16,7 @@ import { track, trackActions } from '../utils/track';
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   ads: service('ads/ads'),
   logger: service(),
+  video: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
 
@@ -168,16 +168,17 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   initVideoPlayer() {
     if (!window.canPlayVideo()) {
       document.body.classList.add('no-featured-video');
+      this.video.set('hasFeaturedVideo', false);
 
       return;
     }
 
     document.body.classList.remove('no-featured-video');
+    this.video.set('hasFeaturedVideo', true);
 
     const model = this.get('model.embed');
     const jsParams = {
-      autoplay: !inGroup('FV_CLICK_TO_PLAY', 'CLICK_TO_PLAY')
-       && window.Cookies.get(this.autoplayCookieName) !== '0',
+      autoplay: window.Cookies.get(this.autoplayCookieName) !== '0',
       selectedCaptionsLanguage: window.Cookies.get(this.captionsCookieName),
       adTrackingParams: {
         adProduct: this.get('ads.noAds') ? 'featured-video-no-preroll' : 'featured-video-preroll',
@@ -188,6 +189,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       onCreate: this.onCreate.bind(this),
       lang: this.get('wikiVariables.language.content'),
       isDedicatedForArticle: this.get('model.isDedicatedForArticle'),
+      playlist: this.getModifiedPlaylist(model.jsParams.playlist, this.get('model.isDedicatedForArticle')),
     };
     const data = extend({}, model, {
       jsParams,
@@ -222,17 +224,39 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   setVideoSeenInSession() {
-    if (this.hasSeenTheVideoInCurrentSession()) {
-      return;
+    if (!this.hasSeenTheVideoInCurrentSession()) {
+      const currentSession = window.Cookies.get('wikia_session_id');
+
+      this.setCookie(this.videoSeenInSessionCookieName, currentSession);
+      this.setCookie('playerImpressionsInSession', 1);
+    } else {
+      this.setCookie('playerImpressionsInSession', this.getPlayerImpressionsInSession() + 1);
     }
+  },
 
-    const currentSession = window.Cookies.get('wikia_session_id');
+  getModifiedPlaylist(playlist, isDedicatedForArticle) {
+    const normalizedPlaylistIndex = this.getNormalizedPlaylistIndex(playlist);
+    const newPlaylist = playlist.slice(normalizedPlaylistIndex);
 
-    this.setCookie(this.videoSeenInSessionCookieName, currentSession);
+    return (!isDedicatedForArticle && newPlaylist.length) ? newPlaylist : playlist;
+  },
+
+  getNormalizedPlaylistIndex(playlist) {
+    const impressions = this.getPlayerImpressionsInSession();
+
+    return impressions > playlist.length ? impressions % playlist.length : impressions;
   },
 
   hasSeenTheVideoInCurrentSession() {
     return window.Cookies.get('wikia_session_id') === window.Cookies.get(this.videoSeenInSessionCookieName);
+  },
+
+  getPlayerImpressionsInSession() {
+    if (!this.hasSeenTheVideoInCurrentSession()) {
+      return 0;
+    }
+
+    return Number(window.Cookies.get('playerImpressionsInSession'));
   },
 
   resizeVideo() {

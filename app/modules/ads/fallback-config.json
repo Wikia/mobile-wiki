@@ -225,7 +225,7 @@
             "regions": [
                 "US"
             ],
-            "value": true
+            "value": false
         }
     ],
     "icFloorAdhesionViewportsToStart": [
@@ -468,7 +468,10 @@
                 "muthead",
                 "oasis"
             ],
-            "value": false
+            "regions": [
+                "PL"
+            ],
+            "value": true
         }
     ],
     "icPrebidOneMobile": [
@@ -502,7 +505,7 @@
             "regions": [
                 "XX"
             ],
-            "value": 26000
+            "value": 30000
         }
     ],
     "icBabDetection": [

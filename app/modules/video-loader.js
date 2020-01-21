@@ -29,7 +29,7 @@ export default class VideoLoader {
   */
   loadPlayerClass() {
     const provider = this.getProviderName();
-    const PlayerClass = VideoLoader.getPlayerClassBasedOnProvider(provider);
+    const PlayerClass = playerClassMap[provider] || playerClassMap.base;
     const params = Object.assign({}, this.data.jsParams, {
       /* eslint ember/avoid-leaking-state-in-ember-objects:0 */
       size: {
@@ -39,7 +39,7 @@ export default class VideoLoader {
       noAds: this.data.noAds,
     });
 
-    this.player = VideoLoader.createPlayer(PlayerClass, provider, params);
+    this.player = new PlayerClass(provider, params);
     this.player.setupPlayer();
     this.player.onResize();
   }
@@ -56,28 +56,5 @@ export default class VideoLoader {
   */
   onResize() {
     this.player.onResize();
-  }
-
-  /**
-  * Creates instance of given class
-  *
-  * @param {string} PlayerClass
-  * @param {string} provider
-  * @param {Object} params
-  * @returns {BasePlayer|YouTubePlayer}
-  */
-  static createPlayer(PlayerClass, provider, params) {
-    return new PlayerClass(provider, params);
-  }
-
-  /**
-  * @param {string} provider
-  * @returns {class}
-  */
-  static getPlayerClassBasedOnProvider(provider) {
-    if (playerClassMap[provider]) {
-      return playerClassMap[provider];
-    }
-    return playerClassMap.base;
   }
 }

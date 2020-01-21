@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import RespondsToScroll from 'ember-responds-to/mixins/responds-to-scroll';
-import { inGroup } from '../modules/abtest';
 import { system } from '../utils/browser';
 import { trackActions } from '../utils/track';
 
@@ -18,12 +17,6 @@ export default Component.extend(RespondsToScroll, {
   trackCategory: 'smart-banner',
 
   closeButtonSelector: '.smart-banner__close',
-
-  customText: computed('wikiVariables.fandomAppSmartBannerText', function () {
-    return inGroup('SMARTBANNERCOPY', 'CUSTOM') && this.get('wikiVariables.fandomAppSmartBannerText')
-      ? this.get('wikiVariables.fandomAppSmartBannerText')
-      : null;
-  }),
 
   link: computed(() => (system === 'ios'
     ? 'https://itunes.apple.com/us/app/fandom-powered-by-wikia/id1230063803?ls=1&mt=8'
