@@ -20,26 +20,4 @@ module('Unit | Utility | video loader', () => {
       assert.equal(videoLoader.getProviderName(), testCase.expected);
     });
   });
-
-  test('getPlayerClassBasedOnProvider returns correct player class', (assert) => {
-    const testCases = [
-      {
-        provider: 'youtube',
-        expected: 'YouTubePlayer',
-      },
-      {
-        provider: 'realgravity',
-        expected: 'BasePlayer',
-      },
-    ];
-
-    assert.expect(testCases.length);
-    testCases.forEach((testCase) => {
-      assert
-        .equal(
-          VideoLoader.getPlayerClassBasedOnProvider(testCase.provider).name,
-          testCase.expected,
-        );
-    });
-  });
 });

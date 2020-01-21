@@ -173,10 +173,16 @@
 {{#if model.twitterDescription}}
   <meta name="twitter:description" content={{model.twitterDescription}}>
 {{/if}}
+{{! Twitter end }}
+
+{{! We use both meta tags below instead of shoebox to have the video related data accessible ASAP (before ember boots)}}
 {{#if model.isDedicatedForArticle}}
   <meta name="featured-video" content={{model.isDedicatedForArticle}}>
 {{/if}}
-{{! Twitter end }}
+
+{{#if model.playerImpressionsPerSession}}
+  <meta name="player-impressions-per-session" content={{model.playerImpressionsPerSession}}>
+{{/if}}
 
 {{#if model.lazyCss}}
   {{!- These styles will be added to head on front-end to lazy load them-}}
