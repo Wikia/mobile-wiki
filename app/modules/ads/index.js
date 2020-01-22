@@ -79,7 +79,6 @@ class Ads {
       noads_querystring: isQueryParamActive(queryParams.noads),
       mobileapp_querystring: isQueryParamActive(queryParams['mobile-app']),
       noads_pagetype: adsContext.opts.pageType === 'no_ads',
-      ig: !!instantGlobals.wgSitewideDisableAdsOnMercury,
     };
     const disablers = Object.entries(reasonConditionMap)
       .filter(reasonAndCondition => reasonAndCondition[1])
