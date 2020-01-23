@@ -90,7 +90,6 @@ class Ads {
       this.initialization.reject(disablers);
       pageTracker.trackProp('adengine', `${disablersSerialized}`, true);
     } else {
-      // 'wgAdDriverDisableAdStackCountries' - how to check this?
       if (!this.isInitializationStarted) {
         this.isInitializationStarted = true;
 
