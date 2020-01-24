@@ -545,8 +545,8 @@ class Ads {
           category: 'featured-video',
           action: 'pageview',
           label: s2,
-        })
-      );
+        },
+      ));
     }
   }
 
