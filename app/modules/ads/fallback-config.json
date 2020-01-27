@@ -210,6 +210,14 @@
             "value": true
         }
     ],
+    "icRepeatMobileIncontentExtended": [
+        {
+            "apps": [
+                "mobile-wiki"
+            ],
+            "value": true
+        }
+    ],
     "icPrebidPubmatic": [
         {
             "apps": [
@@ -298,6 +306,14 @@
             ],
             "regions": [
                 "XX"
+            ],
+            "value": true
+        }
+    ],
+    "icCollapseTopLeaderboard": [
+        {
+            "apps": [
+                "mobile-wiki"
             ],
             "value": true
         }
@@ -486,6 +502,14 @@
             ],
             "regions": [
                 "XX"
+            ],
+            "value": true
+        }
+    ],
+    "icOverscrolledTracking": [
+        {
+            "apps": [
+                "mobile-wiki"
             ],
             "value": true
         }
@@ -926,12 +950,14 @@
     "icPermutive": [
         {
             "apps": [
+                "f2",
                 "gamepedia",
                 "mobile-wiki",
                 "oasis"
             ],
             "regions": [
-                "PL"
+                "PL",
+                "US-NY"
             ],
             "value": true
         }
