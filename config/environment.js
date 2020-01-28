@@ -49,9 +49,6 @@ module.exports = function (environment) {
           c7: '',
           c7Value: '',
         },
-        krux: {
-          mobileId: 'JTKzTN3f',
-        },
         netzathleten: {
           enabled: false,
           url: '',
