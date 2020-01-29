@@ -129,44 +129,46 @@ export const adsSetup = {
       context.set('src', 'test');
     }
 
-    instantConfig.isGeoEnabled('wgAdDriverLABradorTestCountries');
+    instantConfig.get('icLABradorTest');
     context.set('slots', slots.getContext());
 
     if (!adsContext.targeting.hasFeaturedVideo && adsContext.targeting.pageType !== 'search') {
       context.push('slots.top_leaderboard.defaultSizes', [2, 2]);
     }
 
-    const stickySlotsLines = instantConfig.get('wgAdDriverStickySlotsLines');
+    const stickySlotsLines = instantConfig.get('icStickySlotLineItemIds');
 
     if (stickySlotsLines && stickySlotsLines.length) {
       context.set('templates.stickyTLB.lineItemIds', stickySlotsLines);
       context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
     }
 
-    context.set('state.disableTopLeaderboard', instantConfig.isGeoEnabled('wgAdDriverCollapseTopLeaderboardMobileWikiCountries'));
+    context.set('state.disableTopLeaderboard', instantConfig.get('icCollapseTopLeaderboard'));
     context.set('state.deviceType', utils.client.getDeviceType());
 
     context.set('options.billTheLizard.cheshireCat', adsContext.opts.enableCheshireCat);
     context.set('options.billTheLizard.config', instantConfig.get('wgAdDriverBillTheLizardConfig'));
 
-    context.set('options.video.moatTracking.enabled', instantConfig.isGeoEnabled('wgAdDriverPorvataMoatTrackingCountries'));
-    context.set('options.video.moatTracking.sampling', instantConfig.get('wgAdDriverPorvataMoatTrackingSampling'));
+    context.set('options.video.moatTracking.enabled', instantConfig.get('icPorvataMoatTracking'));
+    //  During moving variables from WikiFactory to ICBM, options.video.moatTracking.sampling
+    //  was set to 100 since in ad-engine it's being used in getMoatTrackingStatus() function.
+    context.set('options.video.moatTracking.sampling', 100);
     context.set('options.video.iasTracking.enabled', instantConfig.get('icIASVideoTracking'));
 
-    context.set('options.video.playAdsOnNextVideo', instantConfig.isGeoEnabled('wgAdDriverPlayAdsOnNextFVCountries'));
-    context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('wgAdDriverPlayAdsOnNextFVFrequency'));
-    context.set('options.video.isMidrollEnabled', instantConfig.isGeoEnabled('wgAdDriverFVMidrollCountries'));
-    context.set('options.video.isPostrollEnabled', instantConfig.isGeoEnabled('wgAdDriverFVPostrollCountries'));
+    context.set('options.video.playAdsOnNextVideo', !!instantConfig.get('icFeaturedVideoAdsFrequency'));
+    context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('icFeaturedVideoAdsFrequency'));
+    context.set('options.video.isMidrollEnabled', instantConfig.get('icFeaturedVideoMidroll'));
+    context.set('options.video.isPostrollEnabled', instantConfig.get('icFeaturedVideoPostroll'));
 
-    context.set('options.maxDelayTimeout', instantConfig.get('wgAdDriverDelayTimeout', 2000));
-    context.set('options.tracking.kikimora.player', instantConfig.isGeoEnabled('wgAdDriverKikimoraPlayerTrackingCountries'));
-    context.set('options.tracking.slot.status', instantConfig.isGeoEnabled('wgAdDriverKikimoraTrackingCountries'));
-    context.set('options.tracking.slot.viewability', instantConfig.isGeoEnabled('wgAdDriverKikimoraViewabilityTrackingCountries'));
+    context.set('options.maxDelayTimeout', instantConfig.get('icAdEngineDelay', 2000));
+    context.set('options.tracking.kikimora.player', instantConfig.get('icPlayerTracking'));
+    context.set('options.tracking.slot.status', instantConfig.get('icSlotTracking'));
+    context.set('options.tracking.slot.viewability', instantConfig.get('icViewabilityTracking'));
     context.set('options.tracking.slot.bidder', instantConfig.get('icBidsTracking'));
     context.set('options.tracking.postmessage', true);
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
-    context.set('options.scrollSpeedTracking', instantConfig.isGeoEnabled('wgAdDriverScrollSpeedTrackingCountries'));
+    context.set('options.scrollSpeedTracking', instantConfig.get('icScrollSpeedTracking'));
 
     context.set('options.trackingOptIn', consents.isOptedIn);
     context.set('options.geoRequiresConsent', !!M.geoRequiresConsent);
@@ -181,10 +183,10 @@ export const adsSetup = {
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
-      && instantConfig.isGeoEnabled('wgAdDriverKruxCountries') && !instantConfig.get('wgSitewideDisableKrux'));
+      && instantConfig.get('icKrux'));
     context.set('services.krux.trackedSegments', instantConfig.get('icKruxSegmentsTracking'));
-    context.set('services.moatYi.enabled', instantConfig.isGeoEnabled('wgAdDriverMoatYieldIntelligenceCountries'));
-    context.set('services.nielsen.enabled', instantConfig.isGeoEnabled('wgAdDriverNielsenCountries'));
+    context.set('services.moatYi.enabled', instantConfig.get('icMoatYieldIntelligence'));
+    context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
     context.set('services.permutive.enabled', instantConfig.get('icPermutive'));
 
     if (instantConfig.get('icTaxonomyComicsTag')) {
@@ -193,20 +195,15 @@ export const adsSetup = {
       context.set('services.taxonomy.pageArticleId', adsContext.targeting.pageArticleId);
     }
 
-    const isMoatTrackingEnabledForVideo = instantConfig.isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdCountries')
-        && utils.sampler.sample('moat_video_tracking', instantConfig.get('wgAdDriverMoatTrackingForFeaturedVideoAdSampling'));
+    const isMoatTrackingEnabledForVideo = instantConfig.get('icFeaturedVideoMoatTracking');
     context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
-    context.set(
-      'options.video.moatTracking.additonalParamsEnabled',
-      instantConfig.isGeoEnabled('wgAdDriverMoatTrackingForFeaturedVideoAdditionalParamsCountries'),
-    );
 
     context.set('custom.serverPrefix', utils.geoService.isProperCountry(['AU', 'NZ']) ? 'vm' : 'wka');
 
     context.set('slots.featured.videoAdUnit', context.get('vast.dbNameAdUnitId'));
     context.set('slots.incontent_player.videoAdUnit', context.get('vast.dbNameAdUnitId'));
 
-    context.set('slots.floor_adhesion.disabled', !instantConfig.isGeoEnabled('wgAdDriverMobileFloorAdhesionCountries'));
+    context.set('slots.floor_adhesion.disabled', !instantConfig.get('icFloorAdhesion'));
 
     context.set(
       'templates.floorAdhesion.showCloseButtonAfter',
@@ -240,7 +237,6 @@ export const adsSetup = {
     context.set('custom.pageType', adsContext.targeting.pageType || null);
     context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);
     context.set('custom.isIncontentPlayerDisabled', adsContext.opts.isIncontentPlayerDisabled);
-    context.set('custom.isSearchPageTlbEnabled', instantConfig.isGeoEnabled('wgAdDriverMobileWikiAE3SearchCountries'));
 
     if (context.get('custom.isIncontentPlayerDisabled')) {
       track({
@@ -250,7 +246,7 @@ export const adsSetup = {
       });
     }
 
-    if (instantConfig.isGeoEnabled('wgAdDriverOverscrolledCountries')) {
+    if (instantConfig.get('icOverscrolledTracking')) {
       context.set('slots.top_boxad.trackOverscrolled', true);
       context.set('slots.incontent_boxad_1.trackOverscrolled', true);
     }
@@ -287,7 +283,7 @@ export const adsSetup = {
       'slots.incontent_player.insertBeforeSelector',
     ];
 
-    if (instantConfig.isGeoEnabled('wgAdDriverRepeatMobileIncontentExtendedCountries')) {
+    if (instantConfig.get('icRepeatMobileIncontentExtended')) {
       insertBeforePaths.forEach((insertBeforePath) => {
         context.set(
           insertBeforePath,
@@ -304,13 +300,8 @@ export const adsSetup = {
       context.set('slots.top_boxad.outOfPage', true);
     }
 
-    if (instantConfig.isGeoEnabled('wgAdDriverLazyBottomLeaderboardMobileWikiCountries')) {
-      context.set('slots.bottom_leaderboard.insertOnViewportEnter', true);
-    }
-
-
     // Need to be placed always after all lABrador wgVars checks
-    context.set('targeting.labrador', cacheStorage.mapSamplingResults(instantConfig.get('wgAdDriverLABradorDfpKeyvals')));
+    context.set('targeting.labrador', cacheStorage.mapSamplingResults(instantConfig.get('icLABradorGamKeyValues')));
 
     slots.setupIdentificators();
     slots.setupStates();
