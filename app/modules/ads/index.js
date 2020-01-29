@@ -10,7 +10,7 @@ import { cheshireCat } from './ml/cheshire-cat';
 import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
-import { trackScrollY, trackXClick } from '../../utils/track';
+import { track, trackScrollY, trackXClick } from '../../utils/track';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -406,6 +406,7 @@ class Ads {
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
     this.trackTabId();
+    this.trackVideoPage();
   }
 
   /**
@@ -523,6 +524,27 @@ class Ads {
 
       pageTracker.trackProp('connection', data.join(';'));
       utils.logger(logGroup, 'connection', data);
+    }
+  }
+
+  /**
+   * @private
+   */
+  trackVideoPage() {
+    const { context } = window.Wikia.adEngine;
+    const s2 = context.get('targeting.s2');
+
+    if (['fv-article', 'wv-article'].includes(s2)) {
+      track(Object.assign(
+        {
+          eventName: 'videoplayerevent',
+          trackingMethod: 'internal',
+        }, {
+          category: 'featured-video',
+          action: 'pageview',
+          label: s2,
+        },
+      ));
     }
   }
 

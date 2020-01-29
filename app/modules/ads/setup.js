@@ -6,6 +6,7 @@ import configureBillTheLizard from './ml/bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
 import {
+  registerBidderTracker,
   registerClickPositionTracker,
   registerSlotTracker,
   registerViewabilityTracker,
@@ -83,6 +84,7 @@ export const adsSetup = {
 
       registerClickPositionTracker();
       registerSlotTracker();
+      registerBidderTracker();
       registerViewabilityTracker();
       registerPostmessageTrackingTracker();
       eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
@@ -162,6 +164,7 @@ export const adsSetup = {
     context.set('options.tracking.kikimora.player', instantConfig.get('icPlayerTracking'));
     context.set('options.tracking.slot.status', instantConfig.get('icSlotTracking'));
     context.set('options.tracking.slot.viewability', instantConfig.get('icViewabilityTracking'));
+    context.set('options.tracking.slot.bidder', instantConfig.get('icBidsTracking'));
     context.set('options.tracking.postmessage', true);
     context.set('options.tracking.spaInstanceId', instantConfig.get('icSpaInstanceIdTracking'));
     context.set('options.tracking.tabId', instantConfig.get('icTabIdTracking'));
