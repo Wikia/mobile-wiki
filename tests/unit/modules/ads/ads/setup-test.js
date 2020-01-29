@@ -21,6 +21,10 @@ module('Unit | Module | ads | setup', (hooks) => {
       AdSlot: {
         SLOT_RENDERED_EVENT: 'onRenderEnded',
       },
+      bidderTracker: {
+        add: () => window.Wikia.adEngine.bidderTracker,
+        register: () => {},
+      },
       billTheLizardEvents: {
         BILL_THE_LIZARD_REQUEST: '',
         BILL_THE_LIZARD_RESPONSE: '',
