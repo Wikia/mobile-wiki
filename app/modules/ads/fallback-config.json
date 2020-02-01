@@ -445,13 +445,6 @@
             "value": true
         }
     ],
-    "icDisableAdStack": [
-        {
-            "apps": [
-                "mobile-wiki"
-            ]
-        }
-    ],
     "icPrebidOneMobile": [
         {
             "apps": [
