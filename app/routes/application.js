@@ -25,6 +25,7 @@ export default Route.extend(
   {
     ads: service('ads/ads'),
     currentUser: service(),
+    updatePolicyLinks: service(),
     fandomComMigration: service(),
     wikiaOrgMigration: service(),
     fastboot: service(),
@@ -159,6 +160,7 @@ export default Route.extend(
         }
       }
 
+      this.updatePolicyLinks.showNotification();
       this.fandomComMigration.showNotification();
       this.wikiaOrgMigration.showNotification();
     },

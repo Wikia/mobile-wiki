@@ -15,6 +15,7 @@ const designSystemInlineSVGs = [
   'wds-icons-menu-small',
   'wds-icons-comment-small',
   'wds-icons-dropdown-tiny',
+  'wds-icons-flag-small',
 ].map(name => (
   { name, path: `${designSystemAssetsPath}${name}.svg` }
 ));
