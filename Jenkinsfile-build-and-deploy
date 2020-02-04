@@ -79,6 +79,8 @@ node('docker-daemon') {
             if (previousVersion && previousVersion != serviceVersion) {
               // delete all inactive deployments
               sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config delete deployments -l app=mobile-wiki,env=${env.environment},status=inactive"
+              // scale old deployment to 1 instance
+              sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config scale deployment --replicas=0 -l app=mobile-wiki,env=${env.environment},version=${previousVersion}"
               // label old deployment with status=inactive to be able to remove it during next deployment
               sh "kubectl -n prod --context kube-${env.datacenter}-prod --kubeconfig=/config/.kube/config label --overwrite deployment -l app=mobile-wiki,env=${env.environment},version=${previousVersion} status=inactive"
             }
