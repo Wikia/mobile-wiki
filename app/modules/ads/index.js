@@ -79,7 +79,6 @@ class Ads {
       noads_querystring: isQueryParamActive(queryParams.noads),
       mobileapp_querystring: isQueryParamActive(queryParams['mobile-app']),
       noads_pagetype: adsContext.opts.pageType === 'no_ads',
-      ig: !!instantGlobals.wgSitewideDisableAdsOnMercury,
     };
     const disablers = Object.entries(reasonConditionMap)
       .filter(reasonAndCondition => reasonAndCondition[1])
@@ -91,7 +90,6 @@ class Ads {
       this.initialization.reject(disablers);
       pageTracker.trackProp('adengine', `${disablersSerialized}`, true);
     } else {
-      // 'wgAdDriverDisableAdStackCountries' - how to check this?
       if (!this.isInitializationStarted) {
         this.isInitializationStarted = true;
 
