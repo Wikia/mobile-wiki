@@ -573,10 +573,6 @@ export const defaultAdContext = {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
       fallbackConfigKey: 'fallbackInstantConfig',
     },
-    krux: {
-      enabled: false,
-      id: 'JTKzTN3f',
-    },
     moatYi: {
       enabled: false,
       partnerCode: 'wikiaprebidheader490634422386',

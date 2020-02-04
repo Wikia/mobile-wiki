@@ -19,7 +19,6 @@ export default function (owner) {
           isAdTestWiki: true,
         },
         targeting: {
-          enableKruxTargeting: true,
           enablePageCategories: true,
           esrbRating: 'teen',
           mappedVerticalName: 'life',

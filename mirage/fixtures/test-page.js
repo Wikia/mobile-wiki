@@ -43,7 +43,6 @@ export default {
         ],
       },
       targeting: {
-        enableKruxTargeting: true,
         enablePageCategories: true,
         esrbRating: 'mature',
         mappedVerticalName: 'gaming',

@@ -37,7 +37,6 @@ export default {
         ],
       },
       targeting: {
-        enableKruxTargeting: true,
         enablePageCategories: true,
         esrbRating: 'teen',
         mappedVerticalName: 'life',
