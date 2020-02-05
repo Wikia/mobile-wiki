@@ -73,7 +73,7 @@ class Ads {
    * @param queryParams
    * @public
    */
-  init(instantGlobals, adsContext = {}, queryParams = {}) {
+  init(adsContext = {}, queryParams = {}) {
     const reasonConditionMap = {
       noexternals_querystring: isQueryParamActive(queryParams.noexternals),
       noads_querystring: isQueryParamActive(queryParams.noads),
@@ -97,7 +97,6 @@ class Ads {
           M.trackingQueue.push(
             (isOptedIn, isSaleOptOut) => this.setupAdEngine(
               adsContext,
-              instantGlobals,
               isOptedIn,
               isSaleOptOut,
             ),
@@ -135,13 +134,6 @@ class Ads {
 
       throw Error('Failed to load @wikia/ad-engine package.');
     });
-  }
-
-  /**
-   * @private
-   */
-  getInstantGlobals() {
-    return new Promise(resolve => window.getInstantGlobals(resolve));
   }
 
   /**

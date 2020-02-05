@@ -37,24 +37,6 @@
     }
   }
 
-  window.getInstantGlobal = function (key, callback) {
-    if (window.Wikia && window.Wikia.InstantGlobals) {
-      callback(window.Wikia.InstantGlobals[key]);
-    } else {
-      gettersQueue.push({ key: key, callback: callback });
-      waitForAsyncScripts();
-    }
-  };
-
-  window.getInstantGlobals = function (callback) {
-    if (window.Wikia && window.Wikia.InstantGlobals) {
-      callback(window.Wikia.InstantGlobals);
-    } else {
-      gettersQueue.push({ callback: callback });
-      waitForAsyncScripts();
-    }
-  };
-
   window.onABTestLoaded = function (callback) {
     if (window.Wikia && window.Wikia.AbTest) {
       callback();
