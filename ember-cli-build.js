@@ -79,7 +79,6 @@ module.exports = function (defaults) {
       'fastboot-inline-scripts-load-svg': 'node_modules/mercury-shared/dist/load-svg.js',
       'tracking-samba': `${inlineScriptsPath}tracking-samba.js`,
       'tracking-internal': `${inlineScriptsPath}tracking-internal.js`,
-      'tracking-netzathleten': `${inlineScriptsPath}tracking-netzathleten.js`,
       'tracking-ua': `${inlineScriptsPath}tracking-ua.js`,
       'mediawiki-scripts-handlers': `${inlineScriptsPath}mediawiki-scripts-handlers.js`,
       lazysizes: `${inlineScriptsPath}lazysizes.js`,

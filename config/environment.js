@@ -49,11 +49,6 @@ module.exports = function (environment) {
           c7: '',
           c7Value: '',
         },
-        netzathleten: {
-          enabled: false,
-          url: '',
-          isMainPage: false,
-        },
       },
       translationsNamespaces: ['main', 'search', 'design-system'],
       translationsPath: 'dist/mobile-wiki/locales',
