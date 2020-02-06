@@ -244,7 +244,7 @@ export const adsSetup = {
     }
 
     if (adsContext.targeting.isUcp) {
-      context.set('targeting.rolloutTracking', 'ucp');
+      context.set('targeting.rollout_tracking', 'ucp');
     }
 
     if (instantConfig.get('icOverscrolledTracking')) {
