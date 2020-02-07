@@ -34,7 +34,7 @@ export const adsSetup = {
   /**
    * Configures all ads services
    */
-  configure(adsContext, instantGlobals, consents) {
+  configure(adsContext, consents) {
     const { bidders } = window.Wikia.adBidders;
     const {
       AdSlot,
@@ -68,7 +68,7 @@ export const adsSetup = {
       window[fallbackConfigKey] = fallbackInstantConfig;
     }
 
-    return InstantConfigService.init(instantGlobals).then((instantConfig) => {
+    return InstantConfigService.init().then((instantConfig) => {
       this.setupAdContext(instantConfig, adsContext, consents);
       setupNpaContext();
       setupRdpContext();
