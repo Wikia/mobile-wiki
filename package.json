@@ -132,7 +132,7 @@
     "proxying-agent": "2.4.0",
     "qunit-dom": "0.8.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
-    "stylelint-config-standard": "19.0.0"
+    "stylelint-config-standard": "20.0.0"
   },
   "ember-addon": {
     "paths": [
