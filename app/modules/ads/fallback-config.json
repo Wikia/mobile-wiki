@@ -190,8 +190,7 @@
     "icFloorAdhesion": [
         {
             "apps": [
-                "mobile-wiki",
-                "oasis"
+                "mobile-wiki"
             ],
             "regions": [
                 "AD",
@@ -321,8 +320,7 @@
         },
         {
             "apps": [
-                "mobile-wiki",
-                "oasis"
+                "mobile-wiki"
             ],
             "regions": [
                 "US"
@@ -423,9 +421,7 @@
                 "oasis"
             ],
             "regions": [
-                "AU",
-                "CA",
-                "PL"
+                "XX"
             ],
             "value": true
         }
@@ -594,6 +590,7 @@
     "icLABradorTest": [
         {
             "apps": [
+                "f2",
                 "futhead",
                 "gamepedia",
                 "mobile-wiki",
@@ -800,7 +797,6 @@
     "icFeaturedVideoAdsFrequency": [
         {
             "apps": [
-                "f2",
                 "mobile-wiki",
                 "oasis"
             ],
