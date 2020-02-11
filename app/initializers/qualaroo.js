@@ -6,7 +6,9 @@ export default {
     if (typeof FastBoot === 'undefined') {
       window._kiq = [];
       if (!window.M.getFromHeadDataStore('wikiVariables.isTestWiki')) {
+        console.log('trackingQuquq', M.trackingQueue);
         M.trackingQueue.push((isOptedIn) => {
+          console.log('qualarooUrl', window.M.getFromHeadDataStore('wikiVariables.qualarooUrl'));
           if (isOptedIn) {
             const renderedNudges = {};
             $script(window.M.getFromHeadDataStore('wikiVariables.qualarooUrl'));

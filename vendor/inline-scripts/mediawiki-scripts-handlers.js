@@ -12,7 +12,7 @@
     window.document.dispatchEvent(new Event('asyncScriptsLoaded'));
   };
 
-  function onAsyncScriptsLoaded() {
+  window.onAsyncScriptsLoaded = function onAsyncScriptsLoaded() {
     callbacksQueue.forEach(function (callback) {
       callback();
     });

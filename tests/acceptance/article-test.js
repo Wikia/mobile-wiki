@@ -15,6 +15,8 @@ module('Acceptance | Article page', (hooks) => {
   let oldAdEngine;
 
   hooks.beforeEach(async function () {
+    debugger;
+
     oldAdEngine = window.Wikia.adEngine;
 
     window.Wikia.adEngine = adEngineMock;
