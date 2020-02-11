@@ -182,9 +182,6 @@ export const adsSetup = {
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
-    context.set('services.krux.enabled', adsContext.targeting.enableKruxTargeting
-      && instantConfig.get('icKrux'));
-    context.set('services.krux.trackedSegments', instantConfig.get('icKruxSegmentsTracking'));
     context.set('services.moatYi.enabled', instantConfig.get('icMoatYieldIntelligence'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
     context.set('services.permutive.enabled', instantConfig.get('icPermutive'));
@@ -244,6 +241,10 @@ export const adsSetup = {
         category: 'wgDisableIncontentPlayer',
         label: true,
       });
+    }
+
+    if (adsContext.targeting.isUcp) {
+      context.set('targeting.rollout_tracking', 'ucp');
     }
 
     if (instantConfig.get('icOverscrolledTracking')) {

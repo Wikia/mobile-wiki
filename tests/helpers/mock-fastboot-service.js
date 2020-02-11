@@ -1297,7 +1297,6 @@ export default function (owner) {
               prebidBidderUrl: ['http://sandbox-xw2.slot1.wikia.com/__am/1491394449/group/-/prebid_prod_js'],
             },
             targeting: {
-              enableKruxTargeting: true,
               enablePageCategories: true,
               esrbRating: 'mature',
               mappedVerticalName: 'gaming',

@@ -375,17 +375,16 @@ class Ads {
 
   /**
    * @private
-   * Call Krux, Moat and Nielsen services.
+   * Call Moat and Nielsen services.
    */
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      krux, moatYi, nielsen, permutive, taxonomyService,
+      moatYi, nielsen, permutive, taxonomyService,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
     permutive.call();
-    krux.call().then(this.trackKruxSegments);
     moatYi.call();
     nielsen.call({
       type: 'static',
@@ -434,22 +433,6 @@ class Ads {
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
-    }
-  }
-
-  /**
-   * @private
-   */
-  trackKruxSegments() {
-    const { context, utils } = window.Wikia.adEngine;
-    const kruxUserSegments = context.get('targeting.ksg') || [];
-    const kruxTrackedSegments = context.get('services.krux.trackedSegments') || [];
-
-    const kruxPropValue = kruxUserSegments.filter(segment => kruxTrackedSegments.includes(segment));
-
-    if (kruxPropValue.length) {
-      pageTracker.trackProp('krux_segments', kruxPropValue.join('|'));
-      utils.logger(logGroup, 'krux props', kruxPropValue);
     }
   }
 
