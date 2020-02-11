@@ -113,13 +113,13 @@ export default Route.extend(
           .then((adsContext) => {
             const ads = Ads.getInstance();
 
-            if (ads.isInitializationStarted) {
-              Ads.getLoadedInstance().then(() => {
-                ads.afterTransition(adsContext);
-              });
-            } else {
-              ads.init(adsContext, this.transitionQueryParams);
-            }
+            // if (ads.isInitializationStarted) {
+            //   Ads.getLoadedInstance().then(() => {
+            //     ads.afterTransition(adsContext);
+            //   });
+            // } else {
+            //   ads.init(adsContext, this.transitionQueryParams);
+            // }
           });
 
         return true;

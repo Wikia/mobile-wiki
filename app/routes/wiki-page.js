@@ -154,7 +154,7 @@ export default Route.extend(
             if (!fastboot.get('isFastBoot') && model.adsContext) {
               model.adsContext.user = model.adsContext.user || {};
               model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
-              Ads.getInstance().init(model.adsContext, transition.queryParams);
+              // Ads.getInstance().init(model.adsContext, transition.queryParams);
             }
 
             // If it's an article page and the extension is enabled, load the Feeds & Posts module
