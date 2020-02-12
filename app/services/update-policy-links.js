@@ -1,6 +1,11 @@
 import Service, { inject as service } from '@ember/service';
 import localStorageConnector from '@wikia/ember-fandom/utils/local-storage-connector';
 
+/**
+ * Note: this file is not used anymore, but it is still in the repo
+ * for when we will need to add a similar notification again.
+ */
+
 export default Service.extend({
   fastboot: service(),
   wdsBannerNotifications: service(),
