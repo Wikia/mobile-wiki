@@ -1,12 +1,10 @@
 import {
   click, currentURL, visit,
 } from '@ember/test-helpers';
-import sinon from 'sinon';
-import Ads from 'mobile-wiki/modules/ads';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { getAdsModuleMock, mockAdsService, adEngineMock } from '../helpers/mock-ads-service';
+import { mockAdsService, adEngineMock, mockAdsInstance } from '../helpers/mock-ads-service';
 
 module('Acceptance | category page', (hooks) => {
   setupApplicationTest(hooks);
@@ -22,7 +20,7 @@ module('Acceptance | category page', (hooks) => {
     mockFastbootService(this.owner);
     mockAdsService(this.owner);
 
-    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock({})));
+    adsModuleStub = mockAdsInstance();
   });
 
   hooks.afterEach(() => {

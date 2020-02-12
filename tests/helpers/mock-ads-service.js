@@ -1,5 +1,7 @@
 import { Promise } from 'rsvp';
 import Service from '@ember/service';
+import sinon from 'sinon';
+import Ads from 'mobile-wiki/modules/ads';
 
 export function getAdsModuleMock(adsContext) {
   let context = {
@@ -68,6 +70,20 @@ export function mockAdsService(owner) {
     setupAdsContext() {
     },
   }));
+}
+
+export function mockAdsInstance() {
+  const adsInstanceMock = getAdsModuleMock({});
+
+  const adsLoadedInstanceStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(adsInstanceMock));
+  const adsInstanceStub = sinon.stub(Ads, 'getInstance').returns(adsInstanceMock);
+
+  return {
+    restore: () => {
+      adsLoadedInstanceStub.restore();
+      adsInstanceStub.restore();
+    },
+  };
 }
 
 export const adEngineMock = {

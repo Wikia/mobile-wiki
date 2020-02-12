@@ -5,7 +5,10 @@ export default {
   initialize() {
     if (typeof FastBoot === 'undefined') {
       window._kiq = [];
-      if (!window.M.getFromHeadDataStore('wikiVariables.isTestWiki')) {
+      if (
+        !window.M.getFromHeadDataStore('wikiVariables.isTestWiki')
+        && window.M.getFromHeadDataStore('wikiVariables.qualarooUrl')
+      ) {
         M.trackingQueue.push((isOptedIn) => {
           if (isOptedIn) {
             const renderedNudges = {};
