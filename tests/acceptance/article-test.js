@@ -1,10 +1,8 @@
 import { visit, click } from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import sinon from 'sinon';
-import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { getAdsModuleMock, mockAdsService, adEngineMock } from '../helpers/mock-ads-service';
+import { mockAdsService, adEngineMock, mockAdsInstance } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 
@@ -23,7 +21,7 @@ module('Acceptance | Article page', (hooks) => {
     mockAdsService(this.owner);
     mockFastlyInsights(this.owner);
 
-    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock({})));
+    adsModuleStub = mockAdsInstance();
 
     await visit('/');
     await visit('/wiki/Qaga2');

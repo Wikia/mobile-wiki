@@ -4,9 +4,8 @@ import {
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
-import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { mockAdsService, adEngineMock, getAdsModuleMock } from '../helpers/mock-ads-service';
+import { mockAdsService, adEngineMock, mockAdsInstance } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | file page', (hooks) => {
@@ -27,7 +26,7 @@ module('Acceptance | file page', (hooks) => {
     mockFastlyInsights(this.owner);
     window.Image = sinon.stub();
 
-    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock({})));
+    adsModuleStub = mockAdsInstance();
   });
 
   hooks.afterEach(() => {

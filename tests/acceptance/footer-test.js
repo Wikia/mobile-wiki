@@ -1,10 +1,8 @@
 import { visit } from '@ember/test-helpers';
 import { test, module } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import sinon from 'sinon';
-import Ads from 'mobile-wiki/modules/ads';
 import mockFastbootService from '../helpers/mock-fastboot-service';
-import { mockAdsService, getAdsModuleMock, adEngineMock } from '../helpers/mock-ads-service';
+import { mockAdsService, adEngineMock, mockAdsInstance } from '../helpers/mock-ads-service';
 import mockFastlyInsights from '../helpers/mock-fastly-insights';
 
 module('Acceptance | Footer', (hooks) => {
@@ -17,7 +15,7 @@ module('Acceptance | Footer', (hooks) => {
     oldAdEngine = window.Wikia.adEngine || {};
 
     window.Wikia.adEngine = adEngineMock;
-    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock({})));
+    adsModuleStub = mockAdsInstance();
 
     mockFastbootService(this.owner);
     mockAdsService(this.owner);

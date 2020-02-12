@@ -113,15 +113,13 @@ export default Route.extend(
           .then((adsContext) => {
             const ads = Ads.getInstance();
 
-            window.getInstantGlobals((instantGlobals) => {
-              if (ads.isInitializationStarted) {
-                Ads.getLoadedInstance().then(() => {
-                  ads.afterTransition(adsContext);
-                });
-              } else {
-                ads.init(instantGlobals, adsContext, this.transitionQueryParams);
-              }
-            });
+            if (ads.isInitializationStarted) {
+              Ads.getLoadedInstance().then(() => {
+                ads.afterTransition(adsContext);
+              });
+            } else {
+              ads.init(adsContext, this.transitionQueryParams);
+            }
           });
 
         return true;
