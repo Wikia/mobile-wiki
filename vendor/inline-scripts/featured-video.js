@@ -7,7 +7,7 @@
 
   function hasMaxedOutPlayerImpressionsPerSession() {
     var impressionsSoFar = Number(getCookieValue('playerImpressionsInSession')) || 0;
-    var allowedImpressionsMetaTag = document.head.querySelector('[name="player-impressions-per-session"]');
+    var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
     var allowedImpressions = allowedImpressionsMetaTag ? Number(allowedImpressionsMetaTag.getAttribute('content')) : 1;
 
     if (!hasSeenTheVideoInCurrentSession()) {
@@ -29,7 +29,13 @@
   }
 
   window.canPlayVideo = function () {
-    var isDedicatedForArticle = !!document.head.querySelector('[name="featured-video"]');
+    var isDedicatedForArticle = !!document.head.querySelector('[name="featured-video:is-dedicated-for-article"]');
+    var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
+    var hasVideo = isDedicatedForArticle || allowedImpressionsMetaTag;
+
+    if (!hasVideo) {
+      return false;
+    }
 
     if (!isDedicatedForArticle) {
       return !hasMaxedOutPlayerImpressionsPerSession();
