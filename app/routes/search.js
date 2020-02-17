@@ -109,18 +109,20 @@ export default Route.extend(
           controller.trackResultsImpression();
         });
 
-        this.adsContextService.getAdsContext()
-          .then((adsContext) => {
-            const ads = Ads.getInstance();
+        if (!this.fastboot.get('isFastBoot')) {
+          this.adsContextService.getAdsContext()
+            .then((adsContext) => {
+              const ads = Ads.getInstance();
 
-            if (ads.isInitializationStarted) {
-              Ads.getLoadedInstance().then(() => {
-                ads.afterTransition(adsContext);
-              });
-            } else {
-              ads.init(adsContext, this.transitionQueryParams);
-            }
-          });
+              if (ads.isInitializationStarted) {
+                Ads.getLoadedInstance().then(() => {
+                  ads.afterTransition(adsContext);
+                });
+              } else {
+                ads.init(adsContext, this.transitionQueryParams);
+              }
+            });
+        }
 
         return true;
       },
