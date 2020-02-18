@@ -65,7 +65,7 @@ spec:
             - name: WIKIA_DATACENTER
               value: ${dc}
             - name: INTERNAL_CACHE_HOST
-              value: mediawiki-${env}
+              value: mediawiki-${env}${ucp}
           resources:
             requests:
               cpu: 0.4
