@@ -62,7 +62,7 @@ spec:
           - name: WIKIA_DATACENTER
             value: ${dc}
           - name: INTERNAL_CACHE_HOST
-            value: mediawiki-prod
+            value: mediawiki-prod-ucp
         resources:
           requests:
             cpu: 1.0
