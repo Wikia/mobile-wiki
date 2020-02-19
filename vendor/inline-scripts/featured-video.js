@@ -33,15 +33,7 @@
     var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
     var hasVideo = isDedicatedForArticle || allowedImpressionsMetaTag;
 
-    if (!hasVideo) {
-      return false;
-    }
-
-    if (!isDedicatedForArticle) {
-      return !hasMaxedOutPlayerImpressionsPerSession();
-    }
-
-    return true;
+    return hasVideo && (isDedicatedForArticle || !hasMaxedOutPlayerImpressionsPerSession());
   };
 
   if (!window.canPlayVideo()) {
