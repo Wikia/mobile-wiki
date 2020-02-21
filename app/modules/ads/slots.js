@@ -67,13 +67,9 @@ function isBottomLeaderboardApplicable() {
 function isIncontentPlayerApplicable() {
   const { context } = window.Wikia.adEngine;
 
-  const hasIncontentPlayer = context.get('custom.pageType') !== 'home'
+  return context.get('custom.pageType') !== 'home'
     && !context.get('custom.hasFeaturedVideo')
     && !context.get('custom.isIncontentPlayerDisabled');
-
-  context.set('custom.hasIncontentPlayer', hasIncontentPlayer);
-
-  return hasIncontentPlayer;
 }
 
 function registerFloorAdhesionCodePriority() {

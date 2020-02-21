@@ -135,8 +135,6 @@ export const adsSetup = {
     context.set('slots', slots.getContext());
     context.set('custom.hasFeaturedVideo', !!targeting.getVideoStatus().videoPlayed);
 
-    setupPageLevelTargeting(adsContext);
-
     if (!context.get('custom.hasFeaturedVideo') && adsContext.targeting.pageType !== 'search') {
       context.push('slots.top_leaderboard.defaultSizes', [2, 2]);
     }
@@ -227,6 +225,8 @@ export const adsSetup = {
 
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
+
+    setupPageLevelTargeting(adsContext);
 
     if (adsContext.targeting.wikiIsTop1000) {
       context.set('custom.wikiIdentifier', '_top1k_wiki');
