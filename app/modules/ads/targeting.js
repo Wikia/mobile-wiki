@@ -19,10 +19,10 @@ function decodeLegacyDartParams(dartString) {
   return params;
 }
 
-function getAdLayout(adsContext) {
+function getAdLayout(targeting) {
   const { context } = window.Wikia.adEngine;
 
-  let layout = adsContext.targeting.pageType || 'article';
+  let layout = targeting.pageType || 'article';
 
   if (layout === 'article') {
     if (targeting.hasFeaturedVideo) {
