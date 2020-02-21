@@ -229,6 +229,8 @@ export const adsSetup = {
       context.set('custom.wikiIdentifier', '_top1k_wiki');
       context.set('custom.wikiDBNameIdentifier', context.get('targeting.s1'));
     }
+    console.log(adsContext);
+
     context.set('custom.hasFeaturedVideo', !!adsContext.targeting.hasFeaturedVideo);
     context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
     context.set('custom.pageType', adsContext.targeting.pageType || null);

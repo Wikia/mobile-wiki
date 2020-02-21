@@ -6,6 +6,7 @@ const MIN_ZEROTH_SECTION_LENGTH = 700;
 
 export default Service.extend({
   ads: service('ads/ads'),
+  video: service(),
   currentUser: service(),
   pageHasFeaturedVideo: false,
 
@@ -29,7 +30,8 @@ export default Service.extend({
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.ads.slotNames;
     const globalFooter = document.querySelector('.wds-global-footer');
-    this.pageHasFeaturedVideo = !!component.featuredVideo;
+
+    this.pageHasFeaturedVideo = this.video.get('hasFeaturedVideo');
 
     if (pi) {
       // inject top topLeaderBoard below infobox
