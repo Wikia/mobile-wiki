@@ -130,7 +130,10 @@ export const adsSetup = {
     }
 
     instantConfig.get('icLABradorTest');
+
+    context.set('wiki', adsContext);
     context.set('slots', slots.getContext());
+    context.set('custom.hasFeaturedVideo', !!targeting.getVideoStatus().videoPlayed);
 
     setupPageLevelTargeting(adsContext);
 
