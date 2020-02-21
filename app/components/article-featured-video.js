@@ -81,7 +81,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
   didUpdateAttrs() {
     this.destroyVideoPlayer();
-    this.initVideoPlayer();
+    this.initVideoPlayer(true);
   },
 
   willDestroyElement() {
@@ -165,8 +165,8 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   /**
    * @returns {void}
    */
-  initVideoPlayer() {
-    if (!window.canPlayVideo()) {
+  initVideoPlayer(refreshCanPlayFlag = false) {
+    if (!window.canPlayVideo(refreshCanPlayFlag)) {
       document.body.classList.add('no-featured-video');
       this.video.set('hasFeaturedVideo', false);
 

@@ -1,4 +1,6 @@
 (function () {
+  var canPlayVideoFlag = null;
+
   function getCookieValue(cookieName) {
     var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
 
@@ -28,12 +30,16 @@
     return currentSession && videoSeenInSession && currentSession === videoSeenInSession;
   }
 
-  window.canPlayVideo = function () {
-    var isDedicatedForArticle = !!document.head.querySelector('[name="featured-video:is-dedicated-for-article"]');
-    var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
-    var hasVideo = isDedicatedForArticle || allowedImpressionsMetaTag;
+  window.canPlayVideo = function (refreshFlag) {
+    if (canPlayVideoFlag === null || refreshFlag) {
+      var isDedicatedForArticle = !!document.head.querySelector('[name="featured-video:is-dedicated-for-article"]');
+      var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
+      var hasVideo = isDedicatedForArticle || allowedImpressionsMetaTag;
 
-    return hasVideo && (isDedicatedForArticle || !hasMaxedOutPlayerImpressionsPerSession());
+      canPlayVideoFlag = hasVideo && (isDedicatedForArticle || !hasMaxedOutPlayerImpressionsPerSession());
+    }
+
+    return canPlayVideoFlag;
   };
 
   if (!window.canPlayVideo()) {
