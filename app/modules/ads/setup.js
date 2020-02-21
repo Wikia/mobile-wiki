@@ -132,7 +132,9 @@ export const adsSetup = {
     instantConfig.get('icLABradorTest');
     context.set('slots', slots.getContext());
 
-    if (!adsContext.targeting.hasFeaturedVideo && adsContext.targeting.pageType !== 'search') {
+    setupPageLevelTargeting(adsContext);
+
+    if (!context.get('custom.hasFeaturedVideo') && adsContext.targeting.pageType !== 'search') {
       context.push('slots.top_leaderboard.defaultSizes', [2, 2]);
     }
 
@@ -223,13 +225,10 @@ export const adsSetup = {
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
 
-    setupPageLevelTargeting(adsContext);
-
     if (adsContext.targeting.wikiIsTop1000) {
       context.set('custom.wikiIdentifier', '_top1k_wiki');
       context.set('custom.wikiDBNameIdentifier', context.get('targeting.s1'));
     }
-    context.set('custom.hasFeaturedVideo', !!adsContext.targeting.hasFeaturedVideo);
     context.set('custom.hasPortableInfobox', !!adsContext.targeting.hasPortableInfobox);
     context.set('custom.pageType', adsContext.targeting.pageType || null);
     context.set('custom.isAuthenticated', !!adsContext.user.isAuthenticated);

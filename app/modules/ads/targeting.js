@@ -20,19 +20,24 @@ function decodeLegacyDartParams(dartString) {
 }
 
 function getAdLayout(adsContext) {
+  const { context } = window.Wikia.adEngine;
+
   let layout = adsContext.targeting.pageType || 'article';
 
   if (layout === 'article') {
-    // Comparing with false in order to make sure that API already responds
-    // with "isDedicatedForArticle" flag
-    if (
-      adsContext.targeting.hasFeaturedVideo
-      && adsContext.targeting.featuredVideo
-      && adsContext.targeting.featuredVideo.isDedicatedForArticle === false
-    ) {
-      layout = `wv-${layout}`;
-    } else if (adsContext.targeting.hasFeaturedVideo) {
-      layout = `fv-${layout}`;
+    if (targeting.hasFeaturedVideo) {
+      // Comparing with false in order to make sure that API already responds with "isDedicatedForArticle" flag
+      const isWikiaVideo = targeting.featuredVideo && targeting.featuredVideo.isDedicatedForArticle === false;
+      const wikiaVideoPlayed = isWikiaVideo && window.canPlayVideo && window.canPlayVideo();
+      const videoPrefix = wikiaVideoPlayed ? 'wv' : 'fv';
+
+      layout = `${videoPrefix}-${layout}`;
+
+      context.set('custom.hasFeaturedVideo', !isWikiaVideo || wikiaVideoPlayed);
+    }
+
+    if (context.get('custom.hasIncontentPlayer')) {
+      layout = `${layout}-ic`;
     }
   }
 
@@ -168,7 +173,7 @@ function getZone(adsContext) {
   return {
     site: adsContext.targeting.mappedVerticalName,
     name: getRawDbName(adsContext),
-    pageType: getAdLayout(adsContext),
+    pageType: getAdLayout(adsContext.targeting),
   };
 }
 
