@@ -133,7 +133,7 @@ export const adsSetup = {
 
     context.set('wiki', adsContext);
     context.set('slots', slots.getContext());
-    context.set('custom.hasFeaturedVideo', !!targeting.getVideoStatus().videoPlayed);
+    context.set('custom.hasFeaturedVideo', !!targeting.getVideoStatus().hasVideoOnPage);
 
     if (!context.get('custom.hasFeaturedVideo') && adsContext.targeting.pageType !== 'search') {
       context.push('slots.top_leaderboard.defaultSizes', [2, 2]);
