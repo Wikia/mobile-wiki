@@ -18,14 +18,13 @@ export default Component.extend(
     isAboveTheFold: false,
     name: null,
     adEngine3ClassName: 'gpt-ad',
-    pageHasFeaturedVideo: false,
 
     nameLowerCase: computed('name', function () {
       return dasherize((this.name || '').toLowerCase());
     }),
 
-    shouldWaitForUapResponse: computed('pageHasFeaturedVideo', 'isAboveTheFold', 'name', function () {
-      return !this.pageHasFeaturedVideo && !this.isAboveTheFold;
+    shouldWaitForUapResponse: computed('isAboveTheFold', 'name', function () {
+      return !this.isAboveTheFold;
     }),
 
     didInsertElement() {
