@@ -23,7 +23,7 @@ function getVideoStatus() {
   const { context } = window.Wikia.adEngine;
 
   if (context.get('wiki.targeting.hasFeaturedVideo')) {
-    // Comparing with false in order to make sure that API already responds with "isDedicatedForArticle" flag
+    // Comparing with false to make sure that API already responds with "isDedicatedForArticle" flag
     const isDedicatedForArticle = context.get('wiki.targeting.featuredVideo.isDedicatedForArticle') !== false;
     const bridgeVideoPlayed = !isDedicatedForArticle && window.canPlayVideo && window.canPlayVideo();
 
@@ -41,7 +41,7 @@ function getAdLayout(targeting) {
 
   if (layout === 'article') {
     const videoStatus = getVideoStatus();
-    if (!!videoStatus.hasVideoOnPage) {
+    if (videoStatus.hasVideoOnPage) {
       const videoPrefix = videoStatus.isDedicatedForArticle ? 'fv' : 'wv';
 
       layout = `${videoPrefix}-${layout}`;
