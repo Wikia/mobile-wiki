@@ -24,10 +24,10 @@ function getVideoStatus() {
 
   if (context.get('wiki.targeting.hasFeaturedVideo')) {
     // Comparing with false to make sure that API already responds with "isDedicatedForArticle" flag
-    const isDedicatedForArticle =
-      context.get('wiki.targeting.featuredVideo.isDedicatedForArticle') !== false;
-    const bridgeVideoPlayed =
-      !isDedicatedForArticle && window.canPlayVideo && window.canPlayVideo();
+    const isDedicatedForArticle = context.get('wiki.targeting.featuredVideo.isDedicatedForArticle')
+      !== false;
+    const bridgeVideoPlayed = !isDedicatedForArticle
+      && window.canPlayVideo && window.canPlayVideo();
 
     return {
       isDedicatedForArticle,
