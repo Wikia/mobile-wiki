@@ -7,7 +7,6 @@ const MIN_ZEROTH_SECTION_LENGTH = 700;
 export default Service.extend({
   ads: service('ads/ads'),
   currentUser: service(),
-  pageHasFeaturedVideo: false,
 
   init() {
     this._super(...arguments);
@@ -29,12 +28,11 @@ export default Service.extend({
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.ads.slotNames;
     const globalFooter = document.querySelector('.wds-global-footer');
-    this.pageHasFeaturedVideo = !!component.featuredVideo;
 
     if (pi) {
       // inject top topLeaderBoard below infobox
       this.appendAd(adsData.topLeaderBoard, 'afterend', pi);
-    } else if (pageHeader && !this.pageHasFeaturedVideo) {
+    } else if (pageHeader) {
       // inject top topLeaderBoard below article header
       // but only if there is no featured video embedded
       this.appendAd(adsData.topLeaderBoard, 'afterend', pageHeader);
@@ -146,7 +144,6 @@ export default Service.extend({
     this.waitingSlots[adSlotName] = () => {
       const placeholder = document.createElement('div');
       const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
-      attributes.pageHasFeaturedVideo = this.pageHasFeaturedVideo;
 
       element.insertAdjacentElement(place, placeholder);
 

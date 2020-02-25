@@ -177,12 +177,13 @@
 
 {{! We use both meta tags below instead of shoebox to have the video related data accessible ASAP (before ember boots)}}
 {{#if model.isDedicatedForArticle}}
-  <meta name="featured-video" content={{model.isDedicatedForArticle}}>
+  <meta name="featured-video:is-dedicated-for-article" content={{model.isDedicatedForArticle}}>
 {{/if}}
 
 {{#if model.playerImpressionsPerSession}}
-  <meta name="player-impressions-per-session" content={{model.playerImpressionsPerSession}}>
+  <meta name="featured-video:impressions-per-session" content={{model.playerImpressionsPerSession}}>
 {{/if}}
+{{! end of video tags}}
 
 {{#if model.lazyCss}}
   {{!- These styles will be added to head on front-end to lazy load them-}}
