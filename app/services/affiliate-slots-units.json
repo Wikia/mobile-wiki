@@ -247,5 +247,82 @@
     "isHulu": true,
     "link": "https://fandom.com/articles/disney-plus-bundle-how-to",
     "country": ["US", "CA", "NL", "AU", "NZ"]
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Sugerido Para Ti",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Oferta por tiempo limitado. 1 año  |  59,99 €",
+    "subheading": "Suscríbete ahora",
+    "link": "https://google.com",
+    "country": ["ES"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Molta Duit",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Limited Time Offer. 1 Year  |  € 59.99 ",
+    "subheading": "Pre-order now",
+    "link": "https://google.com",
+    "country": ["IE"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suggerito Per Te",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Offerta A Tempo Limitato. 1 anno  |  59,99 €",
+    "subheading": "Pre-ordina",
+    "link": "https://google.com",
+    "country": ["IT"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suggested For You",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Limited Time Offer. 1 Year  |  £49.99",
+    "subheading": "Pre-order now",
+    "link": "https://google.com",
+    "country": ["GB"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Abonnez-vous Maintenant",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "offre à durée limitée. Profitez d’un rabais anticipé",
+    "subheading": "Pré-commandez",
+    "link": "https://google.com",
+    "country": ["CH-FR", "FR"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suggerito per Te",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Offerta a tempo limitato. Assicurati uno scent early bird",
+    "subheading": "Pre-ordina",
+    "link": "https://google.com",
+    "country": ["CH"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "für Sie vorgeschlagen",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Nur für kurze zeit. Frühbucherrabatt sichern",
+    "subheading": "Jetzt vorbestellen",
+    "link": "https://google.com",
+    "country": ["DE"],
+    "isBig": true
   }
 ]
