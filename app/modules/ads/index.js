@@ -561,7 +561,7 @@ class Ads {
 
     const maxTimeout = context.get('options.maxDelayTimeout');
 
-    return new Runner([ this.getBiddersInhibitor() ], maxTimeout, 'jwplayer-runner').waitForInhibitors();
+    return new Runner([this.getBiddersInhibitor()], maxTimeout, 'jwplayer-runner').waitForInhibitors();
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {
