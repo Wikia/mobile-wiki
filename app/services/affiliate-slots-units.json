@@ -207,6 +207,7 @@
   {
     "campaign": "ddb",
     "category": "ddb",
+    "country": ["US"],
     "tagline": "Related Posts",
     "image": "https://static.wikia.nocookie.net/0cebb500-f8c3-4f44-b4aa-f44e33fc2319",
     "heading": "The Official Digital Toolset for Dungeons & Dragons",
@@ -217,6 +218,7 @@
   {
     "campaign": "ddb",
     "category": "ddb",
+    "country": ["US"],
     "tagline": "Recommended for You",
     "image": "https://static.wikia.nocookie.net/0cebb500-f8c3-4f44-b4aa-f44e33fc2319",
     "heading": "The Official Digital Toolset for Dungeons & Dragons",
