@@ -187,7 +187,8 @@ export const adsSetup = {
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.moatYi.enabled', instantConfig.get('icMoatYieldIntelligence'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
-    context.set('services.permutive.enabled', instantConfig.get('icPermutive'));
+    context.set('services.permutive.enabled', instantConfig.get('icPermutive')
+      && !context.get('wiki.targeting.directedAtChildren'));
 
     if (instantConfig.get('icTaxonomyComicsTag')) {
       context.set('services.taxonomy.comics.enabled', true);
