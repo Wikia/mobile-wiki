@@ -236,6 +236,7 @@ export const slots = {
           pos: ['incontent_player'],
           rv: 1,
         },
+        isVideo: true,
       },
       mobile_prefooter: {
         adProduct: 'mobile_prefooter',
@@ -320,6 +321,7 @@ export const slots = {
         },
         trackingKey: 'featured-video',
         trackEachStatus: true,
+        isVideo: true,
       },
       video: {
         adProduct: 'video',
