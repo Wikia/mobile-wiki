@@ -166,7 +166,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
    * @returns {void}
    */
   initVideoPlayer() {
-    if (!window.canPlayVideo()) {
+    if (!window.canPlayVideo(true)) {
       document.body.classList.add('no-featured-video');
       this.video.set('hasFeaturedVideo', false);
 
