@@ -5,7 +5,6 @@ import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
 import { pageTracker } from './tracking/page-tracker';
-import { biddersDelayer } from './bidders-delayer';
 import { cheshireCat } from './ml/cheshire-cat';
 import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
@@ -35,6 +34,7 @@ class PromiseLock {
 
 class Ads {
   constructor() {
+    this.biddersInhibitor = null;
     this.engine = null;
     this.spaInstanceId = null;
 
@@ -329,12 +329,13 @@ class Ads {
     const { bidders } = window.Wikia.adBidders;
     const { slotService } = window.Wikia.adEngine;
 
-    biddersDelayer.resetPromise();
+    const inhibitors = [];
 
-    bidders.requestBids({
-      responseListener: biddersDelayer.markAsReady,
-    });
-    this.startAdEngine();
+    this.biddersInhibitor = null;
+    bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
+    inhibitors.push(this.getBiddersInhibitor());
+
+    this.startAdEngine(inhibitors);
 
     if (!slotService.getState('top_leaderboard')) {
       this.finishFirstCall();
@@ -346,19 +347,29 @@ class Ads {
     this.afterPageRenderExecuted = true;
   }
 
+  getBiddersInhibitor() {
+    const { utils } = window.Wikia.adEngine;
+
+    if (this.biddersInhibitor === null) {
+      this.biddersInhibitor = utils.createExtendedPromise();
+    }
+
+    return this.biddersInhibitor;
+  }
+
   /**
    * @private
    */
-  startAdEngine() {
+  startAdEngine(inhibitors) {
     const { AdEngine } = window.Wikia.adEngine;
 
     if (!this.engine) {
       this.engine = new AdEngine();
-      this.engine.init();
+      this.engine.init(inhibitors);
 
       this.loadGoogleTag();
     } else {
-      this.engine.runAdQueue();
+      this.engine.runAdQueue(inhibitors);
     }
   }
 
@@ -546,18 +557,11 @@ class Ads {
   }
 
   waitForVideoBidders() {
-    const { context, utils } = window.Wikia.adEngine;
+    const { context, Runner } = window.Wikia.adEngine;
 
-    const timeout = new Promise((resolve) => {
-      setTimeout(resolve, context.get('options.maxDelayTimeout'));
-    });
+    const maxTimeout = context.get('options.maxDelayTimeout');
 
-    return Promise.race([
-      biddersDelayer.getPromise(),
-      timeout,
-    ]).then(() => {
-      utils.logger('featured-video', 'resolving featured video delay');
-    });
+    return new Runner([this.getBiddersInhibitor()], maxTimeout, 'jwplayer-runner').waitForInhibitors();
   }
 
   waitForUapResponse(uapCallback, noUapCallback) {

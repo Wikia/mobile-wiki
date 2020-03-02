@@ -1,7 +1,6 @@
 /* eslint no-console: 0 */
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
-import { biddersDelayer } from './bidders-delayer';
 import configureBillTheLizard from './ml/bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
@@ -104,7 +103,6 @@ export const adsSetup = {
       });
 
       videoTracker.register();
-      context.push('delayModules', biddersDelayer);
 
       new JWPlayerManager().manage();
 
