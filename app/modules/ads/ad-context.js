@@ -230,6 +230,9 @@ export const defaultAdContext = {
             ],
             siteId: '419027',
           },
+          featured: {
+            siteId: '437503',
+          },
         },
       },
       kargo: {
