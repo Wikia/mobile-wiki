@@ -1,7 +1,6 @@
 /* eslint no-console: 0 */
 import { track, trackActions } from '../../utils/track';
 import { defaultAdContext } from './ad-context';
-import { biddersDelayer } from './bidders-delayer';
 import configureBillTheLizard from './ml/bill-the-lizard-wrapper';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { slots } from './slots';
@@ -104,7 +103,6 @@ export const adsSetup = {
       });
 
       videoTracker.register();
-      context.push('delayModules', biddersDelayer);
 
       new JWPlayerManager().manage();
 
@@ -187,7 +185,8 @@ export const adsSetup = {
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.moatYi.enabled', instantConfig.get('icMoatYieldIntelligence'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
-    context.set('services.permutive.enabled', instantConfig.get('icPermutive'));
+    context.set('services.permutive.enabled', instantConfig.get('icPermutive')
+      && !context.get('wiki.targeting.directedAtChildren'));
 
     if (instantConfig.get('icTaxonomyComicsTag')) {
       context.set('services.taxonomy.comics.enabled', true);
@@ -275,6 +274,10 @@ export const adsSetup = {
 
       if (!instantConfig.get('icPrebidPubmaticOutstream')) {
         context.remove('bidders.prebid.pubmatic.slots.incontent_player');
+      }
+
+      if (!instantConfig.get('icPrebidIndexExchangeFeatured')) {
+        context.remove('bidders.prebid.indexExchange.slots.featured');
       }
 
       const priceFloorRule = instantConfig.get('icPrebidSizePriceFloorRule');
