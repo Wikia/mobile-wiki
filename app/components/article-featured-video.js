@@ -12,6 +12,7 @@ import duration from '../utils/duration';
 import extend from '../utils/extend';
 import { transparentImageBase64 } from '../utils/thumbnail';
 import { track, trackActions } from '../utils/track';
+import { logError } from '../modules/event-logger';
 
 export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   ads: service('ads/ads'),
@@ -145,6 +146,10 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       if (viewable === 0 && this.isOnScrollActive) {
         this.player.play();
       }
+    });
+
+    this.player.on('adError', (error) => {
+      logError(this.runtimeConfig.servicesExternalHost, 'JWPlayer adError', error);
     });
 
     // to make sure custom dimension is set and tracking event is sent
