@@ -417,6 +417,18 @@
             ]
         }
     ],
+    "icPrebidIndexExchangeFeatured": [
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "PL"
+            ],
+            "value": true
+        }
+    ],
     "icPrebidNobid": [
         {
             "apps": [
