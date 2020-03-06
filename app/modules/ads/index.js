@@ -281,12 +281,15 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
     const { eventService } = window.Wikia.adEngine;
-    const { confiant, durationMedia, moatYiEvents } = window.Wikia.adServices;
+    const {
+      confiant, durationMedia, moatYiEvents, permutive,
+    } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
         confiant.call();
         durationMedia.call();
+        permutive.call();
 
         eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
           pageTracker.trackProp('moat_yi', data);
@@ -384,7 +387,7 @@ class Ads {
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
-    permutive.call();
+    permutive.setAddon();
     moatYi.call();
     nielsen.call({
       type: 'static',
