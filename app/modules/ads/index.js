@@ -92,15 +92,21 @@ class Ads {
       if (!this.isInitializationStarted) {
         this.isInitializationStarted = true;
 
-        this.loadAdEngine().then(() => {
-          M.trackingQueue.push(
-            (isOptedIn, isSaleOptOut) => this.setupAdEngine(
-              adsContext,
-              isOptedIn,
-              isSaleOptOut,
-            ),
-          );
-        });
+        this.loadAdEngine()
+          .catch((error) => {
+            pageTracker.trackProp('adengine', 'off_failed_load', true);
+
+            throw error;
+          })
+          .then(() => {
+            M.trackingQueue.push(
+              (isOptedIn, isSaleOptOut) => this.setupAdEngine(
+                adsContext,
+                isOptedIn,
+                isSaleOptOut,
+              ),
+            );
+          });
       }
 
       Ads.getLoadedInstance()
