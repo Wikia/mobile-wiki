@@ -610,6 +610,7 @@ export default Component.extend(
               attrs: {
                 unit: bigUnit,
                 isInContent: true,
+                articleId: this.id,
               },
               element: unitPlaceholder,
             }));
