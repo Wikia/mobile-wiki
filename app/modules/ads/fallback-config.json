@@ -400,7 +400,12 @@
                 "oasis"
             ],
             "regions": [
-                "PL"
+                "AU",
+                "CA",
+                "GB",
+                "NZ",
+                "PL",
+                "UK"
             ],
             "value": true
         }
