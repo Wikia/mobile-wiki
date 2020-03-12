@@ -5,7 +5,7 @@ function getServiceHost() {
     return 'https://services.fandom.com/affiliate/redirect/'; // add r=
   }
 
-  return 'https://services.fandom.com/affiliate/redirect/';
+  return 'https://services.fandom-dev.us/affiliate/redirect/';
 }
 
 export function trackingPairsToObject(unit) {
