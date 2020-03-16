@@ -51,7 +51,7 @@ export default Component.extend(
         link = this.unit.link;
       }
 
-      return linkToProxyLink(link, this.unit, this.wikiId, this.articleId );
+      return linkToProxyLink(link, this.unit, this.wikiId, this.articleId);
     }),
 
     actions: {

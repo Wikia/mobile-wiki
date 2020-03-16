@@ -42,5 +42,4 @@ export function linkToProxyLink(link, unit, wikiId, articleId = -1) {
   }
 
   return potentialLink;
-
 }
