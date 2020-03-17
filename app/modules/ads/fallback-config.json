@@ -953,7 +953,8 @@
             "regions": [
                 "AU",
                 "CA",
-                "PL"
+                "PL",
+                "US"
             ],
             "value": true
         }
