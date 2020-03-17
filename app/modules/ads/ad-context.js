@@ -149,44 +149,6 @@ export const defaultAdContext = {
           },
         },
       },
-      criteo: {
-        enabled: false,
-        slots: {
-          mobile_top_leaderboard: {
-            sizes: [
-              [320, 50],
-            ],
-            networkId: '3306',
-          },
-          mobile_in_content: {
-            sizes: [
-              [300, 250],
-            ],
-            networkId: '3306',
-          },
-          bottom_leaderboard: {
-            sizes: [
-              [300, 250],
-              [320, 50],
-            ],
-            networkId: '3306',
-          },
-          featured: {
-            networkId: '3306',
-            zoneId: '1470492',
-            sizes: [
-              [3, 3],
-            ],
-          },
-          incontent_player: {
-            networkId: '3306',
-            zoneId: '1470491',
-            sizes: [
-              [3, 3],
-            ],
-          },
-        },
-      },
       gumgum: {
         enabled: false,
         slots: {
@@ -243,19 +205,6 @@ export const defaultAdContext = {
               [300, 250],
             ],
             placementId: '_oMn9XHKEp3',
-          },
-        },
-      },
-      lkqd: {
-        enabled: false,
-        slots: {
-          featured: {
-            placementId: '523',
-            siteId: '892127',
-          },
-          incontent_player: {
-            placementId: '523',
-            siteId: '892129',
           },
         },
       },
@@ -479,16 +428,6 @@ export const defaultAdContext = {
           },
         },
       },
-      vmg: {
-        enabled: false,
-        slots: {
-          mobile_top_leaderboard: {
-            sizes: [
-              [2, 2],
-            ],
-          },
-        },
-      },
       wikia: {
         enabled: false,
         slots: {
@@ -535,7 +474,6 @@ export const defaultAdContext = {
     wikiDBNameIdentifier: '_not_a_top1k_wiki',
     appnexusDfp: true,
     beachfrontDfp: true,
-    lkqdDfp: false,
     rubiconDfp: true,
     pubmaticDfp: false,
   },
