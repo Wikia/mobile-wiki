@@ -92,15 +92,21 @@ class Ads {
       if (!this.isInitializationStarted) {
         this.isInitializationStarted = true;
 
-        this.loadAdEngine().then(() => {
-          M.trackingQueue.push(
-            (isOptedIn, isSaleOptOut) => this.setupAdEngine(
-              adsContext,
-              isOptedIn,
-              isSaleOptOut,
-            ),
-          );
-        });
+        this.loadAdEngine()
+          .catch((error) => {
+            pageTracker.trackProp('adengine', 'off_failed_load', true);
+
+            throw error;
+          })
+          .then(() => {
+            M.trackingQueue.push(
+              (isOptedIn, isSaleOptOut) => this.setupAdEngine(
+                adsContext,
+                isOptedIn,
+                isSaleOptOut,
+              ),
+            );
+          });
       }
 
       Ads.getLoadedInstance()
@@ -282,14 +288,13 @@ class Ads {
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
     const { eventService } = window.Wikia.adEngine;
     const {
-      confiant, durationMedia, moatYiEvents, permutive,
+      confiant, durationMedia, moatYiEvents,
     } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
         confiant.call();
         durationMedia.call();
-        permutive.call();
 
         eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
           pageTracker.trackProp('moat_yi', data);
@@ -387,7 +392,7 @@ class Ads {
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
-    permutive.setAddon();
+    permutive.call();
     moatYi.call();
     nielsen.call({
       type: 'static',
