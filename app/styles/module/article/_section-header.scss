@@ -7,6 +7,19 @@ h2[section] {
       display: block;
     }
   }
+
+  .chevron:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .section-edit-link {
+    align-items: center;
+    border-left: 1px solid currentColor;
+    color: inherit;
+    display: flex;
+    height: 26px;
+    padding-left: 12px;
+  }
 }
 
 .mobile-hidden {
