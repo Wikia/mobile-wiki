@@ -31,4 +31,14 @@
     margin-bottom: 1.875rem;
     width: 100%;
   }
+
+  &__edit-link {
+    color: $wds-fandom-color-link;
+    display: block;
+    margin-top: 12px;
+
+    svg {
+      vertical-align: text-top;
+    }
+  }
 }
