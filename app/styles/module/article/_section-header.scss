@@ -9,16 +9,23 @@ h2[section] {
   }
 
   .chevron:not(:last-child) {
-    margin-right: 12px;
+    fill: $wds-fandom-color-middle-gray;
+    margin-right: 16px;
+  }
+
+  .vertical-separator {
+    border-left: 1px solid currentColor;
+    height: 26px;
+    width: 1px;
   }
 
   .section-edit-link {
     align-items: center;
-    border-left: 1px solid currentColor;
-    color: inherit;
+    color: $wds-fandom-color-middle-gray;
     display: flex;
-    height: 26px;
-    padding-left: 12px;
+    height: 44px;
+    margin-right: -$article-horizontal-padding;
+    padding: 9px 16px;
   }
 }
 

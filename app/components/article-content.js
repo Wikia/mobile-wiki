@@ -127,7 +127,6 @@ export default Component.extend(
 
       let anchor = event.target.closest('a');
 
-      // TODO: remove after IW-2613 is done
       if (!anchor) {
         anchor = event.target.closest('[aria-controls$="-collapsible-section"]');
       }
@@ -300,7 +299,9 @@ export default Component.extend(
         if (element.closest('.article-media-thumbnail')) {
           return 'image-link';
         }
-        // TODO: remove after IW-2613 is done
+        if (element.closest('.section-edit-link')) {
+          return 'section-edit';
+        }
         if (element.closest('[aria-controls$="-collapsible-section"]')) {
           return 'section-toggle';
         }
