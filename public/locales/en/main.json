@@ -64,18 +64,6 @@
     "total-number": "All Items ({totalNumberOfItems})",
     "trending-pages": "Trending Pages"
   },
-  "edit": {
-    "load-error": "Sorry, it looks like something went wrong. Please try again.",
-    "page-heading": "Editing:",
-    "page-publish": "Publish",
-    "publish-error": "Sorry, it looks like something went wrong. Please try again.",
-    "publish-error-autoblockedtext": "Your IP address has been blocked automatically, because it was used by a blocked user.",
-    "publish-error-blocked": "You have been blocked from editing.",
-    "publish-error-noedit": "You don't have permission to edit pages on this wiki.",
-    "publish-error-noedit-anon": "Anonymous users can't edit pages.",
-    "publish-error-protectedpage": "You don't have permission to edit this page.",
-    "success": "Successfully edited page {pageTitle}!"
-  },
   "fandom-app-banner": {
     "google-play": "Google Play",
     "app-store": "App Store"
@@ -97,10 +85,6 @@
   },
   "smartbanner": {
     "install-android": "Install"
-  },
-  "user-status": {
-    "login-text": "Sign In",
-    "register-text": "Register"
   },
   "widget-discussions": {
     "all-discussions-link-mobile": "All Discussions",
