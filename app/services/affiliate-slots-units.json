@@ -249,5 +249,60 @@
     "isHulu": true,
     "link": "https://fandom.com/articles/disney-plus-bundle-how-to",
     "country": ["US", "CA", "NL", "AU", "NZ"]
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Sugerido Para Ti",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Miras tus favoritos de Disney en un solo lugar.",
+    "subheading": "Prueba 7 dias gratis",
+    "link": "https://disneyplus.bn5x.net/c/1947570/772705/9358?subId1=generic-es&subId2=launch&subId3=ad-fandom&sharedid=mobile",
+    "country": ["ES"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suggested For You",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Watch Your Disney Favorites, All In One Place.",
+    "subheading": "Start your Free Trial",
+    "link": "https://disneyplus.bn5x.net/c/1947570/772702/9358?subId1=generic-ie&subId2=launch&subId3=ad-fandom&sharedid=mobile",
+    "country": ["IE"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suggerito Per Te",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Guarda i tuoi preferiti della Disney, tutti in un solo posto.",
+    "subheading": "Inizia la prova gratuita",
+    "link": "https://disneyplus.bn5x.net/c/1947570/772708/9358?subId1=generic-it&subId2=launch&subId3=ad-fandom&sharedid=mobile",
+    "country": ["IT"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suggested For You",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Watch Your Disney Favorites, All In One Place.",
+    "subheading": "Start your Free Trial",
+    "link": "https://disneyplus.bn5x.net/c/1947570/772699/9358?subId1=generic-uk&subId2=launch&subId3=ad-fandom&sharedid=mobile",
+    "country": ["GB"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "für Sie vorgeschlagen",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45/",
+    "heading": "Schaue deine liebsten Disney-Filme und -Serien, alle am selben Ort.",
+    "subheading": "jetzt kostenlos testen",
+    "link": "https://disneyplus.bn5x.net/c/1947570/772722/9358?subId1=generic-de&subId2=launch&subId3=ad-fandom&sharedid=mobile",
+    "country": ["DE", "AT", "CH"],
+    "isBig": true
   }
 ]
