@@ -8,13 +8,17 @@ h2[section] {
     }
   }
 
-  .chevron:not(:last-child) {
+  .chevron {
+    margin-right: 4px;
     fill: $wds-fandom-color-middle-gray;
-    margin-right: 16px;
+
+   &:not(:last-child) {
+     margin-right: 16px;
+   }
   }
 
   .vertical-separator {
-    border-left: 1px solid currentColor;
+    border-left: 1px solid $wds-fandom-color-middle-gray;
     height: 26px;
     width: 1px;
   }
