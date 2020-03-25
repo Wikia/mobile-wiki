@@ -22,6 +22,7 @@ export default EmberObject.extend({
   description: '',
   displayTitle: null,
   editLink: null,
+  showSectionEditLinks: null,
   hreflangLinks: null,
   htmlTitle: '',
   id: null,
@@ -78,6 +79,10 @@ export default EmberObject.extend({
 
         if (data.article.editLink) {
           pageProperties.editLink = data.article.editLink;
+        }
+
+        if (data.article.showSectionEditLinks) {
+          pageProperties.showSectionEditLinks = data.article.showSectionEditLinks;
         }
       }
 

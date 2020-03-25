@@ -35,6 +35,13 @@ h2[section] {
   }
 }
 
+.hide-edit-links h2[section] {
+  .section-edit-link,
+  .vertical-separator {
+    display: none;
+  }
+}
+
 .mobile-hidden {
   display: none;
 }

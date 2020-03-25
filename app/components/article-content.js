@@ -33,6 +33,7 @@ export default Component.extend(
 
     tagName: 'article',
     classNames: ['article-content', 'mw-content'],
+    classNameBindings: ['showSectionEditLinks::hide-edit-links'],
     attributeBindings: ['lang', 'dir'],
     adsContext: null,
     content: null,
