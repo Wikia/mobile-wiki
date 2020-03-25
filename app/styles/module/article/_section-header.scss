@@ -8,12 +8,15 @@ h2[section] {
     }
   }
 
-  .chevron {
-    fill: $wds-fandom-color-middle-gray;
-    margin-right: 4px;
+  .chevron-wrapper {
+    align-items: center;
+    display: flex;
+    height: 44px;
+    margin-right: -$article-horizontal-padding;
+    padding: 9px 13px;
 
-    &:not(:last-child) {
-      margin-right: 12px;
+    .chevron {
+      fill: $wds-fandom-color-middle-gray;
     }
   }
 
@@ -28,8 +31,7 @@ h2[section] {
     color: $wds-fandom-color-middle-gray;
     display: flex;
     height: 44px;
-    margin-right: -$article-horizontal-padding;
-    padding: 9px 12px;
+    padding: 9px 13px;
   }
 }
 
