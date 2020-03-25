@@ -98,7 +98,6 @@
                 "PL",
                 "US"
             ],
-            "sampling": 5.0,
             "value": true
         }
     ],
@@ -951,10 +950,7 @@
                 "oasis"
             ],
             "regions": [
-                "AU",
-                "CA",
-                "PL",
-                "US"
+                "XX"
             ],
             "value": true
         }
