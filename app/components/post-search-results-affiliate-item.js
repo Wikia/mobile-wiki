@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 import { trackActions, trackAffiliateUnit } from '../utils/track';
+import { linkToProxyLink } from '../utils/affiliate';
 
 export default Component.extend({
   isInContent: false,
@@ -17,10 +18,10 @@ export default Component.extend({
 
     if (this.affiliateUnit.campaign === 'ddb') {
       const slotName = this.isInContent ? 'incontent_posts' : 'search_posts';
-      return `${this.affiliateUnit.link}&fandom_slot_id=${slotName}`;
+      return linkToProxyLink(`${this.affiliateUnit.link}&fandom_slot_id=${slotName}`);
     }
 
-    return this.affiliateUnit.link;
+    return linkToProxyLink(this.affiliateUnit.link);
   }),
 
   actions: {
