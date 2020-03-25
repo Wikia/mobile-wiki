@@ -268,10 +268,6 @@ export const adsSetup = {
         lang: [context.get('targeting.wikiLanguage') || 'en'],
       });
 
-      if (!instantConfig.get('icPrebidLkqdOutstream')) {
-        context.remove('bidders.prebid.lkqd.slots.incontent_player');
-      }
-
       if (!instantConfig.get('icPrebidPubmaticOutstream')) {
         context.remove('bidders.prebid.pubmatic.slots.incontent_player');
       }
