@@ -30,14 +30,21 @@
   &__title-wrapper {
     margin-bottom: 1.875rem;
     width: 100%;
+
+    &.has-edit-link {
+      margin-bottom: 1.07rem;
+    }
   }
 
   &__edit-link {
     color: $wds-fandom-color-dark-gray;
     display: block;
-    margin-top: 16px;
+    margin: 0 auto;
+    padding: 16px 22px 13px;
+    width: fit-content;
 
     svg {
+      margin-right: 3px;
       vertical-align: text-top;
     }
   }
