@@ -26,6 +26,11 @@ export function trackingPairsToObject(unit) {
 }
 
 export function linkToProxyLink(link, unit, wikiId, articleId = -1) {
+  // deploy to one community (marvel)
+  if (wikiId !== 2233) {
+    return link;
+  }
+
   const host = getServiceHost();
   const tracking = trackingPairsToObject(unit);
 
