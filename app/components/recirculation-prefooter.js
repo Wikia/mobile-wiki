@@ -188,7 +188,7 @@ export default Component.extend(
             filteredItems = this.getNonBlacklistedRecommendedData(response);
           }
 
-          this.set('items', filteredItems.map(item => ({
+          this.set('items', filteredItems.slice(0, recircItemsCount).map(item => ({
             id: item.item_id,
             site_name: item.wiki_title,
             url: item.url,
