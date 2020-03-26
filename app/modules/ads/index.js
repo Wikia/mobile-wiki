@@ -42,6 +42,8 @@ class Ads {
     this.initialization = new PromiseLock();
     /** @private */
     this.afterPageRenderExecuted = false;
+    /** @private */
+    this.hasLoadFailed = false;
   }
 
   /**
@@ -78,6 +80,7 @@ class Ads {
       noads_querystring: isQueryParamActive(queryParams.noads),
       mobileapp_querystring: isQueryParamActive(queryParams['mobile-app']),
       noads_pagetype: adsContext.opts.pageType === 'no_ads',
+      load_failed: this.hasLoadFailed,
     };
     const disablers = Object.entries(reasonConditionMap)
       .filter(reasonAndCondition => reasonAndCondition[1])
@@ -94,7 +97,8 @@ class Ads {
 
         this.loadAdEngine()
           .catch((error) => {
-            pageTracker.trackProp('adengine', 'off_failed_load', true);
+            this.hasLoadFailed = true;
+            pageTracker.trackProp('adengine', 'off_load_failed', true);
 
             throw error;
           })
@@ -112,9 +116,6 @@ class Ads {
       Ads.getLoadedInstance()
         .then(() => {
           pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
-        })
-        .catch(() => {
-          pageTracker.trackProp('adengine', 'off_failed_initialization', true);
         });
     }
   }
