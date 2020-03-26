@@ -10,10 +10,10 @@ function getServiceHost() {
 
 export function trackingPairsToObject(unit) {
   const tracking = {
-    algo: '',
-    method: '',
-    version: '',
-    recommendation_level: '',
+    algo: 'null',
+    method: 'null',
+    version: 'null',
+    recommendation_level: 'null',
   };
 
   if (unit.tracking && unit.tracking.forEach && typeof unit.tracking.forEach === 'function') {
@@ -25,14 +25,14 @@ export function trackingPairsToObject(unit) {
   return tracking;
 }
 
-export function linkToProxyLink(link, unit, wikiId, articleId = -1) {
+export function linkToProxyLink(link, unit, wikiId, articleId) {
   const host = getServiceHost();
   const tracking = trackingPairsToObject(unit);
 
   const category = unit.category;
 
   // wikiId/articleId/category/algorithm/method/version
-  const path = `${wikiId}/${articleId}/${category}/${tracking.algo}/${tracking.method}/${tracking.version}`;
+  const path = `${wikiId}/${articleId || 'search'}/${category}/${tracking.algo}/${tracking.method}/${tracking.version}`;
 
   const potentialLink = `${host}${path}?r=${encodeURIComponent(link)}`;
 
