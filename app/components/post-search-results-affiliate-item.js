@@ -31,6 +31,7 @@ export default Component.extend({
       link = this.affiliateUnit.link;
     }
 
+
     return linkToProxyLink(link, this.affiliateUnit, this.wikiId, this.articleId);
   }),
 
