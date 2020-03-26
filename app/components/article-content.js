@@ -639,6 +639,7 @@ export default Component.extend(
                   unit: smallUnit,
                   isCrossWiki: true,
                   isInContent: true,
+                  articleId: this.id,
                 },
                 element: unitPlaceholder,
               }));
