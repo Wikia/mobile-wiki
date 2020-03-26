@@ -5,7 +5,6 @@ import { reads, and } from '@ember/object/computed';
 import { computed, observer } from '@ember/object';
 import { run } from '@ember/runloop';
 import InViewportMixin from 'ember-in-viewport';
-import { inGroup } from '../modules/abtest';
 import { logError } from '../modules/event-logger';
 import { track, trackActions } from '../utils/track';
 import { normalizeToUnderscore } from '../utils/string';
@@ -42,7 +41,6 @@ export default Component.extend(
     sponsoredItem: reads('sponsoredContent.item'),
     wikiName: reads('wikiVariables.siteName'),
 
-    shouldUseExperimentalRecommendationService: computed(() => inGroup('RECOMMENDATION_SERVICE', 'EXPERIMENTAL')),
     sponsoredItemThumbnail: computed('sponsoredItem.thumbnailUrl', function () {
       return window.Vignette ? window.Vignette.getThumbURL(this.sponsoredItem.thumbnailUrl, {
         mode: window.Vignette.mode.zoomCrop,
@@ -86,15 +84,11 @@ export default Component.extend(
     actions: {
       postClick(post, index) {
         const labels = ['footer', `footer-slot-${index + 1}`];
-        let additionalRecommendationData;
-
-        if (this.shouldUseExperimentalRecommendationService) {
-          additionalRecommendationData = {
-            recommendation_request_id: this.requestId,
-            item_id: post.id,
-            item_type: 'wiki_article',
-          };
-        }
+        const additionalRecommendationData = {
+          recommendation_request_id: this.requestId,
+          item_id: post.id,
+          item_type: 'wiki_article',
+        };
 
         labels.forEach(label => track(Object.assign({
           action: trackActions.click,
@@ -159,12 +153,7 @@ export default Component.extend(
       this.fetch.fetchFromMediawiki(url, TopArticlesFetchError)
         .then((data) => {
           this.set('topArticles', data.slice(0, 3));
-
-          if (this.shouldUseExperimentalRecommendationService) {
-            this.set('fallbackItems', data.slice(3));
-          } else {
-            this.set('items', data.slice(3));
-          }
+          this.set('fallbackItems', data.slice(3));
 
           if (!this.isDestroyed) {
             this.listRendered.resolve();
@@ -233,11 +222,7 @@ export default Component.extend(
     didEnterViewport() {
       if (this.applicationWrapperVisible) {
         this.fetchTopArticles();
-
-        if (this.shouldUseExperimentalRecommendationService) {
-          this.fetchRecommendedData();
-        }
-
+        this.fetchRecommendedData();
         this.sponsoredContent.fetchData();
 
         this.set('sponsoredItemDisplayed', true);
