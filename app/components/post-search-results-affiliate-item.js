@@ -16,7 +16,7 @@ export default Component.extend({
 
   wikiId: reads('wikiVariables.id'),
 
-  getUnitLink: computed('affiliateUnit', 'isInContent', 'articleId', function () {
+  getUnitLink: computed('affiliateUnit', 'isInContent', 'articleId', 'wikiId', function () {
     let link;
     if (this.isInContent && this.affiliateUnit.links && this.affiliateUnit.links.article) {
       this.affiliateUnit.link = this.affiliateUnit.links.article;
