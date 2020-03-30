@@ -7,6 +7,39 @@ h2[section] {
       display: block;
     }
   }
+
+  .chevron-wrapper {
+    align-items: center;
+    display: flex;
+    height: 44px;
+    margin-right: -$article-horizontal-padding;
+    padding: 9px 13px;
+
+    .chevron {
+      fill: $wds-fandom-color-middle-gray;
+    }
+  }
+
+  .vertical-separator {
+    border-left: 1px solid $wds-fandom-color-middle-gray;
+    height: 26px;
+    width: 1px;
+  }
+
+  .section-edit-link {
+    align-items: center;
+    color: $wds-fandom-color-middle-gray;
+    display: flex;
+    height: 44px;
+    padding: 9px 13px;
+  }
+}
+
+.hide-edit-links h2[section] {
+  .section-edit-link,
+  .vertical-separator {
+    display: none;
+  }
 }
 
 .mobile-hidden {
