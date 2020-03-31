@@ -1,0 +1,7 @@
+{
+  "name": "@fandom/mobile-wiki-styles",
+  "version": "1.0.0-test",
+  "publishConfig": {
+    "registry": "https://artifactory.wikia-inc.com/artifactory/api/npm/wikia-npm/"
+  }
+}
