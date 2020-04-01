@@ -270,6 +270,10 @@ class Ads {
       return;
     }
 
+    if (mediaWikiAdsContext.user && !!mediaWikiAdsContext.user.isSubjectToCoppa && window.M.geoRequiresSignal) {
+      window.__uspapi('showConsentTool', true);
+    }
+
     const { events, eventService, utils } = window.Wikia.adEngine;
 
     eventService.emit(events.PAGE_RENDER_EVENT, {
