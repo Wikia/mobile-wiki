@@ -384,9 +384,19 @@ export default Route.extend(
       uaDimensions[28] = model.get('hasPortableInfobox') ? 'yes' : 'no';
       uaDimensions[29] = model.get('featuredVideo') ? 'yes' : 'no';
 
+      const wikiPageDataShoebox = document.getElementById('shoebox-wikiPage');
+      let rolloutTracking = '';
+      if (wikiPageDataShoebox) {
+        const wikiPageData = JSON.parse(wikiPageDataShoebox.innerHTML);
+        if (wikiPageData && wikiPageData.data && wikiPageData.data.isUcp) {
+          rolloutTracking = 'ucp';
+        }
+      }
+
       setTrackContext({
         a: model.get('id'),
         n: namespace,
+        rollout_tracking: rolloutTracking,
       });
 
       trackPageView(this.initialPageView.isInitialPageView(), uaDimensions);
