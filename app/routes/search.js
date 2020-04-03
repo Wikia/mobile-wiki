@@ -91,10 +91,12 @@ export default Route.extend(
         scheduleOnce('afterRender', this, () => {
           const controller = this.controllerFor('search');
 
-          // Reset article id and namespace to null when navigating from article page
+          // Reset article id, namespace and rollout_tracking to null
+          // when navigating from article page
           setTrackContext({
             a: null,
             n: null,
+            rollout_tracking: null,
           });
 
           trackPageView(this.initialPageView.isInitialPageView());
