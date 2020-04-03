@@ -270,7 +270,11 @@ class Ads {
       return;
     }
 
-    if (mediaWikiAdsContext.user && !!mediaWikiAdsContext.user.isSubjectToCoppa && window.M.geoRequiresSignal) {
+    if (
+      mediaWikiAdsContext.user
+      && !!mediaWikiAdsContext.user.isSubjectToCoppa
+      && window.M.geoRequiresSignal
+    ) {
       window.__uspapi('showConsentTool', true);
     }
 
