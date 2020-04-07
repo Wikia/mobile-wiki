@@ -123,11 +123,11 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     this.player = player;
 
     this.player.on('autoplayToggle', ({ enabled }) => {
-      this.setCookie(this.autoplayCookieName, (enabled ? '1' : '0'), this.runtimeConfig.cookieDomain);
+      this.setCookie(this.autoplayCookieName, (enabled ? '1' : '0'), '/', this.runtimeConfig.cookieDomain);
     });
 
     this.player.on('captionsSelected', ({ selectedLang }) => {
-      this.setCookie(this.captionsCookieName, selectedLang, this.runtimeConfig.cookieDomain);
+      this.setCookie(this.captionsCookieName, selectedLang, '/', this.runtimeConfig.cookieDomain);
     });
 
     this.player.on('relatedVideoPlay', ({ item }) => {
@@ -220,11 +220,11 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     }
   },
 
-  setCookie(cookieName, cookieValue, domain) {
+  setCookie(cookieName, cookieValue, path, domain) {
     window.Cookies.set(cookieName, cookieValue, {
       domain,
       expires: this.playerCookieExpireDays,
-      path: '/',
+      path,
     });
   },
 
@@ -232,10 +232,10 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     if (!this.hasSeenTheVideoInCurrentSession()) {
       const currentSession = window.Cookies.get('wikia_session_id');
 
-      this.setCookie(this.videoSeenInSessionCookieName, currentSession);
-      this.setCookie('playerImpressionsInSession', 1);
+      this.setCookie(this.videoSeenInSessionCookieName, currentSession, '/');
+      this.setCookie('playerImpressionsInSession', 1, this.wikiVariables.scriptPath);
     } else {
-      this.setCookie('playerImpressionsInSession', this.getPlayerImpressionsInSession() + 1);
+      this.setCookie('playerImpressionsInSession', this.getPlayerImpressionsInSession() + 1, this.wikiVariables.scriptPath);
     }
   },
 
