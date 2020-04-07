@@ -84,6 +84,7 @@ module.exports = function (defaults) {
       lazysizes: `${inlineScriptsPath}lazysizes.js`,
       'rubik-font': `${inlineScriptsPath}rubik-font.js`,
       'featured-video': `${inlineScriptsPath}featured-video.js`,
+      'google-tag-manager': `${inlineScriptsPath}google-tag-manager.js`,
     },
     outputPaths: {
       app: {
