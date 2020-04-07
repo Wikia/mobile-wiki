@@ -233,9 +233,9 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
       const currentSession = window.Cookies.get('wikia_session_id');
 
       this.setCookie(this.videoSeenInSessionCookieName, currentSession, '/');
-      this.setCookie('playerImpressionsInSession', 1, this.wikiVariables.scriptPath);
+      this.setCookie('playerImpressionsInWiki', 1, this.wikiVariables.scriptPath);
     } else {
-      this.setCookie('playerImpressionsInSession', this.getPlayerImpressionsInSession() + 1, this.wikiVariables.scriptPath);
+      this.setCookie('playerImpressionsInWiki', this.getPlayerImpressionsInWiki() + 1, this.wikiVariables.scriptPath);
     }
   },
 
@@ -247,7 +247,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   getNormalizedPlaylistIndex(playlist) {
-    const impressions = this.getPlayerImpressionsInSession();
+    const impressions = this.getPlayerImpressionsInWiki();
 
     return impressions > playlist.length ? impressions % playlist.length : impressions;
   },
@@ -256,12 +256,12 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     return window.Cookies.get('wikia_session_id') === window.Cookies.get(this.videoSeenInSessionCookieName);
   },
 
-  getPlayerImpressionsInSession() {
+  getPlayerImpressionsInWiki() {
     if (!this.hasSeenTheVideoInCurrentSession()) {
       return 0;
     }
 
-    return Number(window.Cookies.get('playerImpressionsInSession'));
+    return Number(window.Cookies.get('playerImpressionsInWiki'));
   },
 
   resizeVideo() {
