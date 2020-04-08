@@ -519,6 +519,9 @@ export const defaultAdContext = {
       enabled: false,
       siteId: '1167',
     },
+    externalLogger: {
+      endpoint: '/wikia.php?controller=AdEngine&method=postLog',
+    },
     instantConfig: {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
       fallbackConfigKey: 'fallbackInstantConfig',
