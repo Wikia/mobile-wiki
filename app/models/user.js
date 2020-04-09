@@ -164,6 +164,7 @@ export default EmberObject.extend({
         namespace: 'User',
         title: userData.name,
       }),
+      isSubjectToCoppa: !!userData.is_subject_to_coppa,
     };
   },
 
