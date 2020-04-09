@@ -295,19 +295,14 @@ class Ads {
    * This trigger is executed once, at the very beginning
    */
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
-    const { eventService } = window.Wikia.adEngine;
     const {
-      confiant, durationMedia, moatYiEvents,
+      confiant, durationMedia,
     } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
         confiant.call();
         durationMedia.call();
-
-        eventService.on(moatYiEvents.MOAT_YI_READY, (data) => {
-          pageTracker.trackProp('moat_yi', data);
-        });
       });
   }
 
@@ -397,12 +392,11 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      moatYi, nielsen, permutive, taxonomyService,
+      nielsen, permutive, taxonomyService,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
     permutive.call();
-    moatYi.call();
     nielsen.call({
       type: 'static',
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
