@@ -1,0 +1,8 @@
+@mixin article-table-wrapper {
+  background-color: $wds-color-white;
+  border: 1px solid $wds-fandom-color-mid-light-gray;
+  box-shadow: 0 6px 10px 0 rgba(26, 26, 26, .1);
+  margin-bottom: 24px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
