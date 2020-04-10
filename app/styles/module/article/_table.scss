@@ -1,5 +1,6 @@
 .article-table-wrapper {
-  // `article-table-wrapper` and `table-plain` have been extracted to separate files to use them in Mobile VE (UCP)
+  // `article-table-wrapper`, `table-plain` and `table-cell` have been extracted to separate files to use them in Mobile VE (UCP)
   @include article-table-wrapper;
   @import 'table-plain';
+  @import 'table-cell';
 }
