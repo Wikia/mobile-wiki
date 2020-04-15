@@ -176,6 +176,11 @@ export const adsSetup = {
     context.set('options.optOutSale', consents.isSaleOptOut);
     context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
+    context.set(
+      'options.jwplayerA9LoggerErrorCodes',
+      instantConfig.get('icA9LoggerErrorCodes'),
+    );
+
     if (instantConfig.get('icPorvataDirect')) {
       context.set('slots.incontent_player.customFiller', 'porvata');
       fillerService.register(new PorvataFiller());

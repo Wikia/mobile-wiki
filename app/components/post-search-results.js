@@ -70,7 +70,7 @@ export default Component.extend(
       if (this.unit && this.unit.tagline) {
         return this.unit.tagline;
       }
-      return this.i18n.t('main.search-post-items-header');
+      return this.i18n.t('main.search-post-items-header', { ns: 'search' });
     }),
 
     didInsertElement() {
