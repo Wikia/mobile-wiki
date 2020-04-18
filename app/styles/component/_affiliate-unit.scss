@@ -93,10 +93,16 @@
 .article-content .aff-big-unit {
   margin: 28px -.75rem -22px;
 
-  &__slant {
-    background-image: linear-gradient(-5deg, rgba(255, 255, 255, 0) 5%, $infobox-background 60%, rgba(255, 255, 255, 0) 60%);
-    height: 130px;
-    margin: -10px 0 -56px;
+  &__diagonal {
+    &__slant {
+      background-image: linear-gradient(-5deg, $infobox-background 50%, rgba(255, 255, 255, 0) 50%);
+      height: 45px;
+    }
+
+    &__fade {
+      background-image: linear-gradient($infobox-background, rgba(255, 255, 255, 0));
+      height: 35px;
+    }
   }
 
   &__link {
