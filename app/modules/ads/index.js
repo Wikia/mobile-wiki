@@ -296,11 +296,12 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
     const {
-      confiant, durationMedia,
+      confiant, durationMedia, identityLibrary,
     } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
+        identityLibrary.call();
         confiant.call();
         durationMedia.call();
       });
@@ -339,11 +340,9 @@ class Ads {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { identityLibrary, slotService } = window.Wikia.adEngine;
+    const { slotService } = window.Wikia.adEngine;
 
     const inhibitors = [];
-
-    identityLibrary.call();
 
     this.biddersInhibitor = null;
     bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
