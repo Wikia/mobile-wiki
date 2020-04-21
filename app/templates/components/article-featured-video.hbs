@@ -40,11 +40,13 @@
         class="article-featured-video__attribution-link"
         href={{currentVideoDetails.userUrl}}
       >
-        <img
-          class="article-featured-video__attribution-avatar"
-          src={{attributionAvatarUrl}}
-          alt={{currentVideoDetails.username}}
-        >
+        {{#if attributionAvatarUrl}}
+          <img
+            class="article-featured-video__attribution-avatar"
+            src={{attributionAvatarUrl}}
+              alt={{currentVideoDetails.username}}
+          >
+        {{/if}}
         {{i18n "featured-video.from"}}&nbsp;{{currentVideoDetails.username}}
         <Icon @name="arrow" @size="tiny" class="article-featured-video__attribution-icon" />
       </a>
