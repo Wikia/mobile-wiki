@@ -339,9 +339,11 @@ class Ads {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { slotService } = window.Wikia.adEngine;
+    const { identityLibrary, slotService } = window.Wikia.adEngine;
 
     const inhibitors = [];
+
+    identityLibrary.call();
 
     this.biddersInhibitor = null;
     bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
