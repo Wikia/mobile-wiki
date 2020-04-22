@@ -296,11 +296,12 @@ class Ads {
    */
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
     const {
-      confiant, durationMedia,
+      confiant, durationMedia, identityLibrary,
     } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
+        identityLibrary.call();
         confiant.call();
         durationMedia.call();
       });
