@@ -32,7 +32,7 @@ export default Component.extend(
     affiliateSlots: service(),
 
     tagName: 'article',
-    classNames: ['article-content', 'mw-content'],
+    classNames: ['article-content', 'mw-content', 'hide-edit-links'],
     attributeBindings: ['lang', 'dir'],
     adsContext: null,
     content: null,
