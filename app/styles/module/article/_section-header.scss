@@ -1,3 +1,4 @@
+h1[section],
 h2[section] {
   align-items: center;
   display: flex;
@@ -35,10 +36,13 @@ h2[section] {
   }
 }
 
-.hide-edit-links h2[section] {
-  .section-edit-link,
-  .vertical-separator {
-    display: none;
+.hide-edit-links {
+  h1[section],
+  h2[section] {
+    .section-edit-link,
+    .vertical-separator {
+      display: none;
+    }
   }
 }
 

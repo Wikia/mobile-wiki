@@ -532,15 +532,14 @@ export default Component.extend(
     handleCollapsibleSectionHeaderClick(event) {
       const header = event.currentTarget;
 
+      if (event.target.closest('.section-edit-link')) {
+        return;
+      }
+
       this.toogleCollapsibleSection(header);
     },
 
     toogleCollapsibleSection(header) {
-      // Temporary fix for caching issues, it can be removed after all caches expire
-      if (!header.hasAttribute('aria-controls')) {
-        return;
-      }
-
       const section = header.nextElementSibling;
       let visible = 'false';
 
@@ -558,12 +557,12 @@ export default Component.extend(
     },
 
     handleCollapsibleSections() {
-      toArray(this.element.querySelectorAll('h2[section]'))
+      toArray(this.element.querySelectorAll('h1[section],h2[section]'))
         .forEach(header => header.addEventListener('click', this.handleCollapsibleSectionHeaderClick.bind(this)));
     },
 
     uncollapseSections() {
-      toArray(this.element.querySelectorAll('h2[section]:not(.open-section)'))
+      toArray(this.element.querySelectorAll('h1[section]:not(.open-section),h2[section]:not(.open-section)'))
         .forEach(header => this.toogleCollapsibleSection(header));
     },
 
