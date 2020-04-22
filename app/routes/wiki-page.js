@@ -134,9 +134,10 @@ export default Route.extend(
         const surrogateKeys = model.get('surrogateKeys');
         let redirectTo = model.get('redirectTo');
 
-        if (model.isRandomPage) {
+        if (model.redirected || model.isRandomPage) {
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
         }
+
         if (fastboot.get('isFastBoot')) {
           if (surrogateKeys) {
             surrogateKeys.forEach((key) => {
