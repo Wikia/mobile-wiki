@@ -8,7 +8,7 @@
   }
 
   function hasMaxedOutPlayerImpressionsPerSession() {
-    var impressionsSoFar = Number(getCookieValue('playerImpressionsInSession')) || 0;
+    var impressionsSoFar = Number(getCookieValue('playerImpressionsInWiki')) || 0;
     var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
     var allowedImpressions = allowedImpressionsMetaTag ? Number(allowedImpressionsMetaTag.getAttribute('content')) : 1;
 

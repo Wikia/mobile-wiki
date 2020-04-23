@@ -176,6 +176,11 @@ export const adsSetup = {
     context.set('options.optOutSale', consents.isSaleOptOut);
     context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
+    context.set(
+      'options.jwplayerA9LoggerErrorCodes',
+      instantConfig.get('icA9LoggerErrorCodes'),
+    );
+
     if (instantConfig.get('icPorvataDirect')) {
       context.set('slots.incontent_player.customFiller', 'porvata');
       fillerService.register(new PorvataFiller());
@@ -183,7 +188,7 @@ export const adsSetup = {
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
-    context.set('services.moatYi.enabled', instantConfig.get('icMoatYieldIntelligence'));
+    context.set('services.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
     context.set('services.permutive.enabled', instantConfig.get('icPermutive')
       && !context.get('wiki.targeting.directedAtChildren'));
