@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Suggestion pour vous", 
-    "disclaimer": "DIVULGATION : Certains des liens ci-dessus sont des liens d'affiliation, ce qui signifie que, sans frais supplémentaires pour vous, Fandom percevra une commission si vous cliquez et effectuez un achat."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Publicité", 
@@ -34,6 +34,7 @@
     "categories-list-label": "Catégories", 
     "comments-label": "commentaire ({count})", 
     "comments-label_plural": "commentaires ({count})", 
+    "edit-article": "Modifier la page", 
     "empty-label": "Désolés, il semble que cet article soit vide !", 
     "error": "Désolés, nous n'avons pas pu charger l'article. Veuillez réessayer.", 
     "language-links-label": "Autres langues", 

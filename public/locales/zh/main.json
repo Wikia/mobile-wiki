@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "向您推荐", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "广告", 
@@ -34,6 +34,7 @@
     "categories-list-label": "分类", 
     "comments-label": "评论({count})", 
     "comments-label_plural": "评论({count})", 
+    "edit-article": "编辑页面", 
     "empty-label": "对不起，这篇文章似乎沒有內容！", 
     "error": "对不起，我们无法加载这篇文章。请再试一次。", 
     "language-links-label": "其他语言", 

@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Sugerowane dla ciebie", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Reklama", 
@@ -34,6 +34,7 @@
     "categories-list-label": "Kategorie", 
     "comments-label": "Komentarze ({count})", 
     "comments-label_plural": "komentarze ({count})", 
+    "edit-article": "Edycja strony", 
     "empty-label": "Niestety ten artykuł wydaje się być pusty!", 
     "error": "Przepraszamy, nie mogliśmy załadować artykułu. Spróbuj ponownie.", 
     "language-links-label": "Inne języki", 
