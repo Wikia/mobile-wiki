@@ -753,7 +753,8 @@
             ],
             "regions": [
                 "FR",
-                "PL"
+                "PL",
+                "SE"
             ],
             "value": true
         }
@@ -950,6 +951,21 @@
             ],
             "regions": [
                 "XX"
+            ],
+            "value": true
+        }
+    ],
+    "icIxIdentityLibrary": [
+        {
+            "apps": [
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "regions": [
+                "NZ"
             ],
             "value": true
         }
