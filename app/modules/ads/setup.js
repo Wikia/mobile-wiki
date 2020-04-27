@@ -188,6 +188,7 @@ export const adsSetup = {
 
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
+    context.set('services.iasPublisherOptimization.enabled', instantConfig.get('icIASPublisherOptimization'));
     context.set('services.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
     context.set('services.permutive.enabled', instantConfig.get('icPermutive')
