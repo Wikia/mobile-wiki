@@ -37,7 +37,7 @@
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#d12e79e46c33c889560b2b4b26af034c8c21b2c9",
     "@wikia/post-quecast": "1.2.0",
     "@wikia/search-tracking": "github:Wikia/search-tracking#2.0.0",
-    "@wikia/tracking-opt-in": "3.0.5",
+    "@wikia/tracking-opt-in": "3.0.6",
     "body-parser": "1.19.0",
     "bunyan-prettystream": "0.1.3",
     "compression": "1.7.4",
