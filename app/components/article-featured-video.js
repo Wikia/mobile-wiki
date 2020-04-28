@@ -34,7 +34,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   currentVideoDetails: oneWay('initialVideoDetails'),
   metadata: reads('model.metadata'),
   placeholderImage: readOnly('initialVideoDetails.image'),
-  hasAttribution: and('currentVideoDetails.{username,userUrl,userAvatarUrl}'),
+  hasAttribution: and('currentVideoDetails.{username,userUrl}'),
 
   // initial video duration is in seconds, related video duration is a formatted string `MM:SS`
   videoDuration: computed('currentVideoDetails', function () {
