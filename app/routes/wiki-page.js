@@ -155,6 +155,8 @@ export default Route.extend(
           } else {
             this.transitionTo('wiki-page', encodedTitle);
           }
+
+          return;
         }
 
         if (handler) {
