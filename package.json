@@ -51,7 +51,7 @@
     "ember-uuid": "2.1.0",
     "express-bunyan-logger": "1.3.3",
     "express-prom-bundle": "5.1.5",
-    "fastboot": "3.0.2",
+    "fastboot": "3.0.3",
     "fastboot-app-server": "2.0.0",
     "hammerjs": "2.0.8",
     "js-cookie": "2.2.1",
