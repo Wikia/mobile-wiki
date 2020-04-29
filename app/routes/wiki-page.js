@@ -135,7 +135,14 @@ export default Route.extend(
         let redirectTo = model.get('redirectTo');
 
         if (model.redirected || model.isRandomPage) {
-          this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
+          const encodedTitle = encodeURIComponent(normalizeToUnderscore(model.title));
+
+          if (fastboot.get('isFastBoot')) {
+            fastboot.get('response.headers').set('location', encodedTitle);
+            fastboot.set('response.statusCode', model.isRandomPage ? 307 : 301);
+          } else {
+            this.transitionTo('wiki-page', encodedTitle);
+          }
         }
 
         if (fastboot.get('isFastBoot')) {
