@@ -58,7 +58,7 @@ export default Service.extend({
   setupAdsContext(adsContext) {
     adsContext.user = {
       isAuthenticated: this.currentUser.isAuthenticated,
-      isSubjectToCoppa: this.currentUser.isSubjectToCoppa,
+      isSubjectToCcpa: this.currentUser.isSubjectToCcpa,
     };
 
     this.get('module').afterTransition(adsContext);
