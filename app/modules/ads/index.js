@@ -272,7 +272,7 @@ class Ads {
 
     if (
       mediaWikiAdsContext.user
-      && !!mediaWikiAdsContext.user.isSubjectToCoppa
+      && !!mediaWikiAdsContext.user.isSubjectToCcpa
       && window.M.geoRequiresSignal
     ) {
       window.__uspapi('showConsentTool', true);

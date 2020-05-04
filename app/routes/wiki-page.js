@@ -134,7 +134,7 @@ export default Route.extend(
         const surrogateKeys = model.get('surrogateKeys');
         let redirectTo = model.get('redirectTo');
 
-        if (model.redirected || model.isRandomPage) {
+        if (model.isRandomPage) {
           this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(model.title)));
         }
 
@@ -145,6 +145,20 @@ export default Route.extend(
             });
           }
         }
+
+        if (model.redirected) {
+          const encodedTitle = encodeURIComponent(normalizeToUnderscore(model.title));
+
+          if (fastboot.get('isFastBoot')) {
+            fastboot.get('response.headers').set('location', encodedTitle);
+            fastboot.set('response.statusCode', 301);
+          } else {
+            this.transitionTo('wiki-page', encodedTitle);
+          }
+
+          return;
+        }
+
         if (handler) {
           scheduleOnce('afterRender', () => {
             // Tracking has to happen after transition is done.
