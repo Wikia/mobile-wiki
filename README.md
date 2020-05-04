@@ -112,8 +112,9 @@ Now you need to fetch all dependencies (this can take quite some time for the fi
 docker run --rm -v `pwd`:/app -e GITHUB_TOKEN="$GITHUB_TOKEN" -e LOCAL_USER_ID=`id -u $USER` artifactory.wikia-inc.com/mobile-wiki/mobile-wiki-devbox:latest npm run setup
 ```
 
-**NOTES**: If you're using `zsh` or similar shell, make sure that `"` are escaped.
-If github authentication failed remove .gitconfig file from mobile-wiki.
+**NOTES**: 
+* If you're using `zsh` or similar shell, make sure that `"` are escaped.
+* If github authentication failed remove .gitconfig file from mobile-wiki.
 
 #### (Re)building the docker image
 Whenever you add a new global dependency you should rebuild your mobile-wiki container. To do that you need to run:
