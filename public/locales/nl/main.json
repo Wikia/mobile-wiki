@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Suggested For You", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Advertisement", 
@@ -34,6 +34,7 @@
     "categories-list-label": "Categorieën", 
     "comments-label": "comment ({count})", 
     "comments-label_plural": "comments ({count})", 
+    "edit-article": "Edit page", 
     "empty-label": "Sorry, dit artikel lijkt leeg te zijn!", 
     "error": "Sorry, we couldn't load the article. Please try again.", 
     "language-links-label": "Other Languages", 

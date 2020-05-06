@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Рекомендовано вам", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Реклама", 
@@ -34,6 +34,7 @@
     "categories-list-label": "Категории", 
     "comments-label": "комментарий ({count})", 
     "comments-label_plural": "комментариев ({count})", 
+    "edit-article": "Редактировать страницу", 
     "empty-label": "Кажется, эта статья пустая!", 
     "error": "Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте снова.", 
     "language-links-label": "На других языках", 

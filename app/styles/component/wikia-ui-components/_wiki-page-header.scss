@@ -30,5 +30,28 @@
   &__title-wrapper {
     margin-bottom: 1.875rem;
     width: 100%;
+
+    &.has-edit-link {
+      margin-bottom: 1.07rem;
+    }
+  }
+
+  &__edit-link {
+    color: $wds-fandom-color-dark-gray;
+    display: block;
+    margin: 0 auto;
+    padding: 16px 22px 13px;
+    text-transform: uppercase;
+    width: fit-content;
+
+    // hiding editing in mobile apps
+    .is-full-page & {
+      display: none;
+    }
+
+    svg {
+      margin-right: 3px;
+      vertical-align: text-top;
+    }
   }
 }
