@@ -36,7 +36,9 @@ h2[section] {
   }
 }
 
-.hide-edit-links {
+.hide-edit-links,
+// hiding editing in mobile apps
+.is-full-page {
   h1[section],
   h2[section] {
     .section-edit-link,
