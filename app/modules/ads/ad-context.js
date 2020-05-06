@@ -526,6 +526,15 @@ export const defaultAdContext = {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
       fallbackConfigKey: 'fallbackInstantConfig',
     },
+    iasPublisherOptimization: {
+      pubId: '930616',
+      slots: [
+        'top_leaderboard',
+        'top_boxad',
+        'incontent_boxad_1',
+        'bottom_leaderboard',
+      ],
+    },
     nielsen: {
       enabled: false,
       appId: 'P26086A07-C7FB-4124-A679-8AC404198BA7',

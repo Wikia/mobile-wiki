@@ -272,7 +272,7 @@ class Ads {
 
     if (
       mediaWikiAdsContext.user
-      && !!mediaWikiAdsContext.user.isSubjectToCoppa
+      && !!mediaWikiAdsContext.user.isSubjectToCcpa
       && window.M.geoRequiresSignal
     ) {
       window.__uspapi('showConsentTool', true);
@@ -393,10 +393,11 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      nielsen, permutive, taxonomyService,
+      iasPublisherOptimization, nielsen, permutive, taxonomyService,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
+    iasPublisherOptimization.call();
     permutive.call();
     nielsen.call({
       type: 'static',
