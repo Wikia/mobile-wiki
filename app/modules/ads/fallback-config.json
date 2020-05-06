@@ -177,6 +177,25 @@
             "value": true
         }
     ],
+    "icIASPublisherOptimization": [
+        {
+            "apps": [
+                "f2",
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "AU",
+                "CA",
+                "DE",
+                "GB",
+                "PL",
+                "UK",
+                "US"
+            ],
+            "value": true
+        }
+    ],
     "icFloorAdhesion": [
         {
             "apps": [
@@ -740,7 +759,10 @@
                 "5340108841",
                 "5340108844",
                 "5355041410",
-                "5361162186"
+                "5361162186",
+                "5363972065",
+                "5363972611",
+                "5363972614"
             ]
         }
     ],
@@ -755,7 +777,9 @@
             ],
             "value": [
                 "icPrebidSendAllBids_A_95:send_all_bids_a",
-                "icPrebidSendAllBids_B_5:send_all_bids_b"
+                "icPrebidSendAllBids_B_5:send_all_bids_b",
+                "icFloatingMedrecRecirculationDisabled_A_50:fmr_50_50_a",
+                "icFloatingMedrecRecirculationDisabled_B_50:fmr_50_50_b"
             ]
         }
     ],
