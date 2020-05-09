@@ -905,8 +905,10 @@
         {
             "apps": [
                 "f2",
+                "futhead",
                 "gamepedia",
                 "mobile-wiki",
+                "muthead",
                 "oasis"
             ],
             "regions": [
