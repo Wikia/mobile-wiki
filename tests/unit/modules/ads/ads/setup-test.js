@@ -40,6 +40,7 @@ module('Unit | Module | ads | setup', (hooks) => {
       },
       events,
       eventService,
+      GAMOrigins: ['https://foo.com', 'https://bar.com'],
       InstantConfigService: {
         init: (globals = { wgAdDriverBillTheLizardConfig: {} }) => Promise.resolve({
           get: key => globals[key],
