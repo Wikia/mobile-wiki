@@ -546,6 +546,16 @@
                 "DK"
             ],
             "value": true
+        },
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "PL"
+            ],
+            "value": false
         }
     ],
     "icA9Deals": [
@@ -949,6 +959,32 @@
                 "XX"
             ],
             "value": true
+        }
+    ],
+    "icA9BidRefreshingSlots": [
+        {
+            "apps": [
+                "mobile-wiki"
+            ],
+            "regions": [
+                "CZ",
+                "DK"
+            ],
+            "value": [
+                "mobile_in_content"
+            ]
+        },
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "PL"
+            ],
+            "value": [
+                "featured"
+            ]
         }
     ],
     "icPorvataDirect": [
