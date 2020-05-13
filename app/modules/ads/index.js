@@ -393,10 +393,11 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      iasPublisherOptimization, nielsen, permutive, taxonomyService,
+      facebookPixel, iasPublisherOptimization, nielsen, permutive, taxonomyService,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
+    facebookPixel.call();
     iasPublisherOptimization.call();
     permutive.call();
     nielsen.call({
