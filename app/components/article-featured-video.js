@@ -263,7 +263,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   isVideoBridgeAllowedForCountry() {
-    const countryCode = geo.getCountryCode();
+    const countryCode = this.geo.getCountryCode();
     const videoBridgeCountries = this.get('wikiVariables.videoBridgeCountries');
 
     return countryCode && videoBridgeCountries && (videoBridgeCountries.indexOf(countryCode) !== -1 ||
