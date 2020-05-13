@@ -20,6 +20,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   video: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
+  geo: service(),
 
   classNames: ['article-featured-video'],
   classNameBindings: ['isOnScrollActive'],
@@ -167,11 +168,16 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     this.onScrollVideoWrapper.addEventListener('transitionend', this.resizeVideo);
   },
 
+
+
   /**
    * @returns {void}
    */
   initVideoPlayer() {
-    if (!window.canPlayVideo(true)) {
+    if (
+      !window.canPlayVideo(true) ||
+      (!this.get('model.isDedicatedForArticle') && this.isVideoBridgeAllowedForCountry())
+    ) {
       document.body.classList.add('no-featured-video');
       this.video.set('hasFeaturedVideo', false);
 
@@ -254,6 +260,15 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
   hasSeenTheVideoInCurrentSession() {
     return window.Cookies.get('wikia_session_id') === window.Cookies.get(this.videoSeenInSessionCookieName);
+  },
+
+  isVideoBridgeAllowedForCountry() {
+    const countryCode = geo.getCountryCode();
+    const videoBridgeCountries = this.get('wikiVariables.videoBridgeCountries');
+
+    return countryCode && videoBridgeCountries && (videoBridgeCountries.indexOf(countryCode) !== -1 ||
+      videoBridgeCountries.indexOf(countryCode.toLowerCase) !== -1 ||
+      videoBridgeCountries.indexOf(countryCode.toUpperCase) !== -1);
   },
 
   getPlayerImpressionsInWiki() {
