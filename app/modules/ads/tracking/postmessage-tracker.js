@@ -2,6 +2,7 @@ import { track, TrackingMethod } from '../../../utils/track';
 
 export function registerPostmessageTrackingTracker() {
   const {
+    GAMOrigins,
     PostmessageTracker,
     TrackingTarget,
     trackingPayloadValidationMiddleware,
@@ -35,6 +36,7 @@ export function registerPostmessageTrackingTracker() {
             break;
         }
       },
+      [window.origin, ...GAMOrigins],
     );
 }
 
