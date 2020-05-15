@@ -263,12 +263,12 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   },
 
   isVideoBridgeAllowedForCountry() {
-    const countryCode = this.geo.getCountryCode();
-    const videoBridgeCountries = this.get('wikiVariables.videoBridgeCountries');
+    const countryCode = this.geo.getCountryCode().toLowerCase();
+    const allowedCountries = (this.get('wikiVariables.videoBridgeCountries') || []).map(
+      allowedCountryCode => allowedCountryCode.toLowerCase()
+    );
 
-    return countryCode && videoBridgeCountries && (videoBridgeCountries.indexOf(countryCode) !== -1 ||
-      videoBridgeCountries.indexOf(countryCode.toLowerCase) !== -1 ||
-      videoBridgeCountries.indexOf(countryCode.toUpperCase) !== -1);
+    return countryCode && allowedCountries.indexOf(countryCode) !== -1;
   },
 
   getPlayerImpressionsInWiki() {
