@@ -26,7 +26,9 @@ export default Component.extend(
     displayEmptyArticleInfo: true,
     displayArticleWrapper: true,
 
-    showComments: gte('model.comments', 0),
+    // todo fixme
+    // showComments: gte('model.comments', 0),
+    showComments: true,
     hasFeaturedVideo: bool('model.featuredVideo'),
     smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
 

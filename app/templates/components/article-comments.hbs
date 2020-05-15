@@ -6,39 +6,7 @@
   <Icon @name="menu-control" @size="tiny" class="chevron" />
 </div>
 {{#if showComments}}
-  {{#if commentsCount}}
-    <ul class="comments wds-font-size-xs {{if commentsHidden "wds-is-hidden"}}">
-      {{#each comments as |comment|}}
-        {{article-comment comment=comment users=users}}
-      {{/each}}
-    </ul>
-    <div class="comments__navigation">
-      <Button
-        class="page-button prev-page-button"
-        @onClick={{action "prevPage"}}
-        @disabled={{this.prevButtonDisabled}}
-        @secondary={{true}}
-        @square={{true}}
-      >
-        <Icon @name="menu-control" @size="tiny" />
-      </Button>
-
-      <Button
-        class="page-button next-page-button"
-        @onClick={{action "nextPage"}}
-        @disabled={{this.nextButtonDisabled}}
-        @secondary={{true}}
-        @square={{true}}
-      >
-        <Icon @name="menu-control" @size="tiny" />
-      </Button>
-    </div>
-  {{else}}
-    <div class="comments__no-comments wds-font-size-s">
-      <Icon @name="comment" class="comments__reply-icon" />
-      <div>{{i18n "article-comments.no-comments"}}</div>
-    </div>
-  {{/if}}
+  <div id="articleComments"></div>
 
   <div class="comments__add-comment">
     <Button @href="?useskin=oasis#WikiaArticleComments">
