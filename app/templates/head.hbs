@@ -180,6 +180,10 @@
 {{#if model.playerImpressionsPerSession}}
   <meta name="featured-video:impressions-per-session" content={{model.playerImpressionsPerSession}}>
 {{/if}}
+
+{{#if model.videoBridgeCountries}}
+  <meta name="featured-video:video-bridge-countries" content={{model.videoBridgeCountries}}>
+{{/if}}
 {{! end of video tags}}
 
 {{#if model.lazyCss}}

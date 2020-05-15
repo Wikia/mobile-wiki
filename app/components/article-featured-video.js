@@ -168,15 +168,13 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
     this.onScrollVideoWrapper.addEventListener('transitionend', this.resizeVideo);
   },
 
-
-
   /**
    * @returns {void}
    */
   initVideoPlayer() {
     if (
-      !window.canPlayVideo(true) ||
-      (!this.get('model.isDedicatedForArticle') && this.isVideoBridgeAllowedForCountry())
+      !window.canPlayVideo(true)
+      || (!this.get('model.isDedicatedForArticle') && this.isVideoBridgeAllowedForCountry())
     ) {
       document.body.classList.add('no-featured-video');
       this.video.set('hasFeaturedVideo', false);
@@ -265,7 +263,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   isVideoBridgeAllowedForCountry() {
     const countryCode = this.geo.getCountryCode().toLowerCase();
     const allowedCountries = (this.get('wikiVariables.videoBridgeCountries') || []).map(
-      allowedCountryCode => allowedCountryCode.toLowerCase()
+      allowedCountryCode => allowedCountryCode.toLowerCase(),
     );
 
     return countryCode && allowedCountries.indexOf(countryCode) !== -1;
