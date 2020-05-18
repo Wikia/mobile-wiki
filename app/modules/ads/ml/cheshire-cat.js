@@ -169,9 +169,11 @@ export const cheshireCat = {
       }
     });
 
-    eventService.on(events.BIDS_REFRESH, () => {
-      cheshirecatCalled = true;
-      refreshedSlotNumber = incontentsCounter;
+    eventService.on(events.BIDS_REFRESH, (refreshedSlotNames) => {
+      if (refreshedSlotNames.includes(bidPosKeyVal)) {
+        cheshirecatCalled = true;
+        refreshedSlotNumber = incontentsCounter;
+      }
     });
 
     eventService.on(billTheLizardEvents.BILL_THE_LIZARD_RESPONSE, (event) => {
