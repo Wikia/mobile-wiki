@@ -20,7 +20,6 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
   video: service(),
   wikiVariables: service(),
   runtimeConfig: service(),
-  geo: service(),
 
   classNames: ['article-featured-video'],
   classNameBindings: ['isOnScrollActive'],
@@ -172,10 +171,7 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
    * @returns {void}
    */
   initVideoPlayer() {
-    if (
-      !window.canPlayVideo(true)
-      || (!this.get('model.isDedicatedForArticle') && this.isVideoBridgeAllowedForCountry())
-    ) {
+    if (!window.canPlayVideo(true)) {
       document.body.classList.add('no-featured-video');
       this.video.set('hasFeaturedVideo', false);
 
@@ -258,15 +254,6 @@ export default Component.extend(JWPlayerMixin, RespondsToScroll, {
 
   hasSeenTheVideoInCurrentSession() {
     return window.Cookies.get('wikia_session_id') === window.Cookies.get(this.videoSeenInSessionCookieName);
-  },
-
-  isVideoBridgeAllowedForCountry() {
-    const countryCode = this.geo.getCountryCode().toLowerCase();
-    const allowedCountries = (this.get('wikiVariables.videoBridgeCountries') || []).map(
-      allowedCountryCode => allowedCountryCode.toLowerCase(),
-    );
-
-    return countryCode && allowedCountries.indexOf(countryCode) !== -1;
   },
 
   getPlayerImpressionsInWiki() {
