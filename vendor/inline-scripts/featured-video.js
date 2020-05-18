@@ -10,17 +10,7 @@
   function hasMaxedOutPlayerImpressionsPerSession() {
     var impressionsSoFar = Number(getCookieValue('playerImpressionsInWiki')) || 0;
     var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
-    var videoBridgeCountriesMetaTag = document.head.querySelector('[name="featured-video:video-bridge-countries"]');
     var allowedImpressions = allowedImpressionsMetaTag ? Number(allowedImpressionsMetaTag.getAttribute('content')) : 1;
-    var videoBridgeCountries;
-
-    if (videoBridgeCountriesMetaTag) {
-      try {
-        videoBridgeCountries = JSON.parse(videoBridgeCountriesMetaTag.getAttribute('content'));
-      } catch (e) {
-        videoBridgeCountries = [];
-      }
-    }
 
     if (!hasSeenTheVideoInCurrentSession()) {
       return false;
@@ -48,7 +38,7 @@
     }
   }
 
-  function isVideoBridgeAllowedForCountry() {
+  function isVideoBridgeAllowedForCountry(videoBridgeCountries) {
     var countryCode = getCountryCode();
     var allowedCountries = videoBridgeCountries.map(function (allowedCountryCode) {
       return allowedCountryCode.toLowerCase();
@@ -62,9 +52,19 @@
       var isDedicatedForArticle = !!document.head.querySelector('[name="featured-video:is-dedicated-for-article"]');
       var allowedImpressionsMetaTag = document.head.querySelector('[name="featured-video:impressions-per-session"]');
       var hasVideo = isDedicatedForArticle || allowedImpressionsMetaTag;
+      var videoBridgeCountriesMetaTag = document.head.querySelector('[name="featured-video:video-bridge-countries"]');
+      var videoBridgeCountries;
+
+      if (videoBridgeCountriesMetaTag) {
+        try {
+          videoBridgeCountries = JSON.parse(videoBridgeCountriesMetaTag.getAttribute('content'));
+        } catch (e) {
+          videoBridgeCountries = [];
+        }
+      }
 
       hasVideoOnPage = hasVideo && (isDedicatedForArticle ||
-        (!hasMaxedOutPlayerImpressionsPerSession() && isVideoBridgeAllowedForCountry())
+        (!hasMaxedOutPlayerImpressionsPerSession() && isVideoBridgeAllowedForCountry(videoBridgeCountries))
       );
     }
 
