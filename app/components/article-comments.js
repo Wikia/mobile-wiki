@@ -1,11 +1,11 @@
 import Component from '@ember/component';
-import {computed, get, observer} from '@ember/object';
-import {not} from '@ember/object/computed';
-import {scheduleOnce} from '@ember/runloop';
-import {inject as service} from '@ember/service';
+import { computed, get, observer } from '@ember/object';
+import { not } from '@ember/object/computed';
+import { scheduleOnce } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import scrollToTop from '../utils/scroll-to-top';
-import {track, trackActions} from '../utils/track';
-import {ArticleCommentsFetchError} from '../utils/errors';
+import { track, trackActions } from '../utils/track';
+import { ArticleCommentsFetchError } from '../utils/errors';
 
 /**
  * Component that displays article comments
@@ -163,9 +163,9 @@ export default Component.extend({
 
   fetchCommentsBasedOnPlatform() {
     if (this.isUcp) {
-      this.articleComments.load({title: this.articleTitle, id: this.articleId});
+      this.articleComments.load({ title: this.articleTitle, id: this.articleId });
     } else {
-      this.fetchComments(parseInt(page, 10));
+      this.fetchComments(parseInt(this.page, 10));
     }
   },
 });
