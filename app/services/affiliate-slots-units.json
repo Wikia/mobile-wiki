@@ -4,20 +4,10 @@
     "category": "hbomax",
     "country": ["US"],
     "heading": "Where HBO Meets So Much More",
-    "subheading": "START YOUR FREE TRAIL",
+    "subheading": "START YOUR FREE TRIAL",
     "link": "https://www.hbomax.com/gzm",
     "image": "https://static.wikia.nocookie.net/2ef28d1f-a27b-4ba3-943e-33948fddd089",
-    "extra_disclaimer": "Free trail for new customers only. Restrictions Apply."
-  },
-  {
-    "campaign": "ddb",
-    "category": "ddb-test-unit-id",
-    "tagline": "Suggested For You",
-    "image": "https://static.wikia.nocookie.net/2d18111c-bc45-458f-9898-d2d4e3a50589",
-    "heading": "CLICK ME FOR DDB",
-    "subheading": "DDB subheading",
-    "link": "https://www.dndbeyond.com/",
-    "country": ["US", "CA", "NL"]
+    "extraDisclaimer": "Free trial for new customers only. Restrictions Apply."
   },
   {
     "campaign": "ddb",
