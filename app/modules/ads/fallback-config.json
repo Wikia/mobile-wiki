@@ -553,9 +553,9 @@
                 "oasis"
             ],
             "regions": [
-                "PL"
+                "ES"
             ],
-            "value": false
+            "value": true
         }
     ],
     "icA9Deals": [
@@ -1000,7 +1000,7 @@
                 "oasis"
             ],
             "regions": [
-                "PL"
+                "ES"
             ],
             "value": [
                 "featured"
