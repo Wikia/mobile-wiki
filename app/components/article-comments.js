@@ -1,16 +1,20 @@
 import Component from '@ember/component';
-import { computed, observer } from '@ember/object';
-import { not } from '@ember/object/computed';
-import { scheduleOnce } from '@ember/runloop';
-import { inject as service } from '@ember/service';
+import {computed, get, observer} from '@ember/object';
+import {not} from '@ember/object/computed';
+import {scheduleOnce} from '@ember/runloop';
+import {inject as service} from '@ember/service';
 import scrollToTop from '../utils/scroll-to-top';
-import { track, trackActions } from '../utils/track';
+import {track, trackActions} from '../utils/track';
+import {ArticleCommentsFetchError} from '../utils/errors';
 
 /**
-  * Component that displays article comments
-*/
+ * Component that displays article comments
+ */
 export default Component.extend({
   preserveScroll: service(),
+  wikiVariables: service(),
+  wikiUrls: service(),
+  fetch: service(),
   articleComments: service(),
 
   classNames: ['article-comments', 'mw-content'],
@@ -19,6 +23,7 @@ export default Component.extend({
   articleId: null,
   commentsCount: null,
   model: null,
+  isUcp: false,
   isCollapsed: true,
 
   comments: null,
@@ -34,8 +39,8 @@ export default Component.extend({
   }),
 
   /**
-    * if articleId changes, resets component state
-  */
+   * if articleId changes, resets component state
+   */
   articleIdObserver: observer('articleId', function () {
     this.setProperties({
       page: null,
@@ -54,7 +59,7 @@ export default Component.extend({
    * and we should load comments and scroll to them
    *
    * @returns {void}
-  */
+   */
   didInsertElement() {
     const page = this.page;
 
@@ -62,7 +67,7 @@ export default Component.extend({
 
     if (page !== null) {
       this.set('isCollapsed', false);
-      this.articleComments.load({ title: this.articleTitle, id: this.articleId});
+      this.fetchCommentsBasedOnPlatform();
 
       scheduleOnce('afterRender', this, () => {
         this.scrollTop();
@@ -72,8 +77,30 @@ export default Component.extend({
 
   actions: {
     /**
-      * @returns {void}
-    */
+     * @returns {void}
+     */
+    nextPage() {
+      const page = parseInt(this.page, 10);
+
+      this.set('preserveScroll.preserveScrollPosition', true);
+      this.fetchComments(page + 1);
+      this.scrollTop();
+    },
+
+    /**
+     * @returns {void}
+     */
+    prevPage() {
+      const page = parseInt(this.page, 10);
+
+      this.set('preserveScroll.preserveScrollPosition', true);
+      this.fetchComments(page - 1);
+      this.scrollTop();
+    },
+
+    /**
+     * @returns {void}
+     */
     toggleComments() {
       this.set('preserveScroll.preserveScrollPosition', true);
       this.toggleProperty('isCollapsed');
@@ -81,7 +108,7 @@ export default Component.extend({
       if (this.isCollapsed) {
         this.set('page', null);
       } else {
-        this.articleComments.load({ title: this.articleTitle, id: this.articleId});
+        this.fetchCommentsBasedOnPlatform();
       }
 
       track({
@@ -94,5 +121,51 @@ export default Component.extend({
 
   scrollTop() {
     scrollToTop(this.element);
+  },
+
+  fetchComments(page) {
+    const articleId = this.articleId;
+
+    if (this.pagesCount !== null && page !== null && page > this.pagesCount) {
+      page = this.pagesCount;
+    }
+
+    if (page !== null && page < 1) {
+      page = 1;
+    }
+
+    if (page && articleId) {
+      this.fetch.fetchFromMediawiki(this.url(articleId, page), ArticleCommentsFetchError)
+        .then((data) => {
+          this.setProperties({
+            comments: get(data, 'payload.comments'),
+            users: get(data, 'payload.users'),
+            pagesCount: get(data, 'pagesCount'),
+          });
+        });
+      this.set('page', page);
+    }
+  },
+
+  url(articleId, page = 0) {
+    return this.wikiUrls.build({
+      host: this.get('wikiVariables.host'),
+      forceNoSSLOnServerSide: true,
+      path: '/wikia.php',
+      query: {
+        controller: 'MercuryApi',
+        method: 'getArticleComments',
+        id: articleId,
+        page,
+      },
+    });
+  },
+
+  fetchCommentsBasedOnPlatform() {
+    if (this.isUcp) {
+      this.articleComments.load({title: this.articleTitle, id: this.articleId});
+    } else {
+      this.fetchComments(parseInt(page, 10));
+    }
   },
 });
