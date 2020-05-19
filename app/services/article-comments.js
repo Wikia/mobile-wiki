@@ -61,6 +61,7 @@ export default Service.extend({
           path: '/wikia.php',
         }),
         userProfileBaseUrl: `${this.wikiUrls.build({ host: this.wikiVariables.host })}/User:`,
+        isReadOnly: true,
       };
 
       createComments({
