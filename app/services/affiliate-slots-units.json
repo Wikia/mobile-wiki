@@ -1,5 +1,16 @@
 [
   {
+    "campaign": "hbomax",
+    "category": "hbomax",
+    "country": ["US"],
+    "heading": "Where HBO Meets So Much More",
+    "subheading": "START YOUR FREE TRIAL",
+    "link": "https://www.hbomax.com/gzm",
+    "image": "https://static.wikia.nocookie.net/2ef28d1f-a27b-4ba3-943e-33948fddd089",
+    "extraDisclaimer": "Free trial for new customers only. Restrictions Apply.",
+    "isBig": true
+  },
+  {
     "campaign": "ddb",
     "category": "ddb-test-unit-id",
     "tagline": "Suggested For You",
