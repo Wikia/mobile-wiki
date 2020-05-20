@@ -114,6 +114,7 @@ const getProductionErrorMessage = function (errorCode) {
 export {
   getFetchErrorMessage,
   ArticleCommentsFetchError,
+  ArticleCommentCountError,
   CategoryMembersFetchError,
   DesignSystemFetchError,
   FetchError,
