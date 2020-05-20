@@ -1,5 +1,5 @@
 import Service, { inject as service } from '@ember/service';
-import { ArticleCommentsFetchError } from "../utils/errors";
+import { ArticleCommentsFetchError } from '../utils/errors';
 
 export default Service.extend({
   currentUser: service(),
@@ -43,7 +43,7 @@ export default Service.extend({
       },
     });
 
-    return this.fetch.fetchFromMediawiki(url, ArticleCommentsFetchError)
+    return this.fetch.fetchFromMediawiki(url, ArticleCommentsFetchError);
   },
 
   load({ title, id }) {
