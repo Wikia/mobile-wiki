@@ -39,6 +39,7 @@ export default Service.extend({
         controller: 'Fandom\\ArticleComments\\Api\\ArticleCommentsController',
         method: 'getCommentCount',
         articleId: id,
+        hideDeleted: true,
       },
     });
 
