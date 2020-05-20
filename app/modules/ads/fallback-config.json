@@ -553,7 +553,10 @@
                 "oasis"
             ],
             "regions": [
-                "ES"
+                "CA",
+                "ES",
+                "GB",
+                "UK"
             ],
             "value": true
         }
@@ -1000,7 +1003,10 @@
                 "oasis"
             ],
             "regions": [
-                "ES"
+                "CA",
+                "ES",
+                "GB",
+                "UK"
             ],
             "value": [
                 "featured"
