@@ -1,0 +1,22 @@
+// this file defines CSS variables used for UCP theming, the values are hardcoded as we don't have theming in mobile-wiki yet
+:root {
+  --themed-text-color: #{$body-font-color};
+  --themed-link-color: #{$wds-fandom-color-link};
+  --themed-link-color--background-hover: #{rgba($wds-fandom-color-link, .1)};
+  --themed-button-background: #{$wds-fandom-color-button-background};
+  --themed-page-background: #{$wds-color-light-c2};
+  --themed-page-background--secondary: #{$wds-color-white};
+  --themed-border-color: #{$wds-fandom-color-middle-gray};
+  --themed-alert-color: #{$wds-color-alert};
+  --themed-warning-color: #{$wds-color-warning};
+  --themed-success-color: #{$wds-color-success};
+  --themed-notice-color: #{$wds-color-message};
+
+  // UCP article-comments variables
+  --themed-border-color-50: #{rgba($wds-fandom-color-middle-gray, .5)};
+
+  // @fandom/web-editor variables
+  --themed-link-color-10: rgba($body-font-color, .1);
+  --themed-text-color-30: rgba($body-font-color, .3);
+  --themed-text-color-60: rgba($body-font-color, .6);
+}
