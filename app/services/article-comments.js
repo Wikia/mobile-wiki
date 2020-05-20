@@ -1,4 +1,5 @@
 import Service, { inject as service } from '@ember/service';
+import { ArticleCommentsFetchError } from "../utils/errors";
 
 export default Service.extend({
   currentUser: service(),
@@ -6,6 +7,7 @@ export default Service.extend({
   wikiVariables: service(),
   i18n: service(),
   logger: service(),
+  fetch: service(),
 
   fetchI18n() {
     const i18nFilePath = `/mobile-wiki/assets/articleComments/${this.i18n.language}.json`;
@@ -27,6 +29,20 @@ export default Service.extend({
             throw new Error(`Article comments i18n file not found under ${i18nFilePath}`);
           });
       });
+  },
+
+  fetchCount(id) {
+    const url = this.wikiUrls.build({
+      host: this.get('wikiVariables.host'),
+      path: '/wikia.php',
+      query: {
+        controller: 'Fandom\\ArticleComments\\Api\\ArticleCommentsController',
+        method: 'getCommentCount',
+        articleId: id,
+      },
+    });
+
+    return this.fetch.fetchFromMediawiki(url, ArticleCommentsFetchError)
   },
 
   load({ title, id }) {

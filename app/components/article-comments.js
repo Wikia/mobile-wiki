@@ -3,6 +3,7 @@ import { computed, get, observer } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
+import InViewportMixin from "ember-in-viewport";
 import scrollToTop from '../utils/scroll-to-top';
 import { track, trackActions } from '../utils/track';
 import { ArticleCommentsFetchError } from '../utils/errors';
@@ -10,7 +11,7 @@ import { ArticleCommentsFetchError } from '../utils/errors';
 /**
  * Component that displays article comments
  */
-export default Component.extend({
+export default Component.extend(InViewportMixin, {
   preserveScroll: service(),
   wikiVariables: service(),
   wikiUrls: service(),
@@ -72,6 +73,19 @@ export default Component.extend({
       scheduleOnce('afterRender', this, () => {
         this.scrollTop();
       });
+    }
+  },
+
+  didEnterViewport() {
+    if (this.isUcp) {
+      // to make sure we won't show cached value we have to fetch these comments on FE
+      this.articleComments
+        .fetchCount(this.articleId)
+        .then(count => {
+          if (count) {
+            this.set('commentsCount', count);
+          }
+        });
     }
   },
 
