@@ -1,8 +1,8 @@
 import { Promise } from 'rsvp';
 
 export const assetUrls = {
-  styles: '/mobile-wiki/assets/jwplayer/index.css',
-  script: '/mobile-wiki/assets/jwplayer/wikiajwplayer.js',
+  styles: '/mobile-wiki/br/assets/jwplayer/index.css',
+  script: '/mobile-wiki/br/assets/jwplayer/wikiajwplayer.js',
 };
 
 /**

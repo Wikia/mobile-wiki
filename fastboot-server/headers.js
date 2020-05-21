@@ -31,13 +31,13 @@ module.exports = function (req, res, next) {
     try {
       // We do want to load this file in runtime and have a fallback if it does not exist
       /* eslint global-require: 0 */
-      vendorAssetPath = require('../dist/mobile-wiki/assets/assetMap.json').assets['assets/vendor.js'];
+      vendorAssetPath = require('../dist/mobile-wiki/br/assets/assetMap.json').assets['assets/vendor.js'];
     } catch (exception) {
-      vendorAssetPath = 'assets/vendor.js';
+      vendorAssetPath = '/br/assets/vendor.js';
     }
   }
 
-  if (!req.path.startsWith('/mobile-wiki/assets')) {
+  if (!req.path.startsWith('/mobile-wiki/br/assets')) {
     res.setHeader('link', `</mobile-wiki/${vendorAssetPath}>; rel=preload; as=script`);
   }
 

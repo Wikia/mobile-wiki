@@ -23,7 +23,7 @@ function levelFn(status) {
 
 module.exports = {
   before(app) {
-    app.use(compression());
+    app.use(/^(?!\/mobile-wiki\/)/, compression());
     app.disable('x-powered-by');
     app.use(logger);
 
@@ -45,6 +45,7 @@ module.exports = {
     app.use(/^(\/[a-z]{2,3}(?:-[a-z-]{2,12})?)?\/article-preview/, methodOverride(() => 'GET'));
 
     app.use('/mobile-wiki', cors(), staticAssets);
+    app.use('/mobile-wiki/br/', cors(), staticAssets);
     app.use('/heartbeat', heartbeat);
   },
 
