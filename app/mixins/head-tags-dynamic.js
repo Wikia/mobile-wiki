@@ -79,6 +79,7 @@ export default Mixin.create({
         headData.isDedicatedForArticle = true;
       } else {
         headData.playerImpressionsPerSession = model.featuredVideo.impressionsPerSession;
+        headData.videoBridgeCountries = JSON.stringify(this.wikiVariables.get('videoBridgeCountries'));
       }
     }
 
