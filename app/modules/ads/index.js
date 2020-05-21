@@ -454,8 +454,8 @@ class Ads {
    * @private
    */
   trackLikhoToDW() {
-    const { context, utils } = window.Wikia.adEngine;
-    const likhoPropValue = context.get('targeting.likho') || [];
+    const { likhoService, utils } = window.Wikia.adEngine;
+    const likhoPropValue = likhoService.getTypes();
 
     if (likhoPropValue.length) {
       pageTracker.trackProp('likho', likhoPropValue.join(';'));
