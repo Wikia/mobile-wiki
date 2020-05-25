@@ -1,5 +1,7 @@
 import Service, { inject as service } from '@ember/service';
 import { ArticleCommentsFetchError } from '../utils/errors';
+import { track, trackActions } from '../utils/track';
+
 
 export default Service.extend({
   currentUser: service(),
@@ -81,10 +83,18 @@ export default Service.extend({
         isReadOnly: true,
       };
 
+      const trackFn = (params) => {
+        track(Object.assign({
+          category: 'article-comments',
+          action: trackActions.click,
+        }, params));
+      };
+
       createComments({
         env,
         user,
         i18n,
+        track: trackFn,
         container: document.getElementById('articleComments'),
       });
     }).catch((err) => {
