@@ -68,7 +68,7 @@ module.exports = function (defaults) {
     },
     fingerprint: {
       generateAssetMap: true,
-      exclude: ['app.css'],
+      exclude: ['app.css', 'webEditor/JWPlayer.js'],
       extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
       replaceExtensions: ['html', 'css', 'js', 'hbs'],
     },
