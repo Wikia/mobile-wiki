@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import { v4 as uuid } from 'ember-uuid';
+import { ofType } from 'ts-action-operators';
 import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
@@ -417,6 +418,7 @@ class Ads {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
+    this.trackIdentityLibraryLoadTime();
   }
 
   /**
@@ -540,6 +542,19 @@ class Ads {
         },
       ));
     }
+  }
+
+  /**
+   * @private
+   */
+  trackIdentityLibraryLoadTime() {
+    const { identityLibraryLoadedEvent, eventService } = window.Wikia.adEngine;
+
+    eventService.communicator.actions$.pipe(
+      ofType(identityLibraryLoadedEvent),
+    ).subscribe((props) => {
+      pageTracker.trackProp('identity_library_load_time', props.loadTime.toString());
+    });
   }
 
   /**
