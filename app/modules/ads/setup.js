@@ -53,6 +53,7 @@ export const adsSetup = {
       FloorAdhesion,
       HideOnViewability,
       Interstitial,
+      LogoReplacement,
       PorvataTemplate,
       Roadblock,
       StickyTLB,
@@ -77,6 +78,7 @@ export const adsSetup = {
       templateService.register(FloorAdhesion);
       templateService.register(HideOnViewability);
       templateService.register(Interstitial);
+      templateService.register(LogoReplacement);
       templateService.register(PorvataTemplate, getPorvataConfig());
       templateService.register(Roadblock, getRoadblockConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
