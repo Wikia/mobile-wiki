@@ -295,13 +295,10 @@ class Ads {
    * This trigger is executed once, at the very beginning
    */
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
-    const {
-      confiant, durationMedia, identityLibrary,
-    } = window.Wikia.adServices;
+    const { confiant, durationMedia } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
-        identityLibrary.call();
         confiant.call();
         durationMedia.call();
       });
