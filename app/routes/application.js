@@ -27,6 +27,7 @@ export default Route.extend(
     currentUser: service(),
     fandomComMigration: service(),
     wikiaOrgMigration: service(),
+    ucpMigration: service(),
     fastboot: service(),
     i18n: service(),
     lightbox: service(),
@@ -161,6 +162,7 @@ export default Route.extend(
 
       this.fandomComMigration.showNotification();
       this.wikiaOrgMigration.showNotification();
+      this.ucpMigration.showNotification();
     },
 
     redirect(model) {
