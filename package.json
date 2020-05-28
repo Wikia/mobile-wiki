@@ -33,7 +33,7 @@
     "node": ">= 10.*"
   },
   "dependencies": {
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v65.1.2",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v66.0.0",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#d12e79e46c33c889560b2b4b26af034c8c21b2c9",
     "@wikia/post-quecast": "1.2.0",
     "@wikia/search-tracking": "github:Wikia/search-tracking#2.0.0",
@@ -61,6 +61,7 @@
     "on-headers": "1.0.2",
     "prom-client": "12.0.0",
     "scriptjs": "2.5.9",
+    "ts-action-operators": "^9.1.1",
     "vignette": "github:wikia/vignette-js#2.9.0",
     "visit-source": "github:Wikia/visit-source#0.1.1"
   },
