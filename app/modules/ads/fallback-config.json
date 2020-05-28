@@ -513,6 +513,7 @@
     "icTabIdTracking": [
         {
             "apps": [
+                "gamepedia",
                 "mobile-wiki",
                 "oasis"
             ],
