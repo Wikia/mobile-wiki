@@ -25,9 +25,7 @@ export default Route.extend(
   {
     ads: service('ads/ads'),
     currentUser: service(),
-    fandomComMigration: service(),
-    wikiaOrgMigration: service(),
-    ucpMigration: service(),
+    migrationNotification: service(),
     fastboot: service(),
     i18n: service(),
     lightbox: service(),
@@ -160,9 +158,7 @@ export default Route.extend(
         }
       }
 
-      this.fandomComMigration.showNotification();
-      this.wikiaOrgMigration.showNotification();
-      this.ucpMigration.showNotification();
+      this.migrationNotification.showNotification();
     },
 
     redirect(model) {
