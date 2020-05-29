@@ -53,14 +53,14 @@
       users=model.topContributors
       class="article-footer-item"
     }}
-    {{article-comments
-      articleId=model.id
-      isUcp=model.isUcp
-      articleTitle=model.title
-      commentsCount=model.comments
-      page=commentsPage
-      class="article-footer-item"
-    }}
+    {{#if showComments}}
+      {{article-comments
+        articleId=model.id
+        commentsCount=model.comments
+        page=commentsPage
+        class="article-footer-item"
+      }}
+    {{/if}}
     {{#if model.categories}}
       {{#collapsible-menu
         observe=model.displayTitle

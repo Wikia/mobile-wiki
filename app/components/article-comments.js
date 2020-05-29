@@ -3,20 +3,18 @@ import { computed, get, observer } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
-import InViewportMixin from 'ember-in-viewport';
 import scrollToTop from '../utils/scroll-to-top';
 import { track, trackActions } from '../utils/track';
-import { ArticleCommentCountError } from '../utils/errors';
+import { ArticleCommentsFetchError } from '../utils/errors';
 
 /**
- * Component that displays article comments
- */
-export default Component.extend(InViewportMixin, {
+  * Component that displays article comments
+*/
+export default Component.extend({
   preserveScroll: service(),
   wikiVariables: service(),
   wikiUrls: service(),
   fetch: service(),
-  articleComments: service(),
 
   classNames: ['article-comments', 'mw-content'],
 
@@ -24,7 +22,6 @@ export default Component.extend(InViewportMixin, {
   articleId: null,
   commentsCount: null,
   model: null,
-  isUcp: false,
   isCollapsed: true,
 
   comments: null,
@@ -40,8 +37,8 @@ export default Component.extend(InViewportMixin, {
   }),
 
   /**
-   * if articleId changes, resets component state
-   */
+    * if articleId changes, resets component state
+  */
   articleIdObserver: observer('articleId', function () {
     this.setProperties({
       page: null,
@@ -60,7 +57,7 @@ export default Component.extend(InViewportMixin, {
    * and we should load comments and scroll to them
    *
    * @returns {void}
-   */
+  */
   didInsertElement() {
     const page = this.page;
 
@@ -68,7 +65,7 @@ export default Component.extend(InViewportMixin, {
 
     if (page !== null) {
       this.set('isCollapsed', false);
-      this.fetchCommentsBasedOnPlatform();
+      this.fetchComments(parseInt(page, 10));
 
       scheduleOnce('afterRender', this, () => {
         this.scrollTop();
@@ -78,8 +75,8 @@ export default Component.extend(InViewportMixin, {
 
   actions: {
     /**
-     * @returns {void}
-     */
+      * @returns {void}
+    */
     nextPage() {
       const page = parseInt(this.page, 10);
 
@@ -89,8 +86,8 @@ export default Component.extend(InViewportMixin, {
     },
 
     /**
-     * @returns {void}
-     */
+      * @returns {void}
+    */
     prevPage() {
       const page = parseInt(this.page, 10);
 
@@ -100,16 +97,18 @@ export default Component.extend(InViewportMixin, {
     },
 
     /**
-     * @returns {void}
-     */
+      * @returns {void}
+    */
     toggleComments() {
+      const page = this.page;
+
       this.set('preserveScroll.preserveScrollPosition', true);
       this.toggleProperty('isCollapsed');
 
-      if (this.isCollapsed) {
+      if (page !== null) {
         this.set('page', null);
       } else {
-        this.fetchCommentsBasedOnPlatform();
+        this.fetchComments(1);
       }
 
       track({
@@ -136,7 +135,7 @@ export default Component.extend(InViewportMixin, {
     }
 
     if (page && articleId) {
-      this.fetch.fetchFromMediawiki(this.url(articleId, page), ArticleCommentCountError)
+      this.fetch.fetchFromMediawiki(this.url(articleId, page), ArticleCommentsFetchError)
         .then((data) => {
           this.setProperties({
             comments: get(data, 'payload.comments'),
@@ -160,26 +159,5 @@ export default Component.extend(InViewportMixin, {
         page,
       },
     });
-  },
-
-  fetchCommentsBasedOnPlatform() {
-    if (this.isUcp) {
-      this.articleComments.load({ title: this.articleTitle, id: this.articleId });
-    } else {
-      this.fetchComments(parseInt(this.page, 10));
-    }
-  },
-
-  didEnterViewport() {
-    if (this.isUcp) {
-      // to make sure we won't show cached value we have to fetch these comments on FE
-      this.articleComments
-        .fetchCount(this.articleId)
-        .then((count) => {
-          if (count) {
-            this.set('commentsCount', count);
-          }
-        });
-    }
   },
 });

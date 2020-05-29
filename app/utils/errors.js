@@ -89,11 +89,6 @@ const WikiVariablesFetchError = defineError({
   message: 'Wiki variables couldn\'t be fetched',
 });
 
-const ArticleCommentCountError = defineError({
-  name: 'ArticleCommentCountError',
-  message: 'Comment count could not be fetched',
-});
-
 const getFetchErrorMessage = function (response) {
   const contentType = response.headers.get('content-type');
 
@@ -114,7 +109,6 @@ const getProductionErrorMessage = function (errorCode) {
 export {
   getFetchErrorMessage,
   ArticleCommentsFetchError,
-  ArticleCommentCountError,
   CategoryMembersFetchError,
   DesignSystemFetchError,
   FetchError,

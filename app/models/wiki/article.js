@@ -51,7 +51,6 @@ export default BaseModel.extend({
       articleProperties.isMainPage = data.isMainPage || false;
       articleProperties.redirected = data.redirected || false;
       articleProperties.amphtml = data.amphtml;
-      articleProperties.isUcp = data.isUcp;
 
       if (data.curatedMainPageData) {
         articleProperties.curatedMainPageData = data.curatedMainPageData;
