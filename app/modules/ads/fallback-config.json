@@ -192,6 +192,7 @@
                 "CA",
                 "DE",
                 "GB",
+                "NZ",
                 "PL",
                 "UK",
                 "US"
@@ -445,7 +446,10 @@
         {
             "apps": [
                 "f2",
+                "futhead",
+                "gamepedia",
                 "mobile-wiki",
+                "muthead",
                 "oasis"
             ],
             "regions": [
@@ -494,7 +498,10 @@
         {
             "apps": [
                 "f2",
+                "futhead",
+                "gamepedia",
                 "mobile-wiki",
+                "muthead",
                 "oasis"
             ],
             "regions": [
@@ -506,6 +513,7 @@
     "icTabIdTracking": [
         {
             "apps": [
+                "gamepedia",
                 "mobile-wiki",
                 "oasis"
             ],
@@ -553,7 +561,10 @@
                 "oasis"
             ],
             "regions": [
-                "ES"
+                "CA",
+                "ES",
+                "GB",
+                "UK"
             ],
             "value": true
         }
@@ -631,7 +642,10 @@
         {
             "apps": [
                 "f2",
+                "futhead",
+                "gamepedia",
                 "mobile-wiki",
+                "muthead",
                 "oasis"
             ],
             "regions": [
@@ -786,6 +800,9 @@
                 "5369583245",
                 "5368490040",
                 "5368490043",
+                "5370873744",
+                "5366503822",
+                "5353864975",
                 "5366503822"
             ]
         }
@@ -802,8 +819,8 @@
             "value": [
                 "icPrebidSendAllBids_A_95:send_all_bids_a",
                 "icPrebidSendAllBids_B_5:send_all_bids_b",
-                "icFloatingMedrecRecirculationDisabled_A_50:fmr_50_50_a",
-                "icFloatingMedrecRecirculationDisabled_B_50:fmr_50_50_b"
+                "icFloatingMedrecRecirculationDisabled_A_90:fmr_50_50_a",
+                "icFloatingMedrecRecirculationDisabled_B_10:fmr_50_50_b"
             ]
         }
     ],
@@ -844,7 +861,7 @@
                 "oasis"
             ],
             "regions": [
-                "US-NY"
+                "US"
             ],
             "value": true
         }
@@ -964,6 +981,19 @@
                 "XX"
             ],
             "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v3.2.0/20200414.min.js"
+        },
+        {
+            "apps": [
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "regions": [
+                "XX"
+            ],
+            "value": "//static.wikia.nocookie.net/fandom-ae-assets/prebid.js/v3.2.0/20200414.min.js"
         }
     ],
     "icA9Bidder": [
@@ -1000,7 +1030,10 @@
                 "oasis"
             ],
             "regions": [
-                "ES"
+                "CA",
+                "ES",
+                "GB",
+                "UK"
             ],
             "value": [
                 "featured"
@@ -1028,9 +1061,6 @@
                 "muthead",
                 "oasis"
             ],
-            "regions": [
-                "NZ"
-            ],
             "value": true
         }
     ],
@@ -1042,9 +1072,11 @@
                 "oasis"
             ],
             "regions": [
+                "AU",
                 "GB",
                 "ID",
                 "MY",
+                "NZ",
                 "PH",
                 "SG",
                 "UK",

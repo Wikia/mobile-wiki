@@ -115,6 +115,7 @@ export const adsSetup = {
       context,
       fillerService,
       InstantConfigCacheStorage,
+      likhoService,
       PorvataFiller,
       setupBidders,
       utils,
@@ -190,7 +191,6 @@ export const adsSetup = {
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.facebookPixel.enabled', instantConfig.get('icFacebookPixel'));
     context.set('services.iasPublisherOptimization.enabled', instantConfig.get('icIASPublisherOptimization'));
-    context.set('services.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
     context.set('services.permutive.enabled', instantConfig.get('icPermutive')
       && !context.get('wiki.targeting.directedAtChildren'));
@@ -232,6 +232,7 @@ export const adsSetup = {
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
 
+    likhoService.refresh();
     setupPageLevelTargeting(adsContext);
 
     if (adsContext.targeting.wikiIsTop1000) {
@@ -285,6 +286,7 @@ export const adsSetup = {
 
       const priceFloorRule = instantConfig.get('icPrebidSizePriceFloorRule');
       context.set('bidders.prebid.priceFloor', priceFloorRule || null);
+      context.set('bidders.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
     }
 
     const insertBeforePaths = [

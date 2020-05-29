@@ -65,6 +65,9 @@
   {{! moat}}
   <link rel="preconnect" href="//mb.moatads.com" crossorigin>
   <link rel="dns-prefetch" href="//mb.moatads.com">
+  {{! identityLibrary}}
+  <link rel="preconnect" href="//js-sec.indexww.com" crossorigin>
+  <link rel="dns-prefetch" href="//js-sec.indexww.com">
 
   {{#if model.gaUrl}}
     <link rel="dns-prefetch" href={{model.gaUrl}}>
@@ -179,6 +182,10 @@
 
 {{#if model.playerImpressionsPerSession}}
   <meta name="featured-video:impressions-per-session" content={{model.playerImpressionsPerSession}}>
+{{/if}}
+
+{{#if model.videoBridgeCountries}}
+  <meta name="featured-video:video-bridge-countries" content={{model.videoBridgeCountries}}>
 {{/if}}
 {{! end of video tags}}
 

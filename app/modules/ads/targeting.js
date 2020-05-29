@@ -201,10 +201,8 @@ export const targeting = {
   getPageLevelTargeting(adsContext = {}) {
     adsContext.targeting = adsContext.targeting || {};
 
-    const { likhoService } = window.Wikia.adEngine;
     const zone = getZone(adsContext);
     const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
-    const likho = likhoService.refresh();
 
     const pageLevelTargeting = {
       s0: zone.site,
@@ -224,7 +222,6 @@ export const targeting = {
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
       geo: window.Wikia.adEngine.utils.geoService.getCountryCode() || 'none',
-      likho,
     };
 
     if (window.pvNumber) {
