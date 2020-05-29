@@ -15,11 +15,11 @@ import { videoTracker } from './tracking/video-tracker';
 import { targeting } from './targeting';
 import { getConfig as getBfaaConfig } from './templates/big-fancy-ad-above-config';
 import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-config';
-import { getConfig as getLogoReplacementConfig } from "./templates/logo-replacement-config";
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
+import { LogoReplacement } from "./templates/logo-replacement";
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -54,7 +54,6 @@ export const adsSetup = {
       FloorAdhesion,
       HideOnViewability,
       Interstitial,
-      LogoReplacement,
       PorvataTemplate,
       Roadblock,
       StickyTLB,
@@ -79,7 +78,7 @@ export const adsSetup = {
       templateService.register(FloorAdhesion);
       templateService.register(HideOnViewability);
       templateService.register(Interstitial);
-      templateService.register(LogoReplacement, getLogoReplacementConfig());
+      templateService.register(LogoReplacement);
       templateService.register(PorvataTemplate, getPorvataConfig());
       templateService.register(Roadblock, getRoadblockConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
