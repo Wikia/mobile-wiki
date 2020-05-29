@@ -87,7 +87,11 @@ export default Service.extend({
         track(Object.assign({
           category: 'article-comments',
           action: trackActions.click,
-        }, params));
+        }, params, {
+          // overrides trackingMethod because jwplayer sends `analytics` method,
+          // which is not supported by mobile wiki
+          trackingMethod: 'both',
+        }));
       };
 
       createComments({
