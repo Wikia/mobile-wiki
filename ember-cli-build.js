@@ -68,7 +68,7 @@ module.exports = function (defaults) {
     },
     fingerprint: {
       generateAssetMap: true,
-      exclude: ['app.css', 'webEditor/JWPlayer.js'],
+      exclude: ['app.css'],
       extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
       replaceExtensions: ['html', 'css', 'js', 'hbs'],
     },
@@ -132,16 +132,6 @@ module.exports = function (defaults) {
     destDir: 'locales',
   });
 
-  // Assets which are lazy loaded
-  const webEditor = new Funnel('node_modules/@fandom/web-editor/dist/JWPlayer.js', {
-    destDir: 'assets/webEditor/JWPlayer.js',
-  });
-
-  // Assets which are lazy loaded
-  const commentsI18n = new Funnel('node_modules/@fandom/article-comments/i18n', {
-    destDir: 'assets/articleComments',
-  });
-
   const jwPlayerAssets = new Funnel('node_modules/jwplayer-fandom/dist', {
     destDir: 'assets/jwplayer',
   });
@@ -183,7 +173,5 @@ module.exports = function (defaults) {
     svgStore,
     jwPlayerAssets,
     trackingOptIn,
-    webEditor,
-    commentsI18n,
   ]);
 };

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { and, bool } from '@ember/object/computed';
+import { and, bool, gte } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
@@ -26,6 +26,7 @@ export default Component.extend(
     displayEmptyArticleInfo: true,
     displayArticleWrapper: true,
 
+    showComments: gte('model.comments', 0),
     hasFeaturedVideo: bool('model.featuredVideo'),
     smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
 
