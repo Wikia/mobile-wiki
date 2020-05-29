@@ -9,6 +9,7 @@ ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
 COPY package.json .
 COPY package-lock.json .
+COPY .npmrc .
 
 RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf ssh://git@github.com/ && \
     # install all dependencies

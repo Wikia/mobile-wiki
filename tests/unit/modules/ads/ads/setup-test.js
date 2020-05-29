@@ -11,11 +11,12 @@ module('Unit | Module | ads | setup', (hooks) => {
   hooks.beforeEach(() => {
     eventService = new EventService();
 
+    // @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions#Method_definitions_are_not_constructable
     window.Wikia.adEngine = {
-      JWPlayerManager() {
+      JWPlayerManager: function JWPlayerManager() {
         this.manage = () => {};
       },
-      AdEngine() {
+      AdEngine: function AdEngine() {
         this.init = () => {};
       },
       AdSlot: {
@@ -47,7 +48,7 @@ module('Unit | Module | ads | setup', (hooks) => {
           isGeoEnabled: () => undefined,
         }),
       },
-      PostmessageTracker() {
+      PostmessageTracker: function PostmessageTracker() {
         this.add = () => this;
         this.register = () => {};
       },
