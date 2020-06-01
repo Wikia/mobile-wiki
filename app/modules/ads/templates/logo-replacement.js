@@ -1,6 +1,6 @@
-import { context, events, utils } from '@wikia/ad-engine'
+import { context, events, utils } from '@wikia/ad-engine';
 
-export class LogoReplacement {
+export default class LogoReplacement {
   static getName() {
     return 'logoReplacement';
   }

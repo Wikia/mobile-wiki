@@ -19,7 +19,7 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
-import { LogoReplacement } from './templates/logo-replacement';
+import LogoReplacement from './templates/logo-replacement';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;

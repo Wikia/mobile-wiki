@@ -1,8 +1,11 @@
 @import 'ads-mixin';
 @import 'ads-porvata';
 @import 'node_modules/@wikia/ad-engine/src/ad-products/styles/styles';
+@import 'node_modules/@wikia/ad-engine/src/ad-products/styles/_mixin';
 
 $closeButtonHeight: 40px;
+
+@include logo-replacement(55px);
 
 %high-impact-close-icon {
   fill: white;
@@ -189,12 +192,4 @@ $closeButtonHeight: 40px;
       top: initial;
     }
   }
-}
-
-.new-logo {
-  max-height: 55px;
-}
-
-.tracking-pixel {
-  display: none;
 }
