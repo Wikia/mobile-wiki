@@ -19,6 +19,7 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import fallbackInstantConfig from './fallback-config';
+import LogoReplacement from './templates/logo-replacement';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -77,6 +78,7 @@ export const adsSetup = {
       templateService.register(FloorAdhesion);
       templateService.register(HideOnViewability);
       templateService.register(Interstitial);
+      templateService.register(LogoReplacement);
       templateService.register(PorvataTemplate, getPorvataConfig());
       templateService.register(Roadblock, getRoadblockConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
