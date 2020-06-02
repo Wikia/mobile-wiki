@@ -9,7 +9,7 @@ module.exports = {
   },
   'vendor.js': {
     pattern: `${assetsFolder}/vendor-*.js`,
-    limit: '707KB',
+    limit: '1.09MB',
   },
   'app.css': {
     pattern: `${assetsFolder}/app.css`,
