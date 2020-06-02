@@ -4,8 +4,6 @@
 
 $closeButtonHeight: 40px;
 
-@include logo-replacement(55px);
-
 %high-impact-close-icon {
   fill: white;
   height: $closeButtonHeight / 2;
@@ -194,5 +192,10 @@ $closeButtonHeight: 40px;
 }
 
 .new-logo {
+  max-height: 55px;
   padding-left: 12px;
+}
+
+.tracking-pixel {
+  display: none;
 }
