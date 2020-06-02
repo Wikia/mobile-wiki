@@ -1,5 +1,3 @@
-import { context, events, utils } from '@wikia/ad-engine';
-
 export default class LogoReplacement {
   static getName() {
     return 'logoReplacement';
@@ -10,11 +8,13 @@ export default class LogoReplacement {
   }
 
   constructor(adSlot) {
+    const { context } = window.Wikia.adEngine;
     this.adSlot = adSlot;
     this.config = context.get('templates.logoReplacement') || {};
   }
 
   init(params) {
+    const { utils } = window.Wikia.adEngine;
     utils.logger(LogoReplacement.getName(), 'init');
     this.config = Object.assign(this.config, params);
 
@@ -50,6 +50,7 @@ export default class LogoReplacement {
         fandomHeartParent.removeChild(fandomHeart);
       }
 
+      const { events } = window.Wikia.adEngine;
       this.adSlot.emitEvent(events.LOGO_REPLACED);
     }
   }
