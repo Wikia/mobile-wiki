@@ -1061,6 +1061,10 @@
                 "muthead",
                 "oasis"
             ],
+            "regions": [
+                "HK"
+            ],
+            "sampling": 50.0,
             "value": true
         }
     ],
