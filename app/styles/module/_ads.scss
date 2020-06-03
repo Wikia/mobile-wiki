@@ -199,11 +199,11 @@ $closeButtonHeight: 40px;
 
 .new-logo {
   max-height: 55px;
-  padding-left: 12px;
   animation-delay: .2s;
+  padding-left: 12px;
   animation-name: translate-new-logo;
-  transform: translateY(-100%);
   animation-duration: .4s;
+  transform: translateY(-100%);
   animation-fill-mode: forwards;
 }
 
