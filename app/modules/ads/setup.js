@@ -56,6 +56,7 @@ export const adsSetup = {
       Interstitial,
       PorvataTemplate,
       Roadblock,
+      SafeFanTakeoverElement,
       StickyTLB,
     } = window.Wikia.adProducts;
     context.extend(defaultAdContext);
@@ -81,6 +82,7 @@ export const adsSetup = {
       templateService.register(LogoReplacement);
       templateService.register(PorvataTemplate, getPorvataConfig());
       templateService.register(Roadblock, getRoadblockConfig());
+      templateService.register(SafeFanTakeoverElement, getStickyTLBConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
 
       registerClickPositionTracker();
