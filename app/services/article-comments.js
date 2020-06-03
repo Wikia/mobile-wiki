@@ -33,22 +33,23 @@ export default Service.extend({
       });
   },
 
-  fetchCount(id) {
+  fetchCount(title, namespace) {
     const url = this.wikiUrls.build({
       host: this.get('wikiVariables.host'),
       path: '/wikia.php',
       query: {
         controller: 'Fandom\\ArticleComments\\Api\\ArticleCommentsController',
         method: 'getCommentCount',
-        articleId: id,
         hideDeleted: true,
+        title,
+        namespace,
       },
     });
 
     return this.fetch.fetchFromMediawiki(url, ArticleCommentsFetchError);
   },
 
-  load({ title, id }) {
+  load({ title, namespace }) {
     window.fandomWebEditorPublicPath = '/mobile-wiki/assets/webEditor/';
 
     Promise.all([
@@ -74,7 +75,7 @@ export default Service.extend({
 
       const env = {
         articleTitle: title,
-        articleId: id,
+        articleNamespace: namespace,
         apiBaseUrl: this.wikiUrls.build({
           host: this.wikiVariables.host,
           path: '/wikia.php',
