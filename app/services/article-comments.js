@@ -81,6 +81,7 @@ export default Service.extend({
         }),
         userProfileBaseUrl: `${this.wikiUrls.build({ host: this.wikiVariables.host })}/User:`,
         isReadOnly: true,
+        isMobile: true,
       };
 
       const trackFn = (params) => {
