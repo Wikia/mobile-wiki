@@ -198,13 +198,13 @@ $closeButtonHeight: 40px;
 }
 
 .new-logo {
-  max-height: 55px;
   animation-delay: .2s;
-  padding-left: 12px;
-  animation-name: translate-new-logo;
   animation-duration: .4s;
-  transform: translateY(-100%);
   animation-fill-mode: forwards;
+  animation-name: translate-new-logo;
+  max-height: 55px;
+  padding-left: 12px;
+  transform: translateY(-100%);
 }
 
 .tracking-pixel {
