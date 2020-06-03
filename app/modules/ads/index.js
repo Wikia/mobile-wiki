@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import { v4 as uuid } from 'ember-uuid';
+import { ofType } from 'ts-action-operators';
 import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
@@ -295,13 +296,10 @@ class Ads {
    * This trigger is executed once, at the very beginning
    */
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
-    const {
-      confiant, durationMedia, identityLibrary,
-    } = window.Wikia.adServices;
+    const { confiant, durationMedia } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
-        identityLibrary.call();
         confiant.call();
         durationMedia.call();
       });
@@ -420,6 +418,7 @@ class Ads {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
+    this.trackIdentityLibraryLoadTime();
   }
 
   /**
@@ -454,8 +453,8 @@ class Ads {
    * @private
    */
   trackLikhoToDW() {
-    const { context, utils } = window.Wikia.adEngine;
-    const likhoPropValue = context.get('targeting.likho') || [];
+    const { likhoService, utils } = window.Wikia.adEngine;
+    const likhoPropValue = likhoService.getTypes();
 
     if (likhoPropValue.length) {
       pageTracker.trackProp('likho', likhoPropValue.join(';'));
@@ -543,6 +542,19 @@ class Ads {
         },
       ));
     }
+  }
+
+  /**
+   * @private
+   */
+  trackIdentityLibraryLoadTime() {
+    const { identityLibraryLoadedEvent, eventService } = window.Wikia.adEngine;
+
+    eventService.communicator.actions$.pipe(
+      ofType(identityLibraryLoadedEvent),
+    ).subscribe((props) => {
+      pageTracker.trackProp('identity_library_load_time', props.loadTime.toString());
+    });
   }
 
   /**
