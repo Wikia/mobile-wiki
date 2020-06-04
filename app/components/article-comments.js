@@ -22,6 +22,8 @@ export default Component.extend(InViewportMixin, {
 
   page: null,
   articleId: null,
+  articleTitle: null,
+  articleNamespace: null,
   commentsCount: null,
   model: null,
   isUcp: false,
@@ -164,7 +166,7 @@ export default Component.extend(InViewportMixin, {
 
   fetchCommentsBasedOnPlatform() {
     if (this.isUcp) {
-      this.articleComments.load({ title: this.articleTitle, id: this.articleId });
+      this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
     } else {
       this.fetchComments(parseInt(this.page, 10));
     }
