@@ -20,7 +20,7 @@ export default class LogoReplacement {
 
     setTimeout(() => {
       this.replaceLogo();
-    }, 2000);
+    }, 1500);
   }
 
   replaceLogo() {
