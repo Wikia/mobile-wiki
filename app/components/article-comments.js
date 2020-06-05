@@ -176,7 +176,7 @@ export default Component.extend(InViewportMixin, {
     if (this.isUcp) {
       // to make sure we won't show cached value we have to fetch these comments on FE
       this.articleComments
-        .fetchCount(this.articleId)
+        .fetchCount(this.articleTitle, this.articleNamespace)
         .then((count) => {
           if (count) {
             this.set('commentsCount', count);

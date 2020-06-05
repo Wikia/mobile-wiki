@@ -33,7 +33,7 @@ module('Integration | Component | article-comments', (hooks) => {
       isUcp: true,
     });
 
-    fetchCount.withArgs(this.get('articleId')).returns(Promise.resolve(8));
+    fetchCount.withArgs(this.get('articleTitle'), this.get('articleNamespace')).returns(Promise.resolve(8));
 
     await render(hbs`<ArticleComments @isUcp={{this.isUcp}} @page="1" @articleId={{this.articleId}} @articleTitle={{this.articleTitle}} @articleNamespace={{this.articleNamespace}} />`);
 
