@@ -202,8 +202,8 @@ $closeButtonHeight: 40px;
   animation-fill-mode: forwards;
   animation-name: fade-in;
   max-height: 55px;
+  opacity: 0;
   padding-left: 12px;
-  transform: translateY(-100%);
 }
 
 .tracking-pixel {
