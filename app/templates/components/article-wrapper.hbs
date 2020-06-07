@@ -53,15 +53,17 @@
       users=model.topContributors
       class="article-footer-item"
     }}
-    {{article-comments
-      articleId=model.id
-      isUcp=model.isUcp
-      articleTitle=model.title
-      articleNamespace=model.ns
-      commentsCount=model.comments
-      page=commentsPage
-      class="article-footer-item"
-    }}
+    {{#if canShowComments}}
+      {{article-comments
+        articleId=model.id
+        isUcp=model.isUcp
+        articleTitle=model.title
+        articleNamespace=model.ns
+        commentsCount=model.comments
+        page=commentsPage
+        class="article-footer-item"
+      }}
+    {{/if}}
     {{#if model.categories}}
       {{#collapsible-menu
         observe=model.displayTitle

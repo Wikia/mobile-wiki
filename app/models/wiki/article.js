@@ -10,6 +10,7 @@ export default BaseModel.extend({
   isMainPage: false,
   user: null,
   heroImage: null,
+  canShowComments: false,
 
   /**
   * @param {Object} data
@@ -52,6 +53,7 @@ export default BaseModel.extend({
       articleProperties.redirected = data.redirected || false;
       articleProperties.amphtml = data.amphtml;
       articleProperties.isUcp = data.isUcp;
+      articleProperties.canShowComments = data.canShowComments || false;
 
       if (data.curatedMainPageData) {
         articleProperties.curatedMainPageData = data.curatedMainPageData;

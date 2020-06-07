@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { and, bool } from '@ember/object/computed';
+import { and, bool, or, not } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import LanguagesMixin from '../mixins/languages';
 import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
@@ -28,6 +28,8 @@ export default Component.extend(
 
     hasFeaturedVideo: bool('model.featuredVideo'),
     smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
+    isNotUCP: not('model.isUcp'),
+    canShowComments: or('model.canShowComments', 'isNotUCP'),
 
     init() {
       this._super(...arguments);
