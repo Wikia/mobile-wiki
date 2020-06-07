@@ -178,7 +178,7 @@ export default Component.extend(InViewportMixin, {
       this.articleComments
         .fetchCount(this.articleTitle, this.articleNamespace)
         .then((count) => {
-          if (count) {
+          if (typeof count === 'number') {
             this.set('commentsCount', count);
           }
         });
