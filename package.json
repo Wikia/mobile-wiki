@@ -33,6 +33,8 @@
     "node": ">= 10.*"
   },
   "dependencies": {
+    "@fandom/article-comments": "0.7.0",
+    "@fandom/web-editor": "1.3.0",
     "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#v68.0.1",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#d12e79e46c33c889560b2b4b26af034c8c21b2c9",
     "@wikia/post-quecast": "1.2.0",
