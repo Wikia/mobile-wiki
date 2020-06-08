@@ -149,6 +149,11 @@ export const adsSetup = {
       context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
     }
 
+    context.set(
+      'templates.safeFanTakeoverElement.lineItemIds',
+      instantConfig.get('icSafeFanTakeoverLineItemIds'),
+    );
+
     context.set('state.disableTopLeaderboard', instantConfig.get('icCollapseTopLeaderboard'));
     context.set('state.deviceType', utils.client.getDeviceType());
 
