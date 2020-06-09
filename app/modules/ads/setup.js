@@ -37,7 +37,6 @@ export const adsSetup = {
   configure(adsContext, consents) {
     const { bidders } = window.Wikia.adBidders;
     const {
-      AdSlot,
       context,
       events,
       eventService,
@@ -90,7 +89,7 @@ export const adsSetup = {
       registerBidderTracker();
       registerViewabilityTracker();
       registerPostmessageTrackingTracker();
-      eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
+      eventService.on(events.FIRST_CALL_ENDED, () => {
         fanTakeoverResolver.resolve();
       });
 
