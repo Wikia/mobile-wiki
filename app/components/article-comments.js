@@ -70,7 +70,7 @@ export default Component.extend(InViewportMixin, {
 
     if (page !== null) {
       this.set('isCollapsed', false);
-      this.fetchCommentsBasedOnPlatform();
+      this.fetchCommentsBasedOnPlatform(this.page);
 
       scheduleOnce('afterRender', this, () => {
         this.scrollTop();
@@ -111,7 +111,7 @@ export default Component.extend(InViewportMixin, {
       if (this.isCollapsed) {
         this.set('page', null);
       } else {
-        this.fetchCommentsBasedOnPlatform();
+        this.fetchCommentsBasedOnPlatform(1);
       }
 
       track({
@@ -164,11 +164,11 @@ export default Component.extend(InViewportMixin, {
     });
   },
 
-  fetchCommentsBasedOnPlatform() {
+  fetchCommentsBasedOnPlatform(page) {
     if (this.isUcp) {
       this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
     } else {
-      this.fetchComments(parseInt(this.page, 10));
+      this.fetchComments(parseInt(page, 10));
     }
   },
 
