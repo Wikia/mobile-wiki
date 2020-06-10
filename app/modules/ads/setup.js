@@ -37,7 +37,6 @@ export const adsSetup = {
   configure(adsContext, consents) {
     const { bidders } = window.Wikia.adBidders;
     const {
-      AdSlot,
       context,
       events,
       eventService,
@@ -90,7 +89,7 @@ export const adsSetup = {
       registerBidderTracker();
       registerViewabilityTracker();
       registerPostmessageTrackingTracker();
-      eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
+      eventService.on(events.FIRST_CALL_ENDED, () => {
         fanTakeoverResolver.resolve();
       });
 
@@ -148,6 +147,11 @@ export const adsSetup = {
       context.set('templates.stickyTLB.lineItemIds', stickySlotsLines);
       context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
     }
+
+    context.set(
+      'templates.safeFanTakeoverElement.lineItemIds',
+      instantConfig.get('icSafeFanTakeoverLineItemIds'),
+    );
 
     context.set('state.disableTopLeaderboard', instantConfig.get('icCollapseTopLeaderboard'));
     context.set('state.deviceType', utils.client.getDeviceType());
