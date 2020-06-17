@@ -1,11 +1,6 @@
 import { Communicator, setupPostQuecast } from '@wikia/post-quecast';
 
 class CommunicationService {
-  /**
-   * @private
-   */
-  communicator;
-
   constructor() {
     if (typeof FastBoot === 'undefined') {
       setupPostQuecast();
