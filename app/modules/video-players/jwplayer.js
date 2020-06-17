@@ -1,10 +1,10 @@
-import { Communicator } from '@wikia/post-quecast';
 import { v4 as uuid } from 'ember-uuid';
 import Ads from '../ads';
 import BasePlayer from './base';
 import { track } from '../../utils/track';
 import config from '../../config/environment';
 import JWPlayerAssets from '../jwplayer-assets';
+import { communicationService } from '../ads/communication/communication-service';
 
 export default class JWPlayer extends BasePlayer {
   constructor(provider, params) {
@@ -13,8 +13,6 @@ export default class JWPlayer extends BasePlayer {
     super(provider, params);
     this.recommendedVideoPlaylist = params.recommendedVideoPlaylist || 'Y2RWCKuS';
     this.videoScope = params.isDedicatedForArticle ? 'article' : 'wiki';
-    this.communicator = new Communicator();
-
     this.videoTags = params.videoTags || '';
     this.videoOptions = null;
 
@@ -34,7 +32,7 @@ export default class JWPlayer extends BasePlayer {
 
       window[playerKey] = player;
 
-      this.communicator.dispatch({
+      communicationService.dispatch({
         type: '[JWPlayer] Player Ready',
         options: this.videoOptions,
         targeting: this.getSlotTargeting(),

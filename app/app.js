@@ -1,13 +1,8 @@
 import Application from '@ember/application';
-import { setupPostQuecast } from '@wikia/post-quecast';
 import loadInitializers from 'ember-load-initializers';
 import Resolver from './resolver';
 import config from './config/environment';
 import adSlotBuilder from './services/ads/ad-slot-builder';
-
-if (typeof FastBoot === 'undefined') {
-  setupPostQuecast();
-}
 
 // to save kb we removed ember-cli-shims but in some places we still 'import Ember from 'ember'
 // to support it we re-exeport global Ember below

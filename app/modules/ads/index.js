@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import { v4 as uuid } from 'ember-uuid';
-import { ofType } from 'ts-action-operators';
 import { adsSetup } from './setup';
 import { fanTakeoverResolver } from './fan-takeover-resolver';
 import { adblockDetector } from './tracking/adblock-detector';
@@ -11,6 +10,8 @@ import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { track, trackScrollY, trackXClick } from '../../utils/track';
+import { isType } from './communication/is-type';
+import { communicationService } from './communication/communication-service';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -548,12 +549,10 @@ class Ads {
    * @private
    */
   trackIdentityLibraryLoadTime() {
-    const { identityLibraryLoadedEvent, eventService } = window.Wikia.adEngine;
-
-    eventService.communicator.actions$.pipe(
-      ofType(identityLibraryLoadedEvent),
-    ).subscribe((props) => {
-      pageTracker.trackProp('identity_library_load_time', props.loadTime.toString());
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] Identity library loaded')) {
+        pageTracker.trackProp('identity_library_load_time', action.loadTime.toString());
+      }
     });
   }
 
