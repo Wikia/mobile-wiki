@@ -549,9 +549,12 @@ class Ads {
    * @private
    */
   trackIdentityLibraryLoadTime() {
+    const { identityLibrary } = window.Wikia.adEngine;
+
     communicationService.addListener((action) => {
       if (isType(action, '[AdEngine] Identity library loaded')) {
         pageTracker.trackProp('identity_library_load_time', action.loadTime.toString());
+        pageTracker.trackProp('identity_library_ids', identityLibrary.getUids());
       }
     });
   }
