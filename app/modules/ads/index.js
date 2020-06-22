@@ -419,7 +419,7 @@ class Ads {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
-    this.trackIdentityLibraryLoadTime();
+    this.trackIdentityLibrary();
   }
 
   /**
@@ -548,7 +548,7 @@ class Ads {
   /**
    * @private
    */
-  trackIdentityLibraryLoadTime() {
+  trackIdentityLibrary() {
     const { identityLibrary } = window.Wikia.adEngine;
 
     communicationService.addListener((action) => {
