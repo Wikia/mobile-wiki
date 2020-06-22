@@ -419,7 +419,7 @@ class Ads {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
-    this.trackIdentityLibraryLoadTime();
+    this.trackIdentityLibrary();
   }
 
   /**
@@ -548,10 +548,13 @@ class Ads {
   /**
    * @private
    */
-  trackIdentityLibraryLoadTime() {
+  trackIdentityLibrary() {
+    const { identityLibrary } = window.Wikia.adEngine;
+
     communicationService.addListener((action) => {
       if (isType(action, '[AdEngine] Identity library loaded')) {
         pageTracker.trackProp('identity_library_load_time', action.loadTime.toString());
+        pageTracker.trackProp('identity_library_ids', identityLibrary.getUids());
       }
     });
   }
