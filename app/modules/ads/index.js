@@ -159,6 +159,7 @@ class Ads {
 
     this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
+    this.triggerInitialTracking();
     this.triggerInitialLoadServices(
       mediaWikiAdsContext,
       { isOptedIn, isSaleOptOut },
@@ -409,6 +410,14 @@ class Ads {
 
   /**
    * @private
+   * Set up tracking that has to be called only on 1st pageview
+   */
+  triggerInitialTracking() {
+    this.trackIdentityLibraryLoadTime();
+  }
+
+  /**
+   * @private
    */
   triggerPageTracking() {
     this.trackViewabilityToDW();
@@ -419,7 +428,7 @@ class Ads {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
-    this.trackIdentityLibrary();
+    this.trackIdentityLibraryUids();
   }
 
   /**
@@ -548,12 +557,22 @@ class Ads {
   /**
    * @private
    */
-  trackIdentityLibrary() {
+  trackIdentityLibraryLoadTime() {
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] Identity library loaded')) {
+        pageTracker.trackProp('identity_library_load_time', action.loadTime.toString());
+      }
+    });
+  }
+
+  /**
+   * @private
+   */
+  trackIdentityLibraryUids() {
     const { identityLibrary } = window.Wikia.adEngine;
 
     communicationService.addListener((action) => {
       if (isType(action, '[AdEngine] Identity library loaded')) {
-        pageTracker.trackProp('identity_library_load_time', action.loadTime.toString());
         pageTracker.trackProp('identity_library_ids', identityLibrary.getUids());
       }
     });
