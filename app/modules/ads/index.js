@@ -572,7 +572,7 @@ class Ads {
     const { identityLibrary } = window.Wikia.adEngine;
 
     communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] Identity library loaded') && identityLibrary.isEnabled()) {
+      if (isType(action, '[AdEngine] Identity library loaded')) {
         pageTracker.trackProp('identity_library_ids', identityLibrary.getUids());
       }
     });
