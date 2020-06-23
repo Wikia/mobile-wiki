@@ -1257,7 +1257,8 @@
     "icFloorAdhesionDelay": [
         {
             "apps": [
-                "mobile-wiki"
+                "mobile-wiki",
+                "oasis"
             ],
             "regions": [
                 "XX"
