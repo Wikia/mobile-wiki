@@ -1,0 +1,11 @@
+<div class="steam-news">
+  <h2 class="wds-font-size-l wds-text-transform-uppercase wds-leading-tight">{{@header}}</h2>
+  {{#each @model as |item|}}
+    {{steam-news-item
+      title=item.title
+      url=item.url
+      excerpt=item.excerpt
+    }}
+  {{/each}}
+</div>
+

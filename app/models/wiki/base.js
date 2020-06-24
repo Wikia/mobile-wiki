@@ -33,6 +33,7 @@ export default EmberObject.extend({
   user: null,
   wiki: null,
   isRandomPage: false,
+  steamNews: [],
 
   /**
   * @param {Object} data
@@ -41,6 +42,8 @@ export default EmberObject.extend({
   setData({ data }) {
     let pageProperties;
     let article;
+
+    console.log(data);
 
     if (data) {
       // This data should always be set
