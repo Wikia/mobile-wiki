@@ -43,7 +43,6 @@ export default EmberObject.extend({
         options.headers['X-Staging'] = stagingHeader;
       }
     }
-
     return fetch(url, options)
       .then((response) => {
         if (!response.ok) {
