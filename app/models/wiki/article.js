@@ -11,7 +11,6 @@ export default BaseModel.extend({
   user: null,
   heroImage: null,
   canShowComments: false,
-  steamNews: [],
 
   /**
   * @param {Object} data
