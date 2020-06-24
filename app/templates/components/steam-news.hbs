@@ -1,10 +1,10 @@
 <div class="steam-news">
   <h2 class="wds-font-size-l wds-text-transform-uppercase wds-leading-tight">Steam news</h2>
-  {{#each this.news as |item|}}
+  {{#each news as |item|}}
     {{steam-news-item
       title=item.title
       url=item.url
-      excerpt=item.excerpt
+      content=item.contents
     }}
   {{/each}}
 </div>
