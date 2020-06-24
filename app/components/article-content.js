@@ -423,6 +423,9 @@ export default Component.extend(
         case 'math':
           componentName = 'widget-math';
           break;
+        case 'discord':
+          componentName = 'widget-discord';
+          break;
         default:
           this.logger.warn(`Can't create widget with type '${widgetType}'`);
           return null;
