@@ -11,6 +11,7 @@ export default BaseModel.extend({
   user: null,
   heroImage: null,
   canShowComments: false,
+  showDiscord: false,
 
   /**
   * @param {Object} data
@@ -54,6 +55,7 @@ export default BaseModel.extend({
       articleProperties.amphtml = data.amphtml;
       articleProperties.isUcp = data.isUcp;
       articleProperties.canShowComments = data.canShowComments || false;
+      articleProperties.showDiscord = data.showDiscord || true; // tbd: I have no clue about that part
 
       if (data.curatedMainPageData) {
         articleProperties.curatedMainPageData = data.curatedMainPageData;

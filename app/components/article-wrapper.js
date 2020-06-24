@@ -35,6 +35,7 @@ export default Component.extend(
     smallHeroImage: and('hasFeaturedVideo', 'heroImage'),
     isNotUCP: not('model.isUcp'),
     canShowComments: or('model.canShowComments', 'isNotUCP'),
+    showDiscord: true, // tbd: should be fetched from the model...
 
     init() {
       this._super(...arguments);

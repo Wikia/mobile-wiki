@@ -53,6 +53,9 @@
       users=model.topContributors
       class="article-footer-item"
     }}
+    {{#if showDiscord}}
+      {{discord-hack}}
+    {{/if}}
     {{#if canShowComments}}
       {{article-comments
         articleId=model.id
