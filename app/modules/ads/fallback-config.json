@@ -1109,6 +1109,7 @@
                 "NL"
             ],
             "sampling": 50.0,
+            "samplingCache": true,
             "value": true
         }
     ],
