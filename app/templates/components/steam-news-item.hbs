@@ -4,6 +4,12 @@
     {{{item.contents}}}
   </p>
 
+  {{# if item.feedlabel }}
+    <p class="steam-news-item__source">
+      Source: {{ item.feedlabel }}
+    </p>
+  {{/if}}
+
   <p class="steam-news-item__date">
     {{item.date}}
   </p>

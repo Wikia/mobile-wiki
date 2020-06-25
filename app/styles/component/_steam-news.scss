@@ -17,10 +17,17 @@ $steam-news-skewY: 5deg;
 
   .steam-news-item {
     padding-bottom: 1.5rem;
+    &__source {
+      margin: 0;
+      font-size: 0.8rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
     &__date {
       text-align: right;
     }
     &__content {
+      margin: 0;
       a {
         color: $wds-fandom-color-link;
       }
