@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 import RenderComponentMixin from '../mixins/render-component';
 import {inject as service} from "@ember/service";
+import fetch from "fetch";
 
 export default Component.extend(
   RenderComponentMixin,
@@ -18,9 +19,9 @@ export default Component.extend(
 
     loadNews() {
       const ids = this.wikiVariables.steamIds;
-      let news = this.steamNews.fetchNews(ids);
-      console.log(news);
-      this.set('news', news);
+
+      this.steamNews.fetchNews(ids)
+        .then(news => this.set('news', news));
     },
   },
 );

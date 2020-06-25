@@ -1,0 +1,48 @@
+$steam-news-skewY: 5deg;
+
+.steam-news {
+  background-image: linear-gradient(to bottom, rgba($wds-color-white, 1), rgba($wds-color-white, 0) 130px);
+  margin-bottom: 1.125rem;
+  padding: 1.5rem $article-horizontal-padding 0;
+  transform: skewY(-$steam-news-skewY);
+
+  & > * {
+    transform: skewY($steam-news-skewY);
+  }
+
+  .steam-news-header {
+    padding: .375rem 0 .75rem;
+    text-align: center;
+  }
+
+  .steam-news-item {
+    padding-bottom: 1.5rem;
+    &__date {
+      text-align: right;
+    }
+    &__content {
+      a {
+        color: $wds-fandom-color-link;
+      }
+    }
+  }
+
+  .article-language-links-list {
+    padding: 12px 0 18px;
+  }
+
+  .chevron {
+    color: $wds-fandom-color-dark-gray;
+    margin-right: 4px;
+  }
+
+  .article-language-links-list {
+    border-top: 1px solid $wds-fandom-color-middle-gray;
+  }
+
+  .license-description {
+    a {
+      color: $wds-fandom-color-link;
+    }
+  }
+}

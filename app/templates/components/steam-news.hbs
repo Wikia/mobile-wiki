@@ -1,11 +1,13 @@
-<div class="steam-news">
-  <h2 class="wds-font-size-l wds-text-transform-uppercase wds-leading-tight">Steam news</h2>
+<section class="steam-news">
+  <div class="steam-news-header">
+    <h2 class="wds-font-size-base wds-font-weight-bold wds-text-transform-uppercase wds-midlight-navy">
+    News
+    </h2>
+  </div>
+
   {{#each news as |item|}}
     {{steam-news-item
-      title=item.title
-      url=item.url
-      content=item.contents
+      item=item
     }}
   {{/each}}
-</div>
-
+</section>

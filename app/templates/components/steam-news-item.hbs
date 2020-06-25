@@ -1,6 +1,10 @@
-<div>
-    <p>
-      {{title}}
-      {{{content}}}
-    </p>
+<div class="steam-news-item">
+  <h3><a href="{{item.url}}">{{item.title}}</a></h3>
+  <p class="steam-news-item__content">
+    {{{item.contents}}}
+  </p>
+
+  <p class="steam-news-item__date">
+    {{item.date}}
+  </p>
 </div>

@@ -1,8 +1,44 @@
-import Service from '@ember/service';
+import Service, {inject as service} from '@ember/service';
 
 export default Service.extend({
-  fetchNews(ids) {
-    return JSON.parse('{"appnews":{"appid":20,"newsitems":[{"gid":"2426802221737557680","title":"Team Fortress Classic update released","url":"https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/2426802221737557680","is_external_url":true,"author":"mikela","contents":"An update for TFC is now available: Fixes and Updates Fixed server crash when a medic heals a spy that was infected by an enemy medic while feigning death Fixed holstered weapon incorrectly showing when using a func_tank Fixed class/map configs sometimes failing to auto-load Added support for civili...","feedlabel":"Community Announcements","date":1570555759,"feedname":"steam_community_announcements","feed_type":1,"appid":20,"tags":["patchnotes"]},{"gid":"3763229740658786046","title":"Team Fortress Classic updates released","url":"https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/3763229740658786046","is_external_url":true,"author":"mikela","contents":"This list covers the releases between March 20 and April 15 that are each part of a series of security updates. Larger changes: Added privilege checking to command execution. Commands originating outside of the client are now only able to execute commands that are considered to be safe. Commands suc...","feedlabel":"Community Announcements","date":1555378139,"feedname":"steam_community_announcements","feed_type":1,"appid":20,"tags":["patchnotes"]},{"gid":"2444779293780543705","title":"Team Fortress Classic update released","url":"https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/2444779293780543705","is_external_url":true,"author":"mikela","contents":"A small update for TFC is now available: Engine Fixed bug in skybox image loading Fixed bug in demo command processing Prevent certain path characters from being used in commands Enforce certain extensions be used for files specified in some commands ","feedlabel":"Community Announcements","date":1534872736,"feedname":"steam_community_announcements","feed_type":1,"appid":20},{"gid":"2078825132649888507","title":"Half-Life gets new patch, almost 19 years after launch","url":"https://steamstore-a.akamaihd.net/news/externalpost/rps/2078825132649888507","is_external_url":true,"author":"contact@rockpapershotgun.com (Alice O\'Connor)","contents":"Though <a href=\\"https://www.rockpapershotgun.com/tag/half-life/\\">Half-Life</a> is almost nineteen years old and <a href=\\"https://www.rockpapershotgun.com/2017/06/20/black-mesa-zen-release-date/\\">its sanctioned fan remake Black Mesa is nearing completion</a>, Valve have launched a wee patch for their <a href=\\"https://www.rockpapershotgun.com/2017/01/13/the-50-best-fps-on-pc/50/\\">pretty okay or whatever</a> vintage FPS. The patch fixes a few crashes and exploits, and hit other Half-Life engine games too, such as classic Counter-S...","feedlabel":"Rock, Paper, Shotgun","date":1499773232,"feedname":"rps","feed_type":0,"appid":10},{"gid":"2078825132647747949","title":"Team Fortress Classic update released","url":"https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/2078825132647747949","is_external_url":true,"author":"alfred","contents":"We have updated the public release of Team Fortress Classic. Changes in this update are: Fixed crash when entering certain malformed strings into the game console. Thanks to Marshal Webb from BackConnect, Inc for reporting this. Fixed crash when loading a specially crafted malformed BSP file. Thanks...","feedlabel":"Community Announcements","date":1499722123,"feedname":"steam_community_announcements","feed_type":1,"appid":20}],"count":17}}')
-      .appnews.newsitems;
+  wikiUrls: service(),
+  wikiVariables: service(),
+  fetchService: service('fetch'),
+  async fetchNews(ids) {
+
+    const promises = Object.values(ids)
+      .map(id => this.get(id));
+
+    const results = await Promise.allSettled(promises)
+
+    return results
+      .map(res => res.value)
+      .reduce((acc, item) => {
+        acc.push(...item)
+        console.log(acc);
+        return acc;
+      })
+      .sort((a, b) => b.date - a.date)
+      .map(item => Object.assign(item, {date: new Date(item.date * 1000).toDateString()}));
   },
+
+  get(id) {
+    const url = this.wikiUrls.build({
+      host: this.wikiVariables.host,
+      forceNoSSLOnServerSide: true,
+      path: '/wikia.php',
+      query: {
+        controller: 'MercuryApi',
+        method: 'getSteamNews',
+        format: 'json',
+        appid: id
+      },
+    });
+
+    const options = this.fetchService.getOptionsForInternalCache(url);
+
+    return fetch(url, options)
+      .then(res => res.json())
+      .then(data => data.steamNews.appnews.newsitems);
+  }
 });
