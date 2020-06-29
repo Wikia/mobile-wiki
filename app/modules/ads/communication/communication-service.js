@@ -10,13 +10,15 @@ class CommunicationService {
 
   addListener(cb) {
     if (this.communicator) {
-      this.communicator.actions$.subscribe(cb);
+      this.communicator.addListener(cb);
     }
   }
 
-  // removeListener(cb) {
-  //   return;
-  // }
+  removeListener(cb) {
+    if (this.communicator) {
+      this.communicator.removeListener(cb);
+    }
+  }
 
   dispatch(action) {
     if (this.communicator) {
