@@ -340,14 +340,16 @@ class Ads {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { slotService } = window.Wikia.adEngine;
+    const { context, slotService, taxonomyService } = window.Wikia.adEngine;
 
     const inhibitors = [];
 
     this.biddersInhibitor = null;
     bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
     inhibitors.push(this.getBiddersInhibitor());
-
+    if (context.get('targeting.rollout_tracking') === 'ucp') {
+      inhibitors.push(taxonomyService.configurePageLevelTargeting());
+    }
     this.startAdEngine(inhibitors);
 
     if (!slotService.getState('top_leaderboard')) {
