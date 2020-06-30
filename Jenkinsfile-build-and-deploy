@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurperClassic
 
 def deployenv = 'artifactory.wikia-inc.com/platform/alpine:3.6-curl'
-def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.22'
+def kubectl = 'artifactory.wikia-inc.com/ops/k8s-deployer:0.0.26'
 
 node('docker-daemon') {
     // serviceVersion is used in k8s deployment name - capital letters are forbidden there
