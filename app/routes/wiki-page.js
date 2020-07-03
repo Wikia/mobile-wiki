@@ -148,7 +148,7 @@ export default Route.extend(
 
         if (model.redirected) {
           if (fastboot.get('isFastBoot')) {
-            fastboot.get('response.headers').set('location', model.url);
+            fastboot.get('response.headers').set('location', model.redirectTargetUrl);
             fastboot.set('response.statusCode', 301);
           } else {
             const encodedTitle = encodeURIComponent(normalizeToUnderscore(model.title));

@@ -56,6 +56,8 @@ export default EmberObject.extend({
         title: get(data, 'details.title'),
         url: get(data, 'details.url'),
         type: getType(data),
+        redirected: data.redirected || false,
+        redirectTargetUrl: data.redirectTargetUrl,
       };
 
       // Article related Data - if Article exists
