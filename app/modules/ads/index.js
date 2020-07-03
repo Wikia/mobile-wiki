@@ -425,7 +425,6 @@ class Ads {
     this.trackViewabilityToDW();
     this.initScrollSpeedTracking();
     this.trackLabradorToDW();
-    this.trackLikhoToDW();
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
     this.trackTabId();
@@ -458,19 +457,6 @@ class Ads {
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
-    }
-  }
-
-  /**
-   * @private
-   */
-  trackLikhoToDW() {
-    const { likhoService, utils } = window.Wikia.adEngine;
-    const likhoPropValue = likhoService.getTypes();
-
-    if (likhoPropValue.length) {
-      pageTracker.trackProp('likho', likhoPropValue.join(';'));
-      utils.logger(logGroup, 'likho props', likhoPropValue);
     }
   }
 
