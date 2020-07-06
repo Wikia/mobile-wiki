@@ -314,7 +314,6 @@ class Ads {
   triggerBeforePageChangeServices() {
     const { billTheLizard, SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
-    const { taxonomyService } = window.Wikia.adServices;
     const cacheStorage = InstantConfigCacheStorage.make();
     const sessionCookie = SessionCookie.make();
 
@@ -325,7 +324,6 @@ class Ads {
     cheshireCat.reset();
     tbViewability.reset();
     billTheLizard.reset();
-    taxonomyService.reset();
     this.afterPageRenderExecuted = false;
   }
 
@@ -395,7 +393,7 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      facebookPixel, iasPublisherOptimization, nielsen, permutive, taxonomyService,
+      facebookPixel, iasPublisherOptimization, nielsen, permutive,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
@@ -407,7 +405,6 @@ class Ads {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
-    taxonomyService.configureComicsTargeting();
   }
 
   /**
