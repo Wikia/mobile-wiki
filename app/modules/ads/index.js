@@ -340,14 +340,16 @@ class Ads {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { slotService } = window.Wikia.adEngine;
+    const { context, slotService, taxonomyService } = window.Wikia.adEngine;
 
     const inhibitors = [];
 
     this.biddersInhibitor = null;
     bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
     inhibitors.push(this.getBiddersInhibitor());
-
+    if (context.get('targeting.rollout_tracking') === 'ucp') {
+      inhibitors.push(taxonomyService.configurePageLevelTargeting());
+    }
     this.startAdEngine(inhibitors);
 
     if (!slotService.getState('top_leaderboard')) {
@@ -423,7 +425,6 @@ class Ads {
     this.trackViewabilityToDW();
     this.initScrollSpeedTracking();
     this.trackLabradorToDW();
-    this.trackLikhoToDW();
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
     this.trackTabId();
@@ -456,19 +457,6 @@ class Ads {
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
-    }
-  }
-
-  /**
-   * @private
-   */
-  trackLikhoToDW() {
-    const { likhoService, utils } = window.Wikia.adEngine;
-    const likhoPropValue = likhoService.getTypes();
-
-    if (likhoPropValue.length) {
-      pageTracker.trackProp('likho', likhoPropValue.join(';'));
-      utils.logger(logGroup, 'likho props', likhoPropValue);
     }
   }
 

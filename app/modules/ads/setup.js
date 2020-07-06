@@ -118,7 +118,6 @@ export const adsSetup = {
       context,
       fillerService,
       InstantConfigCacheStorage,
-      likhoService,
       PorvataFiller,
       setupBidders,
       utils,
@@ -207,6 +206,10 @@ export const adsSetup = {
     context.set('services.permutive.enabled', instantConfig.get('icPermutive')
       && !context.get('wiki.targeting.directedAtChildren'));
 
+    if (instantConfig.get('icTaxonomyAdTags')) {
+      context.set('services.taxonomy.enabled', true);
+      context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
+    }
     if (instantConfig.get('icTaxonomyComicsTag')) {
       context.set('services.taxonomy.comics.enabled', true);
       context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
@@ -244,7 +247,6 @@ export const adsSetup = {
     context.set('templates.hideOnViewability.additionalHideTime', instantConfig.get('icFloorAdhesionDelay'));
     context.set('templates.hideOnViewability.timeoutHideTime', instantConfig.get('icFloorAdhesionTimeout'));
 
-    likhoService.refresh();
     setupPageLevelTargeting(adsContext);
 
     if (adsContext.targeting.wikiIsTop1000) {

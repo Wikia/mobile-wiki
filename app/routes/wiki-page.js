@@ -147,12 +147,12 @@ export default Route.extend(
         }
 
         if (model.redirected) {
-          const encodedTitle = encodeURIComponent(normalizeToUnderscore(model.title));
-
           if (fastboot.get('isFastBoot')) {
-            fastboot.get('response.headers').set('location', encodedTitle);
+            fastboot.get('response.headers').set('location', model.redirectTargetUrl);
             fastboot.set('response.statusCode', 301);
           } else {
+            const encodedTitle = encodeURIComponent(normalizeToUnderscore(model.title));
+
             this.transitionTo('wiki-page', encodedTitle);
           }
 
