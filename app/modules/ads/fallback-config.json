@@ -823,7 +823,11 @@
                 "5410506461",
                 "5410506470",
                 "5410506464",
-                "5410506473"
+                "5410506473",
+                "194029992",
+                "194029389",
+                "5406386861",
+                "5406386864"
             ]
         }
     ],
@@ -847,6 +851,17 @@
                 "icIxIdentityLibrary_A_50:ix_library_a",
                 "icIxIdentityLibrary_B_50:ix_library_b"
             ]
+        }
+    ],
+    "icTaxonomyAdTags": [
+        {
+            "apps": [
+                "mobile-wiki"
+            ],
+            "regions": [
+                "XX-EU"
+            ],
+            "value": true
         }
     ],
     "icA9VideoBidsCleaning": [
