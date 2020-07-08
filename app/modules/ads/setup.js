@@ -210,12 +210,6 @@ export const adsSetup = {
       context.set('services.taxonomy.enabled', true);
       context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
     }
-    if (instantConfig.get('icTaxonomyComicsTag')) {
-      context.set('services.taxonomy.comics.enabled', true);
-      context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
-      context.set('services.taxonomy.pageArticleId', adsContext.targeting.pageArticleId);
-    }
-
     const isMoatTrackingEnabledForVideo = instantConfig.get('icFeaturedVideoMoatTracking');
     context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
 
