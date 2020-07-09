@@ -128,18 +128,6 @@
             "value": true
         }
     ],
-    "icTaxonomyComicsTag": [
-        {
-            "apps": [
-                "mobile-wiki",
-                "oasis"
-            ],
-            "regions": [
-                "US"
-            ],
-            "value": false
-        }
-    ],
     "icFloorAdhesionViewportsToStart": [
         {
             "apps": [
@@ -824,6 +812,7 @@
                 "5410506470",
                 "5410506464",
                 "5410506473",
+                "5376167519",
                 "194029992",
                 "194029389",
                 "5406386861",
@@ -856,10 +845,12 @@
     "icTaxonomyAdTags": [
         {
             "apps": [
-                "mobile-wiki"
+                "gamepedia",
+                "mobile-wiki",
+                "oasis"
             ],
             "regions": [
-                "XX-EU"
+                "XX"
             ],
             "value": true
         }
