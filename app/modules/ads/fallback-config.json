@@ -551,24 +551,11 @@
     "icA9BidRefreshing": [
         {
             "apps": [
-                "mobile-wiki"
-            ],
-            "regions": [
-                "CZ",
-                "DK"
-            ],
-            "value": true
-        },
-        {
-            "apps": [
                 "mobile-wiki",
                 "oasis"
             ],
             "regions": [
-                "CA",
-                "ES",
-                "GB",
-                "UK"
+                "XX"
             ],
             "value": true
         }
@@ -862,8 +849,7 @@
                 "oasis"
             ],
             "regions": [
-                "XX",
-                "non-US"
+                "XX"
             ],
             "value": true
         }
@@ -1083,7 +1069,8 @@
                 "DK"
             ],
             "value": [
-                "mobile_in_content"
+                "mobile_in_content",
+                "featured"
             ]
         },
         {
@@ -1092,10 +1079,7 @@
                 "oasis"
             ],
             "regions": [
-                "CA",
-                "ES",
-                "GB",
-                "UK"
+                "XX"
             ],
             "value": [
                 "featured"
