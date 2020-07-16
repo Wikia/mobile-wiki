@@ -128,18 +128,6 @@
             "value": true
         }
     ],
-    "icTaxonomyComicsTag": [
-        {
-            "apps": [
-                "mobile-wiki",
-                "oasis"
-            ],
-            "regions": [
-                "US"
-            ],
-            "value": false
-        }
-    ],
     "icFloorAdhesionViewportsToStart": [
         {
             "apps": [
@@ -563,24 +551,11 @@
     "icA9BidRefreshing": [
         {
             "apps": [
-                "mobile-wiki"
-            ],
-            "regions": [
-                "CZ",
-                "DK"
-            ],
-            "value": true
-        },
-        {
-            "apps": [
                 "mobile-wiki",
                 "oasis"
             ],
             "regions": [
-                "CA",
-                "ES",
-                "GB",
-                "UK"
+                "XX"
             ],
             "value": true
         }
@@ -824,10 +799,13 @@
                 "5410506470",
                 "5410506464",
                 "5410506473",
+                "5376167519",
                 "194029992",
                 "194029389",
                 "5406386861",
-                "5406386864"
+                "5406386864",
+                "5419007438",
+                "5411280632"
             ]
         }
     ],
@@ -856,10 +834,12 @@
     "icTaxonomyAdTags": [
         {
             "apps": [
-                "mobile-wiki"
+                "gamepedia",
+                "mobile-wiki",
+                "oasis"
             ],
             "regions": [
-                "XX-EU"
+                "XX"
             ],
             "value": true
         }
@@ -871,8 +851,7 @@
                 "oasis"
             ],
             "regions": [
-                "XX",
-                "non-US"
+                "XX"
             ],
             "value": true
         }
@@ -1038,33 +1017,7 @@
             "regions": [
                 "XX"
             ],
-            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v3.23.0/20200630.min.js"
-        },
-        {
-            "apps": [
-                "futhead",
-                "gamepedia",
-                "mobile-wiki",
-                "muthead",
-                "oasis"
-            ],
-            "regions": [
-                "XX"
-            ],
-            "value": "https://origin-images.wikia.com/fandom-ae-assets/prebid.js/v3.2.0/20200414.min.js"
-        },
-        {
-            "apps": [
-                "futhead",
-                "gamepedia",
-                "mobile-wiki",
-                "muthead",
-                "oasis"
-            ],
-            "regions": [
-                "XX"
-            ],
-            "value": "//static.wikia.nocookie.net/fandom-ae-assets/prebid.js/v3.2.0/20200414.min.js"
+            "value": "//static.wikia.nocookie.net/fandom-ae-assets/prebid.js/v3.23.0/20200630.min.js"
         }
     ],
     "icA9Bidder": [
@@ -1092,7 +1045,8 @@
                 "DK"
             ],
             "value": [
-                "mobile_in_content"
+                "mobile_in_content",
+                "featured"
             ]
         },
         {
@@ -1101,10 +1055,7 @@
                 "oasis"
             ],
             "regions": [
-                "CA",
-                "ES",
-                "GB",
-                "UK"
+                "XX"
             ],
             "value": [
                 "featured"
