@@ -145,7 +145,7 @@ export function track(params, usePrefix = true, force = false) {
   const isNonInteractive = params.isNonInteractive !== false;
   const pvUID = window.pvUID;
   const {
-    action, label = '', value = 0, trackingMethod = TrackingMethod.both,
+    action, label = '', value = 0, trackingMethod = TrackingMethod.internal,
   } = params;
 
   params = Object.assign({
