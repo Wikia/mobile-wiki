@@ -10,7 +10,7 @@ module('Integration | Component | article-comments', (hooks) => {
 
   let load;
   let fetchCount;
-  let getUrlThreadParams = () => ({ urlThreadId: undefined, urlReplyId: undefined });
+  const getUrlThreadParams = () => ({ urlThreadId: undefined, urlReplyId: undefined });
 
   hooks.beforeEach(function () {
     load = sinon.spy();
