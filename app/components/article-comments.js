@@ -71,7 +71,7 @@ export default Component.extend(InViewportMixin, {
     const { urlThreadId } = this.articleComments.getUrlThreadParams();
 
     if (this.isUcp && urlThreadId) {
-      this.articleComments.fetchCount(this.articleTitle, this.articleNamespace)
+      this.articleComments.fetchCount(this.articleTitle, this.articleNamespace);
       this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
       this.toggleProperty('isCollapsed');
     }
