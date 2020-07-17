@@ -70,13 +70,21 @@ export default Component.extend(InViewportMixin, {
 
     const { urlThreadId } = this.articleComments.getUrlThreadParams();
 
-    if (this.isUcp && urlThreadId) {
-      this.articleComments.fetchCount(this.articleTitle, this.articleNamespace);
-      this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
-      this.toggleProperty('isCollapsed');
+    if (this.isUcp) {
+      // to make sure we won't show cached value we have to fetch these comments on FE
+      this.articleComments
+        .fetchCount(this.articleTitle, this.articleNamespace)
+        .then((count) => {
+          if (typeof count === 'number') {
+            this.set('commentsCount', count);
+          }
+        });
     }
 
-    if (page !== null) {
+    if (this.isUcp && urlThreadId) {
+      this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
+      this.set('isCollapsed', false);
+    } else if (page !== null) {
       this.set('isCollapsed', false);
       this.fetchCommentsBasedOnPlatform(this.page);
 
@@ -177,19 +185,6 @@ export default Component.extend(InViewportMixin, {
       this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
     } else {
       this.fetchComments(parseInt(page, 10));
-    }
-  },
-
-  didEnterViewport() {
-    if (this.isUcp) {
-      // to make sure we won't show cached value we have to fetch these comments on FE
-      this.articleComments
-        .fetchCount(this.articleTitle, this.articleNamespace)
-        .then((count) => {
-          if (typeof count === 'number') {
-            this.set('commentsCount', count);
-          }
-        });
     }
   },
 });
