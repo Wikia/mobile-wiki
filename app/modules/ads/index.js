@@ -561,6 +561,12 @@ class Ads {
         pageTracker.trackProp('identity_library_ids', identityLibrary.getUids());
       }
     });
+
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] Identity library ids loaded')) {
+        pageTracker.trackProp('identity_library_ids_loaded', identityLibrary.getUids());
+      }
+    });
   }
 
   /**
