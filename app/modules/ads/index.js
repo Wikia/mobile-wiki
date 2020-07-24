@@ -393,13 +393,14 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      facebookPixel, iasPublisherOptimization, nielsen, permutive,
+      audigent, facebookPixel, iasPublisherOptimization, nielsen, permutive,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
     facebookPixel.call();
     iasPublisherOptimization.call();
     permutive.call();
+    audigent.call();
     nielsen.call({
       type: 'static',
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
@@ -413,6 +414,7 @@ class Ads {
    */
   triggerInitialTracking() {
     this.trackIdentityLibraryLoadTime();
+    this.trackAudigent();
   }
 
   /**
@@ -565,6 +567,17 @@ class Ads {
     communicationService.addListener((action) => {
       if (isType(action, '[AdEngine] Identity library ids loaded')) {
         pageTracker.trackProp('identity_library_ids_loaded', identityLibrary.getUids());
+      }
+    });
+  }
+
+  /**
+   * @private
+   */
+  trackAudigent() {
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] Audigent loaded')) {
+        pageTracker.trackProp('audigent', 'loaded');
       }
     });
   }
