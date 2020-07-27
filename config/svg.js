@@ -23,6 +23,7 @@ const designSystemInlineSVGs = [
 // DS icons which should be lazy loaded
 const designSystemLazyLoadedSVGs = [
   'wds-icons-add',
+  'wds-icons-alert',
   'wds-icons-alert-small',
   'wds-icons-arrow',
   'wds-icons-arrow-small',
