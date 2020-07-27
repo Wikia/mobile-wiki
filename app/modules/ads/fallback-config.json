@@ -117,6 +117,18 @@
             "value": 4000
         }
     ],
+    "icAudigent": [
+        {
+            "apps": [
+                "mobile-wiki"
+            ],
+            "regions": [
+                "XX"
+            ],
+            "sampling": 10.0,
+            "value": true
+        }
+    ],
     "icPrebid33Across": [
         {
             "apps": [
