@@ -24,6 +24,7 @@ import {
 import Ads from '../modules/ads';
 import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
+import { gatherMetrics } from '../utils/performance';
 
 export default Route.extend(
   HeadTagsDynamicMixin,
@@ -165,6 +166,11 @@ export default Route.extend(
             // Otherwise we track to fast and url isn't
             // updated yet. `didTransition` hook is called too fast.
             this.trackPageView(model);
+            gatherMetrics(
+              this.get('wikiVariables.wgPerformanceMonitoringEndpointUrl'),
+              this.get('wikiVariables.wgPerformanceMonitoringSoftwareVersion'),
+              this.get('wikiVariables.wgPerformanceMonitoringSamplingFactor'),
+            );
 
             if (!fastboot.get('isFastBoot') && model.adsContext) {
               model.adsContext.user = model.adsContext.user || {};
