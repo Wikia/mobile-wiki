@@ -24,7 +24,7 @@ import {
 import Ads from '../modules/ads';
 import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
-import { gatherMetrics } from '../utils/performance';
+import gatherMetrics from '../utils/performance';
 
 export default Route.extend(
   HeadTagsDynamicMixin,
