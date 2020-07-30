@@ -296,7 +296,6 @@ export const adsSetup = {
 
       const priceFloorRule = instantConfig.get('icPrebidSizePriceFloorRule');
       context.set('bidders.prebid.priceFloor', priceFloorRule || null);
-      context.set('bidders.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
     }
 
     const insertBeforePaths = [

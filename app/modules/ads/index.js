@@ -413,7 +413,6 @@ class Ads {
    * Set up tracking that has to be called only on 1st pageview
    */
   triggerInitialTracking() {
-    this.trackIdentityLibraryLoadTime();
     this.trackAudigent();
   }
 
@@ -428,7 +427,6 @@ class Ads {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
-    this.trackIdentityLibraryUids();
   }
 
   /**
@@ -539,36 +537,6 @@ class Ads {
         },
       ));
     }
-  }
-
-  /**
-   * @private
-   */
-  trackIdentityLibraryLoadTime() {
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] Identity library loaded')) {
-        pageTracker.trackProp('identity_library_load_time', action.loadTime.toString());
-      }
-    });
-  }
-
-  /**
-   * @private
-   */
-  trackIdentityLibraryUids() {
-    const { identityLibrary } = window.Wikia.adEngine;
-
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] Identity library loaded')) {
-        pageTracker.trackProp('identity_library_ids', identityLibrary.getUids());
-      }
-    });
-
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] Identity library ids loaded')) {
-        pageTracker.trackProp('identity_library_ids_loaded', identityLibrary.getUids());
-      }
-    });
   }
 
   /**
