@@ -125,7 +125,18 @@
             "regions": [
                 "XX"
             ],
-            "sampling": 10.0,
+            "value": true
+        }
+    ],
+    "icComscoreJwpTracking": [
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "US"
+            ],
             "value": true
         }
     ],
@@ -817,7 +828,10 @@
                 "5406386861",
                 "5406386864",
                 "5419007438",
-                "5411280632"
+                "5411280632",
+                "5411350733",
+                "5410210521",
+                "5428434937"
             ]
         }
     ],
@@ -1097,12 +1111,7 @@
                 "muthead",
                 "oasis"
             ],
-            "regions": [
-                "XX"
-            ],
-            "sampling": 10.0,
-            "samplingCache": true,
-            "value": true
+            "value": false
         }
     ],
     "icIASVideoTracking": [
