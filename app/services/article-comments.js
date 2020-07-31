@@ -10,6 +10,7 @@ export default Service.extend({
   i18n: service(),
   logger: service(),
   fetch: service(),
+  wdsBannerNotifications: service(),
 
   fetchI18n() {
     const i18nFilePath = `/mobile-wiki/assets/articleComments/${this.i18n.language}.json`;
@@ -108,11 +109,20 @@ export default Service.extend({
         }));
       };
 
+      const notify = (message, type, timeout = 5000) => {
+        this.wdsBannerNotifications.addNotification({
+          type,
+          alreadySafeHtml: message,
+          hideAfterMs: timeout,
+        });
+      };
+
       createComments({
         env,
         user,
         i18n,
         track: trackFn,
+        notify,
         container: document.getElementById('articleComments'),
       });
     }).catch((err) => {
