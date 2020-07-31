@@ -2,6 +2,12 @@ import Service, { inject as service } from '@ember/service';
 import { ArticleCommentsFetchError } from '../utils/errors';
 import { track, trackActions } from '../utils/track';
 
+const bannerNotificationTypesMap = {
+  notify: 'message',
+  confirm: 'success',
+  warn: 'warning',
+  error: 'alert',
+};
 
 export default Service.extend({
   currentUser: service(),
@@ -111,7 +117,7 @@ export default Service.extend({
 
       const notify = (message, type, timeout = 5000) => {
         this.wdsBannerNotifications.addNotification({
-          type,
+          type: bannerNotificationTypesMap[type] || 'message',
           alreadySafeHtml: message,
           hideAfterMs: timeout,
         });
