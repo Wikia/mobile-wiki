@@ -78,6 +78,7 @@ module('Unit | Module | ads | setup', (hooks) => {
     window.Wikia.adProducts = {
       setupNpaContext: () => {},
       setupRdpContext: () => {},
+      setupTCFv2Context: () => {},
       playerEvents: {
         VIDEO_PLAYER_TRACKING_EVENT: Symbol('VIDEO_PLAYER_TRACKING_EVENT'),
       },
