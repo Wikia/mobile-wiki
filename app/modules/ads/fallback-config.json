@@ -117,6 +117,29 @@
             "value": 4000
         }
     ],
+    "icAudigent": [
+        {
+            "apps": [
+                "mobile-wiki"
+            ],
+            "regions": [
+                "XX"
+            ],
+            "value": true
+        }
+    ],
+    "icComscoreJwpTracking": [
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "US"
+            ],
+            "value": true
+        }
+    ],
     "icPrebid33Across": [
         {
             "apps": [
@@ -805,7 +828,11 @@
                 "5406386861",
                 "5406386864",
                 "5419007438",
-                "5411280632"
+                "5411280632",
+                "5411350733",
+                "5410210521",
+                "5428434937",
+                "5437018947"
             ]
         }
     ],
@@ -826,8 +853,8 @@
                 "icPrebidSendAllBids_B_5:send_all_bids_b",
                 "icFloatingMedrecRecirculationDisabled_A_90:fmr_50_50_a",
                 "icFloatingMedrecRecirculationDisabled_B_10:fmr_50_50_b",
-                "icIxIdentityLibrary_A_50:ix_library_a",
-                "icIxIdentityLibrary_B_50:ix_library_b"
+                "icIxIdentityLibrary_A_90:ix_library_a",
+                "icIxIdentityLibrary_B_10:ix_library_b"
             ]
         }
     ],
@@ -1001,7 +1028,9 @@
                 "XX"
             ],
             "value": [
-                "5381590794"
+                "5381590794",
+                "5393163252",
+                "5393163249"
             ]
         }
     ],
@@ -1071,25 +1100,6 @@
             "regions": [
                 "XX"
             ],
-            "value": true
-        }
-    ],
-    "icIxIdentityLibrary": [
-        {
-            "apps": [
-                "futhead",
-                "gamepedia",
-                "mobile-wiki",
-                "muthead",
-                "oasis"
-            ],
-            "regions": [
-                "CA",
-                "HK",
-                "NL"
-            ],
-            "sampling": 50.0,
-            "samplingCache": true,
             "value": true
         }
     ],

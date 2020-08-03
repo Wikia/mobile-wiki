@@ -393,13 +393,14 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      facebookPixel, iasPublisherOptimization, nielsen, permutive,
+      audigent, facebookPixel, iasPublisherOptimization, nielsen, permutive,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
     facebookPixel.call();
     iasPublisherOptimization.call();
     permutive.call();
+    audigent.call();
     nielsen.call({
       type: 'static',
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
@@ -412,7 +413,7 @@ class Ads {
    * Set up tracking that has to be called only on 1st pageview
    */
   triggerInitialTracking() {
-    this.trackIdentityLibraryLoadTime();
+    this.trackAudigent();
   }
 
   /**
@@ -426,7 +427,6 @@ class Ads {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
-    this.trackIdentityLibraryUids();
   }
 
   /**
@@ -542,23 +542,10 @@ class Ads {
   /**
    * @private
    */
-  trackIdentityLibraryLoadTime() {
+  trackAudigent() {
     communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] Identity library loaded')) {
-        pageTracker.trackProp('identity_library_load_time', action.loadTime.toString());
-      }
-    });
-  }
-
-  /**
-   * @private
-   */
-  trackIdentityLibraryUids() {
-    const { identityLibrary } = window.Wikia.adEngine;
-
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] Identity library loaded')) {
-        pageTracker.trackProp('identity_library_ids', identityLibrary.getUids());
+      if (isType(action, '[AdEngine] Audigent loaded')) {
+        pageTracker.trackProp('audigent', 'loaded');
       }
     });
   }

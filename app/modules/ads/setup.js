@@ -174,6 +174,7 @@ export const adsSetup = {
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('icFeaturedVideoAdsFrequency'));
     context.set('options.video.isMidrollEnabled', instantConfig.get('icFeaturedVideoMidroll'));
     context.set('options.video.isPostrollEnabled', instantConfig.get('icFeaturedVideoPostroll'));
+    context.set('options.video.comscoreJwpTracking', instantConfig.get('icComscoreJwpTracking'));
 
     context.set('options.maxDelayTimeout', instantConfig.get('icAdEngineDelay', 2000));
     context.set('options.tracking.kikimora.player', instantConfig.get('icPlayerTracking'));
@@ -200,6 +201,7 @@ export const adsSetup = {
       fillerService.register(new PorvataFiller());
     }
 
+    context.set('services.audigent.enabled', instantConfig.get('icAudigent'));
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
     context.set('services.facebookPixel.enabled', instantConfig.get('icFacebookPixel'));
@@ -296,7 +298,6 @@ export const adsSetup = {
 
       const priceFloorRule = instantConfig.get('icPrebidSizePriceFloorRule');
       context.set('bidders.prebid.priceFloor', priceFloorRule || null);
-      context.set('bidders.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
     }
 
     const insertBeforePaths = [
