@@ -1,17 +1,16 @@
 /* eslint-disable class-methods-use-this */
-import { Promise } from 'rsvp';
 import { v4 as uuid } from 'ember-uuid';
-import { adsSetup } from './setup';
-import { fanTakeoverResolver } from './fan-takeover-resolver';
-import { adblockDetector } from './tracking/adblock-detector';
-import { pageTracker } from './tracking/page-tracker';
-import { cheshireCat } from './ml/cheshire-cat';
-import { tbViewability } from './ml/tb-viewability';
-import { appEvents } from './events';
-import { logError } from '../event-logger';
-import { track, trackScrollY, trackXClick } from '../../utils/track';
-import { isType } from './communication/is-type';
-import { communicationService } from './communication/communication-service';
+import { adsSetup } from '../setup';
+import { fanTakeoverResolver } from '../fan-takeover-resolver';
+import { adblockDetector } from '../tracking/adblock-detector';
+import { pageTracker } from '../tracking/page-tracker';
+import { cheshireCat } from '../ml/cheshire-cat';
+import { tbViewability } from '../ml/tb-viewability';
+import { appEvents } from '../events';
+import { logError } from '../../event-logger';
+import { track, trackScrollY, trackXClick } from '../../../utils/track';
+import { isType } from '../communication/is-type';
+import { communicationService } from '../communication/communication-service';
 import PromiseLock from './promise-lock';
 
 const logGroup = 'mobile-wiki-ads-module';

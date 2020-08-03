@@ -1,4 +1,4 @@
-export function isAdEngineExperimental() {
+function isAdEngineExperimental() {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const param = urlParams.get('adengine_experimental');
@@ -8,3 +8,5 @@ export function isAdEngineExperimental() {
     return false;
   }
 }
+
+export default isAdEngineExperimental;
