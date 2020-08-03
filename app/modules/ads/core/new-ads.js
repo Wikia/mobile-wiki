@@ -1,10 +1,12 @@
+import { Promise } from 'rsvp';
+
 class NewAds {
   static getInstance() {
-    return;
+    return NewAds.instance;
   }
 
   static getLoadedInstance() {
-    return;
+    return new Promise(() => {});
   }
 
   init() {}
@@ -37,6 +39,6 @@ class NewAds {
   waitForUapResponse() {}
 }
 
-NewAds.instance = null;
+NewAds.instance = new NewAds();
 
 export default NewAds;
