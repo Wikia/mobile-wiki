@@ -12,7 +12,7 @@ class Ads {
 
   /**
    * Returns loaded ads instance.
-   * @returns {Promise}
+   * @returns {Promise<OldAds>}
    */
   static getLoadedInstance() {
     return OldAds.getInstance().initialization.finished;

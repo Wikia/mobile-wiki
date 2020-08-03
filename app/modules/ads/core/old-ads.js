@@ -218,6 +218,7 @@ class OldAds {
   }
 
   /**
+   * initialized
    * @public
    */
   beforeTransition() {
@@ -234,6 +235,7 @@ class OldAds {
   }
 
   /**
+   * initialized
    * @public
    */
   onTransition(options) {
@@ -251,6 +253,7 @@ class OldAds {
   }
 
   /**
+   * initialized
    * @public
    */
   afterTransition(mediaWikiAdsContext) {

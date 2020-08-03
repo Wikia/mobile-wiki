@@ -3,7 +3,6 @@ import Service, { inject as service } from '@ember/service';
 import Ads from '../../modules/ads';
 
 export default Service.extend({
-  module: Ads.getInstance(),
   fastboot: service(),
   currentUser: service(),
   siteHeadOffset: 0,
@@ -33,7 +32,7 @@ export default Service.extend({
   },
 
   beforeTransition() {
-    this.module.beforeTransition();
+    Ads.getInstance().beforeTransition();
 
     Object.keys(this.adSlotComponents).forEach((slotName) => {
       this.adSlotComponents[slotName].destroy();
@@ -61,6 +60,6 @@ export default Service.extend({
       isSubjectToCcpa: this.currentUser.isSubjectToCcpa,
     };
 
-    this.get('module').afterTransition(adsContext);
+    Ads.getInstance().afterTransition(adsContext);
   },
 });
