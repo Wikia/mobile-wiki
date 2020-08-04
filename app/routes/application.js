@@ -189,7 +189,7 @@ export default Route.extend(
       },
 
       didTransition() {
-        Ads.getInstance().onTransition();
+        Ads.onTransition();
 
         // Clear notification alerts for the new route
         this.controller.clearNotifications();

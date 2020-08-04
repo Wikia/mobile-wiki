@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import OldAds from './core/old-ads';
 import NewAds from './core/new-ads';
+import PromiseLock from './core/promise-lock';
 
 function isAdEngineExperimental() {
   try {
@@ -16,21 +17,21 @@ function isAdEngineExperimental() {
 class Ads {
   /**
    * @private
-   * @type {boolean}
+   * @type {PromiseLock}
    */
   static isExperimental;
 
-  static ensureMode(adsContext = {}) {
-    if (typeof Ads.isExperimental === 'boolean') {
+  static ensureMode(adsContext) {
+    if (Ads.isExperimental.isLoaded) {
       return;
     }
 
     if (isAdEngineExperimental() || adsContext.adEngineExperimental) {
-      Ads.isExperimental = true;
+      Ads.isExperimental.resolve(true);
       return;
     }
 
-    Ads.isExperimental = false;
+    Ads.isExperimental.resolve(false);
   }
 
   /**
@@ -38,14 +39,10 @@ class Ads {
    * @returns {OldAds | NewAds}
    */
   static getInstance() {
-    const isSet = typeof Ads.isExperimental === 'boolean';
-    if (isSet) {
-      console.log('** getInstance', isSet);
-    } else {
-      console.trace('** getInstance', isSet);
+    if (!Ads.isExperimental.isLoaded) {
+      console.error('ensureMode should be called before getInstance');
+      Ads.ensureMode({});
     }
-
-    Ads.ensureMode();
 
     if (Ads.isExperimental) {
       return NewAds.getInstance();
@@ -59,21 +56,43 @@ class Ads {
    * @returns {Promise<OldAds | NewAds>}
    */
   static getLoadedInstance() {
-    const isSet = typeof Ads.isExperimental === 'boolean';
-    if (isSet) {
-      console.log('** getLoadedInstance', isSet);
-    } else {
-      console.trace('** getLoadedInstance', isSet);
+    return Ads.isExperimental.finished.then((isExperimental) => {
+      if (isExperimental) {
+        return NewAds.getLoadedInstance();
+      }
+
+      return OldAds.getLoadedInstance();
+    });
+  }
+
+  static beforeTransition() {
+    if (!Ads.isExperimental.isLoaded) {
+      return;
     }
 
-    Ads.ensureMode();
+    Ads.getInstance()
+      .beforeTransition();
+  }
 
-    if (Ads.isExperimental) {
-      return NewAds.getLoadedInstance();
+  static onTransition(options) {
+    if (!Ads.isExperimental.isLoaded) {
+      return;
     }
 
-    return OldAds.getLoadedInstance();
+    Ads.getInstance()
+      .onTransition(options);
+  }
+
+  static afterTransition(mediaWikiAdsContext) {
+    if (!Ads.isExperimental.isLoaded) {
+      return;
+    }
+
+    Ads.getInstance()
+      .afterTransition(mediaWikiAdsContext);
   }
 }
+
+Ads.isExperimental = new PromiseLock();
 
 export default Ads;

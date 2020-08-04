@@ -114,11 +114,13 @@ export default Route.extend(
         if (!this.fastboot.get('isFastBoot')) {
           this.adsContextService.getAdsContext()
             .then((adsContext) => {
+              Ads.ensureMode(adsContext);
+
               const ads = Ads.getInstance();
 
               if (ads.isInitializationStarted) {
                 Ads.getLoadedInstance().then(() => {
-                  ads.afterTransition(adsContext);
+                  Ads.afterTransition(adsContext);
                 });
               } else {
                 ads.init(adsContext, this.transitionQueryParams);

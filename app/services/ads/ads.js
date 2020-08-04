@@ -32,7 +32,7 @@ export default Service.extend({
   },
 
   beforeTransition() {
-    Ads.getInstance().beforeTransition();
+    Ads.beforeTransition();
 
     Object.keys(this.adSlotComponents).forEach((slotName) => {
       this.adSlotComponents[slotName].destroy();
@@ -60,6 +60,6 @@ export default Service.extend({
       isSubjectToCcpa: this.currentUser.isSubjectToCcpa,
     };
 
-    Ads.getInstance().afterTransition(adsContext);
+    Ads.afterTransition(adsContext);
   },
 });
