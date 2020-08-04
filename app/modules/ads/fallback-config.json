@@ -497,22 +497,6 @@
             "value": true
         }
     ],
-    "icTcf1Disabled": [
-        {
-            "apps": [
-                "f2",
-                "futhead",
-                "gamepedia",
-                "mobile-wiki",
-                "muthead",
-                "oasis"
-            ],
-            "regions": [
-                "XX"
-            ],
-            "value": true
-        }
-    ],
     "icCollapseTopLeaderboard": [
         {
             "apps": [
@@ -831,7 +815,8 @@
                 "5411280632",
                 "5411350733",
                 "5410210521",
-                "5428434937"
+                "5428434937",
+                "5437018947"
             ]
         }
     ],
@@ -1185,22 +1170,6 @@
         {
             "apps": [
                 "mobile-wiki",
-                "oasis"
-            ],
-            "regions": [
-                "XX"
-            ],
-            "value": true
-        }
-    ],
-    "icTcf2Enabled": [
-        {
-            "apps": [
-                "f2",
-                "futhead",
-                "gamepedia",
-                "mobile-wiki",
-                "muthead",
                 "oasis"
             ],
             "regions": [
