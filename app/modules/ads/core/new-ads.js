@@ -6,10 +6,12 @@ class NewAds {
   }
 
   static getLoadedInstance() {
-    return new Promise(() => {});
+    return Promise.reject(new Error('NewAds bundle'));
   }
 
-  init() {}
+  init() {
+    // TODO: load new bundle
+  }
 
   getAdSlotComponentAttributes() {}
 
