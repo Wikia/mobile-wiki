@@ -32,7 +32,9 @@ export default Service.extend({
   },
 
   beforeTransition() {
-    Ads.beforeTransition();
+    if (Ads.isExperimental.isLoaded) {
+      Ads.getInstance().beforeTransition();
+    }
 
     Object.keys(this.adSlotComponents).forEach((slotName) => {
       this.adSlotComponents[slotName].destroy();
@@ -60,6 +62,8 @@ export default Service.extend({
       isSubjectToCcpa: this.currentUser.isSubjectToCcpa,
     };
 
-    Ads.afterTransition(adsContext);
+    if (Ads.isExperimental.isLoaded) {
+      Ads.getInstance().afterTransition(adsContext);
+    }
   },
 });

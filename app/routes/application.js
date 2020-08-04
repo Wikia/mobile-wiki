@@ -189,7 +189,9 @@ export default Route.extend(
       },
 
       didTransition() {
-        Ads.onTransition();
+        if (Ads.isExperimental.isLoaded) {
+          Ads.getInstance().onTransition();
+        }
 
         // Clear notification alerts for the new route
         this.controller.clearNotifications();

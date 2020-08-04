@@ -16,7 +16,6 @@ function isAdEngineExperimental() {
 
 class Ads {
   /**
-   * @private
    * @type {PromiseLock}
    */
   static isExperimental;
@@ -63,33 +62,6 @@ class Ads {
 
       return OldAds.getLoadedInstance();
     });
-  }
-
-  static beforeTransition() {
-    if (!Ads.isExperimental.isLoaded) {
-      return;
-    }
-
-    Ads.getInstance()
-      .beforeTransition();
-  }
-
-  static onTransition(options) {
-    if (!Ads.isExperimental.isLoaded) {
-      return;
-    }
-
-    Ads.getInstance()
-      .onTransition(options);
-  }
-
-  static afterTransition(mediaWikiAdsContext) {
-    if (!Ads.isExperimental.isLoaded) {
-      return;
-    }
-
-    Ads.getInstance()
-      .afterTransition(mediaWikiAdsContext);
   }
 }
 

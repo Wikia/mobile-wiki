@@ -119,8 +119,8 @@ export default Route.extend(
               const ads = Ads.getInstance();
 
               if (ads.isInitializationStarted) {
-                Ads.getLoadedInstance().then(() => {
-                  Ads.afterTransition(adsContext);
+                Ads.getLoadedInstance().then((ads) => {
+                  ads.afterTransition(adsContext);
                 });
               } else {
                 ads.init(adsContext, this.transitionQueryParams);
