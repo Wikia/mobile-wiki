@@ -36,9 +36,13 @@ class NewAds {
 
   onMenuOpen() {}
 
-  waitForVideoBidders() {}
+  waitForVideoBidders() {
+    return Promise.reject(new Error('NewAds bundle'));
+  }
 
-  waitForUapResponse() {}
+  waitForUapResponse() {
+    return Promise.reject(new Error('NewAds bundle'));
+  }
 }
 
 NewAds.instance = new NewAds();
