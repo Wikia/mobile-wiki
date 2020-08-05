@@ -9,32 +9,53 @@ class NewAds {
     return Promise.reject(new Error('NewAds bundle'));
   }
 
-  init() {
-    // TODO: load new bundle
+  init(adsContext) {
+    const jsScript = document.createElement('script');
+    const cssLink = document.createElement('link');
+    const base = `https://static.wikia.nocookie.net/fandom-ae-assets/platforms/${adsContext.opts.adEngineVersion}/ucp-mercury`;
+
+    jsScript.id = 'ae3.bundle';
+    jsScript.src = `${base}/main.bundle.js`;
+    jsScript.async = true;
+    jsScript.type = 'text/javascript';
+
+    cssLink.id = 'ae3.styles';
+    cssLink.href = `${base}/styles.css`;
+    cssLink.rel = 'stylesheet';
+
+    document.head.appendChild(jsScript);
+    document.head.appendChild(cssLink);
   }
 
-  getAdSlotComponentAttributes() {}
+  getAdSlotComponentAttributes() {
+  }
 
-  pushSlotToQueue() {}
+  pushSlotToQueue() {
+  }
 
-  registerActions() {}
-
-  /**
-   * initialized
-   */
-  beforeTransition() {}
+  registerActions() {
+  }
 
   /**
    * initialized
    */
-  onTransition() {}
+  beforeTransition() {
+  }
 
   /**
    * initialized
    */
-  afterTransition() {}
+  onTransition() {
+  }
 
-  onMenuOpen() {}
+  /**
+   * initialized
+   */
+  afterTransition() {
+  }
+
+  onMenuOpen() {
+  }
 
   waitForVideoBidders() {
     return Promise.reject(new Error('NewAds bundle'));
