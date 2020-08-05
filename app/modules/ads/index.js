@@ -3,14 +3,13 @@ import OldAds from './core/old-ads';
 import NewAds from './core/new-ads';
 import PromiseLock from './core/promise-lock';
 
-function isAdEngineExperimental() {
+function getIsAdEngineExperimental() {
   try {
     const urlParams = new URLSearchParams(window.location.search);
-    const param = urlParams.get('adengine_experimental');
 
-    return param === '1';
+    return urlParams.get('adengine_experimental');
   } catch (e) {
-    return false;
+    return null;
   }
 }
 
@@ -21,16 +20,22 @@ class Ads {
   static isExperimental;
 
   static ensureMode(adsContext) {
+    console.log('**', adsContext);
     if (Ads.isExperimental.isLoaded) {
       return;
     }
 
-    if (isAdEngineExperimental() || adsContext.adEngineExperimental) {
-      Ads.isExperimental.resolve(true);
-      return;
+    switch (getIsAdEngineExperimental()) {
+      case '1':
+        console.log('** force new');
+        return Ads.isExperimental.resolve(true);
+      case '0':
+        console.log('** force old');
+        return Ads.isExperimental.resolve(false);
+      default:
+        console.log('** default', !!(adsContext.opts && adsContext.opts.adEngineExperimental));
+        return Ads.isExperimental.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental))
     }
-
-    Ads.isExperimental.resolve(false);
   }
 
   /**
