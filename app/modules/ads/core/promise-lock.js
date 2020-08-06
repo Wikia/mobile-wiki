@@ -4,7 +4,7 @@ class PromiseLock {
   constructor() {
     this.value = undefined;
     this.isResolved = false;
-    this.finished = new Promise((resolve, reject) => {
+    this.promise = new Promise((resolve, reject) => {
       this.resolve = (x) => {
         this.isResolved = true;
         this.value = x;

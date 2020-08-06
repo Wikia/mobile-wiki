@@ -17,20 +17,20 @@ class Ads {
   /**
    * @type {PromiseLock}
    */
-  static isExperimental;
+  static adsMode;
 
   static ensureMode(adsContext) {
-    if (Ads.isExperimental.isResolved) {
+    if (Ads.adsMode.isResolved) {
       return;
     }
 
     switch (getIsAdEngineExperimental()) {
       case '1':
-        return Ads.isExperimental.resolve(true);
+        return Ads.adsMode.resolve(true);
       case '0':
-        return Ads.isExperimental.resolve(false);
+        return Ads.adsMode.resolve(false);
       default:
-        return Ads.isExperimental.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental));
+        return Ads.adsMode.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental));
     }
   }
 
@@ -39,12 +39,12 @@ class Ads {
    * @returns {StableAds | ExperimentalAds}
    */
   static getInstance() {
-    if (!Ads.isExperimental.isResolved) {
+    if (!Ads.adsMode.isResolved) {
       console.error('ensureMode should be called before getInstance');
       Ads.ensureMode({});
     }
 
-    if (Ads.isExperimental) {
+    if (Ads.adsMode) {
       return ExperimentalAds.getInstance();
     }
 
@@ -56,7 +56,7 @@ class Ads {
    * @returns {Promise<StableAds | ExperimentalAds>}
    */
   static getLoadedInstance() {
-    return Ads.isExperimental.finished.then((isExperimental) => {
+    return Ads.adsMode.promise.then((isExperimental) => {
       if (isExperimental) {
         return ExperimentalAds.getLoadedInstance();
       }
@@ -66,6 +66,6 @@ class Ads {
   }
 }
 
-Ads.isExperimental = new PromiseLock();
+Ads.adsMode = new PromiseLock();
 
 export default Ads;

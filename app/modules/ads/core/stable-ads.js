@@ -53,7 +53,7 @@ class StableAds {
    * @returns {Promise|RSVP.Promise|*}
    */
   static getLoadedInstance() {
-    return StableAds.getInstance().initialization.finished;
+    return StableAds.getInstance().initialization.promise;
   }
 
   /**
