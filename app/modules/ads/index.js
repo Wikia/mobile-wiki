@@ -26,11 +26,11 @@ class Ads {
 
     switch (getIsAdEngineExperimental()) {
       case '1':
-        return Ads.adsMode.resolve(true);
+        return Ads.adsMode.resolve('experimental');
       case '0':
-        return Ads.adsMode.resolve(false);
+        return Ads.adsMode.resolve('stable');
       default:
-        return Ads.adsMode.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental));
+        return Ads.adsMode.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental) ? 'experimental' : 'stable');
     }
   }
 
@@ -44,7 +44,7 @@ class Ads {
       Ads.ensureMode({});
     }
 
-    if (Ads.adsMode) {
+    if (Ads.adsMode.value === 'experimental') {
       return ExperimentalAds.getInstance();
     }
 
