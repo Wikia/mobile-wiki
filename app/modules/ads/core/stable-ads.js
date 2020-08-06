@@ -21,11 +21,15 @@ function isQueryParamActive(paramValue) {
 
 class StableAds {
   constructor() {
+    /** @private */
     this.biddersInhibitor = null;
+    /** @private */
     this.engine = null;
+    /** @private */
     this.spaInstanceId = null;
 
     this.isInitializationStarted = false;
+    /** @private */
     this.initialization = new PromiseLock();
     /** @private */
     this.afterPageRenderExecuted = false;

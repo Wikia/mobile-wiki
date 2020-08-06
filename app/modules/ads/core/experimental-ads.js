@@ -10,7 +10,13 @@ class ExperimentalAds {
     return Promise.reject(new Error('ExperimentalAds bundle'));
   }
 
+  constructor() {
+    this.isInitializationStarted = false;
+  }
+
   init(adsContext) {
+    this.isInitializationStarted = true;
+
     const jsScript = document.createElement('script');
     const cssLink = document.createElement('link');
     const base = `https://static.wikia.nocookie.net/fandom-ae-assets/platforms/${adsContext.opts.adEngineVersion}/ucp-mercury`;
