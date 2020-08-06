@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 
 class ExperimentalAds {

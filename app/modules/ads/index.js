@@ -19,6 +19,9 @@ class Ads {
    */
   static adsMode;
 
+  /**
+   * @returns {void}
+   */
   static ensureMode(adsContext) {
     if (Ads.adsMode.isResolved) {
       return;
@@ -26,11 +29,15 @@ class Ads {
 
     switch (getIsAdEngineExperimental()) {
       case '1':
-        return Ads.adsMode.resolve(ExperimentalAds);
+        Ads.adsMode.resolve(ExperimentalAds);
+        break;
       case '0':
-        return Ads.adsMode.resolve(StableAds);
+        Ads.adsMode.resolve(StableAds);
+        break;
       default:
-        return Ads.adsMode.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental) ? ExperimentalAds : StableAds);
+        Ads.adsMode.resolve(
+          (adsContext.opts && adsContext.opts.adEngineExperimental) ? ExperimentalAds : StableAds,
+        );
     }
   }
 
@@ -52,7 +59,7 @@ class Ads {
    * @returns {Promise<StableAds | ExperimentalAds>}
    */
   static getLoadedInstance() {
-    return Ads.adsMode.promise.then((AdsMode) => AdsMode.getLoadedInstance());
+    return Ads.adsMode.promise.then(AdsMode => AdsMode.getLoadedInstance());
   }
 }
 
