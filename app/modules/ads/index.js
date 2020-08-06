@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import OldAds from './core/old-ads';
+import StableAds from './core/stable-ads';
 import NewAds from './core/new-ads';
 import PromiseLock from './core/promise-lock';
 
@@ -36,7 +36,7 @@ class Ads {
 
   /**
    * Returns ads instance.
-   * @returns {OldAds | NewAds}
+   * @returns {StableAds | NewAds}
    */
   static getInstance() {
     if (!Ads.isExperimental.isResolved) {
@@ -48,12 +48,12 @@ class Ads {
       return NewAds.getInstance();
     }
 
-    return OldAds.getInstance();
+    return StableAds.getInstance();
   }
 
   /**
    * Returns loaded ads instance.
-   * @returns {Promise<OldAds | NewAds>}
+   * @returns {Promise<StableAds | NewAds>}
    */
   static getLoadedInstance() {
     return Ads.isExperimental.finished.then((isExperimental) => {
@@ -61,7 +61,7 @@ class Ads {
         return NewAds.getLoadedInstance();
       }
 
-      return OldAds.getLoadedInstance();
+      return StableAds.getLoadedInstance();
     });
   }
 }

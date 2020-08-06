@@ -19,7 +19,7 @@ function isQueryParamActive(paramValue) {
   return ['0', null, '', 'false', undefined].indexOf(paramValue) === -1;
 }
 
-class OldAds {
+class StableAds {
   constructor() {
     this.biddersInhibitor = null;
     this.engine = null;
@@ -36,15 +36,15 @@ class OldAds {
   /**
    * Returns ads instance.
    *
-   * @returns {OldAds}
+   * @returns {StableAds}
    * @public
    */
   static getInstance() {
-    if (OldAds.instance === null) {
-      OldAds.instance = new OldAds();
+    if (StableAds.instance === null) {
+      StableAds.instance = new StableAds();
     }
 
-    return OldAds.instance;
+    return StableAds.instance;
   }
 
   /**
@@ -53,7 +53,7 @@ class OldAds {
    * @returns {Promise|RSVP.Promise|*}
    */
   static getLoadedInstance() {
-    return OldAds.getInstance().initialization.finished;
+    return StableAds.getInstance().initialization.finished;
   }
 
   /**
@@ -100,7 +100,7 @@ class OldAds {
           });
       }
 
-      OldAds.getLoadedInstance()
+      StableAds.getLoadedInstance()
         .then(() => {
           pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
         });
@@ -591,6 +591,6 @@ class OldAds {
   }
 }
 
-OldAds.instance = null;
+StableAds.instance = null;
 
-export default OldAds;
+export default StableAds;
