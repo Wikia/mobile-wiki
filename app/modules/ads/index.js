@@ -15,11 +15,6 @@ function getIsAdEngineExperimental() {
 
 class Ads {
   /**
-   * @type {PromiseLock}
-   */
-  static adsMode;
-
-  /**
    * @returns {void}
    */
   static ensureMode(adsContext) {
