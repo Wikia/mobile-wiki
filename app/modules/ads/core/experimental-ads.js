@@ -15,6 +15,10 @@ class ExperimentalAds {
   }
 
   init(adsContext) {
+    if (this.isInitializationStarted) {
+      return;
+    }
+
     this.isInitializationStarted = true;
 
     const jsScript = document.createElement('script');
