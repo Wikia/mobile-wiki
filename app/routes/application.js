@@ -189,7 +189,7 @@ export default Route.extend(
       },
 
       didTransition() {
-        if (Ads.isExperimental.isLoaded) {
+        if (Ads.isExperimental.isResolved) {
           Ads.getInstance().onTransition();
         }
 

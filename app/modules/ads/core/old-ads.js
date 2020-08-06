@@ -136,7 +136,7 @@ class OldAds {
    * @param isSaleOptOut
    */
   setupAdEngine(mediaWikiAdsContext, isOptedIn = false, isSaleOptOut = false) {
-    if (this.initialization.isLoaded) {
+    if (this.initialization.isResolved) {
       return;
     }
 
@@ -222,7 +222,7 @@ class OldAds {
    * @public
    */
   beforeTransition() {
-    if (!this.initialization.isLoaded) {
+    if (!this.initialization.isResolved) {
       return;
     }
 
@@ -239,7 +239,7 @@ class OldAds {
    * @public
    */
   onTransition(options) {
-    if (!this.initialization.isLoaded) {
+    if (!this.initialization.isResolved) {
       return;
     }
 
@@ -257,7 +257,7 @@ class OldAds {
    * @public
    */
   afterTransition(mediaWikiAdsContext) {
-    if (!this.initialization.isLoaded) {
+    if (!this.initialization.isResolved) {
       return;
     }
 

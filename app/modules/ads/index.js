@@ -20,7 +20,7 @@ class Ads {
   static isExperimental;
 
   static ensureMode(adsContext) {
-    if (Ads.isExperimental.isLoaded) {
+    if (Ads.isExperimental.isResolved) {
       return;
     }
 
@@ -39,7 +39,7 @@ class Ads {
    * @returns {OldAds | NewAds}
    */
   static getInstance() {
-    if (!Ads.isExperimental.isLoaded) {
+    if (!Ads.isExperimental.isResolved) {
       console.error('ensureMode should be called before getInstance');
       Ads.ensureMode({});
     }

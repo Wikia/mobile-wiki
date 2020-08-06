@@ -32,7 +32,7 @@ export default Service.extend({
   },
 
   beforeTransition() {
-    if (Ads.isExperimental.isLoaded) {
+    if (Ads.isExperimental.isResolved) {
       Ads.getInstance().beforeTransition();
     }
 
@@ -62,7 +62,7 @@ export default Service.extend({
       isSubjectToCcpa: this.currentUser.isSubjectToCcpa,
     };
 
-    if (Ads.isExperimental.isLoaded) {
+    if (Ads.isExperimental.isResolved) {
       Ads.getInstance().afterTransition(adsContext);
     }
   },
