@@ -26,11 +26,11 @@ class Ads {
 
     switch (getIsAdEngineExperimental()) {
       case '1':
-        return Ads.adsMode.resolve('experimental');
+        return Ads.adsMode.resolve(ExperimentalAds);
       case '0':
-        return Ads.adsMode.resolve('stable');
+        return Ads.adsMode.resolve(StableAds);
       default:
-        return Ads.adsMode.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental) ? 'experimental' : 'stable');
+        return Ads.adsMode.resolve(!!(adsContext.opts && adsContext.opts.adEngineExperimental) ? ExperimentalAds : StableAds);
     }
   }
 
@@ -44,11 +44,7 @@ class Ads {
       Ads.ensureMode({});
     }
 
-    if (Ads.adsMode.value === 'experimental') {
-      return ExperimentalAds.getInstance();
-    }
-
-    return StableAds.getInstance();
+    return Ads.adsMode.value.getInstance();
   }
 
   /**
@@ -56,13 +52,7 @@ class Ads {
    * @returns {Promise<StableAds | ExperimentalAds>}
    */
   static getLoadedInstance() {
-    return Ads.adsMode.promise.then((isExperimental) => {
-      if (isExperimental) {
-        return ExperimentalAds.getLoadedInstance();
-      }
-
-      return StableAds.getLoadedInstance();
-    });
+    return Ads.adsMode.promise.then((AdsMode) => AdsMode.getLoadedInstance());
   }
 }
 
