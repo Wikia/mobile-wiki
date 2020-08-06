@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import StableAds from './core/stable-ads';
-import NewAds from './core/new-ads';
+import ExperimentalAds from './core/experimental-ads';
 import PromiseLock from './core/promise-lock';
 
 function getIsAdEngineExperimental() {
@@ -36,7 +36,7 @@ class Ads {
 
   /**
    * Returns ads instance.
-   * @returns {StableAds | NewAds}
+   * @returns {StableAds | ExperimentalAds}
    */
   static getInstance() {
     if (!Ads.isExperimental.isResolved) {
@@ -45,7 +45,7 @@ class Ads {
     }
 
     if (Ads.isExperimental) {
-      return NewAds.getInstance();
+      return ExperimentalAds.getInstance();
     }
 
     return StableAds.getInstance();
@@ -53,12 +53,12 @@ class Ads {
 
   /**
    * Returns loaded ads instance.
-   * @returns {Promise<StableAds | NewAds>}
+   * @returns {Promise<StableAds | ExperimentalAds>}
    */
   static getLoadedInstance() {
     return Ads.isExperimental.finished.then((isExperimental) => {
       if (isExperimental) {
-        return NewAds.getLoadedInstance();
+        return ExperimentalAds.getLoadedInstance();
       }
 
       return StableAds.getLoadedInstance();

@@ -1,12 +1,12 @@
 import { Promise } from 'rsvp';
 
-class NewAds {
+class ExperimentalAds {
   static getInstance() {
-    return NewAds.instance;
+    return ExperimentalAds.instance;
   }
 
   static getLoadedInstance() {
-    return Promise.reject(new Error('NewAds bundle'));
+    return Promise.reject(new Error('ExperimentalAds bundle'));
   }
 
   init(adsContext) {
@@ -58,14 +58,14 @@ class NewAds {
   }
 
   waitForVideoBidders() {
-    return Promise.reject(new Error('NewAds bundle'));
+    return Promise.reject(new Error('ExperimentalAds bundle'));
   }
 
   waitForUapResponse() {
-    return Promise.reject(new Error('NewAds bundle'));
+    return Promise.reject(new Error('ExperimentalAds bundle'));
   }
 }
 
-NewAds.instance = new NewAds();
+ExperimentalAds.instance = new ExperimentalAds();
 
-export default NewAds;
+export default ExperimentalAds;
