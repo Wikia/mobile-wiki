@@ -1,3 +1,4 @@
+import { inject as service } from '@ember/service';
 import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
@@ -7,10 +8,11 @@ import truncate from '../utils/truncate';
 import nl2br from '../utils/nl2br';
 
 export default Component.extend({
+  wikiVariables: service(),
+
   classNames: ['post-detail'],
 
   openGraphSiteName: or('post.openGraph.domain', 'post.openGraph.siteName'),
-
   openGraphImageUrl: computed('post.openGraph.imageUrl', function () {
     const imageWidth = 525;
     const imageHeight = parseInt(imageWidth * 9 / 16, 10);
@@ -31,5 +33,9 @@ export default Component.extend({
     escapedContent = nl2br(escapedContent);
 
     return htmlSafe(escapedContent);
+  }),
+
+  baseFeedsUrl: computed(function () {
+    return `${this.wikiVariables.scriptPath}/f`;
   }),
 });

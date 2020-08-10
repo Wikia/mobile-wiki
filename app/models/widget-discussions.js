@@ -1,5 +1,5 @@
 import { inject as service } from '@ember/service';
-import EmberObject, { getWithDefault, get } from '@ember/object';
+import EmberObject, { computed, getWithDefault, get } from '@ember/object';
 import fetch from 'fetch';
 import extractDomainFromUrl from '../utils/domain';
 import { track } from '../utils/track';
@@ -18,6 +18,9 @@ export default EmberObject.extend(
     wikiVariables: service(),
     wikiUrls: service(),
     runtimeConfig: service(),
+    feedsUrl: computed(function () {
+      return `${this.wikiVariables.scriptPath}/f`;
+    }),
 
     /**
    * @param {array|string} [categories=[]]
