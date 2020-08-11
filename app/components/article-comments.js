@@ -69,12 +69,13 @@ export default Component.extend(InViewportMixin, {
     this._super(...arguments);
 
     const { urlThreadId } = this.articleComments.getUrlThreadParams();
+    const isSingleCommentView = this.isUcp && !!urlThreadId;
 
-    if (this.isUcp && urlThreadId) {
+    if (isSingleCommentView) {
       this.loadCommentsCount();
       this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
       this.set('isCollapsed', false);
-    } else if (page !== null) {
+    } else if (page !== null && page !== undefined) {
       this.set('isCollapsed', false);
       this.fetchCommentsBasedOnPlatform(this.page);
 
