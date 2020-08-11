@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
+import { communicationService } from "../communication/communication-service";
 
 class ExperimentalAds {
   static getInstance() {
@@ -7,10 +8,11 @@ class ExperimentalAds {
   }
 
   static getLoadedInstance() {
-    return Promise.reject(new Error('ExperimentalAds bundle'));
+    return Promise.resolve({});
   }
 
   constructor() {
+    this.isBundleLoaded = false;
     this.isInitializationStarted = false;
   }
 
@@ -29,6 +31,7 @@ class ExperimentalAds {
     jsScript.src = `${base}/main.bundle.js`;
     jsScript.async = true;
     jsScript.type = 'text/javascript';
+    jsScript.addEventListener('load', () => this.isBundleLoaded = true);
 
     cssLink.id = 'ae3.styles';
     cssLink.href = `${base}/styles.css`;
@@ -36,6 +39,11 @@ class ExperimentalAds {
 
     document.head.appendChild(jsScript);
     document.head.appendChild(cssLink);
+
+    communicationService.dispatch({
+      type: '[MobileWiki] Init',
+      payload: adsContext,
+    });
   }
 
   getAdSlotComponentAttributes() {
@@ -51,21 +59,46 @@ class ExperimentalAds {
    * initialized
    */
   beforeTransition() {
+    if (!this.isBundleLoaded) {
+      return;
+    }
+
+    communicationService.dispatch({
+      type: '[MobileWiki] Before transition',
+    });
   }
 
   /**
    * initialized
    */
   onTransition() {
+    if (!this.isBundleLoaded) {
+      return;
+    }
+
+    communicationService.dispatch({
+      type: '[MobileWiki] Transition',
+    });
   }
 
   /**
    * initialized
    */
-  afterTransition() {
+  afterTransition(adsContext) {
+    if (!this.isBundleLoaded) {
+      return;
+    }
+
+    communicationService.dispatch({
+      type: '[MobileWiki] After transition',
+      payload: adsContext,
+    });
   }
 
   onMenuOpen() {
+    communicationService.dispatch({
+      type: '[MobileWiki] Menu open',
+    });
   }
 
   waitForVideoBidders() {
