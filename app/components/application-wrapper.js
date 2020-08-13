@@ -28,7 +28,6 @@ import { track } from '../utils/track';
 export default Component.extend({
   ads: service('ads/ads'),
   currentUser: service(),
-  smartBanner: service(),
   lightbox: service(),
   logger: service(),
   wikiVariables: service(),
@@ -43,7 +42,6 @@ export default Component.extend({
     'isDarkTheme',
   ],
   scrollLocation: null,
-  smartBannerVisible: readOnly('smartBanner.smartBannerVisible'),
   shouldShowFandomAppSmartBanner: readOnly('smartBanner.shouldShowFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: readOnly('smartBanner.isFandomAppSmartBannerVisible'),
   isCustomSmartBannerVisible: readOnly('smartBanner.isCustomSmartBannerVisible'),

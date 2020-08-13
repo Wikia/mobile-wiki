@@ -5,23 +5,11 @@
   editLink=model.editLink
 }}
 
-{{#if hasFeaturedVideo}}
-  {{article-featured-video
-    model=model.featuredVideo
-    hasPortableInfobox=model.hasPortableInfobox
-  }}
-{{/if}}
-
 <section class="article-body">
   {{#if model.fileThumbnail}}
     {{article-media-thumbnail
       model=model.fileThumbnail
       shouldBeLoaded=true
-    }}
-  {{/if}}
-  {{#if smallHeroImage}}
-    {{portable-infobox-hero-image-small
-      heroImage=smallHeroImage
     }}
   {{/if}}
   {{article-content
@@ -53,17 +41,6 @@
       users=model.topContributors
       class="article-footer-item"
     }}
-    {{#if canShowComments}}
-      {{article-comments
-        articleId=model.id
-        isUcp=model.isUcp
-        articleTitle=model.title
-        articleNamespace=model.ns
-        commentsCount=model.comments
-        page=commentsPage
-        class="article-footer-item"
-      }}
-    {{/if}}
     {{#if model.categories}}
       {{#collapsible-menu
         observe=model.displayTitle
