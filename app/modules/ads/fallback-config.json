@@ -701,6 +701,7 @@
             "value": [
                 "4366940064",
                 "4916913597",
+                "5447862918",
                 "5447985268",
                 "4913869429",
                 "5443340780",
@@ -1180,6 +1181,19 @@
                 "XX"
             ],
             "value": true
+        }
+    ],
+    "icTcf2Enabled": [
+        {
+            "apps": [
+                "f2",
+                "futhead",
+                "gamepedia",
+                "mobile-wiki",
+                "muthead",
+                "oasis"
+            ],
+            "value": false
         }
     ],
     "icPrebid": [
