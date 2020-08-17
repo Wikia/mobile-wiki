@@ -221,7 +221,6 @@ export function trackScrollY(time, scrollY) {
     action: 'scroll',
     category: 'scroll_speed',
     label: `${time}s|${scrollY}`,
-    trackingMethod: TrackingMethod.internal,
   });
 }
 
