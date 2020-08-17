@@ -34,6 +34,7 @@
     "categories-list-label": "Categorías", 
     "comments-label": "comentario ({count})", 
     "comments-label_plural": "comentarios ({count})", 
+    "edit-article": "Editar página", 
     "empty-label": "¡Lo sentimos, este artículo parece estar vacío!", 
     "error": "Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.", 
     "language-links-label": "Otros idiomas", 

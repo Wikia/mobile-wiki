@@ -34,6 +34,7 @@
     "categories-list-label": "カテゴリ", 
     "comments-label": "コメント ({count})件", 
     "comments-label_plural": "コメント ({count})件", 
+    "edit-article": "ページを編集", 
     "empty-label": "申し訳ありません、この記事は存在しないようです。", 
     "error": "記事を読み込めませんでした。申し訳ございませんが、もう一度お試しください。", 
     "language-links-label": "言語", 

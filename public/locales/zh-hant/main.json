@@ -34,6 +34,7 @@
     "categories-list-label": "分類", 
     "comments-label": "評論({count})", 
     "comments-label_plural": "評論({count})", 
+    "edit-article": "編輯頁面", 
     "empty-label": "對不起，這篇文章似乎沒有內容 ！", 
     "error": "對不起，我們無法載入這篇文章。請再試一次。", 
     "language-links-label": "其他語言", 

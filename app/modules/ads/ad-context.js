@@ -1,3 +1,5 @@
+import fallbackInstantConfig from './fallback-config';
+
 export const defaultAdContext = {
   adUnitId: '/{custom.dfpId}/{custom.serverPrefix}1b.{slotConfig.group}/{slotConfig.adProduct}{slotConfig.slotNameSuffix}/'
   + '{state.deviceType}/{targeting.skin}-{targeting.s2}/{custom.wikiIdentifier}-{targeting.s0}',
@@ -458,11 +460,11 @@ export const defaultAdContext = {
         slots: {
           featured: {
             videoAdUnitId: '/5441/wka.life/_project43//article/test/outstream',
-            customParams: 's1=_project43&artid=402&src=test&pos=outstream&passback=wikiaVideo',
+            customParams: 's1=_project43&artid=402&src=test&pos=outstream',
           },
           incontent_player: {
             videoAdUnitId: '/5441/wka.life/_project43//article/test/outstream',
-            customParams: 's1=_project43&artid=402&src=test&pos=outstream&passback=wikiaVideo',
+            customParams: 's1=_project43&artid=402&src=test&pos=outstream',
           },
         },
       },
@@ -498,7 +500,6 @@ export const defaultAdContext = {
   },
   targeting: {
     ae3: '1',
-    outstream: 'none',
     skin: 'mercury',
     uap: 'none',
   },
@@ -524,7 +525,16 @@ export const defaultAdContext = {
     },
     instantConfig: {
       endpoint: 'https://services.wikia.com/icbm/api/config?app=mobile-wiki',
-      fallbackConfigKey: 'fallbackInstantConfig',
+      fallback: fallbackInstantConfig,
+    },
+    iasPublisherOptimization: {
+      pubId: '930616',
+      slots: [
+        'top_leaderboard',
+        'top_boxad',
+        'incontent_boxad_1',
+        'bottom_leaderboard',
+      ],
     },
     nielsen: {
       enabled: false,

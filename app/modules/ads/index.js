@@ -10,6 +10,8 @@ import { tbViewability } from './ml/tb-viewability';
 import { appEvents } from './events';
 import { logError } from '../event-logger';
 import { track, trackScrollY, trackXClick } from '../../utils/track';
+import { isType } from './communication/is-type';
+import { communicationService } from './communication/communication-service';
 
 const logGroup = 'mobile-wiki-ads-module';
 
@@ -157,6 +159,7 @@ class Ads {
 
     this.scrollTracker = new ScrollTracker([0, 2000, 4000], 'application-wrapper');
 
+    this.triggerInitialTracking();
     this.triggerInitialLoadServices(
       mediaWikiAdsContext,
       { isOptedIn, isSaleOptOut },
@@ -295,13 +298,10 @@ class Ads {
    * This trigger is executed once, at the very beginning
    */
   triggerInitialLoadServices(mediaWikiAdsContext, consents) {
-    const {
-      confiant, durationMedia, identityLibrary,
-    } = window.Wikia.adServices;
+    const { confiant, durationMedia } = window.Wikia.adServices;
 
     return adsSetup.configure(mediaWikiAdsContext, consents)
       .then(() => {
-        identityLibrary.call();
         confiant.call();
         durationMedia.call();
       });
@@ -314,7 +314,6 @@ class Ads {
   triggerBeforePageChangeServices() {
     const { billTheLizard, SessionCookie, InstantConfigCacheStorage } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
-    const { taxonomyService } = window.Wikia.adServices;
     const cacheStorage = InstantConfigCacheStorage.make();
     const sessionCookie = SessionCookie.make();
 
@@ -325,7 +324,6 @@ class Ads {
     cheshireCat.reset();
     tbViewability.reset();
     billTheLizard.reset();
-    taxonomyService.reset();
     this.afterPageRenderExecuted = false;
   }
 
@@ -340,14 +338,16 @@ class Ads {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { slotService } = window.Wikia.adEngine;
+    const { context, slotService, taxonomyService } = window.Wikia.adEngine;
 
     const inhibitors = [];
 
     this.biddersInhibitor = null;
     bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
     inhibitors.push(this.getBiddersInhibitor());
-
+    if (context.get('targeting.rollout_tracking') === 'ucp') {
+      inhibitors.push(taxonomyService.configurePageLevelTargeting());
+    }
     this.startAdEngine(inhibitors);
 
     if (!slotService.getState('top_leaderboard')) {
@@ -393,17 +393,27 @@ class Ads {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      nielsen, permutive, taxonomyService,
+      audigent, facebookPixel, iasPublisherOptimization, nielsen, permutive,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
+    facebookPixel.call();
+    iasPublisherOptimization.call();
     permutive.call();
+    audigent.call();
     nielsen.call({
       type: 'static',
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
-    taxonomyService.configureComicsTargeting();
+  }
+
+  /**
+   * @private
+   * Set up tracking that has to be called only on 1st pageview
+   */
+  triggerInitialTracking() {
+    this.trackAudigent();
   }
 
   /**
@@ -413,7 +423,6 @@ class Ads {
     this.trackViewabilityToDW();
     this.initScrollSpeedTracking();
     this.trackLabradorToDW();
-    this.trackLikhoToDW();
     this.trackConnectionToDW();
     this.trackSpaInstanceId();
     this.trackTabId();
@@ -445,19 +454,6 @@ class Ads {
     if (labradorPropValue) {
       pageTracker.trackProp('labrador', labradorPropValue);
       utils.logger(logGroup, 'labrador props', labradorPropValue);
-    }
-  }
-
-  /**
-   * @private
-   */
-  trackLikhoToDW() {
-    const { context, utils } = window.Wikia.adEngine;
-    const likhoPropValue = context.get('targeting.likho') || [];
-
-    if (likhoPropValue.length) {
-      pageTracker.trackProp('likho', likhoPropValue.join(';'));
-      utils.logger(logGroup, 'likho props', likhoPropValue);
     }
   }
 
@@ -541,6 +537,17 @@ class Ads {
         },
       ));
     }
+  }
+
+  /**
+   * @private
+   */
+  trackAudigent() {
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] Audigent loaded')) {
+        pageTracker.trackProp('audigent', 'loaded');
+      }
+    });
   }
 
   /**

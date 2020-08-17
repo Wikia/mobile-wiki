@@ -24,6 +24,7 @@ import {
 import Ads from '../modules/ads';
 import { logError } from '../modules/event-logger';
 import feedsAndPosts from '../modules/feeds-and-posts';
+import gatherMetrics from '../utils/performance';
 
 export default Route.extend(
   HeadTagsDynamicMixin,
@@ -147,12 +148,12 @@ export default Route.extend(
         }
 
         if (model.redirected) {
-          const encodedTitle = encodeURIComponent(normalizeToUnderscore(model.title));
-
           if (fastboot.get('isFastBoot')) {
-            fastboot.get('response.headers').set('location', encodedTitle);
+            fastboot.get('response.headers').set('location', model.redirectTargetUrl);
             fastboot.set('response.statusCode', 301);
           } else {
+            const encodedTitle = encodeURIComponent(normalizeToUnderscore(model.title));
+
             this.transitionTo('wiki-page', encodedTitle);
           }
 
@@ -165,6 +166,11 @@ export default Route.extend(
             // Otherwise we track to fast and url isn't
             // updated yet. `didTransition` hook is called too fast.
             this.trackPageView(model);
+            gatherMetrics(
+              this.get('wikiVariables.wgPerformanceMonitoringEndpointUrl'),
+              this.get('wikiVariables.wgPerformanceMonitoringSoftwareVersion'),
+              this.get('wikiVariables.wgPerformanceMonitoringSamplingFactor'),
+            );
 
             if (!fastboot.get('isFastBoot') && model.adsContext) {
               model.adsContext.user = model.adsContext.user || {};

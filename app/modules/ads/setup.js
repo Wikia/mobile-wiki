@@ -18,7 +18,7 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
-import fallbackInstantConfig from './fallback-config';
+import LogoReplacement from './templates/logo-replacement';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -36,7 +36,6 @@ export const adsSetup = {
   configure(adsContext, consents) {
     const { bidders } = window.Wikia.adBidders;
     const {
-      AdSlot,
       context,
       events,
       eventService,
@@ -48,6 +47,7 @@ export const adsSetup = {
     const {
       setupNpaContext,
       setupRdpContext,
+      setupTCFv2Context,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -55,20 +55,16 @@ export const adsSetup = {
       Interstitial,
       PorvataTemplate,
       Roadblock,
+      SafeFanTakeoverElement,
       StickyTLB,
     } = window.Wikia.adProducts;
     context.extend(defaultAdContext);
 
-    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
-
     utils.geoService.setUpGeoData();
-
-    if (fallbackConfigKey) {
-      window[fallbackConfigKey] = fallbackInstantConfig;
-    }
 
     return InstantConfigService.init().then((instantConfig) => {
       this.setupAdContext(instantConfig, adsContext, consents);
+      setupTCFv2Context(instantConfig);
       setupNpaContext();
       setupRdpContext();
 
@@ -77,8 +73,10 @@ export const adsSetup = {
       templateService.register(FloorAdhesion);
       templateService.register(HideOnViewability);
       templateService.register(Interstitial);
+      templateService.register(LogoReplacement);
       templateService.register(PorvataTemplate, getPorvataConfig());
       templateService.register(Roadblock, getRoadblockConfig());
+      templateService.register(SafeFanTakeoverElement, getStickyTLBConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
 
       registerClickPositionTracker();
@@ -86,7 +84,7 @@ export const adsSetup = {
       registerBidderTracker();
       registerViewabilityTracker();
       registerPostmessageTrackingTracker();
-      eventService.on(AdSlot.SLOT_RENDERED_EVENT, () => {
+      eventService.on(events.FIRST_CALL_ENDED, () => {
         fanTakeoverResolver.resolve();
       });
 
@@ -144,6 +142,15 @@ export const adsSetup = {
       context.push('slots.top_leaderboard.defaultTemplates', 'stickyTLB');
     }
 
+    context.set(
+      'templates.safeFanTakeoverElement.lineItemIds',
+      instantConfig.get('icSafeFanTakeoverLineItemIds'),
+    );
+    context.set(
+      'templates.safeFanTakeoverElement.unstickTimeout',
+      instantConfig.get('icSafeFanTakeoverUnstickTimeout'),
+    );
+
     context.set('state.disableTopLeaderboard', instantConfig.get('icCollapseTopLeaderboard'));
     context.set('state.deviceType', utils.client.getDeviceType());
 
@@ -160,6 +167,7 @@ export const adsSetup = {
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('icFeaturedVideoAdsFrequency'));
     context.set('options.video.isMidrollEnabled', instantConfig.get('icFeaturedVideoMidroll'));
     context.set('options.video.isPostrollEnabled', instantConfig.get('icFeaturedVideoPostroll'));
+    context.set('options.video.comscoreJwpTracking', instantConfig.get('icComscoreJwpTracking'));
 
     context.set('options.maxDelayTimeout', instantConfig.get('icAdEngineDelay', 2000));
     context.set('options.tracking.kikimora.player', instantConfig.get('icPlayerTracking'));
@@ -186,19 +194,19 @@ export const adsSetup = {
       fillerService.register(new PorvataFiller());
     }
 
+    context.set('services.audigent.enabled', instantConfig.get('icAudigent'));
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
-    context.set('services.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
+    context.set('services.facebookPixel.enabled', instantConfig.get('icFacebookPixel'));
+    context.set('services.iasPublisherOptimization.enabled', instantConfig.get('icIASPublisherOptimization'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
     context.set('services.permutive.enabled', instantConfig.get('icPermutive')
       && !context.get('wiki.targeting.directedAtChildren'));
 
-    if (instantConfig.get('icTaxonomyComicsTag')) {
-      context.set('services.taxonomy.comics.enabled', true);
+    if (instantConfig.get('icTaxonomyAdTags')) {
+      context.set('services.taxonomy.enabled', true);
       context.set('services.taxonomy.communityId', adsContext.targeting.wikiId);
-      context.set('services.taxonomy.pageArticleId', adsContext.targeting.pageArticleId);
     }
-
     const isMoatTrackingEnabledForVideo = instantConfig.get('icFeaturedVideoMoatTracking');
     context.set('options.video.moatTracking.enabledForArticleVideos', isMoatTrackingEnabledForVideo);
 

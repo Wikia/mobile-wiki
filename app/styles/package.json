@@ -1,0 +1,8 @@
+{
+  "name": "@fandom/mobile-wiki-styles",
+  "description": "Mobile wiki styles package used by Mobile Visual Editor in UCP",
+  "version": "1.0.2",
+  "publishConfig": {
+    "registry": "https://artifactory.wikia-inc.com/artifactory/api/npm/wikia-npm/"
+  }
+}

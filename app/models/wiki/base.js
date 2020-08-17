@@ -21,6 +21,8 @@ export default EmberObject.extend({
   categories: null,
   description: '',
   displayTitle: null,
+  editLink: null,
+  showSectionEditLinks: null,
   hreflangLinks: null,
   htmlTitle: '',
   id: null,
@@ -54,6 +56,8 @@ export default EmberObject.extend({
         title: get(data, 'details.title'),
         url: get(data, 'details.url'),
         type: getType(data),
+        redirected: data.redirected || false,
+        redirectTargetUrl: data.redirectTargetUrl,
       };
 
       // Article related Data - if Article exists
@@ -73,6 +77,14 @@ export default EmberObject.extend({
 
         if (data.article.featuredVideo) {
           pageProperties.featuredVideo = data.article.featuredVideo;
+        }
+
+        if (data.article.editLink) {
+          pageProperties.editLink = data.article.editLink;
+        }
+
+        if (data.article.showSectionEditLinks) {
+          pageProperties.showSectionEditLinks = data.article.showSectionEditLinks;
         }
       }
 

@@ -201,10 +201,8 @@ export const targeting = {
   getPageLevelTargeting(adsContext = {}) {
     adsContext.targeting = adsContext.targeting || {};
 
-    const { likhoService } = window.Wikia.adEngine;
     const zone = getZone(adsContext);
     const legacyParams = decodeLegacyDartParams(adsContext.targeting.wikiCustomKeyValues);
-    const likho = likhoService.refresh();
 
     const pageLevelTargeting = {
       s0: zone.site,
@@ -218,12 +216,12 @@ export const targeting = {
       cat: getPageCategories(adsContext),
       dmn: getDomain(),
       hostpre: getHostnamePrefix(),
+      kid_wiki: adsContext.targeting.directedAtChildren ? '1' : '0',
       lang: adsContext.targeting.wikiLanguage || 'unknown',
       wpage: adsContext.targeting.pageName && adsContext.targeting.pageName.toLowerCase(),
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
       geo: window.Wikia.adEngine.utils.geoService.getCountryCode() || 'none',
-      likho,
     };
 
     if (window.pvNumber) {

@@ -2,8 +2,8 @@
 
 module.exports = {
   browsers: [
-    'last 2 ChromeAndroid versions',
-    'iOS > 8',
+    'last 2 chromeandroid versions',
+    'last 2 ios versions',
     '> 5%',
   ],
 };

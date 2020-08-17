@@ -2,6 +2,7 @@
   title=model.displayTitle
   subtitle=wikiPageHeaderSubtitle
   heroImage=heroImageInHeader
+  editLink=model.editLink
 }}
 
 {{#if hasFeaturedVideo}}
@@ -26,6 +27,7 @@
   {{article-content
     adsContext=model.adsContext
     content=model.content
+    showSectionEditLinks=model.showSectionEditLinks
     displayEmptyArticleInfo=displayEmptyArticleInfo
     displayTitle=model.displayTitle
     featuredVideo=model.featuredVideo
@@ -51,9 +53,12 @@
       users=model.topContributors
       class="article-footer-item"
     }}
-    {{#if showComments}}
+    {{#if canShowComments}}
       {{article-comments
         articleId=model.id
+        isUcp=model.isUcp
+        articleTitle=model.title
+        articleNamespace=model.ns
         commentsCount=model.comments
         page=commentsPage
         class="article-footer-item"
