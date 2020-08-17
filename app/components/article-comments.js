@@ -68,7 +68,7 @@ export default Component.extend(InViewportMixin, {
 
     this._super(...arguments);
 
-    if (page !== null) {
+    if (page !== null && page !== undefined) {
       this.set('isCollapsed', false);
       this.fetchCommentsBasedOnPlatform(this.page);
 

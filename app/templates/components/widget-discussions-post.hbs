@@ -21,12 +21,12 @@
 <div class="discussion-content wds-font-size-s">
   {{#if post.title}}
     <h2 class="post-title wds-font-size-l wds-font-weight-medium wds-leading-tight">
-      <a class="post-details-link" href="/d/p/{{post.threadId}}">{{post.title}}</a>
+      <a class="post-details-link" href="{{baseFeedsUrl}}/p/{{post.threadId}}">{{post.title}}</a>
     </h2>
   {{/if}}
   <a
     class="post-details-link"
-    href="/d/p/{{post.threadId}}"
+    href="{{baseFeedsUrl}}/p/{{post.threadId}}"
   >
     {{parsedContent}}
   </a>
@@ -81,7 +81,7 @@
     {{i18n "widget-discussions.post-actions-upvote-label"}}
   </li>
   <li class="replies replies-area wds-font-size-xs wds-font-weight-medium">
-    <a href="/d/p/{{post.threadId}}">
+    <a href="{{baseFeedsUrl}}/p/{{post.threadId}}">
       <Icon @name="comment" @size="small" class="replies" />
       {{i18n "widget-discussions.post-actions-reply-label"}}
     </a>

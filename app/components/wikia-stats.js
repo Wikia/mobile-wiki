@@ -5,6 +5,7 @@ import { track, trackActions } from '../utils/track';
 
 export default Component.extend({
   i18n: service(),
+  wikiVariables: service(),
 
   classNames: ['wikia-stats'],
 
@@ -24,7 +25,7 @@ export default Component.extend({
       },
       {
         label: this.i18n.t('app.discussions-label'),
-        url: '/d/f',
+        url: `${this.get('wikiVariables.scriptPath')}/f`,
         trackingLabel: 'discussions-clicked',
         value: this.get('model.discussions'),
       },

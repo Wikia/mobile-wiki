@@ -1234,7 +1234,7 @@ export default function (owner) {
                 type: 'translatable-text',
                 key: 'community-header-discuss',
               },
-              href: '/d/f',
+              href: '/f',
               tracking_label: 'discuss',
               'image-data': { type: 'wds-svg', name: 'wds-icons-reply-small' },
             }],

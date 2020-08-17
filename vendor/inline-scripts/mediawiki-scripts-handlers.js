@@ -1,15 +1,18 @@
 (function () {
-  var gettersQueue = [];
   var callbacksQueue = [];
   var isListening = false;
+  var eventDispatched = false;
+  var eventName = 'asyncScriptsLoaded';
 
   window.onAsyncScriptsLoaded = function () {
-    window.document.dispatchEvent(new Event('asyncScriptsLoaded'));
+    eventDispatched = true;
+    window.document.dispatchEvent(new Event(eventName));
   };
 
   window.onAsyncScriptsError = function () {
+    eventDispatched = true;
     window.Wikia = window.Wikia || {};
-    window.document.dispatchEvent(new Event('asyncScriptsLoaded'));
+    window.document.dispatchEvent(new Event(eventName));
   };
 
   function onAsyncScriptsLoaded() {
@@ -17,13 +20,17 @@
       callback();
     });
 
-    gettersQueue = [];
     callbacksQueue = [];
   }
 
   function waitForAsyncScripts() {
+    if (eventDispatched) {
+      onAsyncScriptsLoaded();
+      return;
+    }
+
     if (!isListening) {
-      document.addEventListener('asyncScriptsLoaded', onAsyncScriptsLoaded, { once: true });
+      document.addEventListener(eventName, onAsyncScriptsLoaded, { once: true });
       isListening = true;
     }
   }
