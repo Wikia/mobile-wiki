@@ -327,5 +327,71 @@
     "link": "https://disneyplus.bn5x.net/c/1947570/772722/9358?subId1=generic-de&subId2=launch&subId3=ad-fandom&sharedid=mobile",
     "country": ["DE", "AT", "CH"],
     "isBig": true
-  }
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Foreslått for deg",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "introduksjonstilbud\n1 år | 590 kr",
+    "subheading": "Forhåndsbestill nå",
+    "link": "https://disneyplus.bn5x.net/c/1947570/871866/9358?subId1=generic_NO&subId2=nordic_presale&subId3=banner-fandom_5brands&sharedId=wiki_mobile",
+    "country": ["NO"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suosittelemme Sinulle",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "aloitustarjous\n1 vuosi | €59.99",
+    "subheading": "Ennakkotilaa nyt",
+    "link": "https://disneyplus.bn5x.net/c/1947570/871866/9358?subId1=generic_FI&subId2=nordic_presale&subId3=banner-fandom_5brands&sharedId=wiki_mobile",
+    "country": ["FI"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Anbefalet Til Dig",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "introduktionstilbud\n1 år | 490 kr",
+    "subheading": "Forudbestil nu",
+    "link": "https://disneyplus.bn5x.net/c/1947570/871866/9358?subId1=generic_DK&subId2=nordic_presale&subId3=banner-fandom_5brands&sharedId=wiki_mobile",
+    "country": ["DK"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Rekommenderat För Dig",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "introduktionserbjudande\n1 år | 590 kr",
+    "subheading": "Förbeställ nu",
+    "link": "https://disneyplus.bn5x.net/c/1947570/871866/9358?subId1=generic_SE&subId2=nordic_presale&subId3=banner-fandom_5brands&sharedId=wiki_mobile",
+    "country": ["SE"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Für Sie vorgeschlagen",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Nur für kurze zeit.\nFrühbucherrabatt sichern",
+    "subheading": "Jetzt vorbestellen",
+    "link": "https://disneyplus.bn5x.net/c/1947570/871866/9358?subId1=generic_BE&subId2=nordic_presale&subId3=banner-fandom_5brands&sharedId=wiki_mobile",
+    "country": ["BE"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Sugestões para você ",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Operta de pré-lançamento.\n1 ano | 59,99€*",
+    "subheading": "Subscreva já",
+    "link": "https://disneyplus.bn5x.net/c/1947570/871866/9358?subId1=generic_PT&subId2=nordic_presale&subId3=banner-fandom_5brands&sharedId=wiki_mobile",
+    "country": ["PT"],
+    "isBig": true
+  },
 ]
