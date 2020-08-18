@@ -518,7 +518,6 @@ export const defaultAdContext = {
     },
     durationMedia: {
       enabled: false,
-      siteId: '1167',
     },
     externalLogger: {
       endpoint: '/wikia.php?controller=AdEngine&method=postLog',
