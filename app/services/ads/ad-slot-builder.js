@@ -1,6 +1,7 @@
 import offset from '@wikia/ember-fandom/utils/offset';
 import Service, { inject as service } from '@ember/service';
 import { getRenderComponentFor } from '../../utils/render-component';
+import Ads from '../../modules/ads';
 
 const MIN_ZEROTH_SECTION_LENGTH = 700;
 
@@ -116,7 +117,7 @@ export default Service.extend({
         adsData.invisibleHighImpact2,
         this.renderAdComponent({
           name: 'ads/invisible-high-impact-2',
-          attrs: this.get('ads.module').getAdSlotComponentAttributes(adsData.invisibleHighImpact2),
+          attrs: Ads.getInstance().getAdSlotComponentAttributes(adsData.invisibleHighImpact2),
           element: placeholderIHI2,
         }),
       );
@@ -124,7 +125,7 @@ export default Service.extend({
         adsData.floorAdhesion,
         this.renderAdComponent({
           name: 'ads/invisible-high-impact-2',
-          attrs: this.get('ads.module').getAdSlotComponentAttributes(adsData.floorAdhesion),
+          attrs: Ads.getInstance().getAdSlotComponentAttributes(adsData.floorAdhesion),
           element: placeholderFloorAdhesion,
         }),
       );
@@ -143,7 +144,7 @@ export default Service.extend({
     // Save waiting slots so queue can be cleared on transition
     this.waitingSlots[adSlotName] = () => {
       const placeholder = document.createElement('div');
-      const attributes = this.get('ads.module').getAdSlotComponentAttributes(adSlotName);
+      const attributes = Ads.getInstance().getAdSlotComponentAttributes(adSlotName);
 
       element.insertAdjacentElement(place, placeholder);
 

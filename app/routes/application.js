@@ -189,7 +189,9 @@ export default Route.extend(
       },
 
       didTransition() {
-        this.get('ads.module').onTransition();
+        if (Ads.adsMode.isResolved) {
+          Ads.getInstance().onTransition();
+        }
 
         // Clear notification alerts for the new route
         this.controller.clearNotifications();

@@ -175,6 +175,7 @@ export default Route.extend(
             if (!fastboot.get('isFastBoot') && model.adsContext) {
               model.adsContext.user = model.adsContext.user || {};
               model.adsContext.user.isAuthenticated = this.get('currentUser.isAuthenticated');
+              Ads.ensureMode(model.adsContext);
               Ads.getInstance().init(model.adsContext, transition.queryParams);
             }
 
