@@ -18,7 +18,6 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
-import fallbackInstantConfig from './fallback-config';
 import LogoReplacement from './templates/logo-replacement';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
@@ -48,6 +47,7 @@ export const adsSetup = {
     const {
       setupNpaContext,
       setupRdpContext,
+      setupTCFv2Context,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -60,16 +60,11 @@ export const adsSetup = {
     } = window.Wikia.adProducts;
     context.extend(defaultAdContext);
 
-    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
-
     utils.geoService.setUpGeoData();
-
-    if (fallbackConfigKey) {
-      window[fallbackConfigKey] = fallbackInstantConfig;
-    }
 
     return InstantConfigService.init().then((instantConfig) => {
       this.setupAdContext(instantConfig, adsContext, consents);
+      setupTCFv2Context(instantConfig);
       setupNpaContext();
       setupRdpContext();
 

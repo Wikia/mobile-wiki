@@ -17,7 +17,7 @@ if expr "${ENV}" : "prod" 1>/dev/null; then
     SERVICE_TEMPLATE_NAME="k8s-service-descriptor-template-prod.yaml"
 fi
 
-if expr "${ENV}" : "preview" 1>/dev/null; then
+if [[ "${ENV}" == "preview" ]] || [[ "${ENV}" == "verify" ]]; then
     UCP_SUFFIX="-ucp"
 fi
 
