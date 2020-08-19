@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
-import { communicationService } from "../communication/communication-service";
+import { communicationService } from '../communication/communication-service';
 
 class ExperimentalAds {
   static getInstance() {
@@ -31,7 +31,9 @@ class ExperimentalAds {
     jsScript.src = `${base}/main.bundle.js`;
     jsScript.async = true;
     jsScript.type = 'text/javascript';
-    jsScript.addEventListener('load', () => this.isBundleLoaded = true);
+    jsScript.addEventListener('load', () => {
+      this.isBundleLoaded = true;
+    });
 
     cssLink.id = 'ae3.styles';
     cssLink.href = `${base}/styles.css`;
