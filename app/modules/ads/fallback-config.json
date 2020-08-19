@@ -1212,7 +1212,10 @@
                 "muthead",
                 "oasis"
             ],
-            "value": false
+            "regions": [
+                "JP"
+            ],
+            "value": true
         }
     ],
     "icPrebid": [
