@@ -78,4 +78,49 @@ module('Integration | Component | article-comments', (hooks) => {
     assert.dom('#articleComments').doesNotExist();
     assert.dom('ul.comments > *').exists({ count: this.get('commentsCount') });
   });
+
+  test('should be expanded if page is defined', async function (assert) {
+    assert.expect(1);
+
+    this.setProperties({
+      articleId: 10,
+      articleTitle: 'Foo',
+      articleNamespace: 0,
+      isUcp: true,
+    });
+
+    await render(hbs`<ArticleComments @isUcp={{this.isUcp}} @page="1" @articleId={{this.articleId}} @articleTitle={{this.articleTitle}} @articleNamespace={{this.articleNamespace}} />`);
+
+    assert.dom('#articleComments').exists();
+  });
+
+  test('should be hidden if page is not defined', async function (assert) {
+    assert.expect(1);
+
+    this.setProperties({
+      articleId: 10,
+      articleTitle: 'Foo',
+      articleNamespace: 0,
+      isUcp: true,
+    });
+
+    await render(hbs`<ArticleComments @isUcp={{this.isUcp}} @articleId={{this.articleId}} @articleTitle={{this.articleTitle}} @articleNamespace={{this.articleNamespace}} />`);
+
+    assert.dom('#articleComments').doesNotExist();
+  });
+
+  test('should be hidden if page is null', async function (assert) {
+    assert.expect(1);
+
+    this.setProperties({
+      articleId: 10,
+      articleTitle: 'Foo',
+      articleNamespace: 0,
+      isUcp: true,
+    });
+
+    await render(hbs`<ArticleComments @isUcp={{this.isUcp}} @page={{null}} @articleId={{this.articleId}} @articleTitle={{this.articleTitle}} @articleNamespace={{this.articleNamespace}} />`);
+
+    assert.dom('#articleComments').doesNotExist();
+  });
 });

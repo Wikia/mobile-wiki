@@ -18,7 +18,6 @@ import { getConfig as getBfabConfig } from './templates/big-fancy-ad-below-confi
 import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
-import fallbackInstantConfig from './fallback-config';
 import LogoReplacement from './templates/logo-replacement';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
@@ -48,6 +47,7 @@ export const adsSetup = {
     const {
       setupNpaContext,
       setupRdpContext,
+      setupTCFv2Context,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -60,16 +60,11 @@ export const adsSetup = {
     } = window.Wikia.adProducts;
     context.extend(defaultAdContext);
 
-    const fallbackConfigKey = context.get('services.instantConfig.fallbackConfigKey');
-
     utils.geoService.setUpGeoData();
-
-    if (fallbackConfigKey) {
-      window[fallbackConfigKey] = fallbackInstantConfig;
-    }
 
     return InstantConfigService.init().then((instantConfig) => {
       this.setupAdContext(instantConfig, adsContext, consents);
+      setupTCFv2Context(instantConfig);
       setupNpaContext();
       setupRdpContext();
 
@@ -172,6 +167,7 @@ export const adsSetup = {
     context.set('options.video.adsOnNextVideoFrequency', instantConfig.get('icFeaturedVideoAdsFrequency'));
     context.set('options.video.isMidrollEnabled', instantConfig.get('icFeaturedVideoMidroll'));
     context.set('options.video.isPostrollEnabled', instantConfig.get('icFeaturedVideoPostroll'));
+    context.set('options.video.comscoreJwpTracking', instantConfig.get('icComscoreJwpTracking'));
 
     context.set('options.maxDelayTimeout', instantConfig.get('icAdEngineDelay', 2000));
     context.set('options.tracking.kikimora.player', instantConfig.get('icPlayerTracking'));
@@ -201,6 +197,7 @@ export const adsSetup = {
     context.set('services.audigent.enabled', instantConfig.get('icAudigent'));
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
+    context.set('services.durationMedia.libraryUrl', instantConfig.get('icDurationMediaLibraryUrl'));
     context.set('services.facebookPixel.enabled', instantConfig.get('icFacebookPixel'));
     context.set('services.iasPublisherOptimization.enabled', instantConfig.get('icIASPublisherOptimization'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
@@ -295,7 +292,6 @@ export const adsSetup = {
 
       const priceFloorRule = instantConfig.get('icPrebidSizePriceFloorRule');
       context.set('bidders.prebid.priceFloor', priceFloorRule || null);
-      context.set('bidders.ixIdentityLibrary.enabled', instantConfig.get('icIxIdentityLibrary'));
     }
 
     const insertBeforePaths = [
