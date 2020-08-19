@@ -23,17 +23,20 @@ const i18nService = Service.extend({
 
 module('Integration | Component | article content', (hooks) => {
   setupRenderingTest(hooks);
-  let adsModuleStub;
+  let adsModuleInstanceStub;
+  let adsModuleLoadedInstanceStub;
 
   hooks.beforeEach(function () {
-    adsModuleStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock()));
+    adsModuleInstanceStub = sinon.stub(Ads, 'getInstance').returns(getAdsModuleMock());
+    adsModuleLoadedInstanceStub = sinon.stub(Ads, 'getLoadedInstance').returns(Promise.resolve(getAdsModuleMock()));
     this.owner.register('component:ad-slot', adSlotComponentStub);
     this.owner.register('service:i18n', i18nService);
     mockAdsService(this.owner);
   });
 
   hooks.afterEach(() => {
-    adsModuleStub.restore();
+    adsModuleInstanceStub.restore();
+    adsModuleLoadedInstanceStub.restore();
   });
 
   const topLeaderboardSelector = '.top-leaderboard';

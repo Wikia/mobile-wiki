@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import sinon from 'sinon';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import Ads from 'mobile-wiki/modules/ads';
+import Ads from 'mobile-wiki/modules/ads/core/stable-ads';
 import { fanTakeoverResolver } from 'mobile-wiki/modules/ads/fan-takeover-resolver';
 
 const adsStub = Service.extend({

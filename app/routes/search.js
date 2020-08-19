@@ -114,6 +114,8 @@ export default Route.extend(
         if (!this.fastboot.get('isFastBoot')) {
           this.adsContextService.getAdsContext()
             .then((adsContext) => {
+              Ads.ensureMode(adsContext);
+
               const ads = Ads.getInstance();
 
               if (ads.isInitializationStarted) {
