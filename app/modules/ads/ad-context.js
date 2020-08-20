@@ -500,6 +500,7 @@ export const defaultAdContext = {
   },
   targeting: {
     ae3: '1',
+    rollout_tracking: [],
     skin: 'mercury',
     uap: 'none',
   },
