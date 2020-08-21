@@ -258,8 +258,9 @@ export const adsSetup = {
       });
     }
 
-    if (adsContext.targeting.isUcp) {
-      context.set('targeting.rollout_tracking', 'ucp');
+    const rolloutTracking = context.get('targeting.rollout_tracking') || [];
+    if (adsContext.targeting.isUcp && !rolloutTracking.includes('ucp')) {
+      context.push('targeting.rollout_tracking', 'ucp');
     }
 
     if (instantConfig.get('icOverscrolledTracking')) {
