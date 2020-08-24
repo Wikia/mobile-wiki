@@ -68,7 +68,14 @@ export default Component.extend(InViewportMixin, {
 
     this._super(...arguments);
 
-    if (page !== null && page !== undefined) {
+    const { urlThreadId } = this.articleComments.getUrlThreadParams();
+    const isSingleCommentView = this.isUcp && !!urlThreadId;
+
+    if (isSingleCommentView) {
+      this.loadCommentsCount();
+      this.articleComments.load({ title: this.articleTitle, namespace: this.articleNamespace });
+      this.set('isCollapsed', false);
+    } else if (page !== null && page !== undefined) {
       this.set('isCollapsed', false);
       this.fetchCommentsBasedOnPlatform(this.page);
 
@@ -126,6 +133,19 @@ export default Component.extend(InViewportMixin, {
     scrollToTop(this.element);
   },
 
+  loadCommentsCount() {
+    // to make sure we won't show cached value we have to fetch these comments on FE
+    if (this.isUcp && !this.commentsCount) {
+      this.articleComments
+        .fetchCount(this.articleTitle, this.articleNamespace)
+        .then((count) => {
+          if (typeof count === 'number') {
+            this.set('commentsCount', count);
+          }
+        });
+    }
+  },
+
   fetchComments(page) {
     const articleId = this.articleId;
 
@@ -173,15 +193,6 @@ export default Component.extend(InViewportMixin, {
   },
 
   didEnterViewport() {
-    if (this.isUcp) {
-      // to make sure we won't show cached value we have to fetch these comments on FE
-      this.articleComments
-        .fetchCount(this.articleTitle, this.articleNamespace)
-        .then((count) => {
-          if (typeof count === 'number') {
-            this.set('commentsCount', count);
-          }
-        });
-    }
+    this.loadCommentsCount();
   },
 });

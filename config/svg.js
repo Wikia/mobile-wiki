@@ -23,11 +23,13 @@ const designSystemInlineSVGs = [
 // DS icons which should be lazy loaded
 const designSystemLazyLoadedSVGs = [
   'wds-icons-add',
+  'wds-icons-alert',
   'wds-icons-alert-small',
   'wds-icons-arrow',
   'wds-icons-arrow-small',
   'wds-icons-arrow-tiny',
   'wds-icons-bell',
+  'wds-icons-checkmark-small',
   'wds-icons-bookmark',
   'wds-icons-clock',
   'wds-icons-close',
@@ -66,6 +68,7 @@ const designSystemLazyLoadedSVGs = [
   'wds-company-store-googleplay',
   'wds-company-store-logo-fandom',
   'wds-company-store-logo-ddb',
+  'wds-icons-checkmark-small',
 ].map(name => (
   { name, path: `${designSystemAssetsPath}${name}.svg` }
 ));

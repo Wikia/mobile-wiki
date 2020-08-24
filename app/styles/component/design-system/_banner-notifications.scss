@@ -1,5 +1,7 @@
 .wds-banner-notification__container {
+  position: fixed;
   width: 100%;
+  z-index: $z-7;
 }
 
 .wds-banner-notification__text {
