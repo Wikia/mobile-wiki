@@ -82,12 +82,12 @@ export default Component.extend(
         }
 
         if (!this.isPreview && this.adsContext) {
+          this.uncollapseSections();
           Ads.getLoadedInstance()
             .then(() => {
               this.adsService.setupAdsContext(this.adsContext);
               if (!this.isDestroyed) {
                 // Uncollapse sections first so that we can insert ads in correct places
-                this.uncollapseSections();
                 this.adSlotBuilder.injectAds(this);
               }
             })

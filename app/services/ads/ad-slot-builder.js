@@ -146,6 +146,10 @@ export default Service.extend({
       const placeholder = document.createElement('div');
       const attributes = Ads.getInstance().getAdSlotComponentAttributes(adSlotName);
 
+      if (!attributes) {
+        return;
+      }
+
       element.insertAdjacentElement(place, placeholder);
 
       this.ads.pushAdSlotComponent(adSlotName, this.renderAdComponent({

@@ -42,7 +42,6 @@ class Ads {
    */
   static getInstance() {
     if (!Ads.adsMode.isResolved) {
-      console.error('ensureMode should be called before getInstance');
       Ads.ensureMode({});
     }
 
