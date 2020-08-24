@@ -17,7 +17,7 @@
   --themed-page-background--secondary--transparent: rgba(255, 255, 255, 0);
 
   // @fandom/web-editor variables
-  --themed-link-color-10: rgba($body-font-color, .1);
-  --themed-text-color-30: rgba($body-font-color, .3);
-  --themed-text-color-60: rgba($body-font-color, .6);
+  --themed-link-color-10: #{rgba($body-font-color, .1)};
+  --themed-text-color-30: #{rgba($body-font-color, .3)};
+  --themed-text-color-60: #{rgba($body-font-color, .6)};
 }

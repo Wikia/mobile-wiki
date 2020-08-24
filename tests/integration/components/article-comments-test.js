@@ -10,11 +10,12 @@ module('Integration | Component | article-comments', (hooks) => {
 
   let load;
   let fetchCount;
+  const getUrlThreadParams = () => ({ urlThreadId: undefined, urlReplyId: undefined });
 
   hooks.beforeEach(function () {
     load = sinon.spy();
     fetchCount = sinon.stub();
-    this.owner.register('service:article-comments', Service.extend({ load, fetchCount }));
+    this.owner.register('service:article-comments', Service.extend({ load, fetchCount, getUrlThreadParams }));
     this.owner.register('service:i18n', Service.extend({ t: key => key }));
     this.owner.register('service:wikiVariables', Service.extend({
       // To match mirage fixture for comments API

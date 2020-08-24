@@ -153,6 +153,7 @@ class StableAds {
       mediaWikiAdsContext,
       { isOptedIn, isSaleOptOut },
     ).then(() => {
+      this.handleCcpaUsers(mediaWikiAdsContext);
       this.triggerAfterPageRenderServices();
 
       this.initialization.resolve(this);
@@ -259,19 +260,16 @@ class StableAds {
   /**
    * initialized
    * @public
+   *
+   * This method isn't (and shouldn't be) executed on 1st pv.
+   * It's executed after first true-transition.
    */
   afterTransition(mediaWikiAdsContext) {
-    if (!this.initialization.isResolved) {
+    if (!this.initialization.isResolved || this.afterPageRenderExecuted) {
       return;
     }
 
-    if (
-      mediaWikiAdsContext.user
-      && !!mediaWikiAdsContext.user.isSubjectToCcpa
-      && window.M.geoRequiresSignal
-    ) {
-      window.__uspapi('showConsentTool', true);
-    }
+    this.handleCcpaUsers(mediaWikiAdsContext);
 
     const { events, eventService, utils } = window.Wikia.adEngine;
 
@@ -280,9 +278,21 @@ class StableAds {
     });
 
     this.triggerAfterPageRenderServices();
-    this.triggerPageTracking();
 
     utils.logger(logGroup, 'after transition');
+  }
+
+  /**
+   * @private
+   */
+  handleCcpaUsers(mediaWikiAdsContext) {
+    if (
+      mediaWikiAdsContext.user
+      && !!mediaWikiAdsContext.user.isSubjectToCcpa
+      && window.M.geoRequiresSignal
+    ) {
+      window.__uspapi('showConsentTool', true);
+    }
   }
 
   /**
@@ -337,7 +347,7 @@ class StableAds {
     this.biddersInhibitor = null;
     bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
     inhibitors.push(this.getBiddersInhibitor());
-    if (context.get('targeting.rollout_tracking') === 'ucp') {
+    if (context.get('wiki.targeting.isUcp')) {
       inhibitors.push(taxonomyService.configurePageLevelTargeting());
     }
     this.startAdEngine(inhibitors);
@@ -350,6 +360,8 @@ class StableAds {
     adblockDetector.run();
 
     this.afterPageRenderExecuted = true;
+
+    this.triggerPageTracking();
   }
 
   getBiddersInhibitor() {

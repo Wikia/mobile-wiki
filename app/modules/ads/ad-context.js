@@ -500,6 +500,7 @@ export const defaultAdContext = {
   },
   targeting: {
     ae3: '1',
+    rollout_tracking: [],
     skin: 'mercury',
     uap: 'none',
   },
@@ -518,7 +519,6 @@ export const defaultAdContext = {
     },
     durationMedia: {
       enabled: false,
-      siteId: '1167',
     },
     externalLogger: {
       endpoint: '/wikia.php?controller=AdEngine&method=postLog',

@@ -2,6 +2,12 @@ import Service, { inject as service } from '@ember/service';
 import { ArticleCommentsFetchError } from '../utils/errors';
 import { track, trackActions } from '../utils/track';
 
+const bannerNotificationTypesMap = {
+  notify: 'message',
+  confirm: 'success',
+  warn: 'warning',
+  error: 'alert',
+};
 
 export default Service.extend({
   currentUser: service(),
@@ -10,6 +16,7 @@ export default Service.extend({
   i18n: service(),
   logger: service(),
   fetch: service(),
+  wdsBannerNotifications: service(),
 
   fetchI18n() {
     const i18nFilePath = `/mobile-wiki/assets/articleComments/${this.i18n.language}.json`;
@@ -49,8 +56,17 @@ export default Service.extend({
     return this.fetch.fetchFromMediawiki(url, ArticleCommentsFetchError);
   },
 
+  getUrlThreadParams() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const urlThreadId = searchParams.get('commentId');
+    const urlReplyId = searchParams.get('replyId');
+    return { urlThreadId, urlReplyId };
+  },
+
   load({ title, namespace }) {
     window.fandomWebEditorPublicPath = '/mobile-wiki/assets/webEditor/';
+
+    const { urlThreadId, urlReplyId } = this.getUrlThreadParams();
 
     Promise.all([
       import('@fandom/article-comments'),
@@ -83,6 +99,9 @@ export default Service.extend({
         userProfileBaseUrl: `${this.wikiUrls.build({ host: this.wikiVariables.host })}/User:`,
         isReadOnly: true,
         isMobile: true,
+        urlThreadId,
+        urlReplyId,
+        viewMode: urlThreadId ? 'thread' : 'default',
       };
 
       const trackFn = (params) => {
@@ -96,11 +115,20 @@ export default Service.extend({
         }));
       };
 
+      const notify = (message, type, timeout = 5000) => {
+        this.wdsBannerNotifications.addNotification({
+          type: bannerNotificationTypesMap[type] || 'message',
+          alreadySafeHtml: message,
+          hideAfterMs: timeout,
+        });
+      };
+
       createComments({
         env,
         user,
         i18n,
         track: trackFn,
+        notify,
         container: document.getElementById('articleComments'),
       });
     }).catch((err) => {

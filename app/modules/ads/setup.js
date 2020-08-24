@@ -197,6 +197,7 @@ export const adsSetup = {
     context.set('services.audigent.enabled', instantConfig.get('icAudigent'));
     context.set('services.confiant.enabled', instantConfig.get('icConfiant'));
     context.set('services.durationMedia.enabled', instantConfig.get('icDurationMedia'));
+    context.set('services.durationMedia.libraryUrl', instantConfig.get('icDurationMediaLibraryUrl'));
     context.set('services.facebookPixel.enabled', instantConfig.get('icFacebookPixel'));
     context.set('services.iasPublisherOptimization.enabled', instantConfig.get('icIASPublisherOptimization'));
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
@@ -257,8 +258,9 @@ export const adsSetup = {
       });
     }
 
-    if (adsContext.targeting.isUcp) {
-      context.set('targeting.rollout_tracking', 'ucp');
+    const rolloutTracking = context.get('targeting.rollout_tracking') || [];
+    if (adsContext.targeting.isUcp && !rolloutTracking.includes('ucp')) {
+      context.push('targeting.rollout_tracking', 'ucp');
     }
 
     if (instantConfig.get('icOverscrolledTracking')) {
