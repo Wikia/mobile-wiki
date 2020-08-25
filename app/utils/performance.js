@@ -1,16 +1,20 @@
-import { getCLS, getFID, getLCP, getFCP, getTTFB } from 'web-vitals';
+import {
+  getCLS, getFID, getLCP, getFCP, getTTFB,
+} from 'web-vitals';
 import { createApiReporter, getDeviceInfo } from 'web-vitals-reporter';
 import { system } from './browser';
 
 const getCountryCode = () => {
   try {
-    const cookieSplit = ('; ' + document.cookie).split('; Geo=');
+    const cookieSplit = (`; ${document.cookie}`).split('; Geo=');
     const cookieValue = cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
     if (cookieValue) {
       return JSON.parse(decodeURIComponent(cookieValue)).country;
     }
-  } catch(e) {};
-  return '';
+    return '';
+  } catch (e) {
+    return '';
+  }
 };
 
 /**
@@ -38,7 +42,7 @@ function getLowLevelMetrics() {
     r.DBS = 0; // decoded body size
     r.EBS = 0; // encoded body size
     r.TS = 0; // transfer size
-    perfRes.forEach((performanceEntry, i, entries) => {
+    perfRes.forEach((performanceEntry) => {
       if ('decodedBodySize' in performanceEntry) {
         r.DBS += performanceEntry.decodedBodySize;
       }
@@ -74,28 +78,27 @@ export default (baseUrl, softwareVersion, sampleFactor) => {
   // Make a sampling decision whether to ingest metrics from this request.
   const shouldSampleRequest = randomInt(1, 99999999) % sampleFactor === 0;
 
-  window.console.log('PPP ' + baseUrl);
-  window.console.log(getCountryCode());
   if (shouldSampleRequest && !initDone) {
     initDone = true;
-    console.log('WILL SAMPLE REQUEST');
     const initial = getDeviceInfo();
     initial.country = getCountryCode();
     initial.softwareVersion = softwareVersion;
     const sendToAnalytics = createApiReporter(baseUrl, {
       initial,
-      onSend: (baseUrl, result) => {
+      onSend: (trackBaseUrl, result) => {
         const time = Math.floor(Date.now() / 1000);
-        let url = `${baseUrl}&ut=${time}&v=${result.softwareVersion}&os=${system}&m=mobile&g=${result.country}`;
+        let url = `${trackBaseUrl}&ut=${time}&v=${result.softwareVersion}&os=${system}&m=mobile&g=${result.country}`;
         // Add basic network info
         if (result.connection) {
           url += `&c=${result.connection.effectiveType}&r=${result.connection.rtt}`;
         }
         // Add core vitals metrics
         const vitalsMetrics = ['CLS', 'FID', 'LCP', 'FCP', 'TTFB'];
-        for (const m of vitalsMetrics) {
-          if (result[m]) url += `&${m}=${result[m]}`;
-        }
+        vitalsMetrics.forEach((m) => {
+          if (result[m]) {
+            url += `&${m}=${result[m]}`;
+          }
+        });
         // Add session duration
         if (result.duration) {
           url += `&sd=${result.duration}`;
@@ -103,11 +106,11 @@ export default (baseUrl, softwareVersion, sampleFactor) => {
 
         // Add low-level performance metrics
         if (window.performance) {
-          url +=
-            '&' +
-            Object.entries(getLowLevelMetrics())
-              .map((p) => p.map(encodeURIComponent).join('='))
-              .join('&');
+          url
+            += `&${
+              Object.entries(getLowLevelMetrics())
+                .map(p => p.map(encodeURIComponent).join('='))
+                .join('&')}`;
         }
         // Send the performance info
         if (navigator.sendBeacon) {
