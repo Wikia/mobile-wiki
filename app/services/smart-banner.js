@@ -28,7 +28,7 @@ export default Service.extend({
   dbName: readOnly('wikiVariables.dbName'),
   smartBannerAdConfiguration: readOnly('wikiVariables.smartBannerAdConfiguration'),
   isUserLangEn: equal('currentUser.language', 'en'),
-  shouldShowFandomAppSmartBanner: and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
+  shouldShowFandomAppSmartBanner: false, //and('isUserLangEn', 'wikiVariables.enableFandomAppSmartBanner'),
   isFandomAppSmartBannerVisible: computed(
     'shouldShowFandomAppSmartBanner',
     'smartBannerVisible',
