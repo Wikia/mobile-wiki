@@ -506,8 +506,8 @@ export const defaultAdContext = {
   },
   templates: {
     safeFanTakeoverElement: {
-      boxadSlotNames: [ 'top_boxad', 'mobile_prefooter' ],
-      boxadSize: [ 300, 251 ],
+      boxadSlotNames: ['top_boxad', 'mobile_prefooter'],
+      boxadSize: [300, 251],
     },
   },
   services: {
