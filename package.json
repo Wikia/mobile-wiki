@@ -65,7 +65,8 @@
     "scriptjs": "2.5.9",
     "vignette": "github:wikia/vignette-js#2.9.0",
     "visit-source": "github:Wikia/visit-source#0.1.1",
-    "web-vitals": "0.2.3"
+    "web-vitals": "0.2.3",
+    "web-vitals-reporter": "^0.2.0"
   },
   "devDependencies": {
     "@babel/cli": "7.10.5",

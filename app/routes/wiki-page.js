@@ -166,11 +166,13 @@ export default Route.extend(
             // Otherwise we track to fast and url isn't
             // updated yet. `didTransition` hook is called too fast.
             this.trackPageView(model);
-            gatherMetrics(
-              this.get('wikiVariables.wgPerformanceMonitoringEndpointUrl'),
-              this.get('wikiVariables.wgPerformanceMonitoringSoftwareVersion'),
-              this.get('wikiVariables.wgPerformanceMonitoringSamplingFactor'),
-            );
+            if (!fastboot.get('isFastBoot')) {
+              gatherMetrics(
+                this.get('wikiVariables.wgPerformanceMonitoringEndpointUrl'),
+                this.get('wikiVariables.wgPerformanceMonitoringSoftwareVersion'),
+                this.get('wikiVariables.wgPerformanceMonitoringSamplingFactor'),
+              );
+            }
 
             if (!fastboot.get('isFastBoot') && model.adsContext) {
               model.adsContext.user = model.adsContext.user || {};
