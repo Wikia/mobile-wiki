@@ -504,6 +504,12 @@ export const defaultAdContext = {
     skin: 'mercury',
     uap: 'none',
   },
+  templates: {
+    safeFanTakeoverElement: {
+      boxadSlotNames: ['top_boxad', 'mobile_prefooter'],
+      boxadSize: [300, 251],
+    },
+  },
   services: {
     billTheLizard: {
       enabled: true,
