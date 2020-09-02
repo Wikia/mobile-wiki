@@ -81,6 +81,7 @@ export default EmberObject.extend({
       lang: this.wikiVariables.language.content,
       namespace: 0,
       limit: 25,
+      gamepedia: this.wikiVariables.enableHydraFeatures || false,
     };
 
     if (this.get('scope') === 'internal') {
