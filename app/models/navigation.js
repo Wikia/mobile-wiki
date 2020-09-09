@@ -8,6 +8,7 @@ export default EmberObject.extend({
   fetch: service(),
 
   fetchAll(host, wikiId, language) {
+    console.log( '***  NAVIGATION::FETCHALL *** ');
     const url = this.wikiUrls.build({
       host,
       forceNoSSLOnServerSide: true,

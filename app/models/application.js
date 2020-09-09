@@ -40,6 +40,8 @@ export default EmberObject.extend({
           ),
         };
 
+        console.log( 'promises::', promises);
+
         if (!wikiVariables.isClosed && !wikiVariables.isEmptyDomainWithLanguageWikis) {
           promises.currentUser = currentUser.initializeUserData(userId, host);
           promises.trackingDimensions = TrackingDimensionsModel.create(ownerInjection).load(
