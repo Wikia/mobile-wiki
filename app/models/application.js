@@ -25,6 +25,7 @@ export default EmberObject.extend({
       const host = fastboot.get('request.host');
       const accessToken = fastboot.get('request.cookies.access_token');
       const ownerInjection = getOwner(this).ownerInjection();
+      const enableShopLinkReview = fastboot.get('request.queryParams.enableShopLinkReview')
 
       return all([
         WikiVariablesModel.create(ownerInjection).load(protocol, host, accessToken),
@@ -37,6 +38,7 @@ export default EmberObject.extend({
             host,
             wikiVariables.id,
             uselangParam || wikiVariables.language.content,
+            enableShopLinkReview,
           ),
         };
 
