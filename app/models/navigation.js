@@ -7,7 +7,9 @@ export default EmberObject.extend({
   fastboot: service(),
   fetch: service(),
 
-  fetchAll(host, wikiId, language, enableShopLinkReview) {
+  fetchAll(host, wikiId, language) {
+    const enableShopLinkReview = this.fastboot.get('request.queryParams.enableShopLinkReview');
+
     const url = this.wikiUrls.build({
       host,
       forceNoSSLOnServerSide: true,
