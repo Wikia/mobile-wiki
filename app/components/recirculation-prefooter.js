@@ -166,10 +166,15 @@ export default Component.extend(
     },
 
     fetchRecommendedData() {
-      const qs = `?wikiId=${this.wikiVariables.id}&articleId=${this.articleId}&beacon=${window.beacon_id}`;
+      const qs = `?wikiId=${this.wikiVariables.id}&articleId=${this.articleId}`;
       const url = this.fetch.getServiceUrl('recommendations', `/recommendations${qs}`);
+      const options = {
+        headers: {
+          'X-Beacon': window.beacon_id
+        }
+      };
 
-      this.fetch.fetchAndParseResponse(url, {}, RecommendedDataFetchError)
+      this.fetch.fetchAndParseResponse(url, options, RecommendedDataFetchError)
         .then((response) => {
           let filteredItems = this.getNonBlacklistedRecommendedData(response);
 
