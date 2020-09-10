@@ -170,8 +170,8 @@ export default Component.extend(
       const url = this.fetch.getServiceUrl('recommendations', `/recommendations${qs}`);
       const options = {
         headers: {
-          'X-Beacon': window.beacon_id
-        }
+          'X-Beacon': window.beacon_id,
+        },
       };
 
       this.fetch.fetchAndParseResponse(url, options, RecommendedDataFetchError)
