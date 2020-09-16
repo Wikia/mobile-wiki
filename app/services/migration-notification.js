@@ -10,7 +10,8 @@ export default Service.extend({
   beforeMigrationClosedStorageKey: 'wikia-org-migration-before-closed',
   afterFandomComMigrationClosedStorageKey: 'fandom-com-migration-after-closed',
   beforeFandomComMigrationClosedStorageKey: 'fandom-com-migration-before-closed',
-  ucpMigrationBannerClosedStorageKey: 'ucp-migration-banner-closed',
+  ucpMigrationBannerIncompleteClosedStorageKey: 'ucp-migration-banner-incomplete-closed',
+  ucpMigrationBannerCompleteClosedStorageKey: 'ucp-migration-banner-complete-closed',
   storageTrueValue: '1',
 
   shouldShowAfterMigrationNotification() {
@@ -27,10 +28,17 @@ export default Service.extend({
       ) !== this.storageTrueValue;
   },
 
-  shouldShowUCPMigrationNotification() {
-    return this.wikiVariables.ucpMigrationBannerMessage
+  shouldShowUCPMigrationCompleteNotification() {
+    return this.wikiVariables.ucpMigrationComplete && this.wikiVariables.ucpMigrationBannerMessage
       && localStorageConnector.getItem(
-        this.ucpMigrationBannerClosedStorageKey,
+        this.ucpMigrationBannerCompleteClosedStorageKey,
+      ) !== this.storageTrueValue;
+  },
+
+  shouldShowUCPMigrationIncompleteNotification() {
+    return !this.wikiVariables.ucpMigrationComplete && this.wikiVariables.ucpMigrationBannerMessage
+      && localStorageConnector.getItem(
+        this.ucpMigrationBannerIncompleteClosedStorageKey,
       ) !== this.storageTrueValue;
   },
 
@@ -94,10 +102,15 @@ export default Service.extend({
     }
 
     // UCP migration banners
-    if (this.shouldShowUCPMigrationNotification()) {
+    if (this.shouldShowUCPMigrationIncompleteNotification()) {
       this.showMigrationNotification(
         this.wikiVariables.ucpMigrationBannerMessage,
-        this.ucpMigrationBannerClosedStorageKey,
+        this.ucpMigrationBannerIncompleteClosedStorageKey,
+      );
+    } else if (this.shouldShowUCPMigrationCompleteNotification()) {
+      this.showMigrationNotification(
+        this.wikiVariables.ucpMigrationBannerMessage,
+        this.ucpMigrationBannerCompleteClosedStorageKey,
       );
     }
   },
