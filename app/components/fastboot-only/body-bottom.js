@@ -39,6 +39,7 @@ export default Component.extend({
       'qualarooUrl',
       'isTestWiki',
     );
+    wikiVariables.scriptPath = this.wikiVariables.articlePath.replace(/\/$/, '');
 
     return JSON.stringify(Object.assign({
       cookieDomain,
