@@ -193,17 +193,7 @@ export default Component.extend(
             filteredItems = this.getNonBlacklistedRecommendedData(response);
           }
 
-          this.set('items', filteredItems.slice(0, recircItemsCount).map(item => ({
-            id: item.item_id,
-            site_name: item.wiki_title,
-            url: item.url,
-            title: item.article_title || item.wiki_title,
-            thumbnail: window.Vignette.getThumbURL(item.thumbnail_url, {
-              mode: window.Vignette.mode.zoomCrop,
-              height: 386,
-              width: 386,
-            }),
-          })));
+          this.set('items', []);
 
           if (!this.isDestroyed) {
             this.listRendered.resolve();
