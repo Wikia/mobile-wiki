@@ -166,7 +166,7 @@ export default Component.extend(
     },
 
     fetchRecommendedData() {
-      const qs = `?wikiId=${this.wikiVariables.id}&articleId=${this.articleId}`;
+      const qs = `?wikiId=${this.wikiVariables.id}&articleId=${this.articleId}&number_articles=0&number_wikis=1`;
       const url = this.fetch.getServiceUrl('recommendations', `/recommendations${qs}`);
       const options = {
         headers: {
