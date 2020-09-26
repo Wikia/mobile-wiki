@@ -955,7 +955,7 @@
             "regions": [
                 "XX"
             ],
-            "value": 3
+            "value": 1
         }
     ],
     "wgAdDriverBillTheLizardConfig": {
@@ -1356,7 +1356,7 @@
             "regions": [
                 "XX"
             ],
-            "value": "//static.wikia.nocookie.net/fandom-ae-assets/tracking-opt-in/v4.2.0/tracking-opt-in.min.js"
+            "value": "//static.wikia.nocookie.net/fandom-ae-assets/tracking-opt-in/v4.5.0/tracking-opt-in.min.js"
         }
     ],
     "icPermutive": [
