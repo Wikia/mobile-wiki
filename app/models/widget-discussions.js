@@ -4,6 +4,7 @@ import fetch from 'fetch';
 import extractDomainFromUrl from '../utils/domain';
 import { track } from '../utils/track';
 import { getQueryString } from '../utils/url';
+import { FetchError } from '../utils/errors';
 
 /**
   * @param {string} [path='']
@@ -15,6 +16,7 @@ function getDiscussionServiceUrl(servicesExternalHost, path = '') {
 
 export default EmberObject.extend(
   {
+    fetch: service(),
     wikiVariables: service(),
     wikiUrls: service(),
     runtimeConfig: service(),
@@ -107,14 +109,27 @@ export default EmberObject.extend(
    */
     upvote(post) {
       const hasUpvoted = post.get('userData.hasUpvoted');
-      const method = hasUpvoted ? 'delete' : 'post';
+      const method = hasUpvoted ? 'downVotePost' : 'upVotePost';
 
       // Update frontend immediately. If error occurs then we revert state
       post.set('userData.hasUpvoted', !hasUpvoted);
 
-      fetch(getDiscussionServiceUrl(this.runtimeConfig.servicesExternalHost, `/${this.get('wikiVariables.id')}/votes/post/${post.get('id')}`), {
-        method,
-      }).then((response) => {
+      const host = this.get('wikiVariables.host');
+      const url = this.wikiUrls.build({
+        host,
+        forceNoSSLOnServerSide: true,
+        path: '/wikia.php',
+        query: {
+          controller: 'DiscussionVote',
+          method,
+          postId: post.get('id'),
+        },
+      });
+      this.fetch.fetchFromMediawiki(
+        url,
+        FetchError,
+        { method: 'POST' },
+      ).then((response) => {
         if (response.ok) {
           response.json().then((data) => {
             post.set('upvoteCount', data.upvoteCount);
