@@ -47,7 +47,6 @@ export const adsSetup = {
     const {
       setupNpaContext,
       setupRdpContext,
-      setupTCFv2Context,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -64,7 +63,6 @@ export const adsSetup = {
 
     return InstantConfigService.init().then((instantConfig) => {
       this.setupAdContext(instantConfig, adsContext, consents);
-      setupTCFv2Context(instantConfig);
       setupNpaContext();
       setupRdpContext();
 
