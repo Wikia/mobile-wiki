@@ -48,6 +48,7 @@ export const adsSetup = {
       setupNpaContext,
       setupRdpContext,
       setupTCFv2Context,
+      AffiliateDisclaimer,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -78,6 +79,7 @@ export const adsSetup = {
       templateService.register(Roadblock, getRoadblockConfig());
       templateService.register(SafeFanTakeoverElement, getStickyTLBConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
+      templateService.register(AffiliateDisclaimer);
 
       registerClickPositionTracker();
       registerSlotTracker();
@@ -99,6 +101,7 @@ export const adsSetup = {
         context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
         context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
       });
+      this.injectAffiliateDisclaimer();
 
       videoTracker.register();
 
@@ -328,7 +331,17 @@ export const adsSetup = {
     context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
   },
 
+  injectAffiliateDisclaimer() {
+    const {
+      AdSlot,
+      slotService,
+      templateService,
+    } = window.Wikia.adEngine;
 
+    slotService.on('affiliate_slot', AdSlot.STATUS_SUCCESS, () => {
+      templateService.init('affiliateDisclaimer', slotService.get('affiliate_slot'));
+    });
+  },
 };
 
 export default adsSetup;
