@@ -11,6 +11,7 @@ export const getConfig = () => ({
     'bottom_leaderboard',
   ],
   slotsToDisable: [
+    'affiliate_slot',
     'incontent_boxad_1',
     'incontent_player',
     'floor_adhesion',
