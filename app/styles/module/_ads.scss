@@ -63,6 +63,14 @@ $closeButtonHeight: 40px;
   }
 }
 
+#affiliate_slot {
+  text-align: center;
+
+  & > div {
+    margin-bottom: 10px;
+  }
+}
+
 .article-content .ad-slot-wrapper .ad-slot,
 .article-content p + .ad-slot {
   &.incontent-boxad {

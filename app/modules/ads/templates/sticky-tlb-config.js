@@ -35,6 +35,7 @@ export const getConfig = () => ({
     eventService.emit(appEvents.SMART_BANNER_CHANGE, false);
 
     slotService.disable('incontent_player', 'hivi-collapse');
+    slotService.disable('affiliate_slot', 'hivi-collapse');
   },
 
   onBeforeUnstickBfaaCallback() {

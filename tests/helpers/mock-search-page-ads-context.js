@@ -13,6 +13,7 @@ export default function (owner) {
           adsInContent: 1,
           delayBtf: true,
           enableAdsInMaps: true,
+          enableAffiliateSlot: false,
           enableCheshireCat: false,
           pageType: 'search',
           showAds: true,
