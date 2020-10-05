@@ -208,6 +208,12 @@ export const defaultAdContext = {
             ],
             placementId: '_oMn9XHKEp3',
           },
+          floor_adhesion: {
+            sizes: [
+              [320, 50],
+            ],
+            placementId: '_t6KTOnCSj5',
+          },
         },
       },
       nobid: {
