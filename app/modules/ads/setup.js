@@ -101,7 +101,6 @@ export const adsSetup = {
         context.onChange(`slots.${slot.getSlotName()}.audio`, () => slots.setupSlotParameters(slot));
         context.onChange(`slots.${slot.getSlotName()}.videoDepth`, () => slots.setupSlotParameters(slot));
       });
-      this.injectAffiliateDisclaimer();
 
       videoTracker.register();
 
@@ -329,18 +328,6 @@ export const adsSetup = {
     slots.setupSizesAvailability();
 
     context.set('options.wad.enabled', instantConfig.get('icBabDetection'));
-  },
-
-  injectAffiliateDisclaimer() {
-    const {
-      AdSlot,
-      slotService,
-      templateService,
-    } = window.Wikia.adEngine;
-
-    slotService.on('affiliate_slot', AdSlot.STATUS_SUCCESS, () => {
-      templateService.init('affiliateDisclaimer', slotService.get('affiliate_slot'));
-    });
   },
 };
 

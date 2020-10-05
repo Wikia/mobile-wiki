@@ -39,10 +39,27 @@ function isInContentApplicable() {
   return context.get('custom.pageType') !== 'search';
 }
 
+function injectAffiliateDisclaimer() {
+  const {
+    AdSlot,
+    slotService,
+    templateService,
+  } = window.Wikia.adEngine;
+
+  slotService.on('affiliate_slot', AdSlot.STATUS_SUCCESS, () => {
+    templateService.init('affiliateDisclaimer', slotService.get('affiliate_slot'));
+  });
+}
+
 function isAffiliateSlotApplicable() {
   const { context } = window.Wikia.adEngine;
+  const isApplicable = context.get('wiki.opts.enableAffiliateSlot') && !context.get('custom.hasFeaturedVideo');
 
-  return context.get('wiki.opts.enableAffiliateSlot') && !context.get('custom.hasFeaturedVideo');
+  if (isApplicable) {
+    injectAffiliateDisclaimer();
+  }
+
+  return isApplicable;
 }
 
 function isPrefooterApplicable(inContentApplicable) {
