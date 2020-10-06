@@ -296,6 +296,7 @@ export const adsSetup = {
     const insertBeforePaths = [
       'slots.incontent_boxad_1.insertBeforeSelector',
       'slots.incontent_player.insertBeforeSelector',
+      'slots.affiliate_slot.insertBeforeSelector',
     ];
 
     if (instantConfig.get('icRepeatMobileIncontentExtended')) {

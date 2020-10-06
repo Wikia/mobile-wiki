@@ -488,6 +488,7 @@ export const defaultAdContext = {
       top_boxad: [
         'incontent_boxad_1',
         'incontent_player',
+        'affiliate_slot',
       ],
     },
   },
@@ -540,6 +541,8 @@ export const defaultAdContext = {
         'top_boxad',
         'incontent_boxad_1',
         'bottom_leaderboard',
+        'featured',
+        'incontent_player',
       ],
     },
     nielsen: {

@@ -39,6 +39,12 @@ function isInContentApplicable() {
   return context.get('custom.pageType') !== 'search';
 }
 
+function isAffiliateSlotApplicable() {
+  const { context } = window.Wikia.adEngine;
+
+  return context.get('wiki.opts.enableAffiliateSlot') && !context.get('custom.hasFeaturedVideo');
+}
+
 function isPrefooterApplicable(inContentApplicable) {
   const { context } = window.Wikia.adEngine;
 
@@ -179,6 +185,20 @@ export const slots = {
           pos: ['top_boxad'],
           rv: 1,
           xna: 1,
+        },
+      },
+      affiliate_slot: {
+        adProduct: 'affiliate_slot',
+        avoidConflictWith: '#top_boxad,#incontent_boxad_1,#incontent_player',
+        slotNameSuffix: '',
+        group: 'AU',
+        options: {},
+        insertBeforeSelector: '.article-content > h2',
+        slotShortcut: 'a',
+        defaultSizes: [[280, 120]],
+        targeting: {
+          loc: 'middle',
+          rv: 1,
         },
       },
       // as this slot can be repeated many, it uses bidderAlias mobile_in_content
@@ -371,6 +391,7 @@ export const slots = {
     }
     setSlotState('top_boxad', incontentState);
     setSlotState('incontent_boxad_1', incontentState);
+    setSlotState('affiliate_slot', incontentState && isAffiliateSlotApplicable());
     setSlotState('mobile_prefooter', isPrefooterApplicable(incontentState));
     setSlotState('bottom_leaderboard', isBottomLeaderboardApplicable());
 
