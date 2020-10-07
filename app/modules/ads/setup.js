@@ -47,6 +47,7 @@ export const adsSetup = {
     const {
       setupNpaContext,
       setupRdpContext,
+      AffiliateDisclaimer,
       BigFancyAdAbove,
       BigFancyAdBelow,
       FloorAdhesion,
@@ -76,6 +77,7 @@ export const adsSetup = {
       templateService.register(Roadblock, getRoadblockConfig());
       templateService.register(SafeFanTakeoverElement, getStickyTLBConfig());
       templateService.register(StickyTLB, getStickyTLBConfig());
+      templateService.register(AffiliateDisclaimer);
 
       registerClickPositionTracker();
       registerSlotTracker();
