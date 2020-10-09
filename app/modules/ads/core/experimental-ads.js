@@ -7,15 +7,17 @@ import PromiseLock from './promise-lock';
 const maxBiddersTimeout = 2000;
 
 class ExperimentalAds {
+
   static getInstance() {
     return ExperimentalAds.instance;
   }
 
   static getLoadedInstance() {
-    return Promise.resolve({});
+    return Promise.resolve(ExperimentalAds.instance);
   }
 
   constructor() {
+    this.biddersReady = new PromiseLock();
     this.isBundleLoaded = false;
     this.isInitializationStarted = false;
   }
@@ -69,6 +71,7 @@ class ExperimentalAds {
       return;
     }
 
+    this.biddersReady = new PromiseLock();
     communicationService.dispatch({
       type: '[MobileWiki] Before transition',
     });
@@ -108,25 +111,27 @@ class ExperimentalAds {
   }
 
   waitForVideoBidders() {
-    const biddersReady = new PromiseLock();
+    if (this.biddersReady.isResolved) {
+      return this.biddersReady.promise;
+    }
 
     communicationService.addListener((action) => {
-      if (isType(action, '[Ad Engine] Setup JWPlayer') && !biddersReady.isResolved) {
-        biddersReady.resolve();
+      if (isType(action, '[Ad Engine] Setup JWPlayer') && !this.biddersReady.isResolved) {
+        this.biddersReady.resolve();
       }
     });
 
     setTimeout(() => {
-      if (!biddersReady.isResolved) {
-        biddersReady.resolve();
+      if (!this.biddersReady.isResolved) {
+        this.biddersReady.resolve();
       }
     }, maxBiddersTimeout);
 
-    return biddersReady;
+    return this.biddersReady.promise;
   }
 
   waitForUapResponse() {
-    return Promise.reject(new Error('ExperimentalAds bundle'));
+    return Promise.resolve(false);
   }
 }
 
