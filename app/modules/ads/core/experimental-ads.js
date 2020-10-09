@@ -1,6 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import { communicationService } from '../communication/communication-service';
+import { isType } from '../communication/is-type';
+import PromiseLock from './promise-lock';
+
+const maxBiddersTimeout = 2000;
 
 class ExperimentalAds {
   static getInstance() {
@@ -104,7 +108,21 @@ class ExperimentalAds {
   }
 
   waitForVideoBidders() {
-    return Promise.reject(new Error('ExperimentalAds bundle'));
+    const biddersReady = new PromiseLock();
+
+    communicationService.addListener((action) => {
+      if (isType(action, '[Ad Engine] Setup JWPlayer') && !biddersReady.isResolved) {
+        biddersReady.resolve();
+      }
+    });
+
+    setTimeout(() => {
+      if (!biddersReady.isResolved) {
+        biddersReady.resolve();
+      }
+    }, maxBiddersTimeout);
+
+    return biddersReady;
   }
 
   waitForUapResponse() {
