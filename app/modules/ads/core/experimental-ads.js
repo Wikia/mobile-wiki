@@ -7,7 +7,6 @@ import PromiseLock from './promise-lock';
 const maxBiddersTimeout = 2000;
 
 class ExperimentalAds {
-
   static getInstance() {
     return ExperimentalAds.instance;
   }
