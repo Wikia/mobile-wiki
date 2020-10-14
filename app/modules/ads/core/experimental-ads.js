@@ -1,6 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import { Promise } from 'rsvp';
 import { communicationService } from '../communication/communication-service';
+import { isType } from '../communication/is-type';
+import PromiseLock from './promise-lock';
+
+const maxBiddersTimeout = 2000;
 
 class ExperimentalAds {
   static getInstance() {
@@ -8,10 +12,11 @@ class ExperimentalAds {
   }
 
   static getLoadedInstance() {
-    return Promise.resolve({});
+    return Promise.resolve(ExperimentalAds.instance);
   }
 
   constructor() {
+    this.biddersReady = new PromiseLock();
     this.isBundleLoaded = false;
     this.isInitializationStarted = false;
   }
@@ -65,6 +70,7 @@ class ExperimentalAds {
       return;
     }
 
+    this.biddersReady = new PromiseLock();
     communicationService.dispatch({
       type: '[MobileWiki] Before transition',
     });
@@ -104,11 +110,27 @@ class ExperimentalAds {
   }
 
   waitForVideoBidders() {
-    return Promise.reject(new Error('ExperimentalAds bundle'));
+    if (this.biddersReady.isResolved) {
+      return this.biddersReady.promise;
+    }
+
+    communicationService.addListener((action) => {
+      if (isType(action, '[Ad Engine] Setup JWPlayer') && !this.biddersReady.isResolved) {
+        this.biddersReady.resolve();
+      }
+    });
+
+    setTimeout(() => {
+      if (!this.biddersReady.isResolved) {
+        this.biddersReady.resolve();
+      }
+    }, maxBiddersTimeout);
+
+    return this.biddersReady.promise;
   }
 
   waitForUapResponse() {
-    return Promise.reject(new Error('ExperimentalAds bundle'));
+    return Promise.resolve(false);
   }
 }
 
