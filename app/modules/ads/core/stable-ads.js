@@ -431,6 +431,7 @@ class StableAds {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
+    this.trackLiveRamp();
   }
 
   /**
@@ -550,6 +551,17 @@ class StableAds {
     communicationService.addListener((action) => {
       if (isType(action, '[AdEngine] Audigent loaded')) {
         pageTracker.trackProp('audigent', 'loaded');
+      }
+    });
+  }
+
+  /**
+   * @private
+   */
+  trackLiveRamp() {
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] LiveRamp Prebid ids loaded')) {
+        pageTracker.trackProp('live_ramp_prebid_ids', 'ids-placeholder');
       }
     });
   }
