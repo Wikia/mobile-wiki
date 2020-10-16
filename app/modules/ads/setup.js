@@ -295,7 +295,7 @@ export const adsSetup = {
       context.set('bidders.prebid.priceFloor', priceFloorRule || null);
     }
 
-    context.set('bidders.LiveRampId.enabled', instantConfig.get('icLiveRampId'));
+    context.set('bidders.liveRampId.enabled', instantConfig.get('icLiveRampId'));
 
     const insertBeforePaths = [
       'slots.incontent_boxad_1.insertBeforeSelector',
