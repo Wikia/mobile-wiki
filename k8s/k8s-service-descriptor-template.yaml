@@ -4,6 +4,7 @@ metadata:
   labels:
     app: mobile-wiki
     env: ${env}
+    team: iwing
   name: mobile-wiki-${env}
   namespace: prod
 spec:
