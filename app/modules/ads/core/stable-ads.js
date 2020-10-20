@@ -561,7 +561,7 @@ class StableAds {
   trackLiveRamp() {
     communicationService.addListener((action) => {
       if (isType(action, '[AdEngine] LiveRamp Prebid ids loaded')) {
-        pageTracker.trackProp('live_ramp_prebid_ids', 'ids-placeholder');
+        pageTracker.trackProp('live_ramp_prebid_ids', action.userId);
       }
     });
   }
