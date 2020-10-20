@@ -10,6 +10,7 @@ metadata:
     # wrapped with double quote (") to prevent issues with special characters in version name
     version: "${version}"
     status: active
+    team: iwing
 spec:
   replicas: 1
   selector:
@@ -29,6 +30,7 @@ spec:
         # wrapped with double quote (") to prevent issues with special characters in version name
         version: "${version}"
         stage: mobile-wiki-sandbox
+        team: iwing
     spec:
       serviceAccountName: k8s-pod
       initContainers:
@@ -89,6 +91,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: mobile-wiki-${env}
+  labels:
+    team: iwing
   namespace: prod
   annotations:
     traefik.frontend.rule.type: PathPrefixStrip
@@ -108,6 +112,7 @@ metadata:
   labels:
     app: mobile-wiki
     env: ${env}
+    team: iwing
   namespace: prod
 spec:
   jobLabel: app
@@ -121,4 +126,6 @@ spec:
   endpoints:
     - port: admin
       path: /metrics
-      interval: 10s
+      interval: 30s
+  targetLabels:
+  - team
