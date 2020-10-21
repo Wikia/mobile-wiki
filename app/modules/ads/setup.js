@@ -296,6 +296,7 @@ export const adsSetup = {
     }
 
     context.set('bidders.liveRampId.enabled', instantConfig.get('icLiveRampId'));
+    context.set('bidders.liveRampATSAnalytics.enabled', instantConfig.get('icLiveRampATSAnalytics'));
 
     const insertBeforePaths = [
       'slots.incontent_boxad_1.insertBeforeSelector',
