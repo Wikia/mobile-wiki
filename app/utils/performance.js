@@ -114,7 +114,7 @@ export default (baseUrl, softwareVersion, sampleFactor) => {
         }
         // PLATFORM-5163: send pv_unique_id along with the performance metric
         if (window.pvUID) {
-          url += `&pv=${window.pvUID}`;
+          url += '&pv=' + encodeURIComponent(window.pvUID);
         }
         // Send the performance info
         if (navigator.sendBeacon) {
