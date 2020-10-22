@@ -113,13 +113,8 @@ export default (baseUrl, softwareVersion, sampleFactor) => {
                 .join('&')}`;
         }
         // PLATFORM-5163: send pv_unique_id along with the performance metric
-        try {
-          const pvUID = mw.config.get('pvUID');
-          if (pvUID) {
-            url += `&pv=${pvUID}`;
-          }
-        } catch {
-          // send the metrics even if pvUID couldn't be fetched
+        if (window.pvUID) {
+          url += `&pv=${window.pvUID}`;
         }
         // Send the performance info
         if (navigator.sendBeacon) {
