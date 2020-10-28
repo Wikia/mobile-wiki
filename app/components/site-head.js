@@ -39,6 +39,13 @@ export default Component.extend(
           notTop: 'site-head-headroom-not-top',
         },
       };
+
+      // TODO SER--read ICBM flag and bump design-system version
+      const defaultScope = undefined;
+      if (defaultScope !== undefined) {
+        this.set('showSearchScope', true);
+        this.set('defaultSearchScope', defaultScope);
+      }
     },
 
     /**
