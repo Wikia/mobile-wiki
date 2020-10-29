@@ -35,7 +35,7 @@
   "dependencies": {
     "@fandom/article-comments": "0.9.14",
     "@fandom/web-editor": "1.4.1",
-    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#70229e00f375a49daea450569113a414b739360e",
+    "@wikia/ad-engine": "git+https://github.com/Wikia/ad-engine.git#153131e278909540db07b92a211f15195083ad52",
     "@wikia/ember-fandom": "github:Wikia/ember-fandom#d12e79e46c33c889560b2b4b26af034c8c21b2c9",
     "@wikia/post-quecast": "2.0.1",
     "@wikia/search-tracking": "github:Wikia/search-tracking#2.0.0",
