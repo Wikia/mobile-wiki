@@ -2,6 +2,8 @@ import Component from '@ember/component';
 import { equal, readOnly } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
+import { take } from 'rxjs/operators';
+import { communicationService, ofType } from '@wikia/ad-engine';
 import HeadroomMixin from '../mixins/headroom';
 import { standalone } from '../utils/browser';
 import { track, trackActions } from '../utils/track';
@@ -11,6 +13,7 @@ export default Component.extend(
   HeadroomMixin,
   {
     ads: service('ads/ads'),
+    currentUser: service(),
     smartBanner: service(),
     router: service(),
     wikiVariables: service(),
@@ -39,13 +42,7 @@ export default Component.extend(
           notTop: 'site-head-headroom-not-top',
         },
       };
-
-      // TODO SER--read ICBM flag and bump design-system version
-      const defaultScope = undefined;
-      if (defaultScope !== undefined) {
-        this.set('showSearchScope', true);
-        this.set('defaultSearchScope', defaultScope);
-      }
+      this.setExperimentFlags();
     },
 
     /**
@@ -57,6 +54,25 @@ export default Component.extend(
         // running this just after render is working too
         run.scheduleOnce('afterRender', this, this.checkForHiding);
       }
+    },
+
+    setExperimentFlags() {
+      const currentUser = this.currentUser;
+      const isAuthenticated = currentUser.get('isAuthenticated');
+      console.log('123', communicationService);
+
+      communicationService.action$.pipe(
+        ofType('[AdEngine] set InstantConfig'),
+        take(1),
+      ).subscribe((props) => {
+        console.log('scopeXD');
+        const defaultScope = props.instantConfig.get('icServicesSearchScopeDropdownOnMobile');
+        console.log('scope', defaultScope);
+        if (defaultScope !== undefined && !isAuthenticated) {
+          this.set('showSearchScope', true);
+          this.set('defaultSearchScope', defaultScope);
+        }
+      });
     },
 
     /**
@@ -128,7 +144,6 @@ export default Component.extend(
     onSearchSuggestionsImpression(suggestions, suggestionsSearchId) {
       this.trackSearchSuggestionsImpression(suggestions, suggestionsSearchId);
     },
-
 
     goToSearchResults(value) {
       this.router.transitionTo('search', {
