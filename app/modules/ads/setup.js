@@ -19,6 +19,7 @@ import { getConfig as getPorvataConfig } from './templates/porvata-config';
 import { getConfig as getRoadblockConfig } from './templates/roadblock-config';
 import { getConfig as getStickyTLBConfig } from './templates/sticky-tlb-config';
 import LogoReplacement from './templates/logo-replacement';
+import { communicationService } from './communication/communication-service';
 
 function setupPageLevelTargeting(mediaWikiAdsContext) {
   const { context } = window.Wikia.adEngine;
@@ -63,6 +64,10 @@ export const adsSetup = {
     utils.geoService.setUpGeoData();
 
     return InstantConfigService.init().then((instantConfig) => {
+      communicationService.dispatch({
+        type: '[AdEngine] set InstantConfig',
+        payload: instantConfig,
+      });
       this.setupAdContext(instantConfig, adsContext, consents);
       setupNpaContext();
       setupRdpContext();

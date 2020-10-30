@@ -2,12 +2,12 @@ import Component from '@ember/component';
 import { equal, readOnly } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
-import { take } from 'rxjs/operators';
-import { communicationService, ofType } from '@wikia/ad-engine';
+import { communicationService } from '../modules/ads/communication/communication-service';
 import HeadroomMixin from '../mixins/headroom';
 import { standalone } from '../utils/browser';
 import { track, trackActions } from '../utils/track';
 import Ads from '../modules/ads';
+import { isType } from '../modules/ads/communication/is-type';
 
 export default Component.extend(
   HeadroomMixin,
@@ -59,20 +59,17 @@ export default Component.extend(
     setExperimentFlags() {
       const currentUser = this.currentUser;
       const isAuthenticated = currentUser.get('isAuthenticated');
-      console.log('123', communicationService);
-
-      communicationService.action$.pipe(
-        ofType('[AdEngine] set InstantConfig'),
-        take(1),
-      ).subscribe((props) => {
-        console.log('scopeXD');
-        const defaultScope = props.instantConfig.get('icServicesSearchScopeDropdownOnMobile');
-        console.log('scope', defaultScope);
-        if (defaultScope !== undefined && !isAuthenticated) {
-          this.set('showSearchScope', true);
-          this.set('defaultSearchScope', defaultScope);
-        }
-      });
+      if (!isAuthenticated) {
+        communicationService.addListener((action) => {
+          if (isType(action, '[AdEngine] set InstantConfig')) {
+            const defaultScope = action.payload.get('icServicesMobileSearchScopeDropdown');
+            if (defaultScope) {
+              this.set('showSearchScope', true);
+              this.set('defaultSearchScope', defaultScope);
+            }
+          }
+        });
+      }
     },
 
     /**
