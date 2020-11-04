@@ -72,7 +72,7 @@ const designSystemLazyLoadedSVGs = [
   'wds-icons-mention',
   'wds-icons-mention-small',
   'wds-icons-reply',
-  'wds-icons-reply-small'
+  'wds-icons-reply-small',
 ].map(name => (
   { name, path: `${designSystemAssetsPath}${name}.svg` }
 ));
