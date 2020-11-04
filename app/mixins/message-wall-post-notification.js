@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import { getMessageWallOwner } from '../utils/messagewall';
+import getMessageWallOwner from '../utils/message-wall';
 
 export default Mixin.create({
   /**
@@ -13,17 +13,17 @@ export default Mixin.create({
     const isOwnWall = this.usernameMarkup === wallOwner;
 
     if (isOwnWall) {
-        // "{user} left a <b>new message</b> on your wall <br><br> {postTitle}",
-        return this.getTranslatedMessage('notifications-own-wall-post', {
-            user: firstReplierName,
-            postTitle: this.postTitleMarkup,
-        });
+      // "{user} left a <b>new message</b> on your wall <br><br> {postTitle}",
+      return this.getTranslatedMessage('notifications-own-wall-post', {
+        user: firstReplierName,
+        postTitle: this.postTitleMarkup,
+      });
     }
     // "{firstUser} left a <b>new message</b> on {secondUser}'s wall <br><br> {postTitle}"
     return this.getTranslatedMessage('notifications-wall-post', {
-        firstUser: firstReplierName,
-        secondUser: model.get('latestActors.1.name'),
-        postTitle: this.postTitleMarkup,
+      firstUser: firstReplierName,
+      secondUser: model.get('latestActors.1.name'),
+      postTitle: this.postTitleMarkup,
     });
   },
 });
