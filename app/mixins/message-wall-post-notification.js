@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import { getMessageWallOwner } from '../utils/messagewall';
 
 export default Mixin.create({
   /**
@@ -7,23 +8,22 @@ export default Mixin.create({
   * @returns {string}
   */
   getMessageWallPostBody(model) {
-    const firstReplierName = model.get('latestActors.0.name'); // what about anons?
-    const postTitle = this.postTitleMarkup;
+    const firstReplierName = model.get('latestActors.0.name') || this.getTranslatedMessage('username-anonymous');
+    const wallOwner = getMessageWallOwner(model.get('url'));
+    const isOwnWall = this.usernameMarkup === wallOwner;
 
-    // need this data !!
-    const isOwnWall = firstReplierName === '// check model.uri for username? in Message Wall uri';
-    // check for is own wall
     if (isOwnWall) {
+        // "{user} left a <b>new message</b> on your wall <br><br> {postTitle}",
         return this.getTranslatedMessage('notifications-own-wall-post', {
             user: firstReplierName,
-            postTitle: postTitle,
+            postTitle: this.postTitleMarkup,
         });
     }
-    
+    // "{firstUser} left a <b>new message</b> on {secondUser}'s wall <br><br> {postTitle}"
     return this.getTranslatedMessage('notifications-wall-post', {
         firstUser: firstReplierName,
         secondUser: model.get('latestActors.1.name'),
-        postTitle: postTitle,
+        postTitle: this.postTitleMarkup,
     });
   },
 });

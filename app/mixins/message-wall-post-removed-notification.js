@@ -7,11 +7,9 @@ export default Mixin.create({
   * @returns {string}
   */
   getMessageWallPostRemovedBody(model) {
-    const firstReplierName = model.get('latestActors.0.name'); // what about anons?
     const postTitle = this.postTitleMarkup;
-
+    // "<b>Message removed</b> from your wall <br><br> {postTitle}"
     return this.getTranslatedMessage('notifications-own-wall-post-removed', {
-        user: firstReplierName,
         postTitle: postTitle,
     }); 
   },
