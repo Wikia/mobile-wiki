@@ -1,18 +1,8 @@
 import { inject as service } from '@ember/service';
 import EmberObject, { computed, getWithDefault, get } from '@ember/object';
-import fetch from 'fetch';
 import extractDomainFromUrl from '../utils/domain';
 import { track } from '../utils/track';
-import { getQueryString } from '../utils/url';
 import { FetchError } from '../utils/errors';
-
-/**
-  * @param {string} [path='']
-  * @returns {string}
-  */
-function getDiscussionServiceUrl(servicesExternalHost, path = '') {
-  return `${servicesExternalHost}/discussion${path}`;
-}
 
 export default EmberObject.extend(
   {
@@ -31,15 +21,24 @@ export default EmberObject.extend(
    * @returns {Ember.RSVP.Promise}
    */
     find(categories = [], sortBy = 'trending', limit = 20) {
-      const queryString = getQueryString({
-        forumId: categories instanceof Array ? categories : [categories],
-        limit,
-        sortKey: sortBy === 'trending' ? 'trending' : 'creation_date',
+      const host = this.get('wikiVariables.host');
+      const url = this.wikiUrls.build({
+        host,
+        forceNoSSLOnServerSide: true,
+        path: '/wikia.php',
+        query: {
+          controller: 'DiscussionThread',
+          method: 'getThreads',
+          forumId: categories instanceof Array ? categories : [categories],
+          limit,
+          sortKey: sortBy === 'trending' ? 'trending' : 'creation_date',
+        },
       });
-
-      return fetch(getDiscussionServiceUrl(this.runtimeConfig.servicesExternalHost, `/${this.get('wikiVariables.id')}/threads${queryString}`))
-        .then(response => response.json())
-        .then(this.normalizeData.bind(this));
+      return this.fetch.fetchFromMediawiki(
+        url,
+        FetchError,
+        { method: 'GET' },
+      ).then(this.normalizeData.bind(this));
     },
 
     normalizeData(data) {
