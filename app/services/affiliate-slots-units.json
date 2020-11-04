@@ -137,5 +137,71 @@
     "link": "https://disneyplus.bn5x.net/c/1947570/871866/9358?subId1=generic_PT&subId2=nordic_presale&subId3=banner-fandom_5brands&sharedId=wiki_mobile",
     "country": ["PT"],
     "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Assine agora mesmo.",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Economize dinheiro na Disney+ na pré-venda antes do lançamento oficial em 17 de Novembro.",
+    "subheading": "Assine agora mesmo.",
+    "link": "https://disneyplus.bn5x.net/c/1947570/918026/9358?subId1=generic_BR&subId2=latam_presale&subId3=banner-fandom&sharedId=wiki_mobile",
+    "country": ["BR"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suscríbete ahora.",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Ahorra dinero con la preventa de Disney+ antes del lanzamiento oficial el 17 de Noviembre.",
+    "subheading": "Suscríbete ahora.",
+    "link": "https://disneyplus.bn5x.net/c/1947570/918026/9358?subId1=generic_AR&subId2=latam_presale&subId3=banner-fandom&sharedId=wiki_mobile",
+    "country": ["AR"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suscríbete ahora.",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Ahorra dinero con la preventa de Disney+ antes del lanzamiento oficial el 17 de Noviembre.",
+    "subheading": "Suscríbete ahora.",
+    "link": "https://disneyplus.bn5x.net/c/1947570/918026/9358?subId1=generic_CL&subId2=latam_presale&subId3=banner-fandom&sharedId=wiki_mobile",
+    "country": ["CL"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suscríbete ahora.",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Ahorra dinero con la preventa de Disney+ antes del lanzamiento oficial el 17 de Noviembre.",
+    "subheading": "Suscríbete ahora.",
+    "link": "https://disneyplus.bn5x.net/c/1947570/918026/9358?subId1=generic_CO&subId2=latam_presale&subId3=banner-fandom&sharedId=wiki_mobile",
+    "country": ["CO"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suscríbete ahora.",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Ahorra dinero con la preventa de Disney+ antes del lanzamiento oficial el 17 de Noviembre.",
+    "subheading": "Suscríbete ahora.",
+    "link": "https://disneyplus.bn5x.net/c/1947570/918026/9358?subId1=generic_MX&subId2=latam_presale&subId3=banner-fandom&sharedId=wiki_mobile",
+    "country": ["MX"],
+    "isBig": true
+  },
+  {
+    "campaign": "disneyplus",
+    "category": "disney",
+    "tagline": "Suscríbete ahora.",
+    "image": "https://static.wikia.nocookie.net/2d649352-f023-4b87-91a3-a8ee13f74b45",
+    "heading": "Ahorra dinero con la preventa de Disney+ antes del lanzamiento oficial el 17 de Noviembre.",
+    "subheading": "Suscríbete ahora.",
+    "link": "https://disneyplus.bn5x.net/c/1947570/918026/9358?subId1=generic_PE&subId2=latam_presale&subId3=banner-fandom&sharedId=wiki_mobile",
+    "country": ["PE"],
+    "isBig": true
   }
 ]
