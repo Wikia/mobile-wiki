@@ -126,7 +126,7 @@ export default Component.extend({
       this.send('toggleFooter');
     } else if (target.classList.contains('lightbox-close-wrapper')) {
       this.send('close');
-    } else {
+    } else if (!target.closest('.lightbox-footer-link > a')) {
       this.send('toggleUI');
     }
   },

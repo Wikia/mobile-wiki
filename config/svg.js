@@ -45,6 +45,7 @@ const designSystemLazyLoadedSVGs = [
   'wds-icons-heart-small',
   'wds-icons-instagram',
   'wds-icons-link',
+  'wds-icons-link-small',
   'wds-icons-linkedin',
   'wds-icons-menu-control',
   'wds-icons-menu-control-small',

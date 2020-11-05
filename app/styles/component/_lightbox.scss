@@ -150,10 +150,6 @@ $lightbox-filmstrip-height: 80px;
   display: flex;
   justify-content: space-around;
   margin-right: 4px;
-
-  svg {
-    transform: rotate(-45deg);
-  }
 }
 
 .has-footer .lightbox-image.lightbox-content-inner::after,
