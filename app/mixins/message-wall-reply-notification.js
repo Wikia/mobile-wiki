@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import getMessageWallOwner from '../utils/message-wall';
+import { getMessageWallOwner, getPossiblyAnonActorName } from '../utils/message-wall';
 
 export default Mixin.create({
   /**
@@ -8,42 +8,49 @@ export default Mixin.create({
   * @returns {string}
   */
   getMessageWallReplyBody(model) {
-    const totalUniqueActors = model.get('totalUniqueActors');
-    const hasTwoOrMoreUsers = totalUniqueActors > 1;
-    const firstReplierName = model.get('latestActors.0.name') || this.getTranslatedMessage('username-anonymous');
-    const wallOwner = getMessageWallOwner(model.get('uri'));
-    const isOwnWall = this.usernameMarkup === wallOwner;
+    let wallOwner = model.get('metadata') && model.get('metadata.username');
 
-    if (hasTwoOrMoreUsers) {
+    if (!wallOwner) {
+      wallOwner = getMessageWallOwner(model.get('uri'));
+    }
+
+    const isOwnWall = wallOwner === this.usernameMarkup;
+    const args = {
+      postTitle: this.postTitleMarkup,
+      wallOwner,
+    };
+
+    if (model.get('totalUniqueActors') > 1) {
+      args.number = model.get('totalUniqueActors') - 1;
+
       if (isOwnWall) {
+        args.user = getPossiblyAnonActorName(model);
         // "{user} and {number} other users <b>replied</b> to a message on your wall <br><br> {postTitle}",
-        return this.getTranslatedMessage('notifications-own-wall-reply-multiple-users', {
-          user: firstReplierName,
-          number: totalUniqueActors - 1,
-          postTitle: this.postTitleMarkup,
-        });
+        return this.getTranslatedMessage('notifications-own-wall-reply-multiple-users', args);
       }
-      //  "{firstUser} and {number} other users <b>replied</b> to {secondUser}'s wall <br><br> {postTitle}"
-      return this.getTranslatedMessage('notifications-wall-reply-multiple-users', {
-        firstUser: firstReplierName,
-        secondUser: model.get('latestActors.1.name'),
-        number: totalUniqueActors - 1,
-        postTitle: this.postTitleMarkup,
-      });
+
+      args.firstUser = getPossiblyAnonActorName(model);
+      args.secondUser = model.get('contentCreatorName');
+      //  "{firstUser} and {number} other users <b>replied</b> to {secondUser}'s message on {wallOwner}'s wall <br><br> {postTitle}"
+      return this.getTranslatedMessage('notifications-wall-reply-multiple-users', args);
     }
 
     if (isOwnWall) {
+      args.user = this._getPossiblyAnonActorName(model);
       // "{user} <b>replied</b> to a message on your wall <br><br> {postTitle}"
-      return this.getTranslatedMessage('notifications-own-wall-reply', {
-        user: firstReplierName,
-        postTitle: this.postTitleMarkup,
-      });
+      return this.getTranslatedMessage('notifications-own-wall-reply', args);
     }
+
+    if (model.get('contentCreatorName') === this.usernameMarkup) {
+      // Current user's own message
+      args.user = getPossiblyAnonActorName(model);
+      // "{user} <b>replied</b> to your message <br><br> {postTitle}"
+      return this.getTranslatedMessage('notifications-wall-reply-own-message', args);
+    }
+
+    args.firstUser = getPossiblyAnonActorName(model);
+    args.secondUser = model.get('contentCreatorName');
     // "{firstUser} <b>replied</b> to {secondUser}'s message <br><br> {postTitle}"
-    return this.getTranslatedMessage('notifications-wall-reply', {
-      firstUser: firstReplierName,
-      secondUser: model.get('latestActors.1.name'),
-      postTitle: this.postTitleMarkup,
-    });
+    return this.getTranslatedMessage('notifications-wall-reply', args);
   },
 });
