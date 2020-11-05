@@ -11,7 +11,7 @@ export default Mixin.create({
     const totalUniqueActors = model.get('totalUniqueActors');
     const hasTwoOrMoreUsers = totalUniqueActors > 1;
     const firstReplierName = model.get('latestActors.0.name') || this.getTranslatedMessage('username-anonymous');
-    const wallOwner = getMessageWallOwner(model.get('url'));
+    const wallOwner = getMessageWallOwner(model.get('uri'));
     const isOwnWall = this.usernameMarkup === wallOwner;
 
     if (hasTwoOrMoreUsers) {
