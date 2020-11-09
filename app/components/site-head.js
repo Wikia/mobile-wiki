@@ -2,15 +2,18 @@ import Component from '@ember/component';
 import { equal, readOnly } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
+import { communicationService } from '../modules/ads/communication/communication-service';
 import HeadroomMixin from '../mixins/headroom';
 import { standalone } from '../utils/browser';
 import { track, trackActions } from '../utils/track';
 import Ads from '../modules/ads';
+import { isType } from '../modules/ads/communication/is-type';
 
 export default Component.extend(
   HeadroomMixin,
   {
     ads: service('ads/ads'),
+    currentUser: service(),
     smartBanner: service(),
     router: service(),
     wikiVariables: service(),
@@ -39,6 +42,7 @@ export default Component.extend(
           notTop: 'site-head-headroom-not-top',
         },
       };
+      this.setExperimentFlags();
     },
 
     /**
@@ -49,6 +53,22 @@ export default Component.extend(
         // this HAS TO be run while rendering, but it cannot be run on didInsert/willInsert
         // running this just after render is working too
         run.scheduleOnce('afterRender', this, this.checkForHiding);
+      }
+    },
+
+    setExperimentFlags() {
+      const currentUser = this.currentUser;
+      const isAuthenticated = currentUser.get('isAuthenticated');
+      if (!isAuthenticated) {
+        communicationService.addListener((action) => {
+          if (isType(action, '[AdEngine] set InstantConfig')) {
+            const defaultScope = action.payload.get('icServicesMobileSearchScopeDropdown');
+            if (defaultScope) {
+              this.set('showSearchScope', true);
+              this.set('defaultSearchScope', defaultScope);
+            }
+          }
+        });
       }
     },
 
@@ -121,7 +141,6 @@ export default Component.extend(
     onSearchSuggestionsImpression(suggestions, suggestionsSearchId) {
       this.trackSearchSuggestionsImpression(suggestions, suggestionsSearchId);
     },
-
 
     goToSearchResults(value) {
       this.router.transitionTo('search', {
