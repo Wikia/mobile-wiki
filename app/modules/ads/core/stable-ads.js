@@ -564,6 +564,24 @@ class StableAds {
         pageTracker.trackProp('live_ramp_prebid_ids', action.userId);
       }
     });
+
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] ATS.js loaded')) {
+        pageTracker.trackProp('live_ramp_ats_loaded', action.loadTime);
+      }
+    });
+
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] ATS ids loaded')) {
+        pageTracker.trackProp('live_ramp_ats_ids', action.envelope);
+      }
+    });
+
+    communicationService.addListener((action) => {
+      if (isType(action, '[AdEngine] ATS.js not loaded for logged in user')) {
+        pageTracker.trackProp('live_ramp_ats_not_loaded', action.reason);
+      }
+    });
   }
 
   /**
