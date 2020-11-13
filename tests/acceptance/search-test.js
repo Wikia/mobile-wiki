@@ -45,11 +45,11 @@ module('Acceptance | search', (hooks) => {
     await fillIn(searchInput, testQuery);
     await triggerKeyEvent(searchInput, 'keydown', 'Enter');
 
-    assert.equal(currentURL(), '/search?query=test%20query');
+    assert.equal(currentURL(), '/search?query=test%20query&scope=internal');
   });
 
   test('visiting search result page with correct query displays search results', async (assert) => {
-    await visit('/search?query=test%20query');
+    await visit('/search?query=test%20query&scope=internal');
 
     assert.dom('.wikia-card').exists({ count: 4 });
     assert.dom('.wikia-card__title').hasText(

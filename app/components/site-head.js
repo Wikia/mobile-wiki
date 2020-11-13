@@ -57,9 +57,10 @@ export default Component.extend(
     },
 
     setExperimentFlags() {
+      const isUcpWiki = this.get('wikiVariables.enableHydraFeatures') !== undefined;
       const currentUser = this.currentUser;
       const isAuthenticated = currentUser.get('isAuthenticated');
-      if (!isAuthenticated) {
+      if (!isAuthenticated && isUcpWiki) {
         communicationService.addListener((action) => {
           if (isType(action, '[AdEngine] set InstantConfig')) {
             const defaultScope = action.payload.get('icServicesMobileSearchScopeDropdown');
@@ -142,9 +143,12 @@ export default Component.extend(
       this.trackSearchSuggestionsImpression(suggestions, suggestionsSearchId);
     },
 
-    goToSearchResults(value) {
+    goToSearchResults(value, scope = null) {
       this.router.transitionTo('search', {
-        queryParams: { query: value },
+        queryParams: {
+          query: value,
+          scope: scope === 'cross-wiki' ? 'cross-wiki' : 'internal',
+        },
       });
     },
 
