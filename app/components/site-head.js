@@ -143,9 +143,12 @@ export default Component.extend(
       this.trackSearchSuggestionsImpression(suggestions, suggestionsSearchId);
     },
 
-    goToSearchResults(value) {
+    goToSearchResults(value, scope = null) {
       this.router.transitionTo('search', {
-        queryParams: { query: value },
+        queryParams: {
+          query: value,
+          scope: scope === 'cross-wiki' ? 'cross-wiki' : 'internal',
+        },
       });
     },
 
