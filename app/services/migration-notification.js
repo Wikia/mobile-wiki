@@ -12,6 +12,8 @@ export default Service.extend({
   beforeFandomComMigrationClosedStorageKey: 'fandom-com-migration-before-closed',
   ucpMigrationBannerIncompleteClosedStorageKey: 'ucp-migration-banner-incomplete-closed',
   ucpMigrationBannerCompleteClosedStorageKey: 'ucp-migration-banner-complete-closed',
+  ucpDomainMigrationScheduledMessageKey: 'ucp-migration-banner-fandom-message-scheduled-fandom-wikis',
+  ucpDomainMigrationDoneMessageKey: 'ucp-migration-banner-fandom-message-complete',
   storageTrueValue: '1',
 
   shouldShowAfterMigrationNotification() {
@@ -54,6 +56,17 @@ export default Service.extend({
       && localStorageConnector.getItem(
         this.beforeFandomComMigrationClosedStorageKey,
       ) !== this.storageTrueValue;
+  },
+
+
+  shouldShowGamepediaDomainMigrationScheduledNotification() {
+    return (this.wikiVariables.domainMigrationScheduled
+      && localStorageConnector.getItem(
+        this.ucpDomainMigrationScheduledMessageKey,
+      ) !== this.storageTrueValue) || (this.wikiVariables.domainMigrationDone
+      && localStorageConnector.getItem(
+        this.ucpDomainMigrationDoneMessageKey,
+      ) !== this.storageTrueValue);
   },
 
   showMigrationNotification(message, storageKey) {
@@ -111,6 +124,18 @@ export default Service.extend({
       this.showMigrationNotification(
         this.wikiVariables.ucpMigrationBannerMessage,
         this.ucpMigrationBannerCompleteClosedStorageKey,
+      );
+    }
+
+    // Gamepedia domain migration
+    if (this.shouldShowGamepediaDomainMigrationNotification()) {
+      let storageKey = this.ucpDomainMigrationScheduledMessageKey;
+      if (this.wikiVariables.domainMigrationDone) {
+        storageKey = this.ucpDomainMigrationDoneMessageKey;
+      }
+      this.showMigrationNotification(
+        this.wikiVariables.domainMigrationBannerMessage,
+        storageKey,
       );
     }
   },
