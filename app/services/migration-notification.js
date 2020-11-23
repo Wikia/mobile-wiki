@@ -59,7 +59,7 @@ export default Service.extend({
   },
 
 
-  shouldShowGamepediaDomainMigrationScheduledNotification() {
+  shouldShowGamepediaDomainMigrationNotification() {
     return (this.wikiVariables.domainMigrationScheduled
       && localStorageConnector.getItem(
         this.ucpDomainMigrationScheduledMessageKey,
