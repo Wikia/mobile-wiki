@@ -174,6 +174,8 @@ export const adsSetup = {
     context.set('options.video.isPostrollEnabled', instantConfig.get('icFeaturedVideoPostroll'));
     context.set('options.video.comscoreJwpTracking', instantConfig.get('icComscoreJwpTracking'));
 
+    context.set('options.video.watchingThat.enabled', instantConfig.get('icWatchingThat'));
+
     context.set('options.maxDelayTimeout', instantConfig.get('icAdEngineDelay', 2000));
     context.set('options.tracking.kikimora.player', instantConfig.get('icPlayerTracking'));
     context.set('options.tracking.slot.status', instantConfig.get('icSlotTracking'));
