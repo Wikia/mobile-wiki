@@ -95,6 +95,7 @@ export default (baseUrl, softwareVersion, sampleFactor) => {
         }
         // Add core vitals metrics
         const vitalsMetrics = ['CLS', 'FID', 'LCP', 'FCP', 'TTFB'];
+        url += `&result=`.JSON.encode(result);
         vitalsMetrics.forEach((m) => {
           if (result[m]) {
             url += `&${m}=${result[m]}`;
