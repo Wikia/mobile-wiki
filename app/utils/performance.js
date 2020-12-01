@@ -76,15 +76,14 @@ let initDone = false;
  */
 export default (baseUrl, softwareVersion, sampleFactor) => {
   // Make a sampling decision whether to ingest metrics from this request.
-  //const shouldSampleRequest = randomInt(1, 99999999) % sampleFactor === 0;
-  const shouldSampleRequest = true;
+  const shouldSampleRequest = randomInt(1, 99999999) % sampleFactor === 0;
 
   if (shouldSampleRequest && !initDone) {
     initDone = true;
     const initial = getDeviceInfo();
     initial.country = getCountryCode();
     initial.softwareVersion = softwareVersion;
-    const sendToAnalytics = createApiReporter('https://enlvspsj6fqfi.x.pipedream.net/', {
+    const sendToAnalytics = createApiReporter(baseUrl, {
       initial,
       onSend: (trackBaseUrl, result) => {
         const time = Math.floor(Date.now() / 1000);
@@ -95,9 +94,8 @@ export default (baseUrl, softwareVersion, sampleFactor) => {
         }
         // Add core vitals metrics
         const vitalsMetrics = ['CLS', 'FID', 'LCP', 'FCP', 'TTFB'];
-        url += `&result=` + JSON.stringify(result);
         vitalsMetrics.forEach((m) => {
-          if (result[m]) {
+          if (m in result) {
             url += `&${m}=${result[m]}`;
           }
         });
