@@ -280,16 +280,6 @@ export const adsSetup = {
     setupBidders(context, instantConfig);
 
     if (context.get('bidders.prebid.enabled')) {
-      const s1 = adsContext.targeting.wikiIsTop1000 ? context.get('targeting.s1') : 'not a top1k wiki';
-
-      context.set('bidders.prebid.targeting', {
-        src: ['mobile'],
-        s0: [context.get('targeting.s0') || ''],
-        s1: [s1],
-        s2: [context.get('targeting.s2') || ''],
-        lang: [context.get('targeting.wikiLanguage') || 'en'],
-      });
-
       if (!instantConfig.get('icPrebidPubmaticOutstream')) {
         context.remove('bidders.prebid.pubmatic.slots.incontent_player');
       }
