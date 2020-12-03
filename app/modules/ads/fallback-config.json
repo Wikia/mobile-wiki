@@ -194,10 +194,7 @@
                 "mobile-wiki",
                 "oasis"
             ],
-            "regions": [
-                "XX"
-            ],
-            "value": true
+            "value": false
         }
     ],
     "icBidsTracking": [
@@ -2125,6 +2122,19 @@
                 "mobile-wiki",
                 "oasis"
             ]
+        }
+    ],
+    "icWatchingThat": [
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "GB",
+                "UK"
+            ],
+            "value": true
         }
     ],
     "icFloorAdhesionForceSafeFrame": [
