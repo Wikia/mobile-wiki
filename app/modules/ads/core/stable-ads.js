@@ -341,6 +341,9 @@ class StableAds {
 
     const { bidders } = window.Wikia.adBidders;
     const { context, slotService, taxonomyService } = window.Wikia.adEngine;
+    const { permutive } = window.Wikia.adServices;
+
+    permutive.call();
 
     const inhibitors = [];
 
@@ -397,13 +400,12 @@ class StableAds {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      audigent, facebookPixel, iasPublisherOptimization, nielsen, permutive,
+      audigent, facebookPixel, iasPublisherOptimization, nielsen,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
     facebookPixel.call();
     iasPublisherOptimization.call();
-    permutive.call();
     audigent.call();
     nielsen.call({
       type: 'static',
