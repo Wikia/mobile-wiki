@@ -65,13 +65,13 @@ export default Service.extend({
         .then((ads) => {
           ads.waitForUapResponse().then((isUapLoaded) => {
             if (!isUapLoaded) {
-              // this.set('willUapNotAppearForAnon', true);
+              this.set('willUapNotAppearForAnon', true);
             }
           });
         })
         .catch(() => {
           // Ads not loaded.
-          // this.set('willUapNotAppearForAnon', true);
+          this.set('willUapNotAppearForAnon', true);
         });
     }
   },
