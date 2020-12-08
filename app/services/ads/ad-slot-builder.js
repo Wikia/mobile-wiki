@@ -29,14 +29,15 @@ export default Service.extend({
     const pageHeader = document.querySelector('.wiki-page-header');
     const adsData = this.ads.slotNames;
     const globalFooter = document.querySelector('.wds-global-footer');
+    const topLeaderboardWrapper = document.querySelector('.top-leaderboard-wrapper');
 
     if (pi) {
       // inject top topLeaderBoard below infobox
-      this.appendAd(adsData.topLeaderBoard, 'afterend', pi);
+      this.appendAd(adsData.topLeaderBoard, 'afterbegin', topLeaderboardWrapper);
     } else if (pageHeader) {
       // inject top topLeaderBoard below article header
       // but only if there is no featured video embedded
-      this.appendAd(adsData.topLeaderBoard, 'afterend', pageHeader);
+      this.appendAd(adsData.topLeaderBoard, 'afterbegin', topLeaderboardWrapper);
     }
 
     if (firstSection) {

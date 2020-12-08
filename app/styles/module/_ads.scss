@@ -35,11 +35,6 @@ $closeButtonHeight: 40px;
 .mobile-top-leaderboard .ad-slot {
   position: relative;
   z-index: $z-ads-top-leaderboard;
-
-  & > div,
-  .provider-container {
-    margin: 10px auto;
-  }
 }
 
 .bottom-leaderboard .ad-slot {

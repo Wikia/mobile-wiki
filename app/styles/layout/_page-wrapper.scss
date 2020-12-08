@@ -16,6 +16,13 @@
   }
 }
 
+.top-leaderboard-wrapper {
+  display: flex;
+  height: 250px;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .site-head.theme-bar ~ .page-wrapper {
   margin-top: 60px;
 }
