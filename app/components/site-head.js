@@ -2,12 +2,10 @@ import Component from '@ember/component';
 import { equal, readOnly } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import { inject as service } from '@ember/service';
-import { communicationService } from '../modules/ads/communication/communication-service';
 import HeadroomMixin from '../mixins/headroom';
 import { standalone } from '../utils/browser';
 import { track, trackActions } from '../utils/track';
 import Ads from '../modules/ads';
-import { isType } from '../modules/ads/communication/is-type';
 
 export default Component.extend(
   HeadroomMixin,
@@ -57,19 +55,10 @@ export default Component.extend(
     },
 
     setExperimentFlags() {
+      // Hacky way to distinct UCP and App wikis as enableHydraFeatures is available only on UCP
       const isUcpWiki = this.get('wikiVariables.enableHydraFeatures') !== undefined;
-      const currentUser = this.currentUser;
-      const isAuthenticated = currentUser.get('isAuthenticated');
-      if (!isAuthenticated && isUcpWiki) {
-        communicationService.addListener((action) => {
-          if (isType(action, '[AdEngine] set InstantConfig')) {
-            const defaultScope = action.payload.get('icServicesMobileSearchScopeDropdown');
-            if (defaultScope) {
-              this.set('showSearchScope', true);
-              this.set('defaultSearchScope', defaultScope);
-            }
-          }
-        });
+      if (isUcpWiki) {
+        this.set('showSearchScope', true);
       }
     },
 
