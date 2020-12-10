@@ -18,9 +18,13 @@
 
 .top-leaderboard-wrapper {
   display: flex;
+  flex-direction: column;
   height: 250px;
   justify-content: center;
-  flex-direction: column;
+
+  &.disable-gap {
+    height: auto;
+  }
 }
 
 .site-head.theme-bar ~ .page-wrapper {

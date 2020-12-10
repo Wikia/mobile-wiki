@@ -122,6 +122,9 @@ class StableAds {
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
 
+      const tlbWrapper = document.querySelector('.top-leaderboard-wrapper');
+      tlbWrapper.classList.add('disable-gap');
+
       return module;
     }).catch((error) => {
       logError('https://services.fandom.com', 'AdEngine.load', {
