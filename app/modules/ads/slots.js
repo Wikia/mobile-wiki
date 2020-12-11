@@ -472,7 +472,12 @@ export const slots = {
       return;
     }
 
-    const { AdSlot, context, scrollListener, slotService } = window.Wikia.adEngine;
+    const {
+      AdSlot,
+      context,
+      scrollListener,
+      slotService,
+    } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
     const disableOnScroll = context.get('options.disableTopLeaderboardGapOnScroll');
 
