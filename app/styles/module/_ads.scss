@@ -205,4 +205,29 @@ $closeButtonHeight: 40px;
   }
 }
 
+@mixin logo-replacement($max-height, $padding-left) {
+  .custom-logo,
+  .small-custom-logo {
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-name: fade-in;
+    max-height: $max-height;
+    opacity: 0;
+  }
+
+  .small-custom-logo {
+    padding-left: $padding-left;
+  }
+
+  .tracking-pixel {
+    display: none;
+  }
+
+  .wds-is-community-bar-in {
+    .custom-logo {
+      display: none;
+    }
+  }
+}
+
 @include logo-replacement(55px, 12px);
