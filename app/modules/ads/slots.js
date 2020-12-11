@@ -466,7 +466,9 @@ export const slots = {
   handleTopLeaderboardWrapper() {
     const tlbWrapper = document.querySelector('.top-leaderboard-wrapper');
 
-    if (!tlbWrapper.classList.contains('wrapper-gap')) {
+    if (
+      !tlbWrapper.classList.contains('wrapper-gap')
+    ) {
       return;
     }
 
@@ -487,13 +489,13 @@ export const slots = {
     slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
       tlbWrapper.classList.remove('is-loading');
 
-      if (universalAdPackage.isFanTakeoverLoaded()){
+      if (universalAdPackage.isFanTakeoverLoaded()) {
         tlbWrapper.classList.remove('wrapper-gap'); // shrink without animation
       } else if (!disableOnScroll) {
         tlbWrapper.classList.add('wrapper-gap-disabled'); // shrink with animation
       }
     });
-  }
+  },
 };
 
 export default slots;
