@@ -462,6 +462,38 @@ export const slots = {
       context.set('slots.incontent_boxad_1.targeting.xna', '0');
     }
   },
+
+  handleTopLeaderboardWrapper() {
+    const tlbWrapper = document.querySelector('.top-leaderboard-wrapper');
+
+    if (!tlbWrapper.classList.contains('wrapper-gap')) {
+      return;
+    }
+
+    const { AdSlot, context, scrollListener, slotService } = window.Wikia.adEngine;
+    const { universalAdPackage } = window.Wikia.adProducts;
+    const disableOnScroll = context.get('options.disableTopLeaderboardGapOnScroll');
+
+    if (disableOnScroll) {
+      const id = scrollListener.addCallback(() => {
+        if (!universalAdPackage.isFanTakeoverLoaded()) {
+          tlbWrapper.classList.add('wrapper-gap-disabled');
+
+          scrollListener.removeCallback(id);
+        }
+      });
+    }
+
+    slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
+      tlbWrapper.classList.remove('is-loading');
+
+      if (universalAdPackage.isFanTakeoverLoaded()){
+        tlbWrapper.classList.remove('wrapper-gap'); // shrink without animation
+      } else if (!disableOnScroll) {
+        tlbWrapper.classList.add('wrapper-gap-disabled'); // shrink with animation
+      }
+    });
+  }
 };
 
 export default slots;

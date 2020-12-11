@@ -11,6 +11,7 @@ import { logError } from '../../event-logger';
 import { track, trackScrollY, trackXClick } from '../../../utils/track';
 import { isType } from '../communication/is-type';
 import { communicationService } from '../communication/communication-service';
+import { slots } from '../slots';
 import PromiseLock from './promise-lock';
 
 const logGroup = 'mobile-wiki-ads-module';
@@ -122,9 +123,6 @@ class StableAds {
       window.Wikia.adServices = module;
       window.Wikia.adBidders = module;
 
-      const tlbWrapper = document.querySelector('.top-leaderboard-wrapper');
-      tlbWrapper.classList.add('disable-gap');
-
       return module;
     }).catch((error) => {
       logError('https://services.fandom.com', 'AdEngine.load', {
@@ -158,6 +156,7 @@ class StableAds {
     ).then(() => {
       this.handleCcpaUsers(mediaWikiAdsContext);
       this.triggerAfterPageRenderServices();
+      slots.handleTopLeaderboardWrapper();
 
       this.initialization.resolve(this);
     });

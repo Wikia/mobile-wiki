@@ -17,13 +17,23 @@
 }
 
 .top-leaderboard-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 250px;
-  justify-content: center;
+  margin: 10px 0;
 
-  &.disable-gap {
-    height: auto;
+  &.wrapper-gap {
+    min-height: 250px;
+    transition: min-height .35s linear;
+
+    &.is-loading {
+      animation: is-loading 2s infinite;
+    }
+
+    &.wrapper-gap-disabled {
+      min-height: 0;
+    }
+  }
+
+  .ad-slot {
+    margin: 0 auto;
   }
 }
 

@@ -191,6 +191,8 @@ export const adsSetup = {
     context.set('options.optOutSale', consents.isSaleOptOut);
     context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
+    context.set('options.disableTopLeaderboardGapOnScroll', instantConfig.get('icDisableTopLeaderboardGapOnScroll'));
+
     context.set(
       'options.jwplayerA9LoggerErrorCodes',
       instantConfig.get('icA9LoggerErrorCodes'),
