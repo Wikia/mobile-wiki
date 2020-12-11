@@ -32,21 +32,26 @@ export default class LogoReplacement {
     const separatorParent = document.querySelector('.wds-global-navigation__community-bar');
 
     if (fandomLogoParent && fandomLogo && separatorParent && separator) {
-      const newLogoAnchorElement = document.createElement('a');
-      newLogoAnchorElement.href = this.config.clickThroughUrl || 'https://www.fandom.com/';
+      const customLogoAnchorElement = document.createElement('a');
+      customLogoAnchorElement.href = this.config.clickThroughUrl || 'https://www.fandom.com/';
 
-      const newLogo = document.createElement('img');
-      newLogo.src = this.config.logoImage;
-      newLogo.classList.add('new-logo');
+      const customLogo = document.createElement('img');
+      customLogo.src = this.config.logoImage;
+      customLogo.classList.add('custom-logo');
+
+      const smallCustomLogo = document.createElement('img');
+      smallCustomLogo.src = this.config.smallSizedLogoImage;
+      smallCustomLogo.classList.add('small-custom-logo');
 
       const trackingPixel = document.createElement('img');
       trackingPixel.src = this.config.pixelUrl;
       trackingPixel.classList.add('tracking-pixel');
 
-      separatorParent.insertBefore(newLogoAnchorElement, separator);
+      separatorParent.insertBefore(customLogoAnchorElement, separator);
       fandomLogoParent.removeChild(fandomLogo);
       fandomLogoParent.appendChild(trackingPixel);
-      newLogoAnchorElement.appendChild(newLogo);
+      customLogoAnchorElement.appendChild(smallCustomLogo);
+      customLogoAnchorElement.appendChild(customLogo);
 
       if (fandomHeartParent && fandomHeart) {
         fandomHeartParent.removeChild(fandomHeart);
