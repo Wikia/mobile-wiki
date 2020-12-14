@@ -91,11 +91,6 @@ module('Integration | Component | article content', (hooks) => {
       }}{{/article-content}}`);
 
     assert.dom(topLeaderboardSelector).exists({ count: 1 });
-    assert.equal(
-      find(topLeaderboardSelector).previousSibling,
-      find('.wiki-page-header'),
-      'previous element is site header',
-    );
   });
 
   test('ad is injected below portable infobox', async function (assert) {
