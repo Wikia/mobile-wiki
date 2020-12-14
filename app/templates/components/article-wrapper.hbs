@@ -12,8 +12,10 @@
   }}
 {{/if}}
 
-{{#unless model.hasPortableInfobox or hasFeaturedVideo}}
-    <div class="top-leaderboard-wrapper {{ if model.enableTopLeaderboardGap "is-loading wrapper-gap" "" }}"></div>
+{{#unless model.hasPortableInfobox}}
+    {{#unless model.featuredVideo}}
+        <div class="top-leaderboard-wrapper {{ if model.enableTopLeaderboardGap "is-loading wrapper-gap" "" }}"></div>
+    {{/unless}}
 {{/unless}}
 
 <section class="article-body">
