@@ -40,7 +40,7 @@ export default BaseModel.extend({
         }
 
         if (data.adsContext && data.adsContext.opts.enableTopLeaderboardGap) {
-          articleProperties.enableTopLeaderboardGap = data.article.enableTopLeaderboardGap;
+          articleProperties.enableTopLeaderboardGap = true;
         }
 
         if (data.article.heroImage) {
