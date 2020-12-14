@@ -467,6 +467,7 @@ export const slots = {
     const tlbWrapper = document.querySelector('.top-leaderboard-wrapper');
 
     if (
+      !tlbWrapper ||
       !tlbWrapper.classList.contains('wrapper-gap')
     ) {
       return;

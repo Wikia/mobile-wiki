@@ -46,7 +46,6 @@ module('Integration | Component | article content', (hooks) => {
       + '<div class="portable-infobox-wrapper">'
       + '<aside class="portable-infobox"></aside>'
       + '</div>'
-      + '<div class="top-leaderboard-wrapper"></div>'
       + '<section>Article body</section>'
       + '<div>more content</div>';
     const setupAdsContextSpy = sinon.spy();
@@ -105,7 +104,6 @@ module('Integration | Component | article content', (hooks) => {
       + '<div class="portable-infobox-wrapper">'
       + '<aside class="portable-infobox"></aside>'
       + '</div>'
-      + '<div class="top-leaderboard-wrapper"></div>'
       + '<section>Article body</section>'
       + '<div>more content</div>';
     const setupAdsContextSpy = sinon.spy();
