@@ -39,10 +39,6 @@ export default class LogoReplacement {
       customLogo.src = this.config.logoImage;
       customLogo.classList.add('custom-logo');
 
-      const smallCustomLogo = document.createElement('img');
-      smallCustomLogo.src = this.config.smallSizedLogoImage;
-      smallCustomLogo.classList.add('small-custom-logo');
-
       const trackingPixel = document.createElement('img');
       trackingPixel.src = this.config.pixelUrl;
       trackingPixel.classList.add('tracking-pixel');
@@ -50,7 +46,14 @@ export default class LogoReplacement {
       separatorParent.insertBefore(customLogoAnchorElement, separator);
       fandomLogoParent.removeChild(fandomLogo);
       fandomLogoParent.appendChild(trackingPixel);
-      customLogoAnchorElement.appendChild(smallCustomLogo);
+
+      if (this.config.smallSizedLogoImage) {
+        const smallCustomLogo = document.createElement('img');
+        smallCustomLogo.src = this.config.smallSizedLogoImage;
+        smallCustomLogo.classList.add('small-custom-logo');
+        customLogoAnchorElement.appendChild(smallCustomLogo);
+      }
+
       customLogoAnchorElement.appendChild(customLogo);
 
       if (fandomHeartParent && fandomHeart) {
