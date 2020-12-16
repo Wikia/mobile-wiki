@@ -168,6 +168,7 @@ export const slots = {
         firstCall: true,
         adProduct: 'top_leaderboard',
         slotNameSuffix: '',
+        defaultClasses: [],
         bidderAlias: 'mobile_top_leaderboard',
         group: 'LB',
         options: {},
@@ -186,6 +187,7 @@ export const slots = {
         avoidConflictWith: '.ad-slot',
         bidderAlias: 'mobile_in_content',
         cheshireCatSlot: true,
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         group: 'MR',
         options: {},
@@ -464,42 +466,40 @@ export const slots = {
   },
 
   handleTopLeaderboardWrapper() {
-    const tlbWrapper = document.querySelector('.top-leaderboard-wrapper');
-
-    if (
-      !tlbWrapper || !tlbWrapper.classList.contains('wrapper-gap')
-    ) {
-      return;
-    }
-
     const {
       AdSlot,
       context,
+      events,
+      eventService,
       scrollListener,
       slotService,
     } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
     const disableOnScroll = context.get('options.disableTopLeaderboardGapOnScroll');
+    const registerGapHandler = () => {
+      slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
+        const adSlot = slotService.get('top_leaderboard');
+        adSlot.removeClass('is-loading');
 
-    if (disableOnScroll) {
-      const id = scrollListener.addCallback(() => {
-        if (!universalAdPackage.isFanTakeoverLoaded()) {
-          tlbWrapper.classList.add('wrapper-gap-disabled');
+        if (universalAdPackage.isFanTakeoverLoaded()) {
+          adSlot.removeClass('wrapper-gap'); // shrink without animation
+        } else if (!disableOnScroll) {
+          adSlot.addClass('wrapper-gap-disabled'); // shrink with animation
+        } else {
+          const id = scrollListener.addCallback(() => {
+            if (!universalAdPackage.isFanTakeoverLoaded()) {
+              adSlot.addClass('wrapper-gap-disabled'); // shrink with animation
 
-          scrollListener.removeCallback(id);
+              scrollListener.removeCallback(id);
+            }
+          });
         }
       });
-    }
+    };
 
-    slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
-      tlbWrapper.classList.remove('is-loading');
+    eventService.on(events.PAGE_RENDER_EVENT, () => registerGapHandler());
 
-      if (universalAdPackage.isFanTakeoverLoaded()) {
-        tlbWrapper.classList.remove('wrapper-gap'); // shrink without animation
-      } else if (!disableOnScroll) {
-        tlbWrapper.classList.add('wrapper-gap-disabled'); // shrink with animation
-      }
-    });
+    registerGapHandler();
   },
 };
 

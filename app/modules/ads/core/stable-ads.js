@@ -192,7 +192,7 @@ class StableAds {
       insertOnViewportEnter: slotDefinition.insertOnViewportEnter,
       isAboveTheFold: slotDefinition.aboveTheFold,
       name: slotName,
-      hiddenClassName: 'hide',
+      defaultClasses: slotDefinition.defaultClasses ? slotDefinition.defaultClasses.join(' ') : 'hide',
       numberOfViewportsFromTopToPush: slotDefinition.numberOfViewportsFromTopToPush,
     };
   }

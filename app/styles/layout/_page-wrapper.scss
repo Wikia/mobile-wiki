@@ -16,7 +16,7 @@
   }
 }
 
-.top-leaderboard-wrapper {
+#top_leaderboard {
   margin: 10px 0;
 
   &.wrapper-gap {
@@ -30,10 +30,6 @@
     &.wrapper-gap-disabled {
       min-height: 0;
     }
-  }
-
-  .ad-slot {
-    margin: 0 auto;
   }
 }
 
