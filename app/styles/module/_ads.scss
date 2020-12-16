@@ -205,15 +205,29 @@ $closeButtonHeight: 40px;
   }
 }
 
-.new-logo {
-  animation-duration: 3s;
-  animation-fill-mode: forwards;
-  animation-name: fade-in;
-  max-height: 55px;
-  opacity: 0;
-  padding-left: 12px;
+@mixin logo-replacement($max-height, $padding-left) {
+  .custom-logo,
+  .small-custom-logo {
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-name: fade-in;
+    max-height: $max-height;
+    opacity: 0;
+  }
+
+  .small-custom-logo {
+    padding-left: $padding-left;
+  }
+
+  .tracking-pixel {
+    display: none;
+  }
+
+  .wds-is-community-bar-in {
+    .custom-logo {
+      display: none;
+    }
+  }
 }
 
-.tracking-pixel {
-  display: none;
-}
+@include logo-replacement(55px, 12px);
