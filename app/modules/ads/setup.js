@@ -192,6 +192,10 @@ export const adsSetup = {
     context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
     context.set('options.disableTopLeaderboardGapOnScroll', instantConfig.get('icDisableTopLeaderboardGapOnScroll'));
+    if (adsContext.opts.enableTopLeaderboardGap) {
+      context.push('slots.top_leaderboard.defaultClasses', 'wrapper-gap');
+      context.push('slots.top_leaderboard.defaultClasses', 'is-loading');
+    }
 
     context.set(
       'options.jwplayerA9LoggerErrorCodes',
