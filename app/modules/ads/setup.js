@@ -192,7 +192,7 @@ export const adsSetup = {
     context.set('options.geoRequiresSignal', !!M.geoRequiresSignal);
 
     context.set('options.disableTopLeaderboardGapOnScroll', instantConfig.get('icDisableTopLeaderboardGapOnScroll'));
-    if (adsContext.opts.enableTopLeaderboardGap) {
+    if (adsContext.opts.enableTopLeaderboardGap && !context.get('custom.hasFeaturedVideo')) {
       context.set('slots.top_leaderboard.defaultClasses', ['wrapper-gap', 'is-loading']);
     }
 
