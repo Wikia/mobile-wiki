@@ -279,6 +279,8 @@ class StableAds {
       adContext: mediaWikiAdsContext,
     });
 
+    slots.handleTopLeaderboardGap();
+
     this.triggerAfterPageRenderServices();
 
     utils.logger(logGroup, 'after transition');

@@ -469,8 +469,6 @@ export const slots = {
     const {
       AdSlot,
       context,
-      events,
-      eventService,
       scrollListener,
       slotService,
     } = window.Wikia.adEngine;
@@ -480,28 +478,22 @@ export const slots = {
     const shrinkWithAnimation = (adSlot) => { adSlot.addClass('wrapper-gap-disabled'); };
     const shrinkWithoutAnimation = (adSlot) => { adSlot.removeClass('wrapper-gap'); };
 
-    const registerGapHandler = () => {
-      slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
-        const adSlot = slotService.get('top_leaderboard');
-        adSlot.removeClass('is-loading');
+    slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
+      const adSlot = slotService.get('top_leaderboard');
+      adSlot.removeClass('is-loading');
 
-        if (universalAdPackage.isFanTakeoverLoaded()) {
-          shrinkWithoutAnimation(adSlot);
-        } else if (disableOnScroll) {
-          const id = scrollListener.addCallback(() => {
-            shrinkWithAnimation(adSlot);
-
-            scrollListener.removeCallback(id);
-          });
-        } else {
+      if (universalAdPackage.isFanTakeoverLoaded()) {
+        shrinkWithoutAnimation(adSlot);
+      } else if (disableOnScroll) {
+        const id = scrollListener.addCallback(() => {
           shrinkWithAnimation(adSlot);
-        }
-      });
-    };
 
-    eventService.on(events.PAGE_RENDER_EVENT, () => registerGapHandler());
-
-    registerGapHandler();
+          scrollListener.removeCallback(id);
+        });
+      } else {
+        shrinkWithAnimation(adSlot);
+      }
+    });
   },
 };
 
