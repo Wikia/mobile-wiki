@@ -17,7 +17,7 @@
 }
 
 #top_leaderboard {
-  margin: 10px 0;
+  margin: 10px auto;
 
   &.wrapper-gap {
     min-height: 250px;
@@ -42,5 +42,9 @@
     .page-wrapper {
       margin-top: 0;
     }
+  }
+
+  #top_leaderboard {
+    margin: 0 auto;
   }
 }

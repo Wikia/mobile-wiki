@@ -156,7 +156,7 @@ class StableAds {
     ).then(() => {
       this.handleCcpaUsers(mediaWikiAdsContext);
       this.triggerAfterPageRenderServices();
-      slots.handleTopLeaderboardWrapper();
+      slots.handleTopLeaderboardGap();
 
       this.initialization.resolve(this);
     });

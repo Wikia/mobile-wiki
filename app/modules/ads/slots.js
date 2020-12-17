@@ -168,7 +168,7 @@ export const slots = {
         firstCall: true,
         adProduct: 'top_leaderboard',
         slotNameSuffix: '',
-        defaultClasses: [],
+        defaultClasses: ['hide'],
         bidderAlias: 'mobile_top_leaderboard',
         group: 'LB',
         options: {},
@@ -465,7 +465,7 @@ export const slots = {
     }
   },
 
-  handleTopLeaderboardWrapper() {
+  handleTopLeaderboardGap() {
     const {
       AdSlot,
       context,
@@ -476,23 +476,25 @@ export const slots = {
     } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
     const disableOnScroll = context.get('options.disableTopLeaderboardGapOnScroll');
+
+    const shrinkWithAnimation = (adSlot) => { adSlot.addClass('wrapper-gap-disabled'); };
+    const shrinkWithoutAnimation = (adSlot) => { adSlot.removeClass('wrapper-gap'); };
+
     const registerGapHandler = () => {
       slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
         const adSlot = slotService.get('top_leaderboard');
         adSlot.removeClass('is-loading');
 
         if (universalAdPackage.isFanTakeoverLoaded()) {
-          adSlot.removeClass('wrapper-gap'); // shrink without animation
-        } else if (!disableOnScroll) {
-          adSlot.addClass('wrapper-gap-disabled'); // shrink with animation
-        } else {
+          shrinkWithoutAnimation(adSlot);
+        } else if (disableOnScroll) {
           const id = scrollListener.addCallback(() => {
-            if (!universalAdPackage.isFanTakeoverLoaded()) {
-              adSlot.addClass('wrapper-gap-disabled'); // shrink with animation
+            shrinkWithAnimation(adSlot);
 
-              scrollListener.removeCallback(id);
-            }
+            scrollListener.removeCallback(id);
           });
+        } else {
+          shrinkWithAnimation(adSlot);
         }
       });
     };

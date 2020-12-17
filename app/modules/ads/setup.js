@@ -193,8 +193,7 @@ export const adsSetup = {
 
     context.set('options.disableTopLeaderboardGapOnScroll', instantConfig.get('icDisableTopLeaderboardGapOnScroll'));
     if (adsContext.opts.enableTopLeaderboardGap) {
-      context.push('slots.top_leaderboard.defaultClasses', 'wrapper-gap');
-      context.push('slots.top_leaderboard.defaultClasses', 'is-loading');
+      context.set('slots.top_leaderboard.defaultClasses', ['wrapper-gap', 'is-loading']);
     }
 
     context.set(
