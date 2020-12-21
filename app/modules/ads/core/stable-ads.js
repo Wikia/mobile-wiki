@@ -11,6 +11,7 @@ import { logError } from '../../event-logger';
 import { track, trackScrollY, trackXClick } from '../../../utils/track';
 import { isType } from '../communication/is-type';
 import { communicationService } from '../communication/communication-service';
+import { slots } from '../slots';
 import PromiseLock from './promise-lock';
 
 const logGroup = 'mobile-wiki-ads-module';
@@ -81,6 +82,7 @@ class StableAds {
       const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');
 
       this.initialization.reject(disablers);
+      document.body.classList.add('no-ads');
       pageTracker.trackProp('adengine', `${disablersSerialized}`, true);
     } else {
       if (!this.isInitializationStarted) {
@@ -155,6 +157,7 @@ class StableAds {
     ).then(() => {
       this.handleCcpaUsers(mediaWikiAdsContext);
       this.triggerAfterPageRenderServices();
+      slots.handleTopLeaderboardGap();
 
       this.initialization.resolve(this);
     });
@@ -190,7 +193,7 @@ class StableAds {
       insertOnViewportEnter: slotDefinition.insertOnViewportEnter,
       isAboveTheFold: slotDefinition.aboveTheFold,
       name: slotName,
-      hiddenClassName: 'hide',
+      defaultClasses: slotDefinition.defaultClasses ? slotDefinition.defaultClasses.join(' ') : 'hide',
       numberOfViewportsFromTopToPush: slotDefinition.numberOfViewportsFromTopToPush,
     };
   }
@@ -276,6 +279,8 @@ class StableAds {
     eventService.emit(events.PAGE_RENDER_EVENT, {
       adContext: mediaWikiAdsContext,
     });
+
+    slots.handleTopLeaderboardGap();
 
     this.triggerAfterPageRenderServices();
 

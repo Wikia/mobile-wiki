@@ -39,6 +39,10 @@ export default BaseModel.extend({
           articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
         }
 
+        if (data.adsContext && data.adsContext.opts.enableTopLeaderboardGap) {
+          articleProperties.enableTopLeaderboardGap = true;
+        }
+
         if (data.article.heroImage) {
           articleProperties.heroImage = data.article.heroImage;
         }

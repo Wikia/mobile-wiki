@@ -16,14 +16,35 @@
   }
 }
 
+body:not(.no-ads) #top_leaderboard {
+  margin: 10px auto;
+
+  &.wrapper-gap {
+    min-height: 250px;
+    transition: min-height .35s linear;
+
+    &.is-loading {
+      animation: is-loading 2s infinite;
+    }
+
+    &.wrapper-gap-disabled {
+      min-height: 0;
+    }
+  }
+}
+
 .site-head.theme-bar ~ .page-wrapper {
   margin-top: 60px;
 }
 
-.bfaa-template {
+body.has-bfaa {
   .with-smart-banner {
     .page-wrapper {
       margin-top: 0;
     }
+  }
+
+  #top_leaderboard {
+    margin: 0 auto;
   }
 }

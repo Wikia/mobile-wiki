@@ -168,6 +168,7 @@ export const slots = {
         firstCall: true,
         adProduct: 'top_leaderboard',
         slotNameSuffix: '',
+        defaultClasses: ['hide'],
         bidderAlias: 'mobile_top_leaderboard',
         group: 'LB',
         options: {},
@@ -186,6 +187,7 @@ export const slots = {
         avoidConflictWith: '.ad-slot',
         bidderAlias: 'mobile_in_content',
         cheshireCatSlot: true,
+        defaultClasses: ['hide'],
         slotNameSuffix: '',
         group: 'MR',
         options: {},
@@ -461,6 +463,37 @@ export const slots = {
       context.set('slots.top_boxad.targeting.xna', '0');
       context.set('slots.incontent_boxad_1.targeting.xna', '0');
     }
+  },
+
+  handleTopLeaderboardGap() {
+    const {
+      AdSlot,
+      context,
+      scrollListener,
+      slotService,
+    } = window.Wikia.adEngine;
+    const { universalAdPackage } = window.Wikia.adProducts;
+    const disableOnScroll = context.get('options.disableTopLeaderboardGapOnScroll');
+
+    const shrinkWithAnimation = (adSlot) => { adSlot.addClass('wrapper-gap-disabled'); };
+    const shrinkWithoutAnimation = (adSlot) => { adSlot.removeClass('wrapper-gap'); };
+
+    slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
+      const adSlot = slotService.get('top_leaderboard');
+      adSlot.removeClass('is-loading');
+
+      if (universalAdPackage.isFanTakeoverLoaded()) {
+        shrinkWithoutAnimation(adSlot);
+      } else if (disableOnScroll) {
+        const id = scrollListener.addCallback(() => {
+          shrinkWithAnimation(adSlot);
+
+          scrollListener.removeCallback(id);
+        });
+      } else {
+        shrinkWithAnimation(adSlot);
+      }
+    });
   },
 };
 
