@@ -108,6 +108,8 @@ class StableAds {
       StableAds.getLoadedInstance()
         .then(() => {
           pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
+        }, () => {
+          document.body.classList.add('no-ads');
         });
     }
   }

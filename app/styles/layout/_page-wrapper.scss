@@ -16,7 +16,7 @@
   }
 }
 
-#top_leaderboard {
+body:not(.no-ads) #top_leaderboard {
   margin: 10px auto;
 
   &.wrapper-gap {
