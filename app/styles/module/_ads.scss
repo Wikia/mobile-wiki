@@ -31,15 +31,9 @@ $closeButtonHeight: 40px;
   margin-bottom: 36px;
 }
 
-.top-leaderboard .ad-slot,
-.mobile-top-leaderboard .ad-slot {
+.top-leaderboard .ad-slot {
   position: relative;
   z-index: $z-ads-top-leaderboard;
-
-  & > div,
-  .provider-container {
-    margin: 10px auto;
-  }
 }
 
 .bottom-leaderboard .ad-slot {
@@ -100,8 +94,7 @@ $closeButtonHeight: 40px;
   }
 }
 
-.top-leaderboard .bfaa-template,
-.mobile-top-leaderboard .bfaa-template {
+.top-leaderboard .bfaa-template {
   position: absolute;
 
   & > div {
@@ -109,8 +102,7 @@ $closeButtonHeight: 40px;
   }
 }
 
-.bfaa-template .top-leaderboard,
-.bfaa-template .mobile-top-leaderboard {
+.bfaa-template .top-leaderboard.ad-slot-wrapper {
   left: 0;
   position: absolute;
   top: 0;
@@ -118,6 +110,7 @@ $closeButtonHeight: 40px;
 
   .ad-slot {
     background: #000;
+    margin: 0 auto;
     overflow: hidden;
     position: relative;
     transition: height .4s ease;
