@@ -143,14 +143,18 @@ export default Service.extend({
   appendAd(adSlotName, place, element, waitKey = '') {
     // Save waiting slots so queue can be cleared on transition
     this.waitingSlots[adSlotName] = () => {
-      const placeholder = document.createElement('div');
       const attributes = Ads.getInstance().getAdSlotComponentAttributes(adSlotName);
 
       if (!attributes) {
         return;
       }
 
-      element.insertAdjacentElement(place, placeholder);
+      let placeholder = document.getElementById(adSlotName);
+
+      if (!placeholder) {
+        placeholder = document.createElement('div');
+        element.insertAdjacentElement(place, placeholder);
+      }
 
       this.ads.pushAdSlotComponent(adSlotName, this.renderAdComponent({
         name: 'ad-slot',

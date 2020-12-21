@@ -12,6 +12,12 @@
   }}
 {{/if}}
 
+{{#unless model.hasPortableInfobox}}
+  {{#unless model.featuredVideo}}
+    <div id="top_leaderboard" class={{ if model.enableTopLeaderboardGap "is-loading wrapper-gap" "" }}></div>
+  {{/unless}}
+{{/unless}}
+
 <section class="article-body">
   {{#if model.fileThumbnail}}
     {{article-media-thumbnail

@@ -26,6 +26,8 @@ export const getConfig = () => ({
 
     const wrapper = document.querySelector('.top-leaderboard');
 
+    adSlot.removeClass('wrapper-gap');
+
     wrapper.style.opacity = '0';
     slotTweaker.onReady(adSlot).then(() => {
       wrapper.style.opacity = '';
