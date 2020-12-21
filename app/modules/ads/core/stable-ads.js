@@ -82,6 +82,7 @@ class StableAds {
       const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');
 
       this.initialization.reject(disablers);
+      document.body.classList.add('no-ads');
       pageTracker.trackProp('adengine', `${disablersSerialized}`, true);
     } else {
       if (!this.isInitializationStarted) {
@@ -108,8 +109,6 @@ class StableAds {
       StableAds.getLoadedInstance()
         .then(() => {
           pageTracker.trackProp('adengine', `on_${window.ads.adEngineVersion}`, true);
-        }, () => {
-          document.body.classList.add('no-ads');
         });
     }
   }
