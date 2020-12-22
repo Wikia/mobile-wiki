@@ -86,12 +86,18 @@ $closeButtonHeight: 40px;
   }
 
   &.incontent-boxad {
+    @include ad-slot-gap();
+
     margin: .75rem 0;
 
     &:not(.a9-ad) {
       margin: .75rem -1.5rem 3rem;
     }
   }
+}
+
+.top-boxad .ad-slot {
+  @include ad-slot-gap();
 }
 
 .top-leaderboard .bfaa-template {

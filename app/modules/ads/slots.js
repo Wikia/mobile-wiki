@@ -46,6 +46,7 @@ function injectAffiliateDisclaimer() {
     templateService,
   } = window.Wikia.adEngine;
 
+  // TODO: consider using defaultTemplates property
   slotService.on('affiliate_slot', AdSlot.STATUS_SUCCESS, () => {
     templateService.init('affiliateDisclaimer', slotService.get('affiliate_slot'));
   });
@@ -212,6 +213,7 @@ export const slots = {
         slotNameSuffix: '',
         group: 'AU',
         options: {},
+        defaultClasses: ['hide'],
         insertBeforeSelector: '.article-content > h2',
         slotShortcut: 'a',
         defaultSizes: [[280, 120]],
@@ -493,6 +495,24 @@ export const slots = {
       } else {
         shrinkWithAnimation(adSlot);
       }
+    });
+  },
+
+  handleIncontentsGap() {
+    const {
+      AdSlot,
+      context,
+      eventService,
+    } = window.Wikia.adEngine;
+    const isGapEnabled = context.get('options.enableIncontentBoxadGap');
+
+    if (!isGapEnabled) {
+      return;
+    }
+
+    eventService.on(AdSlot.SLOT_RENDERED_EVENT, (adSlot) => {
+      adSlot.removeClass('is-loading');
+      adSlot.addClass('wrapper-gap-disabled');
     });
   },
 };

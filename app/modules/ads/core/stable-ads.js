@@ -158,6 +158,7 @@ class StableAds {
       this.handleCcpaUsers(mediaWikiAdsContext);
       this.triggerAfterPageRenderServices();
       slots.handleTopLeaderboardGap();
+      slots.handleIncontentsGap();
 
       this.initialization.resolve(this);
     });
