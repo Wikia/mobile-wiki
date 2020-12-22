@@ -5,3 +5,18 @@
   top: 0;
   width: 100%;
 }
+
+@mixin ad-slot-gap() {
+  &.wrapper-gap {
+    min-height: 250px;
+    transition: min-height .35s linear;
+
+    &.is-loading {
+      animation: is-loading 2s infinite;
+    }
+
+    &.wrapper-gap-disabled {
+      min-height: 0;
+    }
+  }
+}

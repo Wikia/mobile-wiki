@@ -92,34 +92,12 @@ $closeButtonHeight: 40px;
       margin: .75rem -1.5rem 3rem;
     }
 
-    &.wrapper-gap {
-      min-height: 250px;
-      transition: min-height .35s linear;
-
-      &.is-loading {
-        animation: is-loading 2s infinite;
-      }
-
-      &.wrapper-gap-disabled {
-        min-height: 0;
-      }
-    }
+    @include ad-slot-gap();
   }
 }
 
 .top-boxad .ad-slot {
-  &.wrapper-gap {
-    min-height: 250px;
-    transition: min-height .35s linear;
-
-    &.is-loading {
-      animation: is-loading 2s infinite;
-    }
-
-    &.wrapper-gap-disabled {
-      min-height: 0;
-    }
-  }
+  @include ad-slot-gap();
 }
 
 .top-leaderboard .bfaa-template {
