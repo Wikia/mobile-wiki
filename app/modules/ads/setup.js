@@ -196,6 +196,12 @@ export const adsSetup = {
       context.set('slots.top_leaderboard.defaultClasses', ['wrapper-gap', 'is-loading']);
     }
 
+    if (instantConfig.get('icIncontentBoxadGap')) {
+      context.set('options.enableIncontentBoxadGap', true);
+      context.set('slots.top_boxad.defaultClasses', ['wrapper-gap', 'is-loading']);
+      context.set('slots.incontent_boxad_1.defaultClasses', ['wrapper-gap', 'is-loading', 'incontent-boxad', 'ad-slot']);
+    }
+
     context.set(
       'options.jwplayerA9LoggerErrorCodes',
       instantConfig.get('icA9LoggerErrorCodes'),

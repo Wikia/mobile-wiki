@@ -91,6 +91,34 @@ $closeButtonHeight: 40px;
     &:not(.a9-ad) {
       margin: .75rem -1.5rem 3rem;
     }
+
+    &.wrapper-gap {
+      min-height: 250px;
+      transition: min-height .35s linear;
+
+      &.is-loading {
+        animation: is-loading 2s infinite;
+      }
+
+      &.wrapper-gap-disabled {
+        min-height: 0;
+      }
+    }
+  }
+}
+
+.top-boxad .ad-slot {
+  &.wrapper-gap {
+    min-height: 250px;
+    transition: min-height .35s linear;
+
+    &.is-loading {
+      animation: is-loading 2s infinite;
+    }
+
+    &.wrapper-gap-disabled {
+      min-height: 0;
+    }
   }
 }
 
