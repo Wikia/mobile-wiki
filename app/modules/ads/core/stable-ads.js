@@ -406,7 +406,7 @@ class StableAds {
   callExternalTrackingServices() {
     const { context } = window.Wikia.adEngine;
     const {
-      audigent, facebookPixel, iasPublisherOptimization, nielsen,
+      audigent, facebookPixel, iasPublisherOptimization, nielsen, realVu,
     } = window.Wikia.adServices;
     const targeting = context.get('targeting');
 
@@ -418,6 +418,7 @@ class StableAds {
       assetid: `fandom.com/${targeting.s0v}/${targeting.s1}/${targeting.artid}`,
       section: `FANDOM ${targeting.s0v.toUpperCase()} NETWORK`,
     });
+    realVu.call();
   }
 
   /**

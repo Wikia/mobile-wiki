@@ -221,6 +221,7 @@ export const adsSetup = {
     context.set('services.nielsen.enabled', instantConfig.get('icNielsen'));
     context.set('services.permutive.enabled', instantConfig.get('icPermutive')
       && !context.get('wiki.targeting.directedAtChildren'));
+    context.set('services.realVu.enabled', instantConfig.get('icRealVu') && context.get('wiki.opts.enableRealVu'));
 
     if (instantConfig.get('icTaxonomyAdTags')) {
       context.set('services.taxonomy.enabled', true);
