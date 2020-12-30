@@ -92,6 +92,8 @@ module.exports = function (defaults) {
           app: '/assets/app.css',
           lazy: '/assets/lazy.css',
           dark: '/assets/dark.css',
+          abtest1: '/assets/abtest1.css',
+          abtest2: '/assets/abtest2.css',
         },
         html: 'index.html',
       },
