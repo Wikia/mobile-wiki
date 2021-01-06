@@ -132,7 +132,7 @@
     "i18next": "17.3.1",
     "loader.js": "4.7.0",
     "mercury-shared": "github:wikia/mercury-shared#bebd738d244c071de8d72ebdd08d2c8f41b00d3e",
-    "node-sass": "4.14.1",
+    "node-sass": "5.0.0",
     "proxying-agent": "2.4.0",
     "qunit-dom": "0.8.0",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
