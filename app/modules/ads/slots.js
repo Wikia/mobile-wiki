@@ -470,12 +470,9 @@ export const slots = {
   handleTopLeaderboardGap() {
     const {
       AdSlot,
-      context,
-      scrollListener,
       slotService,
     } = window.Wikia.adEngine;
     const { universalAdPackage } = window.Wikia.adProducts;
-    const disableOnScroll = context.get('options.disableTopLeaderboardGapOnScroll');
 
     const shrinkWithAnimation = (adSlot) => { adSlot.addClass('wrapper-gap-disabled'); };
     const shrinkWithoutAnimation = (adSlot) => { adSlot.removeClass('wrapper-gap'); };
@@ -486,12 +483,6 @@ export const slots = {
 
       if (universalAdPackage.isFanTakeoverLoaded()) {
         shrinkWithoutAnimation(adSlot);
-      } else if (disableOnScroll) {
-        const id = scrollListener.addCallback(() => {
-          shrinkWithAnimation(adSlot);
-
-          scrollListener.removeCallback(id);
-        });
       } else {
         shrinkWithAnimation(adSlot);
       }
