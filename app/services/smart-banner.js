@@ -47,7 +47,6 @@ export default Service.extend({
   ),
 
   isCustomSmartBannerVisible: and(
-    'shouldShowFandomAppSmartBanner',
     'smartBannerVisible',
     'smartBannerAdConfiguration.text',
     'isInCustomSmartBannerCountry',
