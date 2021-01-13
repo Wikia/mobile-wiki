@@ -68,15 +68,13 @@ class StableAds {
    */
   init(adsContext = {}, queryParams = {}) {
     const reasonConditionMap = {
-      noexternals_querystring: isQueryParamActive(queryParams.noexternals),
-      noads_querystring: isQueryParamActive(queryParams.noads),
-      mobileapp_querystring: isQueryParamActive(queryParams['mobile-app']),
-      noads_pagetype: adsContext.opts.pageType === 'no_ads',
-      load_failed: this.hasLoadFailed,
+      mobileapp_querystring: isQueryParamActive(queryParams['mobile-app']) ? 'mobileapp_querystring' : false,
+      noads_reasons: adsContext.opts.noAdsReasons,
+      load_failed: this.hasLoadFailed ? 'load_failed' : false,
     };
     const disablers = Object.entries(reasonConditionMap)
       .filter(reasonAndCondition => reasonAndCondition[1])
-      .map(reasonAndCondition => reasonAndCondition[0]);
+      .map(reasonAndCondition => reasonAndCondition[1]);
 
     if (disablers.length > 0) {
       const disablersSerialized = disablers.map(disabler => `off_${disabler}`).join(',');
