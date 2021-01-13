@@ -32,6 +32,13 @@ export default Mixin.create({
       return;
     }
 
+    let isExperiment = false;
+    if (this.fastboot.isFastBoot) {
+      const requestHeaders = this.get('fastboot.request.headers');
+      const experimentHeader = requestHeaders.get('X-Experiment');
+      isExperiment = experimentHeader === 'true'
+    }
+
     this.headData.setProperties({
       appleTouchIcon: model.wikiVariables.appleTouchIcon,
       cdnRootUrl: model.wikiVariables.cdnRootUrl,
@@ -43,6 +50,7 @@ export default Mixin.create({
       lazyCss: !this.get('fastboot.isFastBoot'),
       shouldLoadDarkCss: isInMobileApp && isInDarkTheme,
       twitterSite: model.wikiVariables.twitterAccount || '@getfandom',
+      isExperiment,
     });
   },
 });
