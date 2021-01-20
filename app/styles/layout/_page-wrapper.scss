@@ -21,6 +21,7 @@ body:not(.no-ads) #top_leaderboard {
 
   &.wrapper-gap {
     align-items: center;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     min-height: 100px;
@@ -28,6 +29,7 @@ body:not(.no-ads) #top_leaderboard {
 
     &.is-loading {
       animation: is-loading 2s infinite;
+      max-width: 320px;
     }
   }
 }
