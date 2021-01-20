@@ -32,6 +32,7 @@ export default Mixin.create({
   * @returns {void}
   */
   setDynamicHeadTags(model, data = {}) {
+    const shoebox = this.get('fastboot.shoebox');
     const htmlTitleSettings = this.get('wikiVariables.htmlTitle');
     const wikiHtmlTitle = htmlTitleSettings.parts.join(htmlTitleSettings.separator);
     const headData = {
@@ -81,6 +82,15 @@ export default Mixin.create({
         headData.playerImpressionsPerSession = model.featuredVideo.impressionsPerSession;
         headData.videoBridgeCountries = JSON.stringify(this.wikiVariables.get('videoBridgeCountries'));
       }
+    }
+
+    if (this.fastboot.isFastBoot) {
+      const requestHeaders = this.get('fastboot.request.headers');
+      const isExperiment = requestHeaders.get('X-Experiment') === 'true';
+      this.headData.isExperiment = isExperiment;
+      shoebox.put('isExperiment', isExperiment );
+    } else {
+      this.headData.isExperiment = shoebox.retrieve('isExperiment');
     }
 
     headData.twitterTitle = truncate(headData.htmlTitle, 70);
