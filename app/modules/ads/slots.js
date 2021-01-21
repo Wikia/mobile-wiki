@@ -472,20 +472,10 @@ export const slots = {
       AdSlot,
       slotService,
     } = window.Wikia.adEngine;
-    const { universalAdPackage } = window.Wikia.adProducts;
-
-    const shrinkWithAnimation = (adSlot) => { adSlot.addClass('wrapper-gap-disabled'); };
-    const shrinkWithoutAnimation = (adSlot) => { adSlot.removeClass('wrapper-gap'); };
 
     slotService.on('top_leaderboard', AdSlot.SLOT_RENDERED_EVENT, () => {
       const adSlot = slotService.get('top_leaderboard');
       adSlot.removeClass('is-loading');
-
-      if (universalAdPackage.isFanTakeoverLoaded()) {
-        shrinkWithoutAnimation(adSlot);
-      } else {
-        shrinkWithAnimation(adSlot);
-      }
     });
   },
 
