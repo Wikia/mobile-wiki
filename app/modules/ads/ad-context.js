@@ -216,6 +216,14 @@ export const defaultAdContext = {
           },
         },
       },
+      mediagrid: {
+        enabled: false,
+        slots: {
+          featured: {
+            uid: 1244556677, // ToDo: change to production value
+          },
+        },
+      },
       nobid: {
         enabled: false,
         slots: {
