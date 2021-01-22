@@ -205,6 +205,7 @@ export const adsSetup = {
       'options.jwplayerA9LoggerErrorCodes',
       instantConfig.get('icA9LoggerErrorCodes'),
     );
+    context.set('options.video.pauseJWPlayerAd', instantConfig.get('icPauseJWPlayerAd'));
 
     if (instantConfig.get('icPorvataDirect')) {
       context.set('slots.incontent_player.customFiller', 'porvata');
