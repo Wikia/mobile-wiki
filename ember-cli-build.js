@@ -99,7 +99,7 @@ module.exports = function (defaults) {
     sassOptions: {
       implementation: nodeSass,
       includePaths: [
-        'node_modules/design-system/dist/scss',
+        'node_modules/@fandom/design-system/dist/scss',
         'node_modules/@wikia/ad-engine/src/ad-products/styles',
       ],
       onlyIncluded: true,
@@ -119,7 +119,7 @@ module.exports = function (defaults) {
     },
   });
 
-  const designSystemIcons = new Funnel('node_modules/design-system/style-guide/assets', {
+  const designSystemIcons = new Funnel('node_modules/@fandom/design-system/style-guide/assets', {
     include: lazyloadedSVGs.map(icon => `${icon.name}.svg`),
   });
   const svgStore = new SVGStore(designSystemIcons, {
@@ -128,7 +128,7 @@ module.exports = function (defaults) {
   });
 
   // Assets which are lazy loaded
-  const designSystemI18n = new Funnel('node_modules/design-system/i18n', {
+  const designSystemI18n = new Funnel('node_modules/@fandom/design-system/i18n', {
     destDir: 'locales',
   });
 
