@@ -20,15 +20,16 @@ body:not(.no-ads) #top_leaderboard {
   margin: 10px auto;
 
   &.wrapper-gap {
-    min-height: 250px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 100px;
     transition: min-height .35s linear;
 
     &.is-loading {
       animation: is-loading 2s infinite;
-    }
-
-    &.wrapper-gap-disabled {
-      min-height: 0;
+      border-radius: 20px;
+      max-width: 320px;
     }
   }
 }
