@@ -37,9 +37,12 @@ body {
     color: $text-color;
   }
 
-  article {
-    a {
-      color: $link-color;
+  article a {
+    color: $link-color;
+
+    &.new {
+      border-bottom: dashed 1px red;
+      color: red;
     }
   }
 

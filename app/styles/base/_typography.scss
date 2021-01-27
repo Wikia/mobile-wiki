@@ -91,4 +91,9 @@ a {
 article a {
   color: $wds-fandom-color-link;
   font-weight: $wds-font-weight-normal;
+
+  &.new {
+    border-bottom: dashed 1px red;
+    color: red;
+  }
 }
