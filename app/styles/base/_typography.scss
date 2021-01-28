@@ -93,7 +93,7 @@ article a {
   font-weight: $wds-font-weight-normal;
 
   &.new {
-    border-bottom: dashed 1px red;
+    border-bottom: solid 1px var(--themed-alert-color);
     color: red;
   }
 }
