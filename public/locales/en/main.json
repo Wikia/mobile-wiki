@@ -95,7 +95,8 @@
   },
   "recirculation": {
     "trending-fandom-articles": "FAN FEED",
-    "popular-wiki-articles-header": "MORE {wikiName}"
+    "popular-wiki-articles-header": "MORE {wikiName}",
+    "personalized-recommendation": "Recommended For You"
   },
   "featured-video": {
     "from": "from",

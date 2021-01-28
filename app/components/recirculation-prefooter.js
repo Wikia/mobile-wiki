@@ -1,4 +1,4 @@
-import { defer } from 'rsvp';
+import { defer, hash } from 'rsvp';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { reads, and } from '@ember/object/computed';
@@ -10,6 +10,8 @@ import { track, trackActions } from '../utils/track';
 import { normalizeToUnderscore } from '../utils/string';
 import recirculationBlacklist from '../utils/recirculationBlacklist';
 import { TopArticlesFetchError, RecommendedDataFetchError } from '../utils/errors';
+import { communicationService } from '../modules/ads/communication/communication-service';
+import { isType } from "../modules/ads/communication/is-type";
 
 const recircItemsCount = 10;
 const trackingCategory = 'recirculation';
@@ -52,13 +54,22 @@ export default Component.extend(
     sponsoredItemObserver: observer('sponsoredItem', 'sponsoredItemDisplayed', function () {
       if (this.sponsoredItem && this.sponsoredItemDisplayed) {
         // this tracking needs to be done in observer since the sponsored item is fetched async
-        track({
+        this.trackWithExperiment({
           action: trackActions.impression,
           category: trackingCategory,
           label: `footer::${this.sponsoredItem.url}`,
         });
       }
     }),
+
+    defaultTestConfig: {
+      trackingParams: {},
+      frontendConfig: {
+        recommendedSlots: [],
+      },
+    },
+
+    testConfig: null,
 
     init() {
       this._super(...arguments);
@@ -90,17 +101,17 @@ export default Component.extend(
           item_type: 'wiki_article',
         };
 
-        labels.forEach(label => track(Object.assign({
+        labels.forEach(label => this.trackWithExperiment({
           action: trackActions.click,
           category: trackingCategory,
           label,
-        }, additionalRecommendationData)));
+        }));
 
-        track(Object.assign({
+        this.trackWithExperiment({
           action: trackActions.select,
           category: trackingCategory,
           label: post.url,
-        }, additionalRecommendationData));
+        });
 
         run.later(() => {
           window.location.assign(post.url);
@@ -108,7 +119,7 @@ export default Component.extend(
       },
 
       articleClick(title, index) {
-        track({
+        this.trackWithExperiment({
           action: trackActions.click,
           category: trackingCategory,
           label: `more-wiki-${index}`,
@@ -118,19 +129,19 @@ export default Component.extend(
       },
 
       sponsoredContentClick(sponsoredItem) {
-        track({
+        this.trackWithExperiment({
           action: trackActions.click,
           category: trackingCategory,
           label: 'footer',
         });
 
-        track({
+        this.trackWithExperiment({
           action: trackActions.click,
           category: trackingCategory,
           label: 'sponsored-item',
         });
 
-        track({
+        this.trackWithExperiment({
           action: trackActions.select,
           category: trackingCategory,
           label: `footer::${sponsoredItem.url}`,
@@ -165,50 +176,101 @@ export default Component.extend(
         });
     },
 
+    // generates a stable sampling bucket [0, 99] based on the tracking session id
+    sessionBasedBucket() {
+      const sessionId = window.Cookies.get('wikia_session_id');
+      let hash = 0;
+      for (let i = 0; i < sessionId.length; i++) {
+        hash = (hash << 5) - hash + sessionId.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash) % 100;
+    },
+
+    chooseTestVariation(experiment) {
+      const bucket = this.sessionBasedBucket();
+      const groups = experiment.groups;
+      for (let i = 0, pos = 0; i < groups.length; i++) {
+        pos += groups[i].sampling;
+        if (bucket < pos) {
+          return {
+            trackingParams: {
+              "experiment_group": `${experiment.name};${groups[i].name}`,
+            },
+            frontendConfig: groups[i].mobile,
+          };
+        }
+      }
+    },
+
+    getTestConfig() {
+      const eventualTestConfig = defer();
+      communicationService.addListener((action) => {
+        if (isType(action, '[AdEngine] set InstantConfig')) {
+          const instantConfig = action.payload;
+          const experiment = instantConfig.get('icDeRecoExperimentDev');
+          if (experiment) {
+            eventualTestConfig.resolve(this.chooseTestVariation(experiment));
+          } else {
+            // no active test
+            eventualTestConfig.resolve(this.defaultTestConfig);
+          }
+        }
+      });
+      // resolve promise in case icbm is not available
+      window.setTimeout(() => eventualTestConfig.resolve(this.defaultTestConfig), 200);
+      return eventualTestConfig.promise;
+    },
+
     fetchRecommendedData() {
       const qs = `?wikiId=${this.wikiVariables.id}&articleId=${this.articleId}`;
       const url = this.fetch.getServiceUrl('recommendations', `/recommendations${qs}`);
+      const response = this.fetch.fetchAndParseResponse(url, {}, RecommendedDataFetchError);
+      this.testConfig = this.getTestConfig();
+      hash({
+        testConfig: this.testConfig,
+        response
+      }).then(({testConfig, response}) => {
+        let filteredItems = this.getNonBlacklistedRecommendedData(response);
 
-      this.fetch.fetchAndParseResponse(url, {}, RecommendedDataFetchError)
-        .then((response) => {
-          let filteredItems = this.getNonBlacklistedRecommendedData(response);
+        if (filteredItems < recircItemsCount) {
+          recirculationBlacklist.remove(5);
 
-          if (filteredItems < recircItemsCount) {
-            recirculationBlacklist.remove(5);
+          logError(
+            this.runtimeConfig.servicesExternalHost,
+            'Recommendations',
+            {
+              reason: 'Not enough non-visited articles fetched from recommendation service',
+              articleId: this.articleId,
+            },
+          );
 
-            logError(
-              this.runtimeConfig.servicesExternalHost,
-              'Recommendations',
-              {
-                reason: 'Not enough non-visited articles fetched from recommendation service',
-                articleId: this.articleId,
-              },
-            );
+          filteredItems = this.getNonBlacklistedRecommendedData(response);
+        }
 
-            filteredItems = this.getNonBlacklistedRecommendedData(response);
-          }
+        const recommendedTiles = testConfig.frontendConfig.recommendedSlots || [];
 
-          this.set('items', filteredItems.slice(0, recircItemsCount).map(item => ({
-            id: item.item_id,
-            site_name: item.wiki_title,
-            url: item.url,
-            title: item.article_title || item.wiki_title,
-            thumbnail: window.Vignette.getThumbURL(item.thumbnail_url, {
-              mode: window.Vignette.mode.zoomCrop,
-              height: 386,
-              width: 386,
-            }),
-          })));
+        this.set('items', filteredItems.slice(0, recircItemsCount).map((item, i) => ({
+          id: item.item_id,
+          site_name: item.wiki_title,
+          url: item.url,
+          title: item.article_title || item.wiki_title,
+          thumbnail: window.Vignette.getThumbURL(item.thumbnail_url, {
+            mode: window.Vignette.mode.zoomCrop,
+            height: 386,
+            width: 386,
+          }),
+          recommended: recommendedTiles.includes(`footer-slot-${i + 1}`),
+        })));
 
-          if (!this.isDestroyed) {
-            this.listRendered.resolve();
-          }
-        })
-        .catch((error) => {
-          this.logger.error(error.message);
+        if (!this.isDestroyed) {
+          this.listRendered.resolve();
+        }
+      }).catch((error) => {
+        this.logger.error(error.message);
 
-          this.set('items', this.fallbackItems);
-        });
+        this.set('items', this.fallbackItems);
+      });
     },
 
     getNonBlacklistedRecommendedData(data) {
@@ -227,12 +289,18 @@ export default Component.extend(
 
         this.set('sponsoredItemDisplayed', true);
 
-        track({
+        this.trackWithExperiment({
           action: trackActions.impression,
           category: trackingCategory,
           label: 'footer',
         });
       }
     },
+
+    trackWithExperiment(params) {
+      this.testConfig.then(config => {
+        track(Object.assign(params, config.trackingParams));
+      });
+    }
   },
 );

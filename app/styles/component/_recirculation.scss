@@ -57,6 +57,12 @@
     @extend %list-reset;
   }
 
+  &__recommendation {
+    color: $wds-fandom-color-button-background;
+    margin-bottom: 6px;
+    padding: 0 16px;
+  }
+
   &__title {
     color: $wds-color-white;
     margin-bottom: 6px;
