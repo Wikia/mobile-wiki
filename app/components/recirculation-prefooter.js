@@ -11,7 +11,7 @@ import { normalizeToUnderscore } from '../utils/string';
 import recirculationBlacklist from '../utils/recirculationBlacklist';
 import { TopArticlesFetchError, RecommendedDataFetchError } from '../utils/errors';
 import { communicationService } from '../modules/ads/communication/communication-service';
-import { isType } from "../modules/ads/communication/is-type";
+import { isType } from '../modules/ads/communication/is-type';
 
 const recircItemsCount = 10;
 const trackingCategory = 'recirculation';
@@ -38,6 +38,8 @@ export default Component.extend(
     fallbackItems: null,
     items: null,
     sponsoredItemDisplayed: false,
+    defaultTestConfig: null,
+    testConfig: null,
     displayTopArticles: and('applicationWrapperVisible', 'topArticles.length'),
     displaySponsoredContent: and('applicationWrapperVisible', 'sponsoredItem'),
     sponsoredItem: reads('sponsoredContent.item'),
@@ -62,15 +64,6 @@ export default Component.extend(
       }
     }),
 
-    defaultTestConfig: {
-      trackingParams: {},
-      frontendConfig: {
-        recommendedSlots: [],
-      },
-    },
-
-    testConfig: null,
-
     init() {
       this._super(...arguments);
 
@@ -85,6 +78,12 @@ export default Component.extend(
         },
         intersectionThreshold: 0,
         listRendered: defer(),
+        defaultTestConfig: {
+          trackingParams: {},
+          frontendConfig: {
+            recommendedSlots: [],
+          },
+        },
       });
 
       this.ads.addWaitFor('RECIRCULATION_PREFOOTER', this.get('listRendered.promise'));
@@ -101,17 +100,17 @@ export default Component.extend(
           item_type: 'wiki_article',
         };
 
-        labels.forEach(label => this.trackWithExperiment({
+        labels.forEach(label => this.trackWithExperiment(Object.assign({
           action: trackActions.click,
           category: trackingCategory,
           label,
-        }));
+        }, additionalRecommendationData)));
 
-        this.trackWithExperiment({
+        this.trackWithExperiment(Object.assign({
           action: trackActions.select,
           category: trackingCategory,
           label: post.url,
-        });
+        }, additionalRecommendationData));
 
         run.later(() => {
           window.location.assign(post.url);
@@ -178,13 +177,14 @@ export default Component.extend(
 
     // generates a stable sampling bucket [0, 99] based on the tracking session id
     sessionBasedBucket() {
+      /* eslint-disable no-bitwise */
       const sessionId = window.Cookies.get('wikia_session_id');
-      let hash = 0;
+      let hsh = 0;
       for (let i = 0; i < sessionId.length; i++) {
-        hash = (hash << 5) - hash + sessionId.charCodeAt(i);
-        hash |= 0;
+        hsh = (hsh << 5) - hsh + sessionId.charCodeAt(i);
+        hsh |= 0;
       }
-      return Math.abs(hash) % 100;
+      return Math.abs(hsh) % 100;
     },
 
     chooseTestVariation(experiment) {
@@ -195,12 +195,13 @@ export default Component.extend(
         if (bucket < pos) {
           return {
             trackingParams: {
-              "experiment_group": `${experiment.name};${groups[i].name}`,
+              experiment_group: `${experiment.name};${groups[i].name}`,
             },
             frontendConfig: groups[i].mobile,
           };
         }
       }
+      return this.defaultTestConfig;
     },
 
     getTestConfig() {
@@ -229,9 +230,9 @@ export default Component.extend(
       this.testConfig = this.getTestConfig();
       hash({
         testConfig: this.testConfig,
-        response
-      }).then(({testConfig, response}) => {
-        let filteredItems = this.getNonBlacklistedRecommendedData(response);
+        res: response,
+      }).then(({ testConfig, res }) => {
+        let filteredItems = this.getNonBlacklistedRecommendedData(res);
 
         if (filteredItems < recircItemsCount) {
           recirculationBlacklist.remove(5);
@@ -245,7 +246,7 @@ export default Component.extend(
             },
           );
 
-          filteredItems = this.getNonBlacklistedRecommendedData(response);
+          filteredItems = this.getNonBlacklistedRecommendedData(res);
         }
 
         const recommendedTiles = testConfig.frontendConfig.recommendedSlots || [];
@@ -298,9 +299,9 @@ export default Component.extend(
     },
 
     trackWithExperiment(params) {
-      this.testConfig.then(config => {
+      this.testConfig.then((config) => {
         track(Object.assign(params, config.trackingParams));
       });
-    }
+    },
   },
 );
