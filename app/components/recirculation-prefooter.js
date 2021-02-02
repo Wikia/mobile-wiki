@@ -178,7 +178,7 @@ export default Component.extend(
     // generates a stable sampling bucket [0, 99] based on the tracking session id
     sessionBasedBucket() {
       /* eslint-disable no-bitwise */
-      const sessionId = window.Cookies.get('wikia_session_id');
+      const sessionId = window.Cookies.get('tracking_session_id');
       let hsh = 0;
       for (let i = 0; i < sessionId.length; i++) {
         hsh = (hsh << 5) - hsh + sessionId.charCodeAt(i);
