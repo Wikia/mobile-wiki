@@ -228,10 +228,12 @@ export default Component.extend(
       const url = this.fetch.getServiceUrl('recommendations', `/recommendations${qs}`);
       const response = this.fetch.fetchAndParseResponse(url, {}, RecommendedDataFetchError);
       this.testConfig = this.getTestConfig();
+      debugger;
       hash({
         testConfig: this.testConfig,
         res: response,
       }).then(({ testConfig, res }) => {
+        debugger;
         let filteredItems = this.getNonBlacklistedRecommendedData(res);
 
         if (filteredItems < recircItemsCount) {
