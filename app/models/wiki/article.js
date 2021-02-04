@@ -39,7 +39,9 @@ export default BaseModel.extend({
           articleProperties.hasPortableInfobox = data.article.hasPortableInfobox;
         }
 
-        if (data.adsContext && data.adsContext.opts.enableTopLeaderboardGap) {
+        if (data.adsContext
+          && data.adsContext.opts.enableTopLeaderboardGap
+          && !data.adsContext.opts.noAdsReasons) {
           articleProperties.enableTopLeaderboardGap = true;
         }
 
