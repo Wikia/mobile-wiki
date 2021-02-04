@@ -216,6 +216,14 @@ export const defaultAdContext = {
           },
         },
       },
+      mediagrid: {
+        enabled: false,
+        slots: {
+          featured: {
+            uid: 46143,
+          },
+        },
+      },
       nobid: {
         enabled: false,
         slots: {
