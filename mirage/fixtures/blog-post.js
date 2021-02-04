@@ -28,7 +28,7 @@ export default {
         adsInContent: 1,
         delayBtf: true,
         enableAdsInMaps: true,
-        pageType: 'no_ads',
+        noAdsReasons: ['no_ads'],
         pageFairDetectionUrl: '/load.php?cb=1519726424&debug=false&lang=en&'
     + 'modules=f44fa7d1d368e62c20841e661cf5074b&only=scripts&skin=wikiamobile&*',
         prebidBidderUrl: [
