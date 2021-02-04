@@ -233,6 +233,8 @@ export default Component.extend(
         testConfig: this.testConfig,
         res: response,
       }).then(({ testConfig, res }) => {
+        console.log("Got recommendations and test config");
+        console.log(testConfig);
         debugger;
         let filteredItems = this.getNonBlacklistedRecommendedData(res);
 
