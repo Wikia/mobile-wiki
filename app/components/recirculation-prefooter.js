@@ -10,7 +10,8 @@ import { track, trackActions } from '../utils/track';
 import { normalizeToUnderscore } from '../utils/string';
 import recirculationBlacklist from '../utils/recirculationBlacklist';
 import { TopArticlesFetchError, RecommendedDataFetchError } from '../utils/errors';
-import { communicationService, ofType } from '../modules/ads/communication/communication-service';
+import { communicationService } from '../modules/ads/communication/communication-service';
+import { isType } from '../modules/ads/communication/is-type';
 
 const recircItemsCount = 10;
 const trackingCategory = 'recirculation';
@@ -178,7 +179,6 @@ export default Component.extend(
     sessionBasedBucket() {
       /* eslint-disable no-bitwise */
       const sessionId = window.Cookies.get('wikia_session_id');
-      console.log("reco session id: " + sessionId);
       let hsh = 0;
       for (let i = 0; i < sessionId.length; i++) {
         hsh = (hsh << 5) - hsh + sessionId.charCodeAt(i);
@@ -206,20 +206,18 @@ export default Component.extend(
 
     getTestConfig() {
       const eventualTestConfig = defer();
-      communicationService.action$.pipe(
-        ofType('[AdEngine] set InstantConfig')
-      ).subscribe((props) => {
-        console.log("Instant Config is available");
-        const instantConfig = props.instantConfig;
-        const experiment = instantConfig.get('icDeRecoExperimentDev');
+      communicationService.addListener((action) => {
+        if (isType(action, '[AdEngine] set InstantConfig')) {
+          console.log("Instant Config is available");
+          const instantConfig = action.payload;
+          const experiment = instantConfig.get('icDeRecoExperimentDev');
           if (experiment) {
-            console.log("Resolved experiment: " + experiment);
             eventualTestConfig.resolve(this.chooseTestVariation(experiment));
           } else {
             // no active test
-            console.log("no active experiment");
             eventualTestConfig.resolve(this.defaultTestConfig);
           }
+        }
       });
       // resolve promise in case icbm is not available
       window.setTimeout(() => {
