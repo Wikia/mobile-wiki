@@ -179,6 +179,7 @@ export default Component.extend(
     sessionBasedBucket() {
       /* eslint-disable no-bitwise */
       const sessionId = window.Cookies.get('wikia_session_id');
+      console.log("Reco experiment session: " + sessionId);
       let hsh = 0;
       for (let i = 0; i < sessionId.length; i++) {
         hsh = (hsh << 5) - hsh + sessionId.charCodeAt(i);
