@@ -11,7 +11,6 @@ import { normalizeToUnderscore } from '../utils/string';
 import recirculationBlacklist from '../utils/recirculationBlacklist';
 import { TopArticlesFetchError, RecommendedDataFetchError } from '../utils/errors';
 import { communicationService, ofType } from '../modules/ads/communication/communication-service';
-import { take } from 'rxjs/operators';
 
 const recircItemsCount = 10;
 const trackingCategory = 'recirculation';
@@ -208,8 +207,7 @@ export default Component.extend(
     getTestConfig() {
       const eventualTestConfig = defer();
       communicationService.action$.pipe(
-        ofType('[AdEngine] set InstantConfig'),
-        take(1)
+        ofType('[AdEngine] set InstantConfig')
       ).subscribe((props) => {
         console.log("Instant Config is available");
         const instantConfig = props.instantConfig;
