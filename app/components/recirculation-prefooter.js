@@ -208,6 +208,7 @@ export default Component.extend(
       const eventualTestConfig = defer();
       communicationService.addListener((action) => {
         if (isType(action, '[AdEngine] set InstantConfig')) {
+          console.log("Instant Config is available");
           const instantConfig = action.payload;
           const experiment = instantConfig.get('icDeRecoExperimentDev');
           if (experiment) {
@@ -219,7 +220,10 @@ export default Component.extend(
         }
       });
       // resolve promise in case icbm is not available
-      window.setTimeout(() => eventualTestConfig.resolve(this.defaultTestConfig), 200);
+      window.setTimeout(() => {
+        console.log("Timeout waiting for icbm, return default config");
+        eventualTestConfig.resolve(this.defaultTestConfig);
+      }, 200);
       return eventualTestConfig.promise;
     },
 
@@ -228,14 +232,12 @@ export default Component.extend(
       const url = this.fetch.getServiceUrl('recommendations', `/recommendations${qs}`);
       const response = this.fetch.fetchAndParseResponse(url, {}, RecommendedDataFetchError);
       this.testConfig = this.getTestConfig();
-      debugger;
       hash({
         testConfig: this.testConfig,
         res: response,
       }).then(({ testConfig, res }) => {
         console.log("Got recommendations and test config");
         console.log(testConfig);
-        debugger;
         let filteredItems = this.getNonBlacklistedRecommendedData(res);
 
         if (filteredItems < recircItemsCount) {
