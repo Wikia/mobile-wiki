@@ -209,7 +209,7 @@ export default Component.extend(
       communicationService.addListener((action) => {
         if (isType(action, '[AdEngine] set InstantConfig')) {
           const instantConfig = action.payload;
-          const experiment = instantConfig.get('icDeRecoExperimentDev');
+          const experiment = instantConfig.get('icDeRecoExperiment');
           if (experiment) {
             eventualTestConfig.resolve(this.chooseTestVariation(experiment));
           } else {
