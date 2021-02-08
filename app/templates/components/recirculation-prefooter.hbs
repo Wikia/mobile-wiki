@@ -67,6 +67,13 @@
         href={{post.url}}
         class="recirculation-prefooter__item-anchor"
       >
+        {{#if post.recommended}}
+          <p
+            class="recirculation-prefooter__recommendation wds-font-size-xxs wds-font-weight-bold wds-leading-tight"
+          >
+            {{i18n "recirculation.personalized-recommendation"}}
+          </p>
+        {{/if}}
         <p
           class="recirculation-prefooter__title wds-font-size-base wds-font-weight-bold wds-leading-tight"
         >
