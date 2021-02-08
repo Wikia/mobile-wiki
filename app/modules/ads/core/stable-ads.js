@@ -13,12 +13,9 @@ import { isType } from '../communication/is-type';
 import { communicationService } from '../communication/communication-service';
 import { slots } from '../slots';
 import PromiseLock from './promise-lock';
+import { isMobileApp } from '../../../utils/mobile-app';
 
 const logGroup = 'mobile-wiki-ads-module';
-
-function isQueryParamActive(paramValue) {
-  return ['0', null, '', 'false', undefined].indexOf(paramValue) === -1;
-}
 
 class StableAds {
   constructor() {
@@ -66,9 +63,9 @@ class StableAds {
    * @param queryParams
    * @public
    */
-  init(adsContext = {}, queryParams = {}) {
+  init(adsContext = {}) {
     const reasonConditionMap = {
-      mobileapp_querystring: isQueryParamActive(queryParams['mobile-app']) ? 'off_mobileapp_querystring' : null,
+      mobileapp_querystring: isMobileApp() ? 'off_mobileapp_querystring' : null,
       noads_reasons: adsContext.opts.noAdsReasons ? adsContext.opts.noAdsReasons.map(reason => `off_${reason}`).join(',') : null,
       load_failed: this.hasLoadFailed ? 'off_load_failed' : null,
     };
