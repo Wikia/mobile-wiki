@@ -9,8 +9,7 @@ export const defaultAdContext = {
     a9: {
       amazonId: '3115',
       bidsRefreshing: {
-        enabled: false,
-        slots: ['mobile_in_content'],
+        slots: ['featured', 'mobile_in_content'],
       },
       dealsEnabled: false,
       enabled: false,
@@ -506,10 +505,6 @@ export const defaultAdContext = {
     dfpId: '5441',
     wikiIdentifier: '_not_a_top1k_wiki',
     wikiDBNameIdentifier: '_not_a_top1k_wiki',
-    appnexusDfp: true,
-    beachfrontDfp: true,
-    rubiconDfp: true,
-    pubmaticDfp: false,
   },
   events: {
     pushOnScroll: {
