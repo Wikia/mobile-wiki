@@ -13,10 +13,10 @@
     "header-in-wiki-name-label-prefix": "in:", 
     "header-in-wiki-name-label-suffix": "", 
     "hours-ago": "{hours}h", 
-    "less": "Less", 
+    "less": "Minder", 
     "media-lightbox-error": "Media niet gevonden", 
     "minutes-ago": "{minutes}m", 
-    "more": "More", 
+    "more": "Meer", 
     "now-label": "nu", 
     "page-not-found-error": "Sorry, we kunnen de pagina waar je naar zoekt niet vinden.", 
     "page-not-found-message": "Gebruik de navigatie- of zoekfuncties", 
@@ -64,9 +64,9 @@
     "load-more": "Load more", 
     "load-previous": "Load previous", 
     "no-members": "This category currently contains no pages.", 
-    "pagination-first": "First", 
-    "pagination-last": "Last", 
-    "shortcut-to-other": "Other", 
+    "pagination-first": "Eerste", 
+    "pagination-last": "Laatste", 
+    "shortcut-to-other": "Overig", 
     "subtitle": "Category Page", 
     "total-number": "All Items ({totalNumberOfItems})", 
     "trending-pages": "Trending Pages"
@@ -89,7 +89,7 @@
   }, 
   "featured-video": {
     "from": "from", 
-    "watch": "watch"
+    "watch": "bekijken"
   }, 
   "file-page": {
     "subtitle": "File Page", 
