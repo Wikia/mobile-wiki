@@ -16,8 +16,8 @@
     "search-post-item-quiz-takes_plural": "{count}人解答", 
     "search-post-items-header": "関連する投稿", 
     "search-post-items-see-more": "もっと見る", 
-    "search-scope-crosswiki": "すべてのページ", 
-    "search-scope-internal": "このコミュニティ", 
+    "search-scope-crosswiki": "すべてのWiki", 
+    "search-scope-internal": "このWiki", 
     "total-results": "{query}の検索結果は約{totalItems}件です"
   }
 }

@@ -11,13 +11,13 @@
     "search-post-item-poll-votes": "{count} votos", 
     "search-post-item-poll-votes_plural": "{count} votos", 
     "search-post-item-post-last-commented-on": "Último comentário {time} atrás", 
-    "search-post-item-post-posted": "Postado {time} atrás", 
+    "search-post-item-post-posted": "Publicado {time} atrás", 
     "search-post-item-quiz-takes": "{count} completos", 
     "search-post-item-quiz-takes_plural": "{count} completos", 
     "search-post-items-header": "Posts relacionados", 
     "search-post-items-see-more": "Veja mais", 
-    "search-scope-crosswiki": "Todas as wikias", 
-    "search-scope-internal": "Esta wikia", 
+    "search-scope-crosswiki": "Todas as wikis", 
+    "search-scope-internal": "Esta wiki", 
     "total-results": "Cerca de {totalItems} resultados para {query}"
   }
 }
