@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Sugestões para você", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "Editar a página"
   }, 
   "app": {
     "advertisement-label": "Anúncio", 
@@ -34,7 +34,7 @@
     "categories-list-label": "Categorias", 
     "comments-label": "comentário ({count})", 
     "comments-label_plural": "comentários ({count})", 
-    "edit-article": "Edit page", 
+    "edit-article": "Editar página", 
     "empty-label": "Desculpe, este artigo parece estar vazio!", 
     "error": "Não foi possível carregar o artigo. Por favor, tente novamente.", 
     "language-links-label": "Outros idiomas", 
@@ -104,6 +104,7 @@
     "user-menu-profile": "Perfil"
   }, 
   "recirculation": {
+    "personalized-recommendation": "Recomendado para você", 
     "popular-wiki-articles-header": "MAIS {wikiName}", 
     "trending-fandom-articles": "FEED DOS FÃS"
   }, 

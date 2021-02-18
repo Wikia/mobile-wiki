@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Suggested For You", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Advertisement", 
@@ -13,10 +13,10 @@
     "header-in-wiki-name-label-prefix": "trong:", 
     "header-in-wiki-name-label-suffix": "", 
     "hours-ago": "{hours}h", 
-    "less": "Less", 
+    "less": "Ít", 
     "media-lightbox-error": "Tập tin không được tìm thấy", 
     "minutes-ago": "{minutes}m", 
-    "more": "More", 
+    "more": "Nhiều hơn", 
     "now-label": "bây giờ", 
     "page-not-found-error": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.", 
     "page-not-found-message": "Sử dụng Danh mục hoặc Tìm kiếm", 
@@ -34,7 +34,7 @@
     "categories-list-label": "Thể loại", 
     "comments-label": "comment ({count})", 
     "comments-label_plural": "comments ({count})", 
-    "edit-article": "Edit page", 
+    "edit-article": "Sửa đổi trang", 
     "empty-label": "Xin lỗi, bài này có vẻ trống rỗng!", 
     "error": "Sorry, we couldn't load the article. Please try again.", 
     "language-links-label": "Other Languages", 
@@ -66,7 +66,7 @@
     "no-members": "This category currently contains no pages.", 
     "pagination-first": "First", 
     "pagination-last": "Last", 
-    "shortcut-to-other": "Other", 
+    "shortcut-to-other": "Khác", 
     "subtitle": "Category Page", 
     "total-number": "All Items ({totalNumberOfItems})", 
     "trending-pages": "Trending Pages"
@@ -104,6 +104,7 @@
     "user-menu-profile": "Profile"
   }, 
   "recirculation": {
+    "personalized-recommendation": "Recommended For You", 
     "popular-wiki-articles-header": "MORE {wikiName}", 
     "trending-fandom-articles": "FAN FEED"
   }, 

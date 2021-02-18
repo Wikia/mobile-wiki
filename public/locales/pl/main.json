@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Sugerowane dla ciebie", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Reklama", 
@@ -104,6 +104,7 @@
     "user-menu-profile": "Profil"
   }, 
   "recirculation": {
+    "personalized-recommendation": "Polecane dla Ciebie", 
     "popular-wiki-articles-header": "WIĘCEJ Z {wikiName}", 
     "trending-fandom-articles": "Kanał informacji dla fanów"
   }, 
