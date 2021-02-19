@@ -87,7 +87,8 @@ export default (baseUrl, softwareVersion, sampleFactor) => {
       initial,
       onSend: (trackBaseUrl, result) => {
         const time = Math.floor(Date.now() / 1000);
-        let url = `${trackBaseUrl}&ut=${time}&v=${result.softwareVersion}&os=${system}&m=mobile&g=${result.country}`;
+        const currentURL = encodeURIComponent(window.location.href);
+        let url = `${trackBaseUrl}&ut=${time}&v=${result.softwareVersion}&os=${system}&m=mobile&g=${result.country}&a=${currentURL}&url=${currentURL}`;
         // Add basic network info
         if (result.connection) {
           url += `&c=${result.connection.effectiveType}&r=${result.connection.rtt}`;
