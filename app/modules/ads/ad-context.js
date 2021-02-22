@@ -141,6 +141,19 @@ export const defaultAdContext = {
           },
         },
       },
+      appnexusGroupM: {
+        enabled: false,
+        slots: {
+          floor_adhesion: {
+            sizes: [
+              [300, 50],
+              [320, 50],
+              [320, 100],
+            ],
+            placementId: 20917990,
+          },
+        },
+      },
       beachfront: {
         enabled: false,
         debugAppId: '2e55f7ad-3558-49eb-a3e1-056ccd0e74e2',
