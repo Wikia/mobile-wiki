@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "あなたへのおすすめ", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandomはこのページのリンクに基づく利益に対し提携手数料を得ることがあります。"
   }, 
   "app": {
     "advertisement-label": "広告", 
@@ -104,6 +104,7 @@
     "user-menu-profile": "プロフィール"
   }, 
   "recirculation": {
+    "personalized-recommendation": "あなたにおすすめ", 
     "popular-wiki-articles-header": "{wikiName}のその他のコンテンツ", 
     "trending-fandom-articles": "ファン・フィード"
   }, 

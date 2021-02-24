@@ -1,22 +1,22 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Suggested For You", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Advertisement", 
     "cancel-label": "Cancel", 
     "curated-content-editor-edit-main-page": "Edit Main Page", 
     "curated-content-load-more-items": "Load more", 
-    "days-ago": "{days}d", 
+    "days-ago": "{days}p", 
     "discussions-label": "Discussions", 
     "header-in-wiki-name-label-prefix": "in:", 
     "header-in-wiki-name-label-suffix": "", 
-    "hours-ago": "{hours}h", 
-    "less": "Less", 
+    "hours-ago": "{hours}t", 
+    "less": "Vähemmän", 
     "media-lightbox-error": "Mediaa ei löytynyt", 
     "minutes-ago": "{minutes}m", 
-    "more": "More", 
+    "more": "Lisää", 
     "now-label": "nyt", 
     "page-not-found-error": "Valitettavasti emme löydä etsimääsi sivua.", 
     "page-not-found-message": "Käytä navigaatiota tai hakua", 
@@ -104,6 +104,7 @@
     "user-menu-profile": "Profile"
   }, 
   "recirculation": {
+    "personalized-recommendation": "Recommended For You", 
     "popular-wiki-articles-header": "MORE {wikiName}", 
     "trending-fandom-articles": "FAN FEED"
   }, 
