@@ -288,6 +288,7 @@ export const targeting = {
         bidder_26: transformBidderPrice('telaria'),
         bidder_27: transformBidderPrice('mediagrid'),
         bidder_28: transformBidderPrice('verizon'),
+        bidder_29: transformBidderPrice('appnexusGroupM'),
       };
     });
   },
