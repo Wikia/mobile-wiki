@@ -1,7 +1,7 @@
 {
   "affiliate-unit": {
     "big-unit-heading": "Suggested For You", 
-    "disclaimer": "Fandom may earn an affiliate commission on sales made from links on this page."
+    "disclaimer": "*Fandom may earn an affiliate commission on sales made from links on this page."
   }, 
   "app": {
     "advertisement-label": "Advertisement", 
@@ -106,6 +106,7 @@
     "user-menu-profile": "Profile"
   }, 
   "recirculation": {
+    "personalized-recommendation": "Recommended For You", 
     "popular-wiki-articles-header": "MORE {wikiName}", 
     "trending-fandom-articles": "FAN FEED"
   }, 

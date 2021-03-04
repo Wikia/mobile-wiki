@@ -90,32 +90,32 @@
     "icDeRecoExperimentDev": [
         {
             "apps": [
-                "mobile-wiki"
+                "mobile-wiki",
+                "oasis"
             ],
             "regions": [
-                "XX"
+                "PL"
             ],
             "sampling": 100.0,
             "value": {
-                "name": "reco_personalized_dev",
+                "name": "de5320_qa",
                 "groups": [
                     {
-                        "name": "first",
+                        "name": "A",
+                        "config": {
+                            
+                        },
                         "mobile": {
                             "recommendedSlots": [
                                 "footer-slot-1"
                             ]
                         },
-                        "sampling": 50
-                    },
-                    {
-                        "name": "second",
-                        "mobile": {
-                            "recommendedSlots": [
-                                "footer-slot-2"
+                        "sampling": 100,
+                        "ucpConfig": {
+                            "slots": [
+                                "footer-card-3"
                             ]
-                        },
-                        "sampling": 50
+                        }
                     }
                 ]
             }
@@ -510,6 +510,19 @@
             "value": true
         }
     ],
+    "icPrebidAppNexusGroupM": [
+        {
+            "apps": [
+                "mobile-wiki",
+                "oasis"
+            ],
+            "regions": [
+                "GB",
+                "UK"
+            ],
+            "value": false
+        }
+    ],
     "icFeaturedVideoPostroll": [
         {
             "apps": [
@@ -780,6 +793,44 @@
                 "XX"
             ],
             "value": [
+                "5631833463",
+                "5631668329",
+                "2826685371",
+                "5628778263",
+                "5629857064",
+                "5585170956",
+                "5585170959",
+                "5585170962",
+                "5629664089",
+                "5628410358",
+                "5625526730",
+                "5625528371",
+                "5625526727",
+                "5625528140",
+                "5625528374",
+                "5625528137",
+                "5625528368",
+                "5625528134",
+                "5625528365",
+                "5625528131",
+                "5625528362",
+                "5625528239",
+                "5625528236",
+                "5625528128",
+                "5625010558",
+                "5623894779",
+                "5623894776",
+                "5625010690",
+                "5625010687",
+                "5623894770",
+                "5625010681",
+                "5623894785",
+                "5623894788",
+                "5625010555",
+                "5623894782",
+                "5625010684",
+                "5623894773",
+                "5623894767",
                 "5612456094",
                 "5612456088",
                 "5595347256",
@@ -1722,7 +1773,18 @@
                 "5619275243",
                 "5617625970",
                 "5617625967",
-                "5622045977"
+                "5622045977",
+                "4737728378",
+                "5627328607",
+                "5623495864",
+                "5623961408",
+                "5628046064",
+                "5626593060",
+                "5598401704",
+                "5626398639",
+                "5598651800",
+                "5632392924",
+                "5629615601"
             ]
         }
     ],
@@ -1956,7 +2018,7 @@
             "regions": [
                 "XX"
             ],
-            "value": "//static.wikia.nocookie.net/fandom-ae-assets/prebid.js/v4.17.0/20201229.min.js"
+            "value": "//static.wikia.nocookie.net/fandom-ae-assets/prebid.js/v4.17.0/20210301.min.js"
         }
     ],
     "icDurationMediaLibraryUrl": [
@@ -2141,8 +2203,7 @@
     "icPrebidMediaGrid": [
         {
             "apps": [
-                "mobile-wiki",
-                "oasis"
+                "mobile-wiki"
             ],
             "regions": [
                 "CA"
@@ -2214,7 +2275,7 @@
             "regions": [
                 "XX"
             ],
-            "value": "//static.wikia.nocookie.net/fandom-ae-assets/tracking-opt-in/v6.0.5/tracking-opt-in.min.js"
+            "value": "//static.wikia.nocookie.net/fandom-ae-assets/tracking-opt-in/v6.0.6/tracking-opt-in.min.js"
         }
     ],
     "icPermutive": [
@@ -2281,10 +2342,9 @@
             "regions": [
                 "XX"
             ],
-            "sampling": 1.0,
-            "samplingCache": true,
+            "sampling": 100.0,
             "value": {
-                "name": "reco_personalized_AA",
+                "name": "reco_personalized_AA_group_sampling",
                 "groups": [
                     {
                         "name": "A",
@@ -2296,7 +2356,7 @@
                                 
                             ]
                         },
-                        "sampling": 50,
+                        "sampling": 2,
                         "ucpConfig": {
                             "slots": [
                                 
@@ -2313,7 +2373,7 @@
                                 
                             ]
                         },
-                        "sampling": 50,
+                        "sampling": 2,
                         "ucpConfig": {
                             "slots": [
                                 

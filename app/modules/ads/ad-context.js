@@ -64,36 +64,6 @@ export const defaultAdContext = {
           },
         },
       },
-      aol: {
-        enabled: false,
-        network: '9435.1',
-        slots: {
-          mobile_top_leaderboard: {
-            sizes: [
-              [320, 50],
-            ],
-            placement: '4436772',
-            alias: '4436772',
-            sizeId: '3055',
-          },
-          mobile_in_content: {
-            sizes: [
-              [300, 250],
-            ],
-            placement: '4431565',
-            alias: '4431565',
-            sizeId: '170',
-          },
-          bottom_leaderboard: {
-            sizes: [
-              [300, 250],
-            ],
-            placement: '4431566',
-            alias: '4431566',
-            sizeId: '170',
-          },
-        },
-      },
       appnexus: {
         enabled: false,
         slots: {
@@ -256,24 +226,6 @@ export const defaultAdContext = {
               [320, 50],
             ],
             siteId: '21872987104',
-          },
-        },
-      },
-      onemobile: {
-        enabled: false,
-        siteId: '2c9d2b50015e5e9a6540a64f3eac0266',
-        slots: {
-          mobile_top_leaderboard: {
-            size: [320, 50],
-            pos: 'wikia_mw_top_leaderboard_hb',
-          },
-          mobile_in_content: {
-            size: [300, 250],
-            pos: 'wikia_mw_incontent_hb',
-          },
-          bottom_leaderboard: {
-            size: [300, 250],
-            pos: 'wikia_mw_pre_footer_hb',
           },
         },
       },

@@ -209,18 +209,24 @@ $closeButtonHeight: 40px;
   }
 }
 
-@mixin logo-replacement($max-height, $padding-left) {
+@mixin logo-replacement() {
   .custom-logo,
   .small-custom-logo {
     animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-name: fade-in;
-    max-height: $max-height;
+    max-height: 55px;
     opacity: 0;
   }
 
+  .custom-logo {
+    max-width: 93px;
+  }
+
   .small-custom-logo {
-    padding-left: $padding-left;
+    margin-left: 12px;
+    margin-right: 5px;
+    max-width: 27px;
   }
 
   .tracking-pixel {
@@ -234,4 +240,4 @@ $closeButtonHeight: 40px;
   }
 }
 
-@include logo-replacement(55px, 12px);
+@include logo-replacement;

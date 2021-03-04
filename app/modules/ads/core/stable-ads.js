@@ -435,7 +435,6 @@ class StableAds {
     this.trackSpaInstanceId();
     this.trackTabId();
     this.trackVideoPage();
-    this.trackLiveRamp();
   }
 
   /**
@@ -555,35 +554,6 @@ class StableAds {
     communicationService.addListener((action) => {
       if (isType(action, '[AdEngine] Audigent loaded')) {
         pageTracker.trackProp('audigent', 'loaded');
-      }
-    });
-  }
-
-  /**
-   * @private
-   */
-  trackLiveRamp() {
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] LiveRamp Prebid ids loaded')) {
-        pageTracker.trackProp('live_ramp_prebid_ids', action.userId);
-      }
-    });
-
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] ATS.js loaded')) {
-        pageTracker.trackProp('live_ramp_ats_loaded', action.loadTime);
-      }
-    });
-
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] ATS ids loaded')) {
-        pageTracker.trackProp('live_ramp_ats_ids', action.envelope);
-      }
-    });
-
-    communicationService.addListener((action) => {
-      if (isType(action, '[AdEngine] ATS.js not loaded for logged in user')) {
-        pageTracker.trackProp('live_ramp_ats_not_loaded', action.reason);
       }
     });
   }
