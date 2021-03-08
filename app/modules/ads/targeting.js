@@ -222,6 +222,7 @@ export const targeting = {
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
       geo: window.Wikia.adEngine.utils.geoService.getCountryCode() || 'none',
+      adTagManagerTags: adsContext.targeting.adTagManagerTags || {},
     };
 
     if (window.pvNumber) {
