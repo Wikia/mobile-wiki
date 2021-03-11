@@ -85,6 +85,7 @@ module.exports = function (defaults) {
       'rubik-font': `${inlineScriptsPath}rubik-font.js`,
       'featured-video': `${inlineScriptsPath}featured-video.js`,
       'google-tag-manager': `${inlineScriptsPath}google-tag-manager.js`,
+      'pageview-tracking-experiment': `${inlineScriptsPath}pageview-tracking-experiment.js`,
     },
     outputPaths: {
       app: {
