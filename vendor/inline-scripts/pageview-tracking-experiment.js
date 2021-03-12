@@ -8,8 +8,8 @@
   function readCookies() {
     beacon = getCookieValue('wikia_beacon_id');
     sessionId = getCookieValue('tracking_session_id') || genUID();
-    pvNumber = getCookieValue('pv_number');
-    pvNumberGlobal = getCookieValue('pv_number_global');
+    pvNumber = getCookieValue('pv_number') || 0;
+    pvNumberGlobal = getCookieValue('pv_number_global') || 0;
   }
 
   function getCookieValue(cookieName) {
