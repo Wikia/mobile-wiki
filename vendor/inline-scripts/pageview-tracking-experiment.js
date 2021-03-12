@@ -29,7 +29,7 @@
   function getEventParams(shouldIncreasePvNumber) {
     let pvNumberComputed = pvNumber ? parseInt(pvNumber, 10) : 0;
     let pvNumberGlobalComputed = pvNumberGlobal ? parseInt(pvNumberGlobal, 10) : 0;
-    if (shouldIncreasePvNumber) {
+    if (shouldIncreasePvNumber || !window.fandomTrackingCookiesSet) {
       pvNumberComputed += 1;
       pvNumberGlobalComputed += 1;
     }
@@ -58,14 +58,12 @@
   }
 
   function setCookies() {
-    const expireDate = new Date(Date.now() + 1000 * 60 * 30);
+    if (!getCookieValue('tracking_session_id')) {
+      const expireDate = new Date(Date.now() + 1000 * 60 * 30);
 
-    document.cookie = 'tracking_session_id=' + sessionId + '; expires=' + expireDate.toGMTString() +
-      ';domain=' + config.wgCookieDomain + '; path=' + config.wgCookiePath + ';';
-    document.cookie = 'pv_number=' + pvNumber + '; expires=' + expireDate.toGMTString() +
-      '; path=' + config.wgScriptPath + ';';
-    document.cookie = 'pv_number_global=' + pvNumberGlobal + '; expires=' + expireDate.toGMTString() +
-      ';domain=' + config.wgCookieDomain + '; path=' + config.wgCookiePath + ';';
+      document.cookie = 'tracking_session_id=' + sessionId + '; expires=' + expireDate.toGMTString() +
+        ';domain=' + config.wgCookieDomain + '; path=' + config.wgCookiePath + ';';
+    }
   }
 
   function readData() {
