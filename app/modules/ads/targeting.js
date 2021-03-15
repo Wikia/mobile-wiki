@@ -225,6 +225,8 @@ export const targeting = {
       adTagManagerTags: adsContext.targeting.adTagManagerTags || {},
     };
 
+    console.log('=====', adsContext.targeting, adsContext.targeting.adTagManagerTags);
+
     if (window.pvNumber) {
       pageLevelTargeting.pv = window.pvNumber.toString();
     }
