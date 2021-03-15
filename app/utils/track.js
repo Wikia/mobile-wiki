@@ -203,6 +203,9 @@ export function trackPageView(isInitialPageView, uaDimensions) {
     M.trackingQueue.push(window.trackQuantcastPageView);
     M.trackingQueue.push(window.trackComscorePageView);
     M.trackingQueue.push((isOptedIn) => {
+      if (window.fandomFCPtrackPageView) {
+        window.fandomFCPtrackPageView(false);
+      }
       M.tracker.Internal.trackPageView(context, isOptedIn);
     });
     M.trackingQueue.push(() => {
