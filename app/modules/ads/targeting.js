@@ -225,9 +225,15 @@ export const targeting = {
     };
 
     if ( adsContext.targeting.adTagManagerTags ) {
-      Object.keys(adsContext.targeting.adTagManagerTags).forEach((key) => {
-        pageLevelTargeting[key] = adsContext.targeting.adTagManagerTags[key];
-      });
+      // the adTagManagerTags.esrb is not valid with the schema we send to Permutive
+      // thus we can't just iterate through adTagManagerTags props
+      pageLevelTargeting.gnre = adsContext.targeting.adTagManagerTags.gnre || [];
+      pageLevelTargeting.media = adsContext.targeting.adTagManagerTags.media || [];
+      pageLevelTargeting.pform = adsContext.targeting.adTagManagerTags.pform || [];
+      pageLevelTargeting.pub = adsContext.targeting.adTagManagerTags.pub || [];
+      pageLevelTargeting.sex = adsContext.targeting.adTagManagerTags.sex || [];
+      pageLevelTargeting.theme = adsContext.targeting.adTagManagerTags.theme || [];
+      pageLevelTargeting.tv = adsContext.targeting.adTagManagerTags.tv || [];
     }
 
     if (window.pvNumber) {
