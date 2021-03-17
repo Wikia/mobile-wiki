@@ -222,8 +222,13 @@ export const targeting = {
       ref: getRefParam(),
       esrb: adsContext.targeting.esrbRating,
       geo: window.Wikia.adEngine.utils.geoService.getCountryCode() || 'none',
-      adTagManagerTags: adsContext.targeting.adTagManagerTags || {},
     };
+
+    if ( adsContext.targeting.adTagManagerTags ) {
+      Object.keys(adsContext.targeting.adTagManagerTags).forEach((key) => {
+        pageLevelTargeting[key] = adsContext.targeting.adTagManagerTags[key];
+      });
+    }
 
     if (window.pvNumber) {
       pageLevelTargeting.pv = window.pvNumber.toString();
