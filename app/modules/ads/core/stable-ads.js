@@ -341,7 +341,7 @@ class StableAds {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { context, slotService, taxonomyService } = window.Wikia.adEngine;
+    const { context, slotService, taxonomyService, utils } = window.Wikia.adEngine;
     const { permutive } = window.Wikia.adServices;
 
     permutive.call();
@@ -351,9 +351,14 @@ class StableAds {
     this.biddersInhibitor = null;
     bidders.requestBids().then(() => this.getBiddersInhibitor().resolve());
     inhibitors.push(this.getBiddersInhibitor());
-    if (context.get('wiki.targeting.isUcp')) {
+
+    if (!context.get('wiki.opts.enableAdTagManagerBackend')) {
+      utils.logger(logGroup, 'Taxonomy Service should be called from the frontend');
       inhibitors.push(taxonomyService.configurePageLevelTargeting());
+    } else {
+      utils.logger(logGroup, 'Taxonomy Service should have been called from the backend');
     }
+
     this.startAdEngine(inhibitors);
 
     if (!slotService.getState('top_leaderboard')) {
