@@ -148,7 +148,7 @@ export default Service.extend({
     }
 
     // Global banner for Wiki Rules and Blocking Policy notice
-    if(this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
+    if (this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
       this.showMigrationNotification(
         this.wikiVariables.wikiRulesBlockingPolicyBanner,
         this.wikiRulesBlockingPolicyStorageKey,
