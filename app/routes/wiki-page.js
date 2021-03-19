@@ -416,11 +416,14 @@ export default Route.extend(
           rolloutTracking = 'ucp';
         }
       }
-
+      
+      const url = window.location.href;
       setTrackContext({
         a: model.get('id'),
         n: namespace,
         rollout_tracking: rolloutTracking,
+        url: url,
+        test_jbera: 'test_jbera',
       });
 
       trackPageView(this.initialPageView.isInitialPageView(), uaDimensions);
