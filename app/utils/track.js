@@ -148,6 +148,8 @@ export function track(params, usePrefix = true, force = false) {
     action, label = '', value = 0, trackingMethod = TrackingMethod.both,
   } = params;
 
+  const url = window.location.href
+
   params = Object.assign({
     ga_action: action,
     ga_category: category,
@@ -155,6 +157,8 @@ export function track(params, usePrefix = true, force = false) {
     ga_value: value,
     ga_is_nonInteractive: isNonInteractive,
     pv_unique_id: pvUID,
+    url: url,
+    test_jbera: 'test_jbera'
   }, params);
 
   // We rely on ga_* params in both trackers
