@@ -13,7 +13,7 @@ const server = new FastBootAppServer({
   afterMiddleware: middlewares.after,
   distPath: config.distPath,
   gzip: true,
-  workerCount: 1,
+  workerCount: 8,
 });
 
 server.start();
