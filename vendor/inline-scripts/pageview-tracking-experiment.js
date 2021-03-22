@@ -1,4 +1,4 @@
-(function pageViewTracking(config = {}) {
+(function pageViewTracking() {
   let beacon;
   let sessionId;
   let pvNumber;
@@ -60,9 +60,10 @@
   function setCookies() {
     if (!getCookieValue('tracking_session_id')) {
       const expireDate = new Date(Date.now() + 1000 * 60 * 30);
+      const scriptPath = headData.wikiVariables.scriptPath || '/';
 
       document.cookie = 'tracking_session_id=' + sessionId + '; expires=' + expireDate.toGMTString() +
-        ';domain=' + config.wgCookieDomain + '; path=' + config.wgCookiePath + ';';
+        ';domain=' + headData.cookieDomain + '; path=' + scriptPath  + ';';
     }
   }
 
