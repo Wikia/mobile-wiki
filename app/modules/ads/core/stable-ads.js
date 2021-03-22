@@ -345,7 +345,7 @@ class StableAds {
       context,
       slotService,
       taxonomyService,
-      utils
+      utils,
     } = window.Wikia.adEngine;
     const { permutive } = window.Wikia.adServices;
 
