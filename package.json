@@ -129,7 +129,7 @@
     "eslint-plugin-import": "2.18.2",
     "fastboot-transform": "0.1.3",
     "form-data": "3.0.0",
-    "i18next": "17.3.1",
+    "i18next": "19.9.2",
     "loader.js": "4.7.0",
     "mercury-shared": "github:wikia/mercury-shared#06bdbaaf3bb96f72393454c59afdfbaa6fe9e304",
     "node-sass": "5.0.0",
