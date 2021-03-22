@@ -341,7 +341,12 @@ class StableAds {
     }
 
     const { bidders } = window.Wikia.adBidders;
-    const { context, slotService, taxonomyService, utils } = window.Wikia.adEngine;
+    const {
+      context,
+      slotService,
+      taxonomyService,
+      utils
+    } = window.Wikia.adEngine;
     const { permutive } = window.Wikia.adServices;
 
     permutive.call();

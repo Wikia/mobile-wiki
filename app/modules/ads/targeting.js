@@ -224,7 +224,7 @@ export const targeting = {
       geo: window.Wikia.adEngine.utils.geoService.getCountryCode() || 'none',
     };
 
-    if ( adsContext.targeting.adTagManagerTags ) {
+    if (adsContext.targeting.adTagManagerTags) {
       // the adTagManagerTags.esrb is not valid with the schema we send to Permutive
       // thus we can't just iterate through adTagManagerTags props
       pageLevelTargeting.gnre = adsContext.targeting.adTagManagerTags.gnre || [];
