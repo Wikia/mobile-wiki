@@ -145,6 +145,7 @@
     ]
   },
   "fastbootDependencies": [
+    "abortcontroller-polyfill",
     "bunyan",
     "crypto",
     "deep-extend",
