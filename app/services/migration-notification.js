@@ -102,6 +102,9 @@ export default Service.extend({
     if (this.fastboot.isFastBoot) {
       return;
     }
+    this.showWikiRulesAndBlockingPolicyNotification(
+      this.wikiVariables.wikiRulesBlockingPolicyBannerMsg,
+    );
 
     // Fandom.com migration banners
     if (this.shouldShowAfterFandomComMigrationNotification()) {
@@ -151,13 +154,6 @@ export default Service.extend({
       this.showMigrationNotification(
         this.wikiVariables.domainMigrationBannerMessage,
         storageKey,
-      );
-    }
-
-    // Global banner for Wiki Rules and Blocking Policy notice
-    if (this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
-      this.showWikiRulesAndBlockingPolicyNotification(
-        this.wikiVariables.wikiRulesBlockingPolicyBannerMsg,
       );
     }
   },
