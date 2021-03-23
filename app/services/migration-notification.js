@@ -91,6 +91,14 @@ export default Service.extend({
     });
   },
 
+  showWikiRulesAndBlockingPolicyNotification(message) {
+    this.wdsBannerNotifications.addNotification({
+      type: 'warning',
+      alreadySafeHtml: message,
+      disableAutoHide: true,
+    });
+  },
+
   showNotification() {
     if (this.fastboot.isFastBoot) {
       return;
@@ -149,9 +157,8 @@ export default Service.extend({
 
     // Global banner for Wiki Rules and Blocking Policy notice
     if (this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
-      this.showMigrationNotification(
+      this.showWikiRulesAndBlockingPolicyNotification(
         this.wikiVariables.wikiRulesBlockingPolicyBannerMsg,
-        this.wikiRulesBlockingPolicyStorageKey,
       );
     }
   },
