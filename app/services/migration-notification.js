@@ -15,6 +15,7 @@ export default Service.extend({
   ucpDomainMigrationScheduledMessageKey: 'ucp-migration-banner-fandom-message-scheduled-fandom-wikis',
   ucpDomainMigrationDoneMessageKey: 'ucp-migration-banner-fandom-message-complete',
   storageTrueValue: '1',
+  wikiRulesBlockingPolicyStorageKey: 'wiki-rules-blocking-policy-banner',
 
   shouldShowAfterMigrationNotification() {
     return this.wikiVariables.wikiaOrgMigrationNotificationAfter
@@ -66,6 +67,13 @@ export default Service.extend({
       ) !== this.storageTrueValue) || (this.wikiVariables.domainMigrationDone
       && localStorageConnector.getItem(
         this.ucpDomainMigrationDoneMessageKey,
+      ) !== this.storageTrueValue);
+  },
+
+  shouldShowWikiRulesAndBlockingPolicyBanner() {
+    return (this.wikiVariables.wikiRulesBlockingPolicyBanner
+      && localStorageConnector.getItem(
+        this.wikiRulesBlockingPolicyStorageKey,
       ) !== this.storageTrueValue);
   },
 
@@ -136,6 +144,14 @@ export default Service.extend({
       this.showMigrationNotification(
         this.wikiVariables.domainMigrationBannerMessage,
         storageKey,
+      );
+    }
+
+    // Global banner for Wiki Rules and Blocking Policy notice
+    if (this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
+      this.showMigrationNotification(
+        this.wikiVariables.wikiRulesBlockingPolicyBannerMsg,
+        this.wikiRulesBlockingPolicyStorageKey,
       );
     }
   },
