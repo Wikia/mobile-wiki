@@ -70,10 +70,7 @@ export default Service.extend({
   },
 
   shouldShowWikiRulesAndBlockingPolicyBanner() {
-    return (this.wikiVariables.wikiRulesBlockingPolicyBanner
-      && localStorageConnector.getItem(
-        this.wikiRulesBlockingPolicyBannerMsg,
-      ) !== this.storageTrueValue);
+    return !!this.wikiVariables.wikiRulesBlockingPolicyBanner;
   },
 
   showMigrationNotification(message, storageKey) {
