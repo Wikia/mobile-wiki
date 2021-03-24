@@ -69,6 +69,10 @@ export default Service.extend({
       ) !== this.storageTrueValue);
   },
 
+  shouldShowWikiRulesAndBlockingPolicyBanner() {
+    return !!this.wikiVariables.wikiRulesBlockingPolicyBanner;
+  },
+
   showMigrationNotification(message, storageKey) {
     this.wdsBannerNotifications.addNotification({
       type: 'warning',
@@ -80,6 +84,14 @@ export default Service.extend({
           this.storageTrueValue,
         );
       },
+    });
+  },
+
+  showWikiRulesAndBlockingPolicyNotification(message) {
+    this.wdsBannerNotifications.addNotification({
+      type: 'warning',
+      alreadySafeHtml: message,
+      disableAutoHide: true,
     });
   },
 
@@ -136,6 +148,13 @@ export default Service.extend({
       this.showMigrationNotification(
         this.wikiVariables.domainMigrationBannerMessage,
         storageKey,
+      );
+    }
+
+    // Global banner for Wiki Rules and Blocking Policy notice
+    if (this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
+      this.showWikiRulesAndBlockingPolicyNotification(
+        this.wikiVariables.wikiRulesBlockingPolicyBannerMsg,
       );
     }
   },
