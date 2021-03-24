@@ -15,6 +15,7 @@ export default Service.extend({
   ucpDomainMigrationScheduledMessageKey: 'ucp-migration-banner-fandom-message-scheduled-fandom-wikis',
   ucpDomainMigrationDoneMessageKey: 'ucp-migration-banner-fandom-message-complete',
   storageTrueValue: '1',
+  wikiRulesBlockingPolicyStorageKey: 'wiki-rules-blocking-policy-banner',
 
   shouldShowAfterMigrationNotification() {
     return this.wikiVariables.wikiaOrgMigrationNotificationAfter
@@ -70,7 +71,10 @@ export default Service.extend({
   },
 
   shouldShowWikiRulesAndBlockingPolicyBanner() {
-    return !!this.wikiVariables.wikiRulesBlockingPolicyBanner;
+    return (this.wikiVariables.wikiRulesBlockingPolicyBanner
+      && localStorageConnector.getItem(
+        this.wikiRulesBlockingPolicyStorageKey,
+      ) !== this.storageTrueValue);
   },
 
   showMigrationNotification(message, storageKey) {
@@ -84,14 +88,6 @@ export default Service.extend({
           this.storageTrueValue,
         );
       },
-    });
-  },
-
-  showWikiRulesAndBlockingPolicyNotification(message) {
-    this.wdsBannerNotifications.addNotification({
-      type: 'warning',
-      alreadySafeHtml: message,
-      disableAutoHide: true,
     });
   },
 
@@ -153,8 +149,9 @@ export default Service.extend({
 
     // Global banner for Wiki Rules and Blocking Policy notice
     if (this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
-      this.showWikiRulesAndBlockingPolicyNotification(
+      this.showMigrationNotification(
         this.wikiVariables.wikiRulesBlockingPolicyBannerMsg,
+        this.wikiRulesBlockingPolicyStorageKey,
       );
     }
   },
