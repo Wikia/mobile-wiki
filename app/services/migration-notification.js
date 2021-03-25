@@ -1,5 +1,6 @@
 import Service, { inject as service } from '@ember/service';
 import localStorageConnector from '@wikia/ember-fandom/utils/local-storage-connector';
+import Cookies from 'js-cookie';
 
 export default Service.extend({
   fastboot: service(),
@@ -72,9 +73,7 @@ export default Service.extend({
 
   shouldShowWikiRulesAndBlockingPolicyBanner() {
     return (this.wikiVariables.wikiRulesBlockingPolicyBanner
-      && localStorageConnector.getItem(
-        this.wikiRulesBlockingPolicyStorageKey,
-      ) !== this.storageTrueValue);
+            && Cookies.get(this.wikiRulesBlockingPolicyStorageKey) !== this.storageTrueValue);
   },
 
   showMigrationNotification(message, storageKey) {
@@ -87,6 +86,23 @@ export default Service.extend({
           storageKey,
           this.storageTrueValue,
         );
+      },
+    });
+  },
+
+  showGlobalNotification(message, cookieKey) {
+    this.wdsBannerNotifications.addNotification({
+      type: 'warning',
+      alreadySafeHtml: message,
+      disableAutoHide: true,
+      onClose: () => {
+        // We shouldn't use cookies as a storage - browser cookie policy could change soon
+        // It is fast and temporary workaround for dismissing global banner for all wikis
+        Cookies.set(cookieKey, this.storageTrueValue, {
+          expires: 60 * 60 * 24 * 30, // Expire after one month as a cleanup
+          path: '/',
+          domain: this.wikiVariables.cookieDomain,
+        });
       },
     });
   },
@@ -149,7 +165,7 @@ export default Service.extend({
 
     // Global banner for Wiki Rules and Blocking Policy notice
     if (this.shouldShowWikiRulesAndBlockingPolicyBanner()) {
-      this.showMigrationNotification(
+      this.showGlobalNotification(
         this.wikiVariables.wikiRulesBlockingPolicyBannerMsg,
         this.wikiRulesBlockingPolicyStorageKey,
       );
