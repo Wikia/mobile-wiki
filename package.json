@@ -131,7 +131,7 @@
     "form-data": "3.0.0",
     "i18next": "17.3.1",
     "loader.js": "4.7.0",
-    "mercury-shared": "github:wikia/mercury-shared#06bdbaaf3bb96f72393454c59afdfbaa6fe9e304",
+    "mercury-shared": "github:wikia/mercury-shared#4615c7210d187f193bcddec46da35194cc8bbab3",
     "node-sass": "5.0.0",
     "proxying-agent": "2.4.0",
     "qunit-dom": "0.8.0",
