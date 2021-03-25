@@ -60,10 +60,9 @@
   function setCookies() {
     if (!getCookieValue('tracking_session_id')) {
       const expireDate = new Date(Date.now() + 1000 * 60 * 30);
-      const scriptPath = headData.wikiVariables.scriptPath || '/';
 
       document.cookie = 'tracking_session_id=' + sessionId + '; expires=' + expireDate.toGMTString() +
-        ';domain=' + headData.cookieDomain + '; path=' + scriptPath  + ';';
+        ';domain=' + headData.cookieDomain + '; path=/;';
     }
   }
 
