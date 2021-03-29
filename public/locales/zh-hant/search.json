@@ -7,17 +7,17 @@
     "search-error-not-found-action": "嘗試其他搜尋", 
     "search-input-label": "搜尋", 
     "search-loading-msg": "正在載入搜尋結果…", 
-    "search-post-item-no-posts": "找不到相關文章", 
+    "search-post-item-no-posts": "查無貼文", 
     "search-post-item-poll-votes": "{count}票", 
     "search-post-item-poll-votes_plural": "{count}票", 
     "search-post-item-post-last-commented-on": "{time}前發佈了評論", 
-    "search-post-item-post-posted": "發佈於{time}前", 
+    "search-post-item-post-posted": "{time}前發佈", 
     "search-post-item-quiz-takes": "{count}個用戶參與了小測驗", 
     "search-post-item-quiz-takes_plural": "{count}個用戶參與了小測驗", 
-    "search-post-items-header": "相關文章", 
+    "search-post-items-header": "相關貼文", 
     "search-post-items-see-more": "查看更多", 
-    "search-scope-crosswiki": "所有Wiki", 
-    "search-scope-internal": "本 Wiki", 
+    "search-scope-crosswiki": "所有wiki", 
+    "search-scope-internal": "本wiki", 
     "total-results": "關於{query}的{totalItems}項結果"
   }
 }
