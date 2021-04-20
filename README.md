@@ -3,7 +3,7 @@
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
 
-## Overview
+## Overviewx
 Mobile Wiki is an application built on top of [Ember](https://emberjs.com/) and [Ember FastBoot](https://ember-fastboot.com/). This combination allows us serve server side rendered application to end client (The same code is executed on frontend and backend).
 
 ## Access Mobile Wiki
