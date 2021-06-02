@@ -22,7 +22,7 @@
     "page-not-found-message": "ナビゲーションまたは検索を使用", 
     "pages-label": "ページ", 
     "photos-label": "画像", 
-    "trending-articles-label": "人気のページ", 
+    "trending-articles-label": "話題のページ", 
     "username-anonymous": "FANDOMユーザー", 
     "videos-label": "動画", 
     "view-more": "もっと見る", 
@@ -69,7 +69,7 @@
     "shortcut-to-other": "その他", 
     "subtitle": "カテゴリページ", 
     "total-number": "総ページ数 ({totalNumberOfItems})", 
-    "trending-pages": "人気のページ"
+    "trending-pages": "話題のページ"
   }, 
   "edit": {
     "load-error": "エラーが発生しました。申し訳ございませんが、もう一度お試しください。", 
