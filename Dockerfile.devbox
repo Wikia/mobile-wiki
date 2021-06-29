@@ -14,7 +14,8 @@ RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/test
     # in order to execute all npm postinstall scripts properly
     npm set unsafe-perm=true && \
     npm set progress=false && \
-    npm install -g ember-cli
+    npm install --no-cache -g ember-cli && \
+    apk del python make g++ git
 
 # 7001 is for debugging
 EXPOSE 7001
