@@ -358,7 +358,7 @@ export default Service.extend({
       }
 
       // check if we have possible units (we can fail early if we don't)
-      if (!this._getAvailableUnits()) {
+      if (!this._getAvailableUnits() || !pageId) {
         return resolve({ big: undefined, small: undefined });
       }
 
