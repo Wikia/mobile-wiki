@@ -134,7 +134,7 @@
     "mercury-shared": "github:wikia/mercury-shared#4615c7210d187f193bcddec46da35194cc8bbab3",
     "node-sass": "5.0.0",
     "proxying-agent": "2.4.0",
-    "qunit-dom": "0.8.0",
+    "qunit-dom": "0.9.2",
     "stylelint-config-fandom": "github:Wikia/stylelint-config-fandom#0.0.2",
     "stylelint-config-standard": "20.0.0"
   },
