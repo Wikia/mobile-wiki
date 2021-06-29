@@ -189,3 +189,16 @@
   {{!- Styles for dark theme added only in the mobile app view-}}
   <link rel="stylesheet" href="/mobile-wiki/assets/dark.css">
 {{/if}}
+
+{{#if model.isExperiment}}
+  {{!- Experimental styles}}
+  <style>
+    body {
+      color: red !important;
+    }
+  </style>
+  {{!- Experimental script}}
+  <script>
+    console.log('experiment is on');
+  </script>
+{{/if}}
