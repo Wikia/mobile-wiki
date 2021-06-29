@@ -37,7 +37,7 @@ spec:
         - name: VAULT_ADDR # This isn't required in prod but must be set for dev
           value: active.vault.service.${dc}.consul:8200
         name: secrets
-        image: artifactory.wikia-inc.com/ops/init-vault:0.0.41
+        image: artifactory.wikia-inc.com/ops/init-vault:0.13
         imagePullPolicy: Always
         volumeMounts: # vault auth cert is read from here
         - name: secrets-dir # secrets are stored here
