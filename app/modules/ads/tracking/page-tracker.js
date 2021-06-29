@@ -20,6 +20,7 @@ export const pageTracker = {
   * Track page info prop values
   * @param {String} name
   * @param {String} value
+  * @param {boolean} force
   * @returns {void}
   */
   trackProp(name, value, force = false) {
@@ -36,6 +37,16 @@ export const pageTracker = {
       timestamp: now.getTime(),
       tz_offset: now.getTimezoneOffset(),
     }, true, true);
+
+    if (name === 'labrador') {
+      track({
+        eventName: 'labradorpageview',
+        trackingMethod: 'internal',
+        value: value,
+        timestamp: now.getTime(),
+        tz_offset: now.getTimezoneOffset(),
+      }, true, true);
+    }
   },
 };
 
