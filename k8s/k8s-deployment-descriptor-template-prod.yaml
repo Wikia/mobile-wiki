@@ -12,7 +12,7 @@ metadata:
     status: active
     team: iwing
 spec:
-  replicas: 16
+  replicas: 2
   selector:
     matchLabels:
       app: mobile-wiki
